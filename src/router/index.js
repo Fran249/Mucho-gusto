@@ -33,14 +33,20 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
 
     const usuario = auth.currentUser
+    const verificado = usuario.emailVerified
     console.log(usuario)
+    console.log(verificado)
 
-    if (!usuario) {
+    if (!verificado) {
+      alert('Verifica Tu correo electronico'),
       next({
-        path: '/Ingreso'
+        path: '/ingreso',
+        
       })
-    } else {
-      next()
+    } else if (verificado){
+      next({
+        path: ' /inicio'
+      })
     }
 
   } else {

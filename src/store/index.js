@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import { getAuth, createUserWithEmailAndPassword ,} from "firebase/auth";
+import { sendEmailVerification } from "firebase/auth";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import router from '../router'
 const auth = getAuth();
@@ -38,25 +39,37 @@ export default new Vuex.Store({
             email: res.user.email,
             uid: res.user.uid
           }
+          sendEmailVerification(auth.currentUser)
+          .then(() => {
+          // Email verification sent!
+          // ...
+          });
           console.log(usuario)
           commit('setUsuario', usuario)
-          router.push('/')
         })
         .catch(error => {
           console.log(error)
           commit('setError', error)
         })
+  
     },
     ingresoUsuario({commit}, usuario){
       signInWithEmailAndPassword(auth ,usuario.email, usuario.password)
       .then(res => {
-          console.log(res)
+          
           const usuario = {
               email: res.user.email,
-              uid: res.user.uid
+              uid: res.user.uid,
+              emailVerified: res.user.emailVerified
           }
-          commit('setUsuario', usuario)
-          router.push('/')
+
+          console.log(usuario.email, usuario.uid, usuario.emailVerified)
+
+          
+           
+            commit('setUsuario', usuario)
+            router.push('/inicio')
+          
       })
       .catch(error => {
           console.log(error)
@@ -68,7 +81,7 @@ export default new Vuex.Store({
   // eslint-disable-next-line no-unused-vars
   },cerrarSesion({commit}){
     auth.signOut()
-    router.push('/ingreso')
+    router.push('/registro')
 }
   
 
