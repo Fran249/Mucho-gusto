@@ -10,12 +10,12 @@ Vue.config.productionTip = false
 import {auth} from './firebase'
 
 auth.onAuthStateChanged(user => {
-  if(user){
-    console.log(user)
+  if(user && user.emailVerified){
+    //console.log(user)
     store.dispatch('detectarUsuario', {email: user.email, uid: user.uid})
     }else{
-      console.log(user)
-      store.dispatch('detectarUsuario', user)
+
+      router.push('/pagina')
     }
   }
 )

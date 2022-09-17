@@ -23,6 +23,11 @@ const routes = [
     path: '/ingreso',
     name: 'Ingreso',
     component: () => import(/* webpackChunkName: "about" */ '../views/Ingreso.vue')
+  },
+  {
+    path: '/pagina',
+    name: 'pagina',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Pagina.vue')
   }
 ]
 
@@ -33,20 +38,14 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
 
     const usuario = auth.currentUser
-    const verificado = usuario.emailVerified
-    console.log(usuario)
-    console.log(verificado)
+    //console.log(usuario)
 
-    if (!verificado) {
-      alert('Verifica Tu correo electronico'),
+    if (!usuario) {
       next({
-        path: '/ingreso',
-        
+        path: '/ingreso'
       })
-    } else if (verificado){
-      next({
-        path: ' /inicio'
-      })
+    } else {
+      next()
     }
 
   } else {

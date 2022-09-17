@@ -4,6 +4,7 @@
       <router-link to="/registro" v-if="!existeUsuario">Registro</router-link> |
       <router-link to="/ingreso" v-if="!existeUsuario">Ingreso</router-link> |
       <router-link to="/inicio" v-if="existeUsuario">Inicio</router-link> |
+      <router-link to="/Pagina" >Pagina</router-link> |
       <button @click="cerrarSesion" v-if="existeUsuario">Cerrar Sesión</button>
     </div>
     <router-view/>
