@@ -1,6 +1,7 @@
 <template>
   <div>
-      <h1>Ruta protegida</h1>
+      <h1 v-if="usuario.rol == 'admin'">Admin</h1>
+      <h2 v-if="usuario.rol == 'user'">User</h2>
       <p>{{usuario}}</p>
   </div>
 </template>

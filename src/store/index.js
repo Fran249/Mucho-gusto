@@ -5,7 +5,9 @@ import { getAuth, createUserWithEmailAndPassword ,} from "firebase/auth";
 import { sendEmailVerification } from "firebase/auth";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { signOut } from "firebase/auth";
+import { getFirestore, doc, setDoc } from "firebase/firestore";
 import router from '../router'
+const firestore = getFirestore();
 const auth = getAuth();
 Vue.use(Vuex)
 
@@ -13,6 +15,7 @@ export default new Vuex.Store({
   state: {
     usuario: null,
     error: null,
+    rol: null,
   },
   getters: {
     existeUsuario(state){
@@ -29,17 +32,28 @@ export default new Vuex.Store({
     },
     setError(state, payload){
       state.error = payload
+    },
+    setRol(state, payload){
+      state.rol = payload
     }
   },
   actions: {
+    
     crearUsuario({commit}, usuario){
       createUserWithEmailAndPassword(auth, usuario.email, usuario.password)
         .then(res => {
           // eslint-disable-next-line no-unused-vars
           const usuario = {
             email: res.user.email,
-            uid: res.user.uid
+            uid: res.user.uid,
           }
+          console.log(usuario)
+
+          const docuRef = doc( firestore , `Usuarios/${usuario.uid}`);
+
+          setDoc(docuRef, {correo : usuario.email, rol: 'user'})
+
+
           sendEmailVerification(auth.currentUser)
           .then(() => {
           // Email verification sent!
@@ -47,7 +61,7 @@ export default new Vuex.Store({
           });
           //console.log(usuario)
           alert('Enviamos un mail de confirmacion.')
-          router.push('/')
+          
         })
         .catch(error => {
           console.log(error)
@@ -59,20 +73,22 @@ export default new Vuex.Store({
       signInWithEmailAndPassword(auth ,usuario.email, usuario.password)
       
       .then(res => {
-          
+        
           const usuario = {
               email: res.user.email,
               uid: res.user.uid,
-              
+             
           }
+
           if(auth.currentUser.emailVerified){
-          //console.log(usuario.email, usuario.uid)
           
           
-           
+            
             commit('setUsuario', usuario)
             
+           
             router.push('/inicIo')
+            location.reload()
           } else if (!auth.currentUser.emailVerified){
             alert('Verifica tu Correo.')
           }
@@ -84,8 +100,10 @@ export default new Vuex.Store({
   },
     detectarUsuario({commit}, usuario){
       commit('setUsuario', usuario)
+  
   // eslint-disable-next-line no-unused-vars
-  },cerrarSesion({commit}){
+  },
+  cerrarSesion({commit}){
     signOut(auth).then(() => {
       // Sign-out successful.
       commit('setUsuario', null)

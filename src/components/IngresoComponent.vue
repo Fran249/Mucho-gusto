@@ -1,7 +1,7 @@
 <template>
-  <div>
-      <h1>Ingreso de usuarios</h1>
-      <form @submit.prevent="ingresoUsuario({email:email, password:pass})">
+        <div class="v-dialog">
+        <h1>Ingreso de usuarios</h1>
+      <form @submit.prevent="ingresoUsuario({email:email, password:pass})" class="form">
           <input 
               type="email"
               placeholder="Ingrese email"
@@ -15,7 +15,9 @@
           <button type="submit">Acceder</button>
       </form>
       <p>{{error}}</p>
-  </div>
+    </div>
+
+
 </template>
 
 <script>
@@ -25,7 +27,8 @@ export default {
   data() {
       return {
           email: '',
-          pass: ''
+          pass: '',
+          dialog1: false,
       }
   },
   created(){
@@ -40,3 +43,18 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+    .v-dialog{
+        background-color: #fff;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 15px;
+    }
+    .form{
+        display: flex;
+        flex-direction: column;
+        
+    }
+</style>

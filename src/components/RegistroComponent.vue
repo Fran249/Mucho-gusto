@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="v-dialog">
       <h1>Registro de usuarios</h1>
       <form @submit.prevent="crearUsuario({email:email, password:pass1})">
           <input 
@@ -17,20 +17,23 @@
               placeholder="Repita contraseña"
               v-model="pass2"
           >
+
           <button type="submit" :disabled='!desactivar'>Registrar</button>
       </form>
   </div>
+
 </template>
 
 <script>
-  import {mapActions, mapState} from 'vuex'
+import {mapActions, mapState} from 'vuex'
   export default {
-      name: 'RegisTro',
+      name: 'RegistroComponent',
       data(){
           return{
               email: '',
               pass1: '',
-              pass2: ''
+              pass2: '',
+              rol: '',
           }
       },
       created(){
@@ -46,4 +49,16 @@
         }
       }
   }
-  </script>
+</script>
+
+<style lang="scss" scoped>
+
+.v-dialog{
+        background-color: #fff;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 15px;
+    }
+
+</style>

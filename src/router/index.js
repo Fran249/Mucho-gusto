@@ -6,11 +6,6 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/registro',
-    name: 'Registro',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Registro.vue')
-  },
-  {
     path: '/inicIo',
     name: 'InicIo',
     // route level code-splitting
@@ -18,11 +13,6 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/Inicio.vue'),
     meta: { requiresAuth: true }
-  },
-  {
-    path: '/ingreso',
-    name: 'Ingreso',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Ingreso.vue')
   },
   {
     path: '/pagina',
