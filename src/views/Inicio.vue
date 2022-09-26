@@ -12,6 +12,7 @@ export default {
   name: 'InicIo',
   computed:{
       ...mapState(['usuario']),
-  }
+  },
+
 }
 </script>

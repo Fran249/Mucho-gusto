@@ -9,6 +9,7 @@ Vue.config.productionTip = false
 
 import {auth} from './firebase'
 import vuetify from './plugins/vuetify'
+
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 const firestore = getFirestore();
 
@@ -26,7 +27,11 @@ async function getRol(uid){
 
 auth.onAuthStateChanged(user => {
   if(user && user.emailVerified){
-  
+    
+
+
+
+
     
     getRol(user.uid).then((rol)=>{
       // eslint-disable-next-line no-unused-vars
@@ -38,7 +43,7 @@ auth.onAuthStateChanged(user => {
 
       
 
-      store.dispatch('detectarUsuario', {email: user.email, uid: user.uid, rol});
+      store.dispatch('detectarUsuario', {email: user.email, uid: user.uid, rol, name: user.displayName});
       
       
       //console.log("userData final", userData)

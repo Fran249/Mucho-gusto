@@ -33,7 +33,7 @@ import {mapActions, mapState} from 'vuex'
               email: '',
               pass1: '',
               pass2: '',
-              rol: '',
+              
           }
       },
       created(){

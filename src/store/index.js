@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import { getAuth, createUserWithEmailAndPassword ,} from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { sendEmailVerification } from "firebase/auth";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { signOut } from "firebase/auth";
@@ -51,6 +51,10 @@ export default new Vuex.Store({
     crearUsuario({commit}, usuario){
       createUserWithEmailAndPassword(auth, usuario.email, usuario.password)
         .then(res => {
+
+  
+ 
+          
           // eslint-disable-next-line no-unused-vars
           const usuario = {
             email: res.user.email,
@@ -62,31 +66,40 @@ export default new Vuex.Store({
 
           setDoc(docuRef, {correo : usuario.email, rol: 'user'})
 
-
-          sendEmailVerification(auth.currentUser)
-          .then(() => {
-          // Email verification sent!
-          // ...
-          });
-          //console.log(usuario)
-          alert('Enviamos un mail de confirmacion.')
-          location.reload()
+          
+          
         })
         .catch(error => {
           console.log(error)
           commit('setError', error)
         })
-  
+
+    
+       setTimeout(timeOut, 2000);
+
+      function timeOut() {
+        sendEmailVerification(auth.currentUser)
+        .then(() => {
+          // Email verification sent!
+          
+          // ...
+        });
+        alert('enviamos un correo de verificacion')
+        location.reload()
+      }
     },
     ingresoUsuario({commit}, usuario){
       signInWithEmailAndPassword(auth ,usuario.email, usuario.password)
       
       .then(res => {
-        
+
+
+
+
           const usuario = {
               email: res.user.email,
               uid: res.user.uid,
-             
+              name: res.user.display
           }
 
           async function getRol(uid){
@@ -98,19 +111,24 @@ export default new Vuex.Store({
           
           }
           getRol(usuario.uid).then((rol)=>{
+            // eslint-disable-next-line no-unused-vars
             const userData = {
               uid: usuario.uid,
               email: usuario.email,
               rol: rol,
+             
             }
-      
+            
             
 
             if(auth.currentUser.emailVerified  ){
-            
+
+          
+
+
               commit('setUsuario', usuario);
-              commit('setRol', userData.rol)
-              console.log(this.state.rol)
+              
+           
               location.reload()
   
             }
@@ -142,7 +160,8 @@ export default new Vuex.Store({
       
       
     })
-}
+},
+  
   
 
   },
