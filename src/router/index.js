@@ -1,10 +1,21 @@
+
+
 import Vue from 'vue'
+
+import { initializeApp } from 'firebase/app';
+import { firebaseConfig} from '../firebase/index'
+import { getAuth} from "firebase/auth";
+
+const auth = getAuth();
+initializeApp(firebaseConfig);
 import VueRouter from 'vue-router'
-import {auth} from '../firebase'
+import store from '@/store';
+
 
 Vue.use(VueRouter)
 
 const routes = [
+
   {
     path: '/inicIo',
     name: 'InicIo',
@@ -12,33 +23,59 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/Inicio.vue'),
-    meta: { requiresAuth: true }
+    
   },
   {
     path: '/pagina',
     name: 'pagina',
     component: () => import(/* webpackChunkName: "about" */ '../views/Pagina.vue')
+  },
+  {
+    path: '/adminView',
+    name: 'adminView',
+    component: () => import(/* webpackChunkName: "about" */ '../views/AdminView.vue'),
+    beforeEnter: (to,from, next) => {
+      if( store.state.rol == 'admin'){
+        next()
+      }else if ( store.state.usuario.rol == null){
+        return false
+      }else if (store.state.usuario.rol == 'user'){
+        return false
+      }
+        next();
+
+    },
+  },
+  {
+    path: '/userView',
+    name: 'userView',
+    component: () => import(/* webpackChunkName: "about" */ '../views/UserView.vue'),
+    meta: {
+      requiresAuth : true
+    }
   }
 ]
+
+
 
 const router = new VueRouter({
   routes
 })
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth)) {
 
+  if(to.matched.some(record => record.meta.requiresAuth)){
     const usuario = auth.currentUser
-    //console.log(usuario)
+    //const role = store.state.rol
+    //console.log(usuario, role)
 
     if (!usuario) {
       next({
-        path: '/ingreso'
+        path: '/pagina'
       })
     } else {
       next()
     }
-
-  } else {
+  }else {
     next()
   }
 })

@@ -1,7 +1,7 @@
 <template>
   <div>
-      <h1 v-if="usuario.rol == 'admin'">Admin</h1>
-      <h2 v-if="usuario.rol == 'user'">User</h2>
+      <h1 v-if="usuario.rol == 'admin' ">Admin</h1>
+      <h2 v-if="usuario.rol == 'user' ">User</h2>
       <p>{{usuario}}</p>
   </div>
 </template>
@@ -11,7 +11,7 @@ import { mapState } from 'vuex'
 export default {
   name: 'InicIo',
   computed:{
-      ...mapState(['usuario'])
+      ...mapState(['usuario']),
   }
 }
 </script>

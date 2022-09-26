@@ -29,20 +29,23 @@ auth.onAuthStateChanged(user => {
   
     
     getRol(user.uid).then((rol)=>{
+      // eslint-disable-next-line no-unused-vars
       const userData = {
         uid: user.uid,
         email: user.email,
         rol: rol,
       }
 
-      console.log("userData final", userData)
+      
 
       store.dispatch('detectarUsuario', {email: user.email, uid: user.uid, rol});
       
-    
+      
+      //console.log("userData final", userData)
     })
-    
-    
+   
+    } else {
+      router.push('/')
     }
   }
 )

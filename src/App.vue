@@ -12,6 +12,7 @@
       </v-dialog>
       <router-link to="/inicio" v-if="existeUsuario">Inicio</router-link> |
       <router-link to="/Pagina" >Pagina</router-link> |
+      <router-link to="/userView" v-if="existeUsuario">User</router-link> |
       <button @click="cerrarSesion" v-if="existeUsuario">Cerrar Sesión</button>
     </div>
     <router-view/>

@@ -12,7 +12,7 @@
               placeholder="Ingrese contraseña"
               v-model="pass"
           >
-          <button type="submit">Acceder</button>
+          <v-btn type="submit">Acceder</v-btn>
       </form>
       <p>{{error}}</p>
     </div>
@@ -28,7 +28,7 @@ export default {
       return {
           email: '',
           pass: '',
-          dialog1: false,
+          
       }
   },
   created(){
