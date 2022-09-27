@@ -5,7 +5,9 @@
         <v-container class="">
             
             <v-row row>
+
                 <v-col cols="6" class="d-flex justify-center">
+                    <input type="text" v-model="nombre">
                     <v-btn @click="cambiarNombre" >Cambiar Nombre</v-btn>
                 </v-col>
                 <v-col cols="6" class="d-flex justify-center">

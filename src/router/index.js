@@ -38,9 +38,9 @@ const routes = [
       if( store.state.rol == 'admin'){
         next()
       }else if ( store.state.usuario.rol == null){
-        return false
+        next('/error')
       }else if (store.state.usuario.rol == 'user'){
-        return false
+        next('/error')
       }
         next();
 
