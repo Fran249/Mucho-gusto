@@ -27,7 +27,7 @@
 <script>
 import {mapActions, mapState} from 'vuex'
   export default {
-      name: 'RegistroComponent',
+      name: "RegistroComponent",
       data(){
           return{
               email: '',

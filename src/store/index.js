@@ -6,6 +6,7 @@ import { sendEmailVerification } from "firebase/auth";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { signOut } from "firebase/auth";
 import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
+import router from '@/router';
 
 const firestore = getFirestore();
 const auth = getAuth();
@@ -149,7 +150,7 @@ export default new Vuex.Store({
   },
     detectarUsuario({commit}, usuario){
       commit('setUsuario', usuario)
-      
+      router.push('/inicio')
   // eslint-disable-next-line no-unused-vars
   },
   

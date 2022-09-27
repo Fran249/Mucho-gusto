@@ -1,17 +1,20 @@
 <template>
     <div>
-        Cosasaagnagg
-        agdagadngad
-        gadjgiadngdag
-        adgnadigda
-        gagadgdag
+        <navBar/>
+        
     </div>
 </template>
 
 
 <script>
+    import navBar from '../components/navBar.vue'
+  
     export default{
         name: 'PagIna',
+        components:{
+            navBar,
+            
+        },
         data: ()=>({
 
         })

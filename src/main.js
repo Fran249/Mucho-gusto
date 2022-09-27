@@ -2,7 +2,11 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import IngresoComponent from '@/components/navComponents/IngresoComponent.vue'
+import RegistroComponent from '@/components/navComponents/RegistroComponent.vue'
 
+Vue.component('IngresoComponent', IngresoComponent)
+Vue.component('RegistroComponent', RegistroComponent)
 
 
 Vue.config.productionTip = false
@@ -43,14 +47,14 @@ auth.onAuthStateChanged(user => {
 
       
 
-      store.dispatch('detectarUsuario', {email: user.email, uid: user.uid, rol, name: user.displayName});
+      store.dispatch('detectarUsuario', {email: user.email, uid: user.uid, rol, name: user.displayName, foto: user.photoURL});
       
       
       //console.log("userData final", userData)
     })
    
     } else {
-      router.push('/')
+      router.push('/pagina')
     }
   }
 )

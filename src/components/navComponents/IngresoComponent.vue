@@ -23,16 +23,13 @@
 <script>
 import { mapActions, mapState } from 'vuex'
 export default {
-  name: 'IngrEso',
+  name: "IngresoComponent",
   data() {
       return {
           email: '',
           pass: '',
           
       }
-  },
-  created(){
-
   },
   methods:{
       ...mapActions(['ingresoUsuario']),

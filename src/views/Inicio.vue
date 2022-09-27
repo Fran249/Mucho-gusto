@@ -1,18 +1,22 @@
 <template>
   <div>
-      <h1 v-if="usuario.rol == 'admin' ">Admin</h1>
-      <h2 v-if="usuario.rol == 'user' ">User</h2>
-      <p>{{usuario}}</p>
+    <navBar/>
+    <mainCont/>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+
+import navBar from '../components/navBar.vue'
+import mainCont from '../components/mainCont.vue'
+
 export default {
   name: 'InicIo',
-  computed:{
-      ...mapState(['usuario']),
+  components:{
+    navBar,
+    mainCont,
   },
+ 
 
 }
 </script>
