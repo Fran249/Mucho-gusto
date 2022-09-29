@@ -1,7 +1,7 @@
 <template>
   <div>
    <v-app-bar>
-      <v-btn text @click="navDraw = true" v-if="existeUsuario">
+      <v-btn text fab @click="navDraw = true" v-if="existeUsuario">
         <v-avatar>
           <v-img :src="usuario.foto"></v-img>
         </v-avatar>
