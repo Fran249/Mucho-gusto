@@ -12,10 +12,10 @@
                 </v-col>
                 <v-col cols="6" class="d-flex justify-center">
                     <div class="fotoContainer">
-                    <v-progress-linear :value="UploadValue" max="100"></v-progress-linear>
-                    <input type="file" @change="onFileSelected">
-                    <v-btn @click="onUpload" v-if="this.UploadValue == 0">Subir</v-btn>
-                    <v-btn @click="cambiarFoto" v-if="this.UploadValue == 100">Cambiar Foto</v-btn>                  
+                        <v-progress-linear :value="UploadValue" max="100"></v-progress-linear>
+                        <input type="file" @change="onFileSelected">
+                        <v-btn @click="onUpload" v-if="this.UploadValue == 0">Subir</v-btn>
+                        <v-btn @click="cambiarFoto" v-if="this.UploadValue == 100">Cambiar Foto</v-btn>                  
                     </div>
                 </v-col>
             </v-row>
@@ -53,46 +53,42 @@ initializeApp(firebaseConfig);
         }),
         methods: { 
 
-            cambiarNombre(){
-                updateProfile(auth.currentUser, {
-                    displayName: this.nombre
-                }).then(() => {
-                    // Profile updated!
-                    location.reload()
-                    // ...
-                })
-                },
-                onFileSelected(event){
-                    this.selectedFile = event.target.files[0];
-                },
-                onUpload(){
-                    const storageRef = ref(storage , `/${auth.currentUser.uid}/${this.selectedFile.name}`);
-                    
-                    
-                  // eslint-disable-next-line no-unused-vars
-               uploadBytesResumable(storageRef, this.selectedFile).then((snapshot) => {
-                        //const gsReference = ref(storage, `gs://bucket/${auth.currentUser.uid}/${this.selectedFile.name}`);
-                            
-                            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                        //Seleccion de Archivo
+                        onFileSelected(event){
+                            this.selectedFile = event.target.files[0];
+                        },
+               //////////////////////------Subir Archivo a Storage-----////////////////////// 
+                        onUpload(){
+                            const storageRef = ref(storage , `/${auth.currentUser.uid}/${this.selectedFile.name}`);
+                            // eslint-disable-next-line no-unused-vars
+                            uploadBytesResumable(storageRef, this.selectedFile).then((snapshot) => {
+                                
+                 //////////////////////------Barra de progreso-----////////////////////// 
+                                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                                 this.UploadValue = progress;
-                            
-                            console.log('Uploaded a blob or file!');
-                            console.log(this.UploadValue)
+                                console.log(this.UploadValue)
                             })
-                          
-                        },                        
+                            
+                        },
+            //////////////////////------Funcion para cambiar nombre-----//////////////////////                     
+                        cambiarNombre(){
+                            updateProfile(auth.currentUser, {
+                                displayName: this.nombre
+                                }).then(() => {
+                                    location.reload()
+                                })
+                            },
+            //////////////////////------Funcion para cambiar Foto-----////////////////////// 
                         cambiarFoto(){
                             getDownloadURL(ref(storage, `${auth.currentUser.uid}/${this.selectedFile.name}`))
                             .then((url) => {
-                                // `url` is the download URL for 'images/stars.jpg'
-
                                 this.picture = url
                                 console.log(this.picture)
                             })
-                            // eslint-disable-next-line no-unused-vars
                             .catch((error) => {
-                                // Handle any errors
-                            });    
+                                console.log(error)
+                            });
+        //////////////////////------timeOut para Esperar la carga completa del archivo -----//////////////////////
                             setTimeout(this.changePic, 2300 )
                         },
                         changePic(){
