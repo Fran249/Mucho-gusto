@@ -6,7 +6,11 @@ import { sendEmailVerification } from "firebase/auth";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { signOut } from "firebase/auth";
 import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
+
+
+
 import router from '@/router';
+
 
 const firestore = getFirestore();
 const auth = getAuth();
@@ -67,6 +71,7 @@ export default new Vuex.Store({
 
           setDoc(docuRef, {correo : usuario.email, rol: 'user'})
 
+         
           
           
         })
@@ -77,6 +82,7 @@ export default new Vuex.Store({
 
     
        setTimeout(timeOut, 2000);
+
 
       function timeOut() {
         sendEmailVerification(auth.currentUser)
