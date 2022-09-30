@@ -28,20 +28,7 @@ import updatePerfilComponent from '@/components/updatePerfilComponent.vue';
 
 <style lang="scss" scoped>
 
-.fotoContainer__1{
-    width: 500px;
-    display: flex;
-    flex-direction: column;
-    
-}
-.fotoContainer__2{
 
-    width: 500px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-
-}
 
 
 </style>

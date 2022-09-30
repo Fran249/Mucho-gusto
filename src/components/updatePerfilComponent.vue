@@ -13,7 +13,22 @@
                         <v-progress-linear :value="UploadValue" max="100"></v-progress-linear>
                         <input type="file" @change="onFileSelected">
                         <v-btn @click="onUpload" v-if="this.UploadValue == 0">Subir</v-btn>
-                        <v-btn @click="cambiarFoto" v-if="this.UploadValue == 100">Cambiar Foto</v-btn>                  
+                        
+                        <v-btn
+                        v-if="this.UploadValue == 100"
+                            :loading="loading3"
+                            :disabled="loading3"
+                            @click="cambiarFoto"
+                            >
+                            Cambiar Foto
+                            <v-icon
+                                right
+                                dark
+                                class="ml-2"
+                            >
+                                mdi-cloud-upload
+                            </v-icon>
+                            </v-btn>                
 
                 </v-col>
                 </v-col>
@@ -42,6 +57,8 @@ initializeApp(firebaseConfig);
             selectedFile: null,
             UploadValue: 0,
             picture: '',
+            loader: null,
+            loading3: false,
         }),
         methods: {
             
@@ -80,8 +97,11 @@ initializeApp(firebaseConfig);
                 .catch((error) => {
                     console.log(error)
                 });
+                this.loader = 'loading3'
             //////////////////////------timeOut para Esperar la carga completa del archivo -----//////////////////////
+                
                 setTimeout(this.changePic, 2300 )
+
             },
             changePic(){
                 updateProfile(auth.currentUser, {
@@ -97,6 +117,17 @@ initializeApp(firebaseConfig);
 
 
             },
+            watch: {
+                loader () {
+                    const l = this.loader
+                    this[l] = !this[l]
+
+                    setTimeout(() => (this[l] = false), 2300)
+
+                    this.loader = null
+                }
+            },
+
             computed: { 
             ...mapState(['usuario']),
             },
@@ -105,5 +136,18 @@ initializeApp(firebaseConfig);
 
 
 <style lang="scss" scoped>
+.fotoContainer__1{
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    
+}
+.fotoContainer__2{
 
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+}
 </style>

@@ -8,32 +8,10 @@
   </div>
     </div>-->
     <v-container>
-        <v-btn @click="updateCard">
-            Agregar
-        </v-btn>
-        <v-text-field
-            v-model="title1"
-            filled
-            label="Agrega un Titulo"
-            clearable
-          >
-        </v-text-field>
-        <v-text-field
-            v-model="src1"
-            filled
-            label="Agrega un link de imagen"
-            clearable
-          ></v-text-field>
-          <v-text-field
-            v-model="flex1"
-            filled
-            label="Agrega una cantidad de columnas"
-            clearable
-          ></v-text-field>
         <v-row >
             <v-col 
             v-for="card in cards" :key="card.title"
-            :cols="card.flex">
+            cols="3">
                 <v-card width="250px" height="500px">
                     <v-img :src="card.src" width="250px">
 
@@ -69,7 +47,7 @@
 
 <script>
     import { mapState } from 'vuex'
-    import { getFirestore, doc, onSnapshot,updateDoc, arrayUnion,  } from "firebase/firestore";
+    import { getFirestore, doc, onSnapshot  } from "firebase/firestore";
     import { initializeApp } from 'firebase/app';
     import { firebaseConfig} from '../firebase/index'
     const app = initializeApp(firebaseConfig);
@@ -78,10 +56,6 @@
     export default {
         name: 'mainCont',
         data: ()=>({
-            title1: '',
-            src1: '',
-            flex1: '',
-
 
             cards: null,
         }),
@@ -94,13 +68,6 @@
             });
         },
         methods:{
-
-            updateCard(){
-                const cardRef = doc(db, "AdminStock/v-card1");
-                updateDoc(cardRef, {
-                cards: arrayUnion({title: this.title1,src: this.src1, flex: this.flex1}),
-            });
-            }
 
 
         },
