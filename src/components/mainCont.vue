@@ -11,9 +11,9 @@
         <v-row >
             <v-col 
             v-for="card in cards" :key="card.title"
-            cols="3">
+            cols="3" >
                 <v-card width="250px" height="500px">
-                    <v-img :src="card.src" width="250px">
+                    <v-img :src="card.src" width="250px" height="250px">
 
                     </v-img>
                     <v-card-title>
@@ -34,7 +34,7 @@
                     <v-card-actions>
                         <v-btn text>
                             <h3 class="v-btn-comprar">
-                                Comprar
+                                Agregar al carrito
                             </h3>
                         </v-btn>
                     </v-card-actions>
