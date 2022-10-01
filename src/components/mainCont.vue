@@ -8,6 +8,50 @@
   </div>
     </div>-->
     <v-container>
+        <v-fab-transition>
+              <v-btn
+                v-show="dialogUser"
+                fixed
+                right
+                fab
+                text
+                height="1px"
+                width="1px"
+                class="alerta"
+              >
+              <v-alert
+                shaped
+                type="warning"
+                >
+                Por favor, Inicia Sesion
+                </v-alert>
+              </v-btn>
+        </v-fab-transition>
+
+        <v-menu transition="slide-x-transition" v-if="existeUsuario">
+            <template v-slot:activator="{ on, attrs }">
+                <v-fab-transition>
+                <v-btn
+                v-show="carritoCompra"
+                fixed
+                right
+                fab
+                v-bind="attrs"
+                v-on="on"
+                icon
+              >
+              <v-icon color="#FFD700">
+                mdi-shopping
+              </v-icon>
+                </v-btn>
+                </v-fab-transition>
+            </template>
+            <v-list width="250px"  v-for="carr in carrito" :key="carr.nombre">
+                <v-list-item>
+                    {{carr.nombre}}
+                </v-list-item>
+            </v-list>
+        </v-menu>
         <v-row >
             <v-col 
             v-for="card in cards" :key="card.title"
@@ -32,7 +76,7 @@
                         </p>
                     </v-card-text>
                     <v-card-actions>
-                        <v-btn text>
+                        <v-btn text @click="detectUserAndBuy(card)">
                             <h3 class="v-btn-comprar">
                                 Agregar al carrito
                             </h3>
@@ -46,10 +90,10 @@
 </template>
 
 <script>
-    import { mapState } from 'vuex'
+    import { mapState, mapGetters } from 'vuex'
     import { getFirestore, doc, onSnapshot  } from "firebase/firestore";
     import { initializeApp } from 'firebase/app';
-    import { firebaseConfig} from '../firebase/index'
+    import { auth, firebaseConfig} from '../firebase/index'
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
     
@@ -58,6 +102,9 @@
         data: ()=>({
 
             cards: null,
+            dialogUser: false,
+            carrito: [],
+            carritoCompra: true,
         }),
         mounted(){
             onSnapshot(doc(db, "AdminStock/v-card1"), (doc) => {
@@ -66,13 +113,32 @@
 
 
             });
+
         },
         methods:{
-
+            detectUserAndBuy(card){
+                if( auth.currentUser == null){
+                    this.dialogUser = true;
+                    setTimeout(this.quitarAlerta, 1500);
+                }else{
+                    console.log(card)
+                    const cardItems = {
+                       'nombre': card.title,
+                       'imagen' : card.src,
+                       'id' : card.id
+                    }
+                    this.carrito.push(cardItems)
+                    
+                }
+            },
+            quitarAlerta(){
+                this.dialogUser = false
+            }
 
         },
          computed:{
       ...mapState(['usuario']),
+      ...mapGetters(['existeUsuario']),
   },
     }
 </script>
@@ -84,5 +150,20 @@
 }
 .v-btn-comprar{
     color: rgba(94, 12, 148, 0.699)
+}
+.alerta{
+        margin-right: 150px;
+    }
+
+#lista-compras{
+    display: none;
+    width: 300px;
+    z-index: 9999;
+    position: fixed;
+    margin-left: 71%;
+    height: 500px;
+}
+#lista-comprasOn{
+    display: block;
 }
 </style>

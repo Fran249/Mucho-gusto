@@ -54,7 +54,7 @@ auth.onAuthStateChanged(user => {
     })
    
     } else {
-      router.push('/pagina')
+      router.push('/inicio')
     }
   }
 )

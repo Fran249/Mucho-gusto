@@ -55,7 +55,7 @@
                 Imagen Seleccionada
                 </v-alert>
               </v-btn>
-            </v-fab-transition>
+        </v-fab-transition>
         <v-container>
             <v-row>
                 <v-col v-for="imagen in imagenes" :key="imagen.imagen" cols="2" >

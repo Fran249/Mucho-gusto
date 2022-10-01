@@ -21,6 +21,7 @@ export default new Vuex.Store({
     usuario: null,
     error: null,
     
+    
   },
   getters: {
     existeUsuario(state){
