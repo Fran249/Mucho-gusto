@@ -14,8 +14,7 @@
       <v-dialog v-model="dialog1" width="1000" transition="dialog-top-transition">
         <IngresoComponent/>
       </v-dialog>
-      <router-link to="/inicio" v-if="existeUsuario">Inicio</router-link> |
-      <router-link to="/Pagina" >Pagina</router-link> |
+      <router-link to="/inicio" >Inicio</router-link> |
       <router-link to="/userView" v-if="existeUsuario">User</router-link> |
       <router-link to="/adminView" v-if="existeUsuario && usuario.rol == 'admin'">Admin</router-link> 
       <button @click="cerrarSesion" v-if="existeUsuario">Cerrar Sesión</button>

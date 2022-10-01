@@ -28,7 +28,7 @@
               </v-btn>
         </v-fab-transition>
 
-        <v-menu transition="slide-x-transition" v-if="existeUsuario">
+        <v-menu transition="slide-x-transition" v-if="estaComprando">
             <template v-slot:activator="{ on, attrs }">
                 <v-fab-transition>
                 <v-btn
@@ -48,9 +48,10 @@
             </template>
             <v-list width="250px"  v-for="carr in carrito" :key="carr.nombre">
                 <v-list-item>
-                    {{carr.nombre}}
+                    {{carr.nombre}},{{carr.imagen}},{{carr.id}}
                 </v-list-item>
             </v-list>
+            <v-btn @click="borrarCard(carrito)">Comprar</v-btn>
         </v-menu>
         <v-row >
             <v-col 
@@ -90,20 +91,21 @@
 </template>
 
 <script>
-    import { mapState, mapGetters } from 'vuex'
-    import { getFirestore, doc, onSnapshot  } from "firebase/firestore";
+    import { mapState, mapGetters, mapMutations } from 'vuex'
+    import { getFirestore, doc, onSnapshot, updateDoc,arrayRemove } from "firebase/firestore";
     import { initializeApp } from 'firebase/app';
     import { auth, firebaseConfig} from '../firebase/index'
+    import store from '@/store';
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
     
     export default {
         name: 'mainCont',
         data: ()=>({
-
+            estaComprando: false,
             cards: null,
             dialogUser: false,
-            carrito: [],
+            carrito: store.state.carritoCompras,
             carritoCompra: true,
         }),
         mounted(){
@@ -121,6 +123,7 @@
                     this.dialogUser = true;
                     setTimeout(this.quitarAlerta, 1500);
                 }else{
+                    this.estaComprando = true
                     console.log(card)
                     const cardItems = {
                        'nombre': card.title,
@@ -131,14 +134,30 @@
                     
                 }
             },
+            borrarCard(carrito){
+                carrito.forEach(element => {
+                    console.log(element.id, element.nombre, element.imagen)
+                    const cardRef = doc(db, "AdminStock/v-card1");
+                    updateDoc(cardRef, {
+                    cards: arrayRemove({ title: element.nombre, src: element.imagen, id: element.id })
+                    });
+                    this.carrito = []
+                    this.estaComprando = false
+                });
+                
+            },
+            ...mapMutations(['setCarrito']),
+
             quitarAlerta(){
                 this.dialogUser = false
-            }
+            },
+            
 
         },
          computed:{
-      ...mapState(['usuario']),
+      ...mapState(['usuario','carritoCompras']),
       ...mapGetters(['existeUsuario']),
+      
   },
     }
 </script>
