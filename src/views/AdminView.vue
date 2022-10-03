@@ -16,7 +16,11 @@
             disabled
             
           ></v-text-field>
-
+          <v-text-field
+            v-model="stock"
+            filled
+            label="Cantidades del producto"
+          ></v-text-field>
 
           <v-text-field
             v-model="id"
@@ -91,6 +95,9 @@
                     <th class="text-left">
                         ID
                     </th>
+                    <th class="text-left">
+                        Stock
+                    </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -102,13 +109,36 @@
                     <td >{{ prod.title }} </td>
                     <td>{{ prod.src }} </td>
                     <td>{{ prod.id }} </td>
-                    <v-btn @click="borrarCard(prod)">Borrar articulo</v-btn>
+                    <td>{{ prod.cantidad }} </td>
+                    <v-btn @click="borrarCard(prod)" text icon>
+                        <v-icon color="red">
+                            mdi-delete
+                        </v-icon>
+                    </v-btn>
+                    <v-btn  icon @click="cambiarBtnTo(prod)">
+                        <v-icon color="green">
+                            mdi-grease-pencil
+                        </v-icon>
+                    </v-btn>
                     </tr>
                 </tbody>
                 </template>
             </v-simple-table>
         </v-container>
+        <v-dialog v-model="dialogEdit">
+            <form class="v-dialog">
 
+                    <v-text-field
+                    v-model="stockEditado"
+                    filled
+                    label="Editar Cantidad">
+
+                    </v-text-field>
+                    <v-btn width="200px" @click="editarStock()" >
+                        Guardar Cambios
+                    </v-btn>
+            </form>
+        </v-dialog>
     </div>
 </template>
 
@@ -142,29 +172,59 @@
             UploadValue: 0,
             imagenes:[],
             selectedFile: null,
+            stockEditado: '',
+            stock: '',
+            clickedit: true,
+            cambiarBtn: false,
+            prodTitle: '',
+            prodSrc: '',
+            prodId: '',
+            prodCantidad: '',
+            dialogEdit: false
             
         }),
 
         methods:{
-           
+            cambiarBtnTo(prod){
+                this.dialogEdit = true
+                this.prodTitle = prod.title
+                this.prodSrc = prod.src
+                this.prodId = prod.id
+                this.prodCantidad = prod.cantidad
+            },
+            editarStock(){
+   
+                const cardRef = doc(db, "AdminStock/v-card1");
+                updateDoc(cardRef, {
+                cards: arrayRemove({ title: this.prodTitle, src: this.prodSrc, id: this.prodId , cantidad: this.prodCantidad})
+             });
+             updateDoc(cardRef, {
+                cards: arrayUnion({title: this.prodTitle, src: this.prodSrc, id: this.prodId , cantidad: this.stockEditado}),
+                
+            });
+            this.stockEditado = ''
+            this.dialogEdit = false
+
+            },
 
             updateCard(){
                 const cardRef = doc(db, "AdminStock/v-card1");
                 updateDoc(cardRef, {
-                cards: arrayUnion({title: this.title1,src: this.src1, id: this.id}),
+                cards: arrayUnion({title: this.title1,src: this.src1, id: this.id, cantidad: this.stock}),
                 
             });
                 
                 this.title1 = '',
                 this.src1 = '',
                 this.id = ''
-                
+                this.stock= ''
+                setTimeout(this.actualizarPagina, 1500)               
             },
             borrarCard(prod){
 
                 const cardRef = doc(db, "AdminStock/v-card1");
                 updateDoc(cardRef, {
-                cards: arrayRemove({ title: prod.title, src: prod.src, id: prod.id })
+                cards: arrayRemove({ title: prod.title, src: prod.src, id: prod.id , cantidad: prod.cantidad})
             });
               
             },
@@ -244,7 +304,18 @@
 
 
 <style lang="scss" scoped>
-
+    .v-dialog{
+        background-color: white;
+        margin: 0;
+        padding: 25px;
+        display: flex;
+        flex-direction: column;
+        
+        .v-btn-guardar{
+            display: flex;
+            justify-self: center;
+        }
+    }
     .container-img-btn{
         width: 100%;
         height: 100%;

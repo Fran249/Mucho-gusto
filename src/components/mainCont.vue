@@ -57,7 +57,7 @@
             <v-col 
             v-for="card in cards" :key="card.title"
             cols="3" >
-                <v-card width="250px" height="500px">
+                <v-card width="250px" height="550px">
                     <v-img :src="card.src" width="250px" height="250px">
 
                     </v-img>
@@ -74,6 +74,9 @@
                           Descripcion del producto
                           Descripcion del producto
                           Descripcion del producto
+                        </p>
+                        <p>
+                            {{card.cantidad}} Unidades disponibles
                         </p>
                     </v-card-text>
                     <v-card-actions>
@@ -92,7 +95,7 @@
 
 <script>
     import { mapState, mapGetters, mapMutations } from 'vuex'
-    import { getFirestore, doc, onSnapshot, updateDoc,arrayRemove } from "firebase/firestore";
+    import { getFirestore, doc, onSnapshot, updateDoc,arrayRemove, arrayUnion } from "firebase/firestore";
     import { initializeApp } from 'firebase/app';
     import { auth, firebaseConfig} from '../firebase/index'
     import store from '@/store';
@@ -124,11 +127,12 @@
                     setTimeout(this.quitarAlerta, 1500);
                 }else{
                     this.carritoCompra = true
-                    console.log(card)
+
                     const cardItems = {
                        'nombre': card.title,
                        'imagen' : card.src,
-                       'id' : card.id
+                       'id' : card.id,
+                       'cantidad': card.cantidad
                     }
                     this.carrito.push(cardItems)
                     
@@ -136,15 +140,35 @@
             },
             borrarCard(carrito){
                 carrito.forEach(element => {
-                    console.log(element.id, element.nombre, element.imagen)
+                    
                     const cardRef = doc(db, "AdminStock/v-card1");
+                    if(element.cantidad > 1){
+                        updateDoc(cardRef, {
+                    cards: arrayRemove({ title: element.nombre, src: element.imagen, id: element.id, cantidad: element.cantidad })
+                    });
                     updateDoc(cardRef, {
-                    cards: arrayRemove({ title: element.nombre, src: element.imagen, id: element.id })
+                    cards: arrayUnion({ title: element.nombre, src: element.imagen, id: element.id, cantidad: `${element.cantidad -1}` })
+                    });
+                    
+                    this.carrito = []
+                    this.carritoCompra = false
+                    setTimeout(this.actualizarPagina, 1200)
+
+
+                    } else if(element.cantidad <= 1) {
+                        updateDoc(cardRef, {
+                    cards: arrayRemove({ title: element.nombre, src: element.imagen, id: element.id, cantidad: element.cantidad })
                     });
                     this.carrito = []
                     this.carritoCompra = false
-                });
+                    setTimeout(this.actualizarPagina, 1200)
+                    }
+                    
+                    });
                 
+            },
+            actualizarPagina(){
+                location.reload()
             },
             ...mapMutations(['setCarrito']),
 
