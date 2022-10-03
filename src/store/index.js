@@ -168,6 +168,7 @@ export default new Vuex.Store({
     signOut(auth).then(() => {
       // Sign-out successful.
       commit('setUsuario', null)
+      location.reload()
       
       
     })

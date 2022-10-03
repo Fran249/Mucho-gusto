@@ -28,7 +28,7 @@
               </v-btn>
         </v-fab-transition>
 
-        <v-menu transition="slide-x-transition" v-if="estaComprando">
+        <v-menu transition="slide-x-transition" v-if="existeUsuario && carritoCompra">
             <template v-slot:activator="{ on, attrs }">
                 <v-fab-transition>
                 <v-btn
@@ -106,7 +106,7 @@
             cards: null,
             dialogUser: false,
             carrito: store.state.carritoCompras,
-            carritoCompra: true,
+            carritoCompra: false,
         }),
         mounted(){
             onSnapshot(doc(db, "AdminStock/v-card1"), (doc) => {
@@ -123,7 +123,7 @@
                     this.dialogUser = true;
                     setTimeout(this.quitarAlerta, 1500);
                 }else{
-                    this.estaComprando = true
+                    this.carritoCompra = true
                     console.log(card)
                     const cardItems = {
                        'nombre': card.title,
@@ -142,7 +142,7 @@
                     cards: arrayRemove({ title: element.nombre, src: element.imagen, id: element.id })
                     });
                     this.carrito = []
-                    this.estaComprando = false
+                    this.carritoCompra = false
                 });
                 
             },
