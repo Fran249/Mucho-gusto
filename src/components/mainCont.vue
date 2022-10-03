@@ -48,7 +48,7 @@
             </template>
             <v-list width="250px"  v-for="carr in carrito" :key="carr.nombre">
                 <v-list-item>
-                    {{carr.nombre}},{{carr.imagen}},{{carr.id}}
+                    {{carr.nombre}}
                 </v-list-item>
             </v-list>
             <v-btn @click="borrarCard(carrito)">Comprar</v-btn>
