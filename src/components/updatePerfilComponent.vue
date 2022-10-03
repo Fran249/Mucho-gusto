@@ -1,36 +1,32 @@
 <template>
-        <v-container fluid class="">
+        <v-container fluid >
             
             <v-row row no-gutters>
                 <v-col cols="6">
-                    <v-col cols="12" class="fotoContainer__1" >
+                    <v-col cols="12" class="fotoContainer__2">
+                            <h3>Cambiar Foto de Perfil</h3>
+                            <v-progress-linear :value="UploadValue" max="100"></v-progress-linear>
+                            <input type="file" @change="onFileSelected">
+                            <v-btn @click="onUpload" v-if="this.UploadValue == 0">Subir</v-btn>
+                            
+                            <v-btn
+                            v-if="this.UploadValue == 100"
+                                :loading="loading3"
+                                :disabled="loading3"
+                                @click="cambiarFoto"
+                                >
+                                Cambiar Foto
+                                <v-icon
+                                    right
+                                    dark
+                                    class="ml-2"
+                                >
+                                    mdi-cloud-upload
+                                </v-icon>
+                                </v-btn>                
 
-                            <v-text-field v-model="nombre" filled label="Filled" clearable></v-text-field> 
-                            <v-btn @click="cambiarNombre" >Cambiar Nombre</v-btn>
                     </v-col>
-                <v-col cols="12" class="fotoContainer__2">
-                    
-                        <v-progress-linear :value="UploadValue" max="100"></v-progress-linear>
-                        <input type="file" @change="onFileSelected">
-                        <v-btn @click="onUpload" v-if="this.UploadValue == 0">Subir</v-btn>
-                        
-                        <v-btn
-                        v-if="this.UploadValue == 100"
-                            :loading="loading3"
-                            :disabled="loading3"
-                            @click="cambiarFoto"
-                            >
-                            Cambiar Foto
-                            <v-icon
-                                right
-                                dark
-                                class="ml-2"
-                            >
-                                mdi-cloud-upload
-                            </v-icon>
-                            </v-btn>                
-
-                </v-col>
+                    <v-divider ></v-divider>
                 </v-col>
 
             </v-row>
@@ -39,7 +35,7 @@
 
 <script>
 import {  mapState } from 'vuex'
-import { getAuth, updateProfile } from "firebase/auth"
+import { getAuth, updateProfile} from "firebase/auth"
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig} from '../firebase/index'
 import { getStorage, ref, uploadBytesResumable, getDownloadURL  } from "firebase/storage";
@@ -79,14 +75,6 @@ initializeApp(firebaseConfig);
                 })
                 
             },
-            //////////////////////------Funcion para cambiar nombre-----//////////////////////                     
-            cambiarNombre(){
-                updateProfile(auth.currentUser, {
-                    displayName: this.nombre
-                    }).then(() => {
-                        location.reload()
-                    })
-                },
             //////////////////////------Funcion para cambiar Foto-----////////////////////// 
             cambiarFoto(){
                 getDownloadURL(ref(storage, `/users/${auth.currentUser.uid}/${this.selectedFile.name}`))

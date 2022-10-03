@@ -46,14 +46,7 @@ export default new Vuex.Store({
   },
   actions: {
     
-     getRol(uid){
-
-      const docuRef = doc(firestore, `Usuarios/${uid}`);
-      const docuCifrada =  getDoc(docuRef);
-      const infoFinal = docuCifrada.data().rol;
-      return infoFinal;
-    
-    },
+     
 
 
 
@@ -73,7 +66,7 @@ export default new Vuex.Store({
 
           const docuRef = doc( firestore , `Usuarios/${usuario.uid}`);
 
-          setDoc(docuRef, {correo : usuario.email, rol: 'user'})
+          setDoc(docuRef, {correo : usuario.email, rol: 'user', nombreCompleto: '', direccion: '', dni:'', telefonoContacto: '' })
 
          
           
@@ -85,8 +78,7 @@ export default new Vuex.Store({
         })
 
     
-       setTimeout(timeOut, 2000);
-
+       setTimeout(timeOut, 2500);
 
       function timeOut() {
         sendEmailVerification(auth.currentUser)
@@ -98,7 +90,11 @@ export default new Vuex.Store({
         alert('enviamos un correo de verificacion')
         location.reload()
       }
+
+
     },
+    
+  
     ingresoUsuario({commit}, usuario){
       signInWithEmailAndPassword(auth ,usuario.email, usuario.password)
       
