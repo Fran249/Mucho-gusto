@@ -20,7 +20,6 @@ export default new Vuex.Store({
   state: {
     usuario: null,
     error: null,
-    carritoCompras:[],
     
   },
   getters: {
@@ -39,9 +38,7 @@ export default new Vuex.Store({
     setError(state, payload){
       state.error = payload
     },
-    setCarrito(state, payload){
-      state.carritoCompras = payload
-    },
+
 
   },
   actions: {

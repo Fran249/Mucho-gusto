@@ -48,7 +48,7 @@
             </template>
             <v-list width="250px"  v-for="carr in carrito" :key="carr.nombre">
                 <v-list-item>
-                    {{carr.nombre}}
+                  <h3>{{carr.cantidadComprar}}</h3>-<h3>{{carr.nombre}}</h3>
                 </v-list-item>
             </v-list>
             <v-btn @click="borrarCard(carrito)">Comprar</v-btn>
@@ -75,12 +75,13 @@
                           Descripcion del producto
                           Descripcion del producto
                         </p>
-                        <p>
+                        <p v-if="card.cantidad >= 1">
                             {{card.cantidad}} Unidades disponibles
                         </p>
+                        <p v-else>Sin stock</p>
                     </v-card-text>
                     <v-card-actions>
-                        <v-btn text @click="detectUserAndBuy(card)">
+                        <v-btn v-if="card.cantidad >= 1" text @click="detectUserAndBuy(card)">
                             <h3 class="v-btn-comprar">
                                 Agregar al carrito
                             </h3>
@@ -94,11 +95,10 @@
 </template>
 
 <script>
-    import { mapState, mapGetters, mapMutations } from 'vuex'
+    import { mapState, mapGetters } from 'vuex'
     import { getFirestore, doc, onSnapshot, updateDoc,arrayRemove, arrayUnion } from "firebase/firestore";
     import { initializeApp } from 'firebase/app';
     import { auth, firebaseConfig} from '../firebase/index'
-    import store from '@/store';
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
     
@@ -108,13 +108,15 @@
             estaComprando: false,
             cards: null,
             dialogUser: false,
-            carrito: store.state.carritoCompras,
+            carrito: [],
             carritoCompra: false,
+            cantidadComprar: '',
         }),
         mounted(){
             onSnapshot(doc(db, "AdminStock/v-card1"), (doc) => {
                 
                 this.cards = doc.data().cards;
+                
 
 
             });
@@ -122,55 +124,66 @@
         },
         methods:{
             detectUserAndBuy(card){
+                const index = this.carrito.findIndex(object => {
+                    return object.id === card.id;
+                    });
+
+
+                console.log(index)
                 if( auth.currentUser == null){
                     this.dialogUser = true;
                     setTimeout(this.quitarAlerta, 1500);
-                }else{
+                }else if( index == -1){
                     this.carritoCompra = true
 
-                    const cardItems = {
-                       'nombre': card.title,
-                       'imagen' : card.src,
-                       'id' : card.id,
-                       'cantidad': card.cantidad
+                    const cardItems ={
+                        nombre: card.title,
+                        imagen : card.src,
+                        id: card.id,
+                        cantidadComprar: 1,
+                        cantidad: card.cantidad,
                     }
+
+
                     this.carrito.push(cardItems)
-                    
+                    console.log(this.carrito)
+                }else if ( index >= 0){
+                    var cantidad =  this.carrito[index].cantidadComprar = this.carrito[index].cantidadComprar +1 
+                   this.cantidadComprar = cantidad
+                   console.log(this.cantidadComprar)
                 }
             },
             borrarCard(carrito){
                 carrito.forEach(element => {
-                    
+
                     const cardRef = doc(db, "AdminStock/v-card1");
-                    if(element.cantidad > 1){
+                    if(element.cantidad >= 1){
                         updateDoc(cardRef, {
                     cards: arrayRemove({ title: element.nombre, src: element.imagen, id: element.id, cantidad: element.cantidad })
                     });
                     updateDoc(cardRef, {
-                    cards: arrayUnion({ title: element.nombre, src: element.imagen, id: element.id, cantidad: `${element.cantidad -1}` })
+                    cards: arrayUnion({ title: element.nombre, src: element.imagen, id: element.id, cantidad: `${element.cantidad - this.cantidadComprar}  ` })
                     });
                     
-                    this.carrito = []
-                    this.carritoCompra = false
-                    setTimeout(this.actualizarPagina, 1200)
 
 
-                    } else if(element.cantidad <= 1) {
+
+                    } else if(element.cantidad < 1) {
                         updateDoc(cardRef, {
                     cards: arrayRemove({ title: element.nombre, src: element.imagen, id: element.id, cantidad: element.cantidad })
                     });
+
+                    }
                     this.carrito = []
                     this.carritoCompra = false
                     setTimeout(this.actualizarPagina, 1200)
-                    }
-                    
                     });
                 
             },
             actualizarPagina(){
                 location.reload()
             },
-            ...mapMutations(['setCarrito']),
+            
 
             quitarAlerta(){
                 this.dialogUser = false
@@ -179,7 +192,7 @@
 
         },
          computed:{
-      ...mapState(['usuario','carritoCompras']),
+      ...mapState(['usuario']),
       ...mapGetters(['existeUsuario']),
       
   },
