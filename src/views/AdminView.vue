@@ -28,6 +28,12 @@
             label="Identifica con un ID"
             clearable
           ></v-text-field>
+          <v-text-field
+            v-model="precio"
+            filled
+            label="Precio"
+            clearable
+          ></v-text-field>
           <v-btn @click="updateCard">
             Agregar
         </v-btn>
@@ -46,6 +52,7 @@
                 v-show="hidden"
                 fixed
                 right
+                top
                 fab
                 text
                 height="1px"
@@ -98,6 +105,9 @@
                     <th class="text-left">
                         Stock
                     </th>
+                    <th class="text-left">
+                        Precio
+                    </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -110,6 +120,7 @@
                     <td>{{ prod.src }} </td>
                     <td>{{ prod.id }} </td>
                     <td>{{ prod.cantidad }} </td>
+                    <td>{{ prod.precio }} </td>
                     <v-btn @click="borrarCard(prod)" text icon>
                         <v-icon color="red">
                             mdi-delete
@@ -167,6 +178,7 @@
             title1: '',
             src1: '',
             id: '',
+            precio:'',
             hidden: false,
             productos: null,
             UploadValue: 0,
@@ -180,6 +192,7 @@
             prodSrc: '',
             prodId: '',
             prodCantidad: '',
+            prodPrecio:'',
             dialogEdit: false
             
         }),
@@ -191,6 +204,7 @@
                 this.prodSrc = prod.src
                 this.prodId = prod.id
                 this.prodCantidad = prod.cantidad
+                this.prodPrecio= prod.precio
             },
             editarStock(){
    
@@ -210,21 +224,22 @@
             updateCard(){
                 const cardRef = doc(db, "AdminStock/v-card1");
                 updateDoc(cardRef, {
-                cards: arrayUnion({title: this.title1,src: this.src1, id: this.id, cantidad: this.stock}),
+                cards: arrayUnion({title: this.title1,src: this.src1, id: this.id, cantidad: this.stock, precio: this.precio}),
                 
             });
                 
                 this.title1 = '',
                 this.src1 = '',
-                this.id = ''
-                this.stock= ''
+                this.id = '',
+                this.stock= '',
+                this.precio= '',
                 setTimeout(this.actualizarPagina, 1500)               
             },
             borrarCard(prod){
 
                 const cardRef = doc(db, "AdminStock/v-card1");
                 updateDoc(cardRef, {
-                cards: arrayRemove({ title: prod.title, src: prod.src, id: prod.id , cantidad: prod.cantidad})
+                cards: arrayRemove({ title: prod.title, src: prod.src, id: prod.id , cantidad: prod.cantidad, precio: prod.precio})
             });
               
             },
@@ -339,6 +354,7 @@
     }
     .alerta{
         margin-right: 150px;
+        margin-top: 100px;
     }
 
 

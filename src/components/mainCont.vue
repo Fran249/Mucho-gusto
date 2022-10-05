@@ -1,4 +1,5 @@
 <template>
+    <div>    
     <!--<div>
         <h3>CONTENIDO MAIN</h3>
         <div>
@@ -7,6 +8,23 @@
       <p>{{usuario}}</p>     
   </div>
     </div>-->
+    <v-navigation-drawer 
+        fixed
+        permanent
+        right v-if="existeUsuario && carritoCompra">
+            <v-list width="250px"  v-for="carr in carrito" :key="carr.nombre">
+                <v-list-item>
+                  <v-avatar class="ml-2" >
+                    <v-img :src="carr.imagen"></v-img>
+                  </v-avatar>  <h3 class="ml-2">X{{carr.cantidadComprar}}</h3><h3 class="ml-2">{{carr.nombre}}</h3>
+                </v-list-item>
+                <v-divider></v-divider>
+            </v-list>
+            <h3>
+            Total: {{precioTotal}}
+            </h3>
+            <v-btn @click="borrarCard(carrito)">Comprar</v-btn>
+        </v-navigation-drawer>
     <v-container>
         <v-fab-transition>
               <v-btn
@@ -28,36 +46,12 @@
               </v-btn>
         </v-fab-transition>
 
-        <v-menu transition="slide-x-transition" v-if="existeUsuario && carritoCompra">
-            <template v-slot:activator="{ on, attrs }">
-                <v-fab-transition>
-                <v-btn
-                v-show="carritoCompra"
-                fixed
-                right
-                fab
-                v-bind="attrs"
-                v-on="on"
-                icon
-              >
-              <v-icon color="#FFD700">
-                mdi-shopping
-              </v-icon>
-                </v-btn>
-                </v-fab-transition>
-            </template>
-            <v-list width="250px"  v-for="carr in carrito" :key="carr.nombre">
-                <v-list-item>
-                  <h3>{{carr.cantidadComprar}}</h3>-<h3>{{carr.nombre}}</h3>
-                </v-list-item>
-            </v-list>
-            <v-btn @click="borrarCard(carrito)">Comprar</v-btn>
-        </v-menu>
+
         <v-row >
             <v-col 
             v-for="card in cards" :key="card.title"
             cols="3" >
-                <v-card width="250px" height="550px">
+                <v-card width="250px" height="600px">
                     <v-img :src="card.src" width="250px" height="250px">
 
                     </v-img>
@@ -78,6 +72,7 @@
                         <p v-if="card.cantidad >= 1">
                             {{card.cantidad}} Unidades disponibles
                         </p>
+                        <p v-if="card.precio >= 1">${{card.precio}}</p>
                         <p v-else>Sin stock</p>
                     </v-card-text>
                     <v-card-actions>
@@ -92,6 +87,7 @@
         </v-row>
     </v-container>
 
+    </div>
 </template>
 
 <script>
@@ -110,7 +106,7 @@
             dialogUser: false,
             carrito: [],
             carritoCompra: false,
-            cantidadComprar: '',
+            cantidadCompra1: '',
         }),
         mounted(){
             onSnapshot(doc(db, "AdminStock/v-card1"), (doc) => {
@@ -140,17 +136,22 @@
                         nombre: card.title,
                         imagen : card.src,
                         id: card.id,
-                        cantidadComprar: 1,
+                        cantidadComprar: 0,
                         cantidad: card.cantidad,
+                        precio: card.precio
                     }
 
-
+                    cardItems.cantidadComprar = cardItems.cantidadComprar +1
+                    this.ca
                     this.carrito.push(cardItems)
                     console.log(this.carrito)
                 }else if ( index >= 0){
-                    var cantidad =  this.carrito[index].cantidadComprar = this.carrito[index].cantidadComprar +1 
-                   this.cantidadComprar = cantidad
+
+                    var cantidad =  this.carrito[index].cantidadComprar = this.carrito[index].cantidadComprar + 1 
+                    this.cantidadComprar1 = cantidad
+
                    console.log(this.cantidadComprar)
+
                 }
             },
             borrarCard(carrito){
@@ -162,7 +163,7 @@
                     cards: arrayRemove({ title: element.nombre, src: element.imagen, id: element.id, cantidad: element.cantidad })
                     });
                     updateDoc(cardRef, {
-                    cards: arrayUnion({ title: element.nombre, src: element.imagen, id: element.id, cantidad: `${element.cantidad - this.cantidadComprar}  ` })
+                    cards: arrayUnion({ title: element.nombre, src: element.imagen, id: element.id, cantidad: `${element.cantidad - this.cantidadComprar1}  ` })
                     });
                     
 

@@ -4,28 +4,18 @@
         <v-row>
             <v-col cols="6">
                 <h3>Nombre Completo</h3>
-                <v-btn @click="editarNombre" icon>
-                    <v-icon color="green">
-                        mdi-account-edit
-                    </v-icon>
-                </v-btn>
                 <v-text-field
                 filled
-                :disabled="editNombre"
+                :disabled="edit"
                 v-model="nombreCompleto"
                 :value="nombreCompleto"
                 ></v-text-field>
             </v-col>
             <v-col cols="6">
                 <h3>Direccion</h3>
-                <v-btn @click="editarDireccion" icon>
-                    <v-icon color="green">
-                        mdi-account-edit
-                    </v-icon>
-                </v-btn>
                 <v-text-field
                 filled
-                :disabled="editDireccion"
+                :disabled="edit"
                 v-model="direccion"
                 :value="direccion"
                 >
@@ -33,35 +23,33 @@
             </v-col>
             <v-col cols="6">
                 <h3>DNI</h3>
-                <v-btn @click="editarDNI" icon>
-                    <v-icon color="green">
-                        mdi-account-edit
-                    </v-icon>
-                </v-btn>
                 <v-text-field
                 filled
-                :disabled="editDNI"
+                :disabled="edit"
                 v-model="documentodni"
                 :value="documentodni"
                 ></v-text-field>
             </v-col>
             <v-col cols="6">
                 <h3>Telefono de Contacto</h3>
-                <v-btn @click="editarTelefono" icon>
-                    <v-icon color="green">
-                        mdi-account-edit
-                    </v-icon>
-                </v-btn>
                 <v-text-field
                 filled
-                :disabled="editTelefono"
+                :disabled="edit"
                 v-model="telefonoContacto"
                 :value="telefonoContacto"
                 ></v-text-field>
             </v-col>
-            <v-col cols="12">
+            <v-col cols="6">
                 <v-btn @click="guardarCambios">
                     Guardar Cambios
+                </v-btn>
+            </v-col>
+            <v-col cols="6">
+                <v-btn @click="editarInfo">
+                    Editar 
+                    <v-icon class="ml-3">
+                        mdi-pencil
+                    </v-icon>
                 </v-btn>
             </v-col>
         </v-row>
@@ -107,24 +95,12 @@
             direccion: '',
             documentodni: '',
             telefonoContacto:'',
-            editNombre: true,
-            editDNI: true,
-            editDireccion: true,
-            editTelefono: true,
+            edit: true,
             hidden: false,
         }),
         methods:{
-            editarNombre(){
-                this.editNombre = false
-            },
-            editarDNI(){
-                this.editDNI = false
-            },
-            editarDireccion(){
-                this.editDireccion = false
-            },
-            editarTelefono(){
-                this.editTelefono = false
+            editarInfo(){
+                this.edit = false
             },
             guardarCambios(){
                 const dataRef = doc(db, `/Usuarios/${auth.currentUser.uid}/`);
