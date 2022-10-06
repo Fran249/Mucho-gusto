@@ -15,7 +15,8 @@
         <IngresoComponent/>
       </v-dialog>
       <router-link to="/inicio" >Inicio</router-link> |
-      <router-link to="/userView" v-if="existeUsuario">User</router-link> |
+      <router-link to="/userView" v-if="existeUsuario">Mi Perfil</router-link> |
+      <router-link to="/MisCompras" v-if="existeUsuario">Mis Compras</router-link> |
       <router-link to="/adminView" v-if="existeUsuario && usuario.rol == 'admin'">Admin</router-link> 
       <button @click="cerrarSesion" v-if="existeUsuario">Cerrar Sesión</button>
     </v-app-bar>

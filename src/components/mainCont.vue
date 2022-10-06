@@ -12,16 +12,29 @@
         fixed
         permanent
         right v-if="existeUsuario && carritoCompra">
+            <v-row>
+                <v-col cols="12">
+                    <h3 class="mt-3 mb-3 ml-5">Mi carrito</h3>
+                </v-col>
+            </v-row>
+            <v-divider> </v-divider>
             <v-list width="250px"  v-for="carr in carrito" :key="carr.nombre">
                 <v-list-item>
                   <v-avatar class="ml-2" >
                     <v-img :src="carr.imagen"></v-img>
-                  </v-avatar>  <h3 class="ml-2">X{{carr.cantidadComprar}}</h3><h3 class="ml-2">{{carr.nombre}}</h3>
+                  </v-avatar> 
+                  <h3 class="ml-2">X{{carr.cantidadComprar}}</h3>
+                  <h3 class="ml-2">{{carr.nombre}}</h3>
+                  <v-btn icon @click="borrarArticuloCarrito(carr)">
+                    <v-icon color="red">
+                        mdi-delete
+                    </v-icon>
+                    </v-btn>
                 </v-list-item>
                 <v-divider></v-divider>
             </v-list>
-            <h3>
-            Total: {{precioTotal}}
+            <h3 class="ml-5">
+            Total: ${{precioTotal}} 
             </h3>
             <v-btn @click="borrarCard(carrito)">Comprar</v-btn>
         </v-navigation-drawer>
@@ -50,8 +63,8 @@
         <v-row >
             <v-col 
             v-for="card in cards" :key="card.title"
-            cols="3" >
-                <v-card width="250px" height="600px">
+            cols="4" >
+                <v-card width="260px" height="650px">
                     <v-img :src="card.src" width="250px" height="250px">
 
                     </v-img>
@@ -72,7 +85,14 @@
                         <p v-if="card.cantidad >= 1">
                             {{card.cantidad}} Unidades disponibles
                         </p>
-                        <p v-if="card.precio >= 1">${{card.precio}}</p>
+                        <p v-if="card.cantidad >= 1">${{card.precio}}</p>
+                        <v-text-field 
+                        v-if="card.cantidad >= 1"
+                        v-model = cantidadCustom
+                        label="Cantidad deseada"
+                        id="textfield"
+                        >
+                        </v-text-field>
                         <p v-else>Sin stock</p>
                     </v-card-text>
                     <v-card-actions>
@@ -106,7 +126,10 @@
             dialogUser: false,
             carrito: [],
             carritoCompra: false,
-            cantidadCompra1: '',
+            cantidadComprar1: '',
+            cantidadCustom: '',
+            precioTotal:'',
+            precioTotalArray: []
         }),
         mounted(){
             onSnapshot(doc(db, "AdminStock/v-card1"), (doc) => {
@@ -131,27 +154,38 @@
                     setTimeout(this.quitarAlerta, 1500);
                 }else if( index == -1){
                     this.carritoCompra = true
-
                     const cardItems ={
                         nombre: card.title,
                         imagen : card.src,
                         id: card.id,
-                        cantidadComprar: 0,
+                        cantidadComprar: this.cantidadCustom,
                         cantidad: card.cantidad,
                         precio: card.precio
                     }
-
-                    cardItems.cantidadComprar = cardItems.cantidadComprar +1
-                    this.ca
+                    
+                    
+                    
                     this.carrito.push(cardItems)
+                    this.precioTotalArray.push(Number(cardItems.precio * this.cantidadCustom))
                     console.log(this.carrito)
+                    console.log(this.precioTotalArray)
+
                 }else if ( index >= 0){
 
-                    var cantidad =  this.carrito[index].cantidadComprar = this.carrito[index].cantidadComprar + 1 
+                    const cardItems = {
+                        nombre: card.title,
+                        imagen : card.src,
+                        id: card.id,
+                        cantidadComprar: this.cantidadCustom,
+                        cantidad: card.cantidad,
+                        precio: card.precio
+                    }
+                    var cantidad =  this.carrito[index].cantidadComprar = Number(this.carrito[index].cantidadComprar) + Number(this.cantidadCustom)
                     this.cantidadComprar1 = cantidad
-
-                   console.log(this.cantidadComprar)
-
+                    this.precioTotalArray.push(Number(cardItems.precio * this.cantidadCustom))
+                   console.log(this.cantidadComprar1)
+                   console.log(this.carrito)
+                   console.log(this.precioTotalArray)
                 }
             },
             borrarCard(carrito){
@@ -160,10 +194,10 @@
                     const cardRef = doc(db, "AdminStock/v-card1");
                     if(element.cantidad >= 1){
                         updateDoc(cardRef, {
-                    cards: arrayRemove({ title: element.nombre, src: element.imagen, id: element.id, cantidad: element.cantidad })
+                    cards: arrayRemove({ title: element.nombre, src: element.imagen, id: element.id, cantidad: element.cantidad, precio: element.precio })
                     });
                     updateDoc(cardRef, {
-                    cards: arrayUnion({ title: element.nombre, src: element.imagen, id: element.id, cantidad: `${element.cantidad - this.cantidadComprar1}  ` })
+                    cards: arrayUnion({ title: element.nombre, src: element.imagen, id: element.id, cantidad: `${element.cantidad - element.cantidadComprar}`,precio: element.precio })
                     });
                     
 
@@ -171,15 +205,34 @@
 
                     } else if(element.cantidad < 1) {
                         updateDoc(cardRef, {
-                    cards: arrayRemove({ title: element.nombre, src: element.imagen, id: element.id, cantidad: element.cantidad })
+                    cards: arrayRemove({ title: element.nombre, src: element.imagen, id: element.id, cantidad: element.cantidad, precio:element.precio })
                     });
 
                     }
+
+                    const compraRef = doc(db, `Usuarios/${auth.currentUser.uid}`);
+
+                    updateDoc(compraRef, {
+                    compras: arrayUnion({ title: element.nombre, src: element.imagen, id: element.id, cantidad: element.cantidadComprar,precio: element.precio })
+                    });
+
                     this.carrito = []
                     this.carritoCompra = false
                     setTimeout(this.actualizarPagina, 1200)
                     });
                 
+            },
+            borrarArticuloCarrito(carr){
+                const index = this.carrito.findIndex(object => {
+                    return object.id === carr.id;
+                    });
+                
+                this.carrito.splice(index,1)
+                this.precioTotal = this.precioTotal - carr.precio * carr.cantidadComprar
+                if(this.precioTotal == 0 ){
+                    this.precioTotalArray = []
+                    this.carritoCompra = false
+                }
             },
             actualizarPagina(){
                 location.reload()
@@ -190,6 +243,19 @@
                 this.dialogUser = false
             },
             
+
+        },
+        watch:{
+        precioTotalArray(){
+            
+            
+
+            let array = this.precioTotalArray;
+
+            const reducer = (accumulator, curr) => accumulator + curr;
+            let arraySumado = array.reduce(reducer);
+            this.precioTotal = arraySumado
+        }
 
         },
          computed:{

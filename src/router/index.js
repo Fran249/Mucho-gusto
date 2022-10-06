@@ -53,6 +53,14 @@ const routes = [
     meta: {
       requiresAuth : true
     }
+  },
+  {
+    path: '/MisCompras',
+    name: 'MisCompras',
+    component: () => import(/* webpackChunkName: "about" */ '../views/MisCompras.vue'),
+    meta: {
+      requiresAuth : true
+    }
   }
 ]
 

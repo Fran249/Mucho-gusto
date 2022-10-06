@@ -210,10 +210,10 @@
    
                 const cardRef = doc(db, "AdminStock/v-card1");
                 updateDoc(cardRef, {
-                cards: arrayRemove({ title: this.prodTitle, src: this.prodSrc, id: this.prodId , cantidad: this.prodCantidad})
+                cards: arrayRemove({ title: this.prodTitle, src: this.prodSrc, id: this.prodId , cantidad: this.prodCantidad, precio:this.prodPrecio})
              });
              updateDoc(cardRef, {
-                cards: arrayUnion({title: this.prodTitle, src: this.prodSrc, id: this.prodId , cantidad: this.stockEditado}),
+                cards: arrayUnion({title: this.prodTitle, src: this.prodSrc, id: this.prodId , cantidad: this.stockEditado, precio:this.prodPrecio}),
                 
             });
             this.stockEditado = ''
