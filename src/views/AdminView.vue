@@ -10,12 +10,6 @@
             clearable
           >
         </v-text-field>
-        <v-text-field
-            v-model="src1"
-            filled
-            disabled
-            
-          ></v-text-field>
           <v-text-field
             v-model="stock"
             filled
@@ -97,9 +91,6 @@
                        Nombre
                     </th>
                     <th class="text-left">
-                        Src
-                    </th>
-                    <th class="text-left">
                         ID
                     </th>
                     <th class="text-left">
@@ -117,7 +108,6 @@
                     
                     >
                     <td >{{ prod.title }} </td>
-                    <td>{{ prod.src }} </td>
                     <td>{{ prod.id }} </td>
                     <td>{{ prod.cantidad }} </td>
                     <td>{{ prod.precio }} </td>
@@ -193,6 +183,7 @@
             prodId: '',
             prodCantidad: '',
             prodPrecio:'',
+            prodValue:'',
             dialogEdit: false
             
         }),
@@ -205,15 +196,16 @@
                 this.prodId = prod.id
                 this.prodCantidad = prod.cantidad
                 this.prodPrecio= prod.precio
+                this.prodValue = prod.value
             },
             editarStock(){
    
                 const cardRef = doc(db, "AdminStock/v-card1");
                 updateDoc(cardRef, {
-                cards: arrayRemove({ title: this.prodTitle, src: this.prodSrc, id: this.prodId , cantidad: this.prodCantidad, precio:this.prodPrecio})
+                cards: arrayRemove({ title: this.prodTitle, src: this.prodSrc, id: this.prodId , cantidad: this.prodCantidad, precio:this.prodPrecio , value:this.prodValue })
              });
              updateDoc(cardRef, {
-                cards: arrayUnion({title: this.prodTitle, src: this.prodSrc, id: this.prodId , cantidad: this.stockEditado, precio:this.prodPrecio}),
+                cards: arrayUnion({title: this.prodTitle, src: this.prodSrc, id: this.prodId , cantidad: this.stockEditado, precio:this.prodPrecio, value:this.prodValue}),
                 
             });
             this.stockEditado = ''
@@ -224,7 +216,7 @@
             updateCard(){
                 const cardRef = doc(db, "AdminStock/v-card1");
                 updateDoc(cardRef, {
-                cards: arrayUnion({title: this.title1,src: this.src1, id: this.id, cantidad: this.stock, precio: this.precio}),
+                cards: arrayUnion({title: this.title1,src: this.src1, id: this.id, cantidad: this.stock, precio: this.precio , value: ''}),
                 
             });
                 
@@ -239,7 +231,7 @@
 
                 const cardRef = doc(db, "AdminStock/v-card1");
                 updateDoc(cardRef, {
-                cards: arrayRemove({ title: prod.title, src: prod.src, id: prod.id , cantidad: prod.cantidad, precio: prod.precio})
+                cards: arrayRemove({ title: prod.title, src: prod.src, id: prod.id , cantidad: prod.cantidad, precio: prod.precio, value: prod.value})
             });
               
             },

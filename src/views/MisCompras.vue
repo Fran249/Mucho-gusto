@@ -83,7 +83,7 @@ const db = getFirestore(app);
 
                 const compraRef = doc(db, `Usuarios/${auth.currentUser.uid}`);
                 updateDoc(compraRef, {
-                compras: arrayRemove({ title: prod.title, src: prod.src, id: prod.id , cantidad: prod.cantidad, precio: prod.precio})
+                compras: arrayRemove({ title: prod.title, src: prod.src, id: prod.id , cantidad: prod.cantidad, precio: prod.precio, value:prod.value})
                 });
                 }
 

@@ -1,24 +1,30 @@
 <template>
   <div>
-   <v-app-bar>
+   <v-app-bar class="appbar">
       <v-btn text fab @click="navDraw = true" v-if="existeUsuario">
         <v-avatar>
           <v-img :src="usuario.foto"></v-img>
         </v-avatar>
       </v-btn>
-      <v-btn @click="dialog2 = true" v-if="!existeUsuario">Registro</v-btn> 
-      <v-dialog v-model="dialog2" width="1000" transition="dialog-top-transition">
+      <v-btn text @click="dialog2 = true" v-if="!existeUsuario">Registro</v-btn> 
+      <v-dialog v-model="dialog2" width="500" transition="dialog-top-transition">
         <RegistroComponent/>
-      </v-dialog>|
-      <v-btn @click="dialog1 = true"  v-if="!existeUsuario">Ingreso</v-btn>
-      <v-dialog v-model="dialog1" width="1000" transition="dialog-top-transition">
+      </v-dialog>
+      <v-btn text @click="dialog1 = true"  v-if="!existeUsuario">Ingreso</v-btn>
+      <v-dialog v-model="dialog1" width="500" transition="dialog-top-transition">
         <IngresoComponent/>
       </v-dialog>
-      <router-link to="/inicio" >Inicio</router-link> |
-      <router-link to="/userView" v-if="existeUsuario">Mi Perfil</router-link> |
-      <router-link to="/MisCompras" v-if="existeUsuario">Mis Compras</router-link> |
-      <router-link to="/adminView" v-if="existeUsuario && usuario.rol == 'admin'">Admin</router-link> 
-      <button @click="cerrarSesion" v-if="existeUsuario">Cerrar Sesión</button>
+      <v-btn text>
+        <router-link style="text-decoration: none; color: inherit;" to="/inicio" >Inicio</router-link>
+      </v-btn>
+      <v-btn text v-if="existeUsuario">
+        <router-link style="text-decoration: none; color: inherit;" to="/userView" >Mi Perfil</router-link>
+      </v-btn> 
+
+      <v-btn text v-if="existeUsuario && usuario.rol == 'admin'">
+        <router-link style="text-decoration: none; color: inherit;" to="/adminView" >Admin</router-link>
+      </v-btn> 
+      <v-btn text @click="cerrarSesion" v-if="existeUsuario">Cerrar Sesión</v-btn>
     </v-app-bar>
     
     <v-navigation-drawer
@@ -53,17 +59,19 @@
             nav
             dense
           >
-            <v-list-item link>
-              <v-list-item-icon>
-                <v-icon>mdi-folder</v-icon>
-              </v-list-item-icon>
-              <v-list-item-title>My Files</v-list-item-title>
+            <v-list-item >
+              <router-link style="text-decoration: none; color: inherit;" to="/MisCompras">
+                <v-btn text  width="100%">
+                 Mis compras
+                </v-btn> 
+              </router-link>
             </v-list-item>
-            <v-list-item link>
-              <v-list-item-icon>
-                <v-icon>mdi-account-multiple</v-icon>
-              </v-list-item-icon>
-              <v-list-item-title>Shared with me</v-list-item-title>
+            <v-list-item>
+              <router-link style="text-decoration: none; color: inherit;" to="/carrito"  >
+                <v-btn text >
+                  Carrito
+                </v-btn> 
+              </router-link>
             </v-list-item>
             <v-list-item link>
               <v-list-item-icon>
@@ -78,7 +86,8 @@
 
 
 <script>
-    import { mapActions, mapGetters, mapState } from 'vuex'
+
+import { mapActions, mapGetters, mapState } from 'vuex'
 
     export default {
         data: ()=>({
@@ -90,6 +99,7 @@
             dialog1 : false,
             dialog2 : false,
             navDraw: false,
+            email: '',
             items: [
                     { title: 'Dashboard', icon: 'mdi-view-dashboard' },
                     { title: 'Photos', icon: 'mdi-image' },
@@ -99,7 +109,6 @@
         methods:{
     ...mapActions(['cerrarSesion']),
 
-
   },
   computed:{
     ...mapGetters(['existeUsuario']),
@@ -107,3 +116,9 @@
   }
     }
 </script>
+
+
+<style lang="scss" scoped>
+
+
+</style>

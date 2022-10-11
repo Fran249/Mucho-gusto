@@ -61,6 +61,14 @@ const routes = [
     meta: {
       requiresAuth : true
     }
+  },
+  {
+    path: '/carrito',
+    name: 'carrito',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Carrito.vue'),
+    meta: {
+      requiresAuth : true
+    }
   }
 ]
 
