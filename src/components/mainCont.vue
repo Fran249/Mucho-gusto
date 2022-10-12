@@ -142,10 +142,16 @@
                 this.cards = doc.data().cards;
                 
             });
-            
+            onSnapshot(doc(db, `Usuarios/${auth.currentUser.uid}`), (doc) => {
+                
+                this.carrito = doc.data().compras;
+                
+                
+            });
 
         },
         mounted(){
+      
 
 
         },
