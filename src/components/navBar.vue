@@ -60,18 +60,18 @@
             dense
           >
             <v-list-item >
-              <router-link style="text-decoration: none; color: inherit;" to="/MisCompras">
+              <!--<router-link style="text-decoration: none; color: inherit;" to="/MisCompras">
                 <v-btn text  width="100%">
                  Mis compras
                 </v-btn> 
-              </router-link>
+              </router-link> -->
             </v-list-item>
             <v-list-item>
-              <router-link style="text-decoration: none; color: inherit;" to="/carrito"  >
+              <!--<router-link style="text-decoration: none; color: inherit;" to="/carrito"  >
                 <v-btn text >
                   Carrito
                 </v-btn> 
-              </router-link>
+              </router-link>-->
             </v-list-item>
             <v-list-item link>
               <v-list-item-icon>

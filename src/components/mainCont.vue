@@ -10,13 +10,13 @@
                 </v-col>
             </v-row>
             <v-divider> </v-divider>
-            <v-list width="250px"  v-for="carr in carrito" :key="carr.nombre" class="d-flex justify-center">
+            <v-list width="250px"  v-for="carr in carrito" :key="carr.title" class="d-flex justify-center">
                 <v-list-item>
                   <v-avatar class="ml-2" >
-                    <v-img :src="carr.imagen"></v-img>
+                    <v-img :src="carr.src"></v-img>
                   </v-avatar> 
-                  <h3 class="ml-2">X{{carr.cantidadComprar}}</h3>
-                  <h3 class="ml-2">{{carr.nombre}}</h3>
+                  <h3 class="ml-2">X{{carr.value}}</h3>
+                  <h3 class="ml-2">{{carr.title}}</h3>
                   <v-btn icon @click="borrarArticuloCarrito(carr)">
                     <v-icon color="red">
                         mdi-delete
@@ -27,7 +27,7 @@
             </v-list>
             <div class="div-comprar-total">
                 <h3>
-                    Total: ${{precioTotal}} 
+                    Total: ${{precioTotalArray}} 
                 </h3>
                 <v-btn @click="comprarPrimerPaso(carrito)" width="50%">
                     Comprar
@@ -82,14 +82,18 @@
                             {{card.cantidad}} Unidades disponibles
                         </p>
                         <p v-if="card.cantidad >= 1">${{card.precio}}</p>
-                        <v-text-field 
-                        v-if="card.cantidad >= 1"
-                        v-model = card.value
-                        label="Cantidad deseada"
-                        id="textfield"
-                        type="number"
-                        >
-                        </v-text-field>
+                        <div v-if="card.cantidad >= 1">
+                        <v-btn text @click="aumentar(card)">
+                            <v-icon>
+                                mdi-plus
+                            </v-icon>
+                        </v-btn>
+                        <v-btn text @click="disminuir(card)">
+                            <v-icon>
+                                mdi-minus
+                            </v-icon>
+                        </v-btn>
+                        </div>
                         <p v-else>Sin stock</p>
                     </v-card-text>
                     <v-card-actions>
@@ -111,7 +115,10 @@
     import { mapState, mapGetters } from 'vuex'
     import { getFirestore, doc, onSnapshot, updateDoc, arrayUnion,arrayRemove } from "firebase/firestore";
     import { initializeApp } from 'firebase/app';
-    import { auth, firebaseConfig} from '../firebase/index'
+    import {  firebaseConfig} from '../firebase/index'
+    import { getAuth } from "firebase/auth";
+
+    const auth = getAuth();
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
     
@@ -126,134 +133,123 @@
             cantidadComprar1: '',
             cantidadCustom: '',
             precioTotal:'',
-            precioTotalArray: []
+            precioTotalArray: [],
+            
         }),
-        mounted(){
+        beforeMount(){
             onSnapshot(doc(db, "AdminStock/v-card1"), (doc) => {
                 
                 this.cards = doc.data().cards;
                 
-
-
             });
+            
+
+        },
+        mounted(){
+
+
+        },
+        updated(){
+           
+           
+
 
         },
         methods:{
-            detectUserAndBuy(card){
-                const index = this.carrito.findIndex(object => {
+            aumentar(card){ 
+                    const index = this.carrito.findIndex(object => {
                     return object.id === card.id;
                     });
-
-
-                console.log(index)
-                if( auth.currentUser == null){
-                    this.dialogUser = true;
-                    setTimeout(this.quitarAlerta, 1500);
-                }else if( index == -1){
+                    
+                    console.log(index)
                     this.carritoCompra = true
-                    const cardItems ={
-                        nombre: card.title,
-                        imagen : card.src,
-                        id: card.id,
-                        cantidadComprar: card.value,
-                        cantidad: card.cantidad,
-                        precio: card.precio
-                    }
-                    
-                    
-                    
-                    this.carrito.push(cardItems)
-                    this.precioTotalArray.push(Number(cardItems.precio * cardItems.cantidadComprar))
-                    console.log(this.carrito)
-                    console.log(this.precioTotalArray)
-
-                    
-                }else if ( index >= 0){
-
-                    const cardItems = {
-                        nombre: card.title,
-                        imagen : card.src,
-                        id: card.id,
-                        cantidadComprar: card.value,
-                        cantidad: card.cantidad,
-                        precio: card.precio
-                    }
-                    var cantidad =  this.carrito[index].cantidadComprar = Number(this.carrito[index].cantidadComprar) + Number(cardItems.cantidadComprar)
-                    this.cantidadComprar1 = cantidad
-                    this.precioTotalArray.push(Number(cardItems.precio * cardItems.cantidadComprar))
-                   console.log(this.cantidadComprar1)
-                   console.log(this.carrito)
-                   console.log(this.precioTotalArray)
-                }
-
-            },
-            comprarPrimerPaso(carrito){
-                carrito.forEach(element => {
-                    const index = this.carrito.findIndex(object => {
-                    return object.id === carrito.id
-
+                    onSnapshot(doc(db, `Usuarios/${auth.currentUser.uid}`), (doc) => {
+                
+                        this.carrito = doc.data().compras;
+                        
+                        
                     });
-                    if( index == -1){
+   
+                if(index == -1){
+                    
+                    
+                    const compraRef = doc(db, `Usuarios/${auth.currentUser.uid}`);
+
+
+                    updateDoc(compraRef, {
+                    compras: arrayUnion({ title: card.title, src: card.src, id: card.id, cantidad: card.cantidad ,precio: card.precio, value: 1})
+                    });
+                    console.log(this.carrito)
+
+                } else if (index >= 0 ) {
+                    const value = this.carrito[index].value
+                    console.log(value)
                     const compraRef = doc(db, `Usuarios/${auth.currentUser.uid}`);
 
                     updateDoc(compraRef, {
-                    compras: arrayUnion({ title: element.nombre, src: element.imagen, id: element.id, cantidad: element.cantidad ,precio: element.precio, value:element.cantidadComprar})
+                    compras: arrayRemove({ title: card.title, src: card.src, id: card.id, cantidad: card.cantidad ,precio: card.precio, value: value})
+                    });
+                    updateDoc(compraRef, {
+                    compras: arrayUnion({ title: card.title, src: card.src, id: card.id, cantidad: card.cantidad ,precio: card.precio, value: value + 1})
                     });
 
-                    this.carrito = []
-                    this.carritoCompra = false
-                
-                    } else if( index == 0){
-                    const compraRef = doc(db, `Usuarios/${auth.currentUser.uid}`);
-                    var cantidad =  Number(this.carrito[index].value) + Number(this.carrito[index].value)
-
-                        updateDoc(compraRef, {
-                    compras: arrayRemove({ title: element.title, src: element.src, id: element.id, cantidad: element.cantidad, precio: element.precio , value: element.value})
-                    });
-
-                        updateDoc(compraRef, {
-                    compras: arrayUnion({ title: element.nombre, src: element.imagen, id: element.id, cantidad: element.cantidad ,precio: element.precio, value: cantidad})
-                    });
-                    }
-
-                    });
-                
-            },
-            borrarArticuloCarrito(carr){
-                const index = this.carrito.findIndex(object => {
-                    return object.id === carr.id;
-                    });
-                
-                this.carrito.splice(index,1)
-                this.precioTotal = this.precioTotal - carr.precio * carr.cantidadComprar
-                if(this.precioTotal == 0 ){
-                    this.precioTotalArray = []
-                    this.carritoCompra = false
+                    console.log(this.carrito)
                 }
             },
-            actualizarPagina(){
-                location.reload()
+            disminuir(card){
+                  const index = this.carrito.findIndex(object => {
+                    return object.id === card.id;
+                    });
+
+                    console.log(index)
+                if(index == -1 && this.carrito[index].value >= 2){
+                    card.value = Number(card.value) -1
+                    const compraRef = doc(db, `Usuarios/${auth.currentUser.uid}`);
+
+
+                    updateDoc(compraRef, {
+                    compras: arrayUnion({ title: card.title, src: card.src, id: card.id, cantidad: card.cantidad ,precio: card.precio, value: card.value})
+                    });
+                    console.log(this.carrito)
+                } else if (index >= 0 && this.carrito[index].value >= 2) {
+                    const value = this.carrito[index].value
+                    console.log(value)
+                    const compraRef = doc(db, `Usuarios/${auth.currentUser.uid}`);
+
+                    updateDoc(compraRef, {
+                    compras: arrayRemove({ title: card.title, src: card.src, id: card.id, cantidad: card.cantidad ,precio: card.precio, value: value})
+                    });
+                    updateDoc(compraRef, {
+                    compras: arrayUnion({ title: card.title, src: card.src, id: card.id, cantidad: card.cantidad ,precio: card.precio, value: value - 1})
+                    });
+
+                    console.log(this.carrito)
+                }
             },
-            
+            borrarArticuloCarrito(carr){
+
+                const compraRef = doc(db, `Usuarios/${auth.currentUser.uid}`);
+
+                updateDoc(compraRef, {
+                compras: arrayRemove({ title: carr.title, src: carr.src, id: carr.id, cantidad: carr.cantidad ,precio: carr.precio, value: carr.value})
+                });
+            },
 
             quitarAlerta(){
                 this.dialogUser = false
             },
             
+            
 
         },
         watch:{
-        precioTotalArray(){
-            
-            
+         carrito(){
+            this.carrito.forEach(element => {
+                        const subTotal = Number(element.precio)* Number(element.value)
+                        this.precioTotalArray = subTotal
 
-            let array = this.precioTotalArray;
-
-            const reducer = (accumulator, curr) => accumulator + curr;
-            let arraySumado = array.reduce(reducer);
-            this.precioTotal = arraySumado
-        }
-
+                    })
+         }
         },
          computed:{
       ...mapState(['usuario']),

@@ -54,22 +54,6 @@ const routes = [
       requiresAuth : true
     }
   },
-  {
-    path: '/MisCompras',
-    name: 'MisCompras',
-    component: () => import(/* webpackChunkName: "about" */ '../views/MisCompras.vue'),
-    meta: {
-      requiresAuth : true
-    }
-  },
-  {
-    path: '/carrito',
-    name: 'carrito',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Carrito.vue'),
-    meta: {
-      requiresAuth : true
-    }
-  }
 ]
 
 
