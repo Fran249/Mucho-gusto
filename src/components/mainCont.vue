@@ -2,8 +2,9 @@
     <div>
     <v-navigation-drawer 
         fixed
-        permanent
-        right v-if="existeUsuario && carritoCompra">
+        temporary
+        right 
+        v-model="carritoCompra">
             <v-row>
                 <v-col cols="12">
                     <h3 class="mt-3 mb-3 ml-5">Mi carrito</h3>
@@ -22,11 +23,23 @@
                         mdi-delete
                     </v-icon>
                     </v-btn>
+                    <div >
+                        <v-btn text @click="aumentar(carr)">
+                            <v-icon>
+                                mdi-plus
+                            </v-icon>
+                        </v-btn>
+                        <v-btn text @click="disminuir(carr)">
+                            <v-icon>
+                                mdi-minus
+                            </v-icon>
+                        </v-btn>
+                        </div>
                 </v-list-item>
                 <v-divider></v-divider>
             </v-list>
             <div class="div-comprar-total">
-                <h3>
+                <h3 >
                     Total: ${{precioTotalArray}} 
                 </h3>
                 <v-btn @click="comprarPrimerPaso(carrito)" width="50%">
@@ -82,18 +95,6 @@
                             {{card.cantidad}} Unidades disponibles
                         </p>
                         <p v-if="card.cantidad >= 1">${{card.precio}}</p>
-                        <div v-if="card.cantidad >= 1">
-                        <v-btn text @click="aumentar(card)">
-                            <v-icon>
-                                mdi-plus
-                            </v-icon>
-                        </v-btn>
-                        <v-btn text @click="disminuir(card)">
-                            <v-icon>
-                                mdi-minus
-                            </v-icon>
-                        </v-btn>
-                        </div>
                         <p v-else>Sin stock</p>
                     </v-card-text>
                     <v-card-actions>
@@ -113,10 +114,12 @@
 
 <script>
     import { mapState, mapGetters } from 'vuex'
-    import { getFirestore, doc, onSnapshot, updateDoc, arrayUnion,arrayRemove } from "firebase/firestore";
+    import { getFirestore, doc, onSnapshot } from "firebase/firestore";
     import { initializeApp } from 'firebase/app';
     import {  firebaseConfig} from '../firebase/index'
-    import { getAuth } from "firebase/auth";
+    import { getAuth, onAuthStateChanged} from "firebase/auth";
+import store from '@/store';
+ 
 
     const auth = getAuth();
     const app = initializeApp(firebaseConfig);
@@ -129,11 +132,11 @@
             cards: null,
             dialogUser: false,
             carrito: [],
-            carritoCompra: false,
             cantidadComprar1: '',
             cantidadCustom: '',
             precioTotal:'',
             precioTotalArray: [],
+            currentUser: '',
             
         }),
         beforeMount(){
@@ -142,124 +145,164 @@
                 this.cards = doc.data().cards;
                 
             });
-            onSnapshot(doc(db, `Usuarios/${auth.currentUser.uid}`), (doc) => {
-                
-                this.carrito = doc.data().compras;
-                
-                
-            });
+
 
         },
         mounted(){
-      
-
-
-        },
-        updated(){
-           
-           
-
+            
 
         },
         methods:{
-            aumentar(card){ 
-                    const index = this.carrito.findIndex(object => {
-                    return object.id === card.id;
-                    });
-                    
-                    console.log(index)
-                    this.carritoCompra = true
-                    onSnapshot(doc(db, `Usuarios/${auth.currentUser.uid}`), (doc) => {
-                
-                        this.carrito = doc.data().compras;
-                        
-                        
-                    });
-   
-                if(index == -1){
-                    
-                    
-                    const compraRef = doc(db, `Usuarios/${auth.currentUser.uid}`);
-
-
-                    updateDoc(compraRef, {
-                    compras: arrayUnion({ title: card.title, src: card.src, id: card.id, cantidad: card.cantidad ,precio: card.precio, value: 1})
-                    });
-                    console.log(this.carrito)
-
-                } else if (index >= 0 ) {
-                    const value = this.carrito[index].value
-                    console.log(value)
-                    const compraRef = doc(db, `Usuarios/${auth.currentUser.uid}`);
-
-                    updateDoc(compraRef, {
-                    compras: arrayRemove({ title: card.title, src: card.src, id: card.id, cantidad: card.cantidad ,precio: card.precio, value: value})
-                    });
-                    updateDoc(compraRef, {
-                    compras: arrayUnion({ title: card.title, src: card.src, id: card.id, cantidad: card.cantidad ,precio: card.precio, value: value + 1})
-                    });
-
-                    console.log(this.carrito)
-                }
+            forceRerender() {
+            this.componentKey += 1;
             },
-            disminuir(card){
-                  const index = this.carrito.findIndex(object => {
-                    return object.id === card.id;
+            aumentar(carr){
+                const index = this.carrito.findIndex(object => {
+                    return object.id === carr.id;
                     });
+                let dataStorage = JSON.parse(localStorage.getItem(`cart/${auth.currentUser.uid}`));
 
-                    console.log(index)
-                if(index == -1 && this.carrito[index].value >= 2){
-                    card.value = Number(card.value) -1
-                    const compraRef = doc(db, `Usuarios/${auth.currentUser.uid}`);
+                dataStorage[index].value = Number(dataStorage[index].value + 1)
+                localStorage.setItem(`cart/${auth.currentUser.uid}`, JSON.stringify(dataStorage));
+                this.carrito[index].value = Number(this.carrito[index].value) +1
+                                
+                var subTotales = []
 
+                this.carrito.forEach(element => {
+                        subTotales.push(Number(element.value) * Number(element.precio))
+                        
+                    })
+                var sumaTotal = subTotales.reduce((prev, curr) => prev + curr, 0);
+                this.precioTotalArray = sumaTotal
 
-                    updateDoc(compraRef, {
-                    compras: arrayUnion({ title: card.title, src: card.src, id: card.id, cantidad: card.cantidad ,precio: card.precio, value: card.value})
+                
+                
+            },
+            disminuir(carr){
+
+                const index = this.carrito.findIndex(object => {
+                    return object.id === carr.id;
                     });
-                    console.log(this.carrito)
-                } else if (index >= 0 && this.carrito[index].value >= 2) {
-                    const value = this.carrito[index].value
-                    console.log(value)
-                    const compraRef = doc(db, `Usuarios/${auth.currentUser.uid}`);
+                let dataStorage = JSON.parse(localStorage.getItem(`cart/${auth.currentUser.uid}`));
 
-                    updateDoc(compraRef, {
-                    compras: arrayRemove({ title: card.title, src: card.src, id: card.id, cantidad: card.cantidad ,precio: card.precio, value: value})
-                    });
-                    updateDoc(compraRef, {
-                    compras: arrayUnion({ title: card.title, src: card.src, id: card.id, cantidad: card.cantidad ,precio: card.precio, value: value - 1})
-                    });
+                if(dataStorage[index].value >= 2){
 
-                    console.log(this.carrito)
+               
+
+                dataStorage[index].value = Number(dataStorage[index].value - 1)
+                localStorage.setItem(`cart/${auth.currentUser.uid}`, JSON.stringify(dataStorage));
+                this.carrito[index].value = Number(this.carrito[index].value) - 1
+
+                var subTotales = []
+
+                this.carrito.forEach(element => {
+                        subTotales.push(Number(element.value) * Number(element.precio))
+                        
+                    })
+                var sumaTotal = subTotales.reduce((prev, curr) => prev + curr, 0);
+                this.precioTotalArray = sumaTotal
+                
+                
                 }
             },
             borrarArticuloCarrito(carr){
 
-                const compraRef = doc(db, `Usuarios/${auth.currentUser.uid}`);
+                const index = this.carrito.findIndex(object => {
+                    return object.id === carr.id;
+                    });
+                
+                var dataStorage = JSON.parse(localStorage.getItem(`cart/${auth.currentUser.uid}`));
+                var dataItem = dataStorage[index]
 
-                updateDoc(compraRef, {
-                compras: arrayRemove({ title: carr.title, src: carr.src, id: carr.id, cantidad: carr.cantidad ,precio: carr.precio, value: carr.value})
-                });
+                dataStorage.splice(dataStorage.indexOf(dataItem),1)
+
+                localStorage.setItem(`cart/${auth.currentUser.uid}`, JSON.stringify(dataStorage));
+                console.log(dataStorage)
+
+                
+                
+                            
             },
 
             quitarAlerta(){
                 this.dialogUser = false
             },
-            
-            
+            detectUserAndBuy(card){
+                const index = this.carrito.findIndex(object => {
+                    return object.id === card.id;
+                    });
+
+               if (index == -1){
+                const cardItems = {
+                    title: card.title,
+                    src: card.src,
+                    precio: card.precio,
+                    cantidad: card.cantidad,
+                    value: 1,
+                    id: card.id,
+                }
+                this.carrito.push(cardItems)
+                console.log(this.carrito)
+                localStorage.setItem(`cart/${auth.currentUser.uid}`, JSON.stringify(this.carrito))
+               }else{
+                    return
+                
+               }
+               
+            },
+            actualizarComponente(){
+                this.carritoCompra = true
+            }
 
         },
-        watch:{
-         carrito(){
-            this.carrito.forEach(element => {
-                        const subTotal = Number(element.precio)* Number(element.value)
-                        this.precioTotalArray = subTotal
+        beforeCreate(){
 
+            onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                        let datosLocalStorage = JSON.parse(localStorage.getItem(`cart/${auth.currentUser.uid}`));
+                        if(datosLocalStorage === null){
+                            this.carrito = [];
+                        }else{
+                            this.carrito = datosLocalStorage;
+                        } 
+                    } else {
+                        // User is signed out
+                        // ...
+                    }
+                    });
+
+
+
+
+        },
+        created(){
+            
+        },
+
+        watch:{
+            carrito(){
+            var subTotales = []
+
+             this.carrito.forEach(element => {
+                        subTotales.push(Number(element.value) * Number(element.precio))
+                        
                     })
+            var sumaTotal = subTotales.reduce((prev, curr) => prev + curr, 0);
+            this.precioTotalArray = sumaTotal
+            
          }
         },
          computed:{
       ...mapState(['usuario']),
       ...mapGetters(['existeUsuario']),
+      carritoCompra: {
+        get () {
+          return store.state.carrito
+        },
+        set (value) {
+          store.commit('toggleCarrito', value)
+        }
+      }
       
   },
     }

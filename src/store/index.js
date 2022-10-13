@@ -20,6 +20,7 @@ export default new Vuex.Store({
   state: {
     usuario: null,
     error: null,
+    carrito: false,
     
   },
   getters: {
@@ -30,6 +31,9 @@ export default new Vuex.Store({
           return true
       }
     },
+    active: (state) => {
+      return state.carrito;
+    }
   },
   mutations: {
     setUsuario(state, payload){
@@ -38,11 +42,14 @@ export default new Vuex.Store({
     setError(state, payload){
       state.error = payload
     },
-
+    toggleCarrito: (state, value) => (state.carrito = value)
 
   },
   actions: {
-    
+
+    toggleCarrito({ commit }, value) {
+      commit("toggleCarrito", value);
+    },
      
 
 

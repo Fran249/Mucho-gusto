@@ -70,7 +70,7 @@ router.beforeEach((to, from, next) => {
 
     if (!usuario) {
       next({
-        path: '/pagina'
+        path: '/inicio'
       })
     } else {
       next()
