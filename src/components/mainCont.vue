@@ -118,7 +118,7 @@
     import { initializeApp } from 'firebase/app';
     import {  firebaseConfig} from '../firebase/index'
     import { getAuth, onAuthStateChanged} from "firebase/auth";
-import store from '@/store';
+    import store from '@/store';
  
 
     const auth = getAuth();
@@ -153,9 +153,6 @@ import store from '@/store';
 
         },
         methods:{
-            forceRerender() {
-            this.componentKey += 1;
-            },
             aumentar(carr){
                 const index = this.carrito.findIndex(object => {
                     return object.id === carr.id;
@@ -217,8 +214,12 @@ import store from '@/store';
                 dataStorage.splice(dataStorage.indexOf(dataItem),1)
 
                 localStorage.setItem(`cart/${auth.currentUser.uid}`, JSON.stringify(dataStorage));
-                console.log(dataStorage)
-
+                
+                var indexof = this.carrito.indexOf(carr)
+                this.carrito.splice(indexof, 1 )
+                if(this.carrito.length == 0){
+                    store.commit('toggleCarrito', false)
+                }
                 
                 
                             
@@ -242,7 +243,7 @@ import store from '@/store';
                     id: card.id,
                 }
                 this.carrito.push(cardItems)
-                console.log(this.carrito)
+                
                 localStorage.setItem(`cart/${auth.currentUser.uid}`, JSON.stringify(this.carrito))
                }else{
                     return

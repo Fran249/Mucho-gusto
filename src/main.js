@@ -53,7 +53,9 @@ auth.onAuthStateChanged(user => {
       //console.log("userData final", userData)
     })
    
-    } 
+    } else {
+      router.push('/inicio')
+    }
   }
 )
 

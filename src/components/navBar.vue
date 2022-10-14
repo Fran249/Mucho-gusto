@@ -144,7 +144,7 @@ import { mapActions, mapGetters, mapState } from 'vuex'
 <style lang="scss" scoped>
 .drawer-nav{
   background: rgb(0,0,0);
-  background: linear-gradient(140deg, rgba(0,0,0,0.927608543417367) 37%, rgba(255,255,255,0) 100%);
+background: linear-gradient(140deg, rgba(0,0,0,0.927608543417367) 37%, rgba(255,255,255,0) 100%);
 }
 .h3-email{
   color: #fff
