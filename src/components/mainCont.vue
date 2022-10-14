@@ -145,7 +145,7 @@
     export default {
         name: 'mainCont',
         data: ()=>({
-            estaComprando: false,
+            
             cards: null,
             dialogUser: false,
             dialogCarrito: false,
@@ -364,6 +364,7 @@
     color: rgba(94, 12, 148, 0.699)
 }
 .alerta{
+        margin-top: 100px;
         margin-right: 150px;
     }
 

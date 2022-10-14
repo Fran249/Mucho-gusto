@@ -5,8 +5,6 @@
    fixed
    height="75px"
    >
-   <v-row>
-    <v-col cols="12" class="d-flex flex-row align-center mt-8 col-secciones1">
       <v-btn text fab @click="navDraw = true" v-if="existeUsuario">
         <v-avatar>
           <v-img :src="usuario.foto"></v-img>
@@ -54,68 +52,6 @@
             </v-icon>
         </v-btn>
         </div>
-      </v-col>
-      <v-col cols="12" class="col-secciones mt-3"> 
-              <v-row class="row-secciones">
-              <v-list  class="v-list" >
-                <v-list-item>
-                  <v-menu
-                    offset-y
-                  >
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-btn
-                        color="primary"
-                        dark
-                        v-bind="attrs"
-                        v-on="on"
-                        text
-                      >
-                        Salados
-                      </v-btn>
-                    </template>
-
-                    <v-list>
-                      <v-list-item>
-                        <v-menu
-                            offset-y
-                          >
-                            <template v-slot:activator="{ on, attrs }">
-                              <v-btn
-                                color="primary"
-                                dark
-                                v-bind="attrs"
-                                v-on="on"
-                                text
-                              >
-                                Simples
-                              </v-btn>
-                            </template>
-
-                            <v-list>
-                              <v-list-item>
-                                Cremana
-                              </v-list-item>
-                              <v-list-item>
-                                Bizcocho
-                              </v-list-item>
-                              <v-list-item>
-                                Cremana
-                              </v-list-item>
-                            </v-list>
-                          </v-menu>
-                      </v-list-item>
-                      <v-list-item>
-                          <v-btn text>
-                            Rellenos
-                          </v-btn>
-                      </v-list-item>
-                    </v-list>
-                  </v-menu>
-                </v-list-item>
-              </v-list>
-            </v-row> 
-          </v-col>
-        </v-row>
     </v-app-bar>
       
     </div>
@@ -193,28 +129,6 @@ import { mapActions, mapGetters, mapState } from 'vuex'
             dialog2 : false,
             navDraw: false,
             email: '',
-            subSalados: [
-                    { title: 'Simples'},
-                    { title: 'Rellenos'},
-                        ],
-            subSimples: [
-                    { title: 'Cremana'},
-                    { title: 'Bizcocho'},
-                    { title: 'Grisín' },
-                    { title: 'Fajita saborizada' },
-                    { title: 'Marineras' },
-                    { title: 'Fosforitos' },
-                    ],
-            subRellenos:  [
-                    { title: 'Chips'},
-                    { title: 'Sanguches de miga'},
-                    { title: 'Sacramentos' },
-                    { title: 'Pebetes' },
-                    ],
-            subPebetes: [
-                    { title: 'Chips'},
-                    { title: 'Sanguches de miga'},
-                    ],
         }),
         methods:{
     ...mapActions(['cerrarSesion']),
@@ -246,7 +160,7 @@ import { mapActions, mapGetters, mapState } from 'vuex'
 <style lang="scss" scoped>
 .drawer-nav{
   background: rgb(0,0,0);
-background: linear-gradient(140deg, rgba(0,0,0,0.927608543417367) 37%, rgba(255,255,255,0) 100%);
+background: linear-gradient(140deg, rgb(0, 0, 0) 37%, rgba(255, 255, 255, 0) 100%);
 }
 .h3-email{
   color: #fff
