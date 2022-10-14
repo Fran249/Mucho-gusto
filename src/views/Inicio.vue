@@ -1,7 +1,7 @@
 <template>
   <div>
     <navBar/>
-    <mainCont/>
+    <mainCont class="mainCont"/>
   </div>
 </template>
 
@@ -20,3 +20,11 @@ export default {
 
 }
 </script>
+
+<style lang="scss" scoped>
+
+.mainCont{
+  margin-top: 80px;
+}
+
+</style>

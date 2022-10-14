@@ -21,6 +21,7 @@ export default new Vuex.Store({
     usuario: null,
     error: null,
     carrito: false,
+    sendNotif: 0,
     
   },
   getters: {
@@ -42,13 +43,16 @@ export default new Vuex.Store({
     setError(state, payload){
       state.error = payload
     },
-    toggleCarrito: (state, value) => (state.carrito = value)
-
+    toggleCarrito: (state, value) => (state.carrito = value),
+    sendNotif: (state, value) => (state.sendNotif = value)
   },
   actions: {
 
     toggleCarrito({ commit }, value) {
       commit("toggleCarrito", value);
+    },
+    sendNotif({commit},value){
+      commit("sendNofit", value);
     },
      
 

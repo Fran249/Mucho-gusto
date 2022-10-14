@@ -67,8 +67,26 @@
                 </v-alert>
               </v-btn>
         </v-fab-transition>
-
-
+        <v-fab-transition>
+              <v-btn
+                v-show="dialogCarrito"
+                fixed
+                right
+                fab
+                text
+                height="1px"
+                width="1px"
+                class="alerta"
+              >
+              <v-alert
+                dense
+                text
+                type="success"
+                >
+                Agregado al carrito!
+                </v-alert>
+              </v-btn>
+        </v-fab-transition>
         <v-row >
             <v-col 
             v-for="card in cards" :key="card.title"
@@ -108,7 +126,6 @@
             </v-col>
         </v-row>
     </v-container>
-
     </div>
 </template>
 
@@ -131,6 +148,7 @@
             estaComprando: false,
             cards: null,
             dialogUser: false,
+            dialogCarrito: false,
             carrito: [],
             cantidadComprar1: '',
             cantidadCustom: '',
@@ -153,6 +171,9 @@
 
         },
         methods:{
+
+
+        //////////////// Funciones para el Carrito ///////////////////////////////////////////////////    
             aumentar(carr){
                 const index = this.carrito.findIndex(object => {
                     return object.id === carr.id;
@@ -221,18 +242,29 @@
                     store.commit('toggleCarrito', false)
                 }
                 
-                
+                store.commit("sendNotif", this.carrito.length)
                             
             },
 
             quitarAlerta(){
                 this.dialogUser = false
             },
+
+          //////////////// Funciones para el Carrito /////////////////////////////////////////////////// 
+          
+          
+
+        /////////////////// Funciones para el articulo/////////////////////////////////////////////// 
             detectUserAndBuy(card){
                 const index = this.carrito.findIndex(object => {
                     return object.id === card.id;
                     });
+            if(auth.currentUser == null){
 
+                this.dialogUser = true
+                setTimeout(this.notificacionUserNoValid, 1200)
+
+            }else{
                if (index == -1){
                 const cardItems = {
                     title: card.title,
@@ -249,11 +281,23 @@
                     return
                 
                }
-               
+               this.dialogCarrito = true
+               setTimeout(this.notificacionCarrito, 1200)
+
+               store.commit("sendNotif", this.carrito.length)
+            }
             },
             actualizarComponente(){
                 this.carritoCompra = true
+            },
+            notificacionUserNoValid(){
+                this.dialogUser = false
+            },
+            notificacionCarrito(){
+                this.dialogCarrito = false
             }
+        /////////////////// Funciones para el articulo/////////////////////////////////////////////// 
+
 
         },
         beforeCreate(){
@@ -265,6 +309,7 @@
                             this.carrito = [];
                         }else{
                             this.carrito = datosLocalStorage;
+                            store.commit("sendNotif", this.carrito.length)
                         } 
                     } else {
                         // User is signed out
@@ -272,7 +317,7 @@
                     }
                     });
 
-
+                    
 
 
         },
@@ -310,6 +355,7 @@
 </script>
 
 <style lang="scss" scoped>
+
 
 .cardText{
     text-align: match-parent;

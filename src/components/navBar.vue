@@ -1,6 +1,12 @@
 <template>
   <div>
-   <v-app-bar class="appbar" color="#000">
+    <div>
+   <v-app-bar class="appbar" color="#000"
+   fixed
+   height="75px"
+   >
+   <v-row>
+    <v-col cols="12" class="d-flex flex-row align-center mt-8 col-secciones1">
       <v-btn text fab @click="navDraw = true" v-if="existeUsuario">
         <v-avatar>
           <v-img :src="usuario.foto"></v-img>
@@ -20,13 +26,20 @@
             Inicio
          </v-btn>
         </router-link>
-        <v-btn text v-if="existeUsuario " @click.stop="carritoCompra = !carritoCompra" color="#FEBF2C">
-          Carrito
-        </v-btn>
-        <v-spacer>
-
-        </v-spacer>
-        <div class="d-flex flex-row align-center">
+        <v-spacer></v-spacer>
+        <v-badge
+        color="green"
+        overlap
+        class="mr-5 mt-3"
+        :content="notif"
+        :value="notif">
+          <v-btn text v-if="existeUsuario " @click.stop="carritoCompra = !carritoCompra" color="#FEBF2C" icon>
+            <v-icon size="30px">
+              mdi-cart-outline
+            </v-icon>
+          </v-btn>
+        </v-badge>
+          <div class="d-flex flex-row align-center">
           <v-text-field
           class="mt-7"
           label="Buscar Producto"
@@ -41,8 +54,71 @@
             </v-icon>
         </v-btn>
         </div>
+      </v-col>
+      <v-col cols="12" class="col-secciones mt-3"> 
+              <v-row class="row-secciones">
+              <v-list  class="v-list" >
+                <v-list-item>
+                  <v-menu
+                    offset-y
+                  >
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-btn
+                        color="primary"
+                        dark
+                        v-bind="attrs"
+                        v-on="on"
+                        text
+                      >
+                        Salados
+                      </v-btn>
+                    </template>
+
+                    <v-list>
+                      <v-list-item>
+                        <v-menu
+                            offset-y
+                          >
+                            <template v-slot:activator="{ on, attrs }">
+                              <v-btn
+                                color="primary"
+                                dark
+                                v-bind="attrs"
+                                v-on="on"
+                                text
+                              >
+                                Simples
+                              </v-btn>
+                            </template>
+
+                            <v-list>
+                              <v-list-item>
+                                Cremana
+                              </v-list-item>
+                              <v-list-item>
+                                Bizcocho
+                              </v-list-item>
+                              <v-list-item>
+                                Cremana
+                              </v-list-item>
+                            </v-list>
+                          </v-menu>
+                      </v-list-item>
+                      <v-list-item>
+                          <v-btn text>
+                            Rellenos
+                          </v-btn>
+                      </v-list-item>
+                    </v-list>
+                  </v-menu>
+                </v-list-item>
+              </v-list>
+            </v-row> 
+          </v-col>
+        </v-row>
     </v-app-bar>
-    
+      
+    </div>
     <v-navigation-drawer
           
           v-model="navDraw"
@@ -112,14 +188,32 @@ import { mapActions, mapGetters, mapState } from 'vuex'
             components:{
 
             },
+            
             dialog1 : false,
             dialog2 : false,
             navDraw: false,
             email: '',
-            items: [
-                    { title: 'Dashboard', icon: 'mdi-view-dashboard' },
-                    { title: 'Photos', icon: 'mdi-image' },
-                    { title: 'About', icon: 'mdi-help-box' },
+            subSalados: [
+                    { title: 'Simples'},
+                    { title: 'Rellenos'},
+                        ],
+            subSimples: [
+                    { title: 'Cremana'},
+                    { title: 'Bizcocho'},
+                    { title: 'Grisín' },
+                    { title: 'Fajita saborizada' },
+                    { title: 'Marineras' },
+                    { title: 'Fosforitos' },
+                    ],
+            subRellenos:  [
+                    { title: 'Chips'},
+                    { title: 'Sanguches de miga'},
+                    { title: 'Sacramentos' },
+                    { title: 'Pebetes' },
+                    ],
+            subPebetes: [
+                    { title: 'Chips'},
+                    { title: 'Sanguches de miga'},
                     ],
         }),
         methods:{
@@ -134,6 +228,14 @@ import { mapActions, mapGetters, mapState } from 'vuex'
         },
         set (value) {
           store.commit('toggleCarrito', value)
+        }
+      },
+      notif: {
+        get () {
+          return store.state.sendNotif
+        },
+        set (value) {
+          store.commit('sendNotif', value)
         }
       }
   }
@@ -152,4 +254,11 @@ background: linear-gradient(140deg, rgba(0,0,0,0.927608543417367) 37%, rgba(255,
 .h3-name{
   color: #fff
 }
+.col-secciones{
+  height: 20px;
+}
+.col-secciones1{
+  height: 55px;
+}
+
 </style>
