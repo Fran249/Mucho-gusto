@@ -115,7 +115,9 @@
 
 
 import store from '@/store';
+
 import { mapActions, mapGetters, mapState } from 'vuex'
+
 
     export default {
         data: ()=>({
@@ -124,7 +126,7 @@ import { mapActions, mapGetters, mapState } from 'vuex'
             components:{
 
             },
-            
+            products : '',
             dialog1 : false,
             dialog2 : false,
             navDraw: false,
@@ -133,6 +135,9 @@ import { mapActions, mapGetters, mapState } from 'vuex'
         methods:{
     ...mapActions(['cerrarSesion']),
   },
+  mounted(){
+
+      },
   computed:{
     ...mapGetters(['existeUsuario']),
     ...mapState(['usuario']),
@@ -152,7 +157,8 @@ import { mapActions, mapGetters, mapState } from 'vuex'
           store.commit('sendNotif', value)
         }
       }
-  }
+  },
+  
     }
 </script>
 

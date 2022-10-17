@@ -22,6 +22,7 @@ export default new Vuex.Store({
     error: null,
     carrito: false,
     sendNotif: 0,
+    filterState: '',
     
   },
   getters: {
@@ -44,7 +45,8 @@ export default new Vuex.Store({
       state.error = payload
     },
     toggleCarrito: (state, value) => (state.carrito = value),
-    sendNotif: (state, value) => (state.sendNotif = value)
+    sendNotif: (state, value) => (state.sendNotif = value),
+    filterState: (state, value) => (state.filterState = value)
   },
   actions: {
 
@@ -53,6 +55,9 @@ export default new Vuex.Store({
     },
     sendNotif({commit},value){
       commit("sendNofit", value);
+    },
+    filterState({commit},value){
+      commit("filterState", value);
     },
      
 

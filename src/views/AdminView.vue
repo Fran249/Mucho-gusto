@@ -1,14 +1,21 @@
 <template>
     <div>
         <navBar/>
-        <v-container>
-
+        <v-container class="container">
+            <v-select
+            v-model="selectedCategory"
+          :items="items"
+          item-text="categoryName"
+          return-object
+          label="Categoria"
+        ></v-select> 
         <v-text-field
             v-model="title1"
             filled
             label="Agrega un Titulo"
             clearable
           >
+          
         </v-text-field>
           <v-text-field
             v-model="stock"
@@ -165,6 +172,12 @@
             navBar,
         },
         data:()=>({
+            selectedCategory: null,
+            items: [
+                {categoryName: 'Salados'},
+                {categoryName: 'Panificados'},
+                {categoryName: 'Dulce'},
+            ],
             title1: '',
             src1: '',
             id: '',
@@ -187,6 +200,14 @@
             dialogEdit: false
             
         }),
+        watch:{
+            selectedCategory(){
+
+                    console.log("Label: ", this.selectedCategory.categoryName)
+                            
+                    
+            }
+        },
 
         methods:{
             cambiarBtnTo(prod){
@@ -214,7 +235,7 @@
             },
 
             updateCard(){
-                const cardRef = doc(db, "AdminStock/v-card1");
+                const cardRef = doc(db, `AdminStock/${this.selectedCategory.categoryName}`);
                 updateDoc(cardRef, {
                 cards: arrayUnion({title: this.title1,src: this.src1, id: this.id, cantidad: this.stock, precio: this.precio , value: ''}),
                 
@@ -311,6 +332,9 @@
 
 
 <style lang="scss" scoped>
+    .container{
+        margin-top: 100px;
+    }
     .v-dialog{
         background-color: white;
         margin: 0;

@@ -3,12 +3,12 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDCeGTKFCscJlLKPl2LEITVVCQZaxw_oU0",
-  authDomain: "prueba-auth-vuex-router.firebaseapp.com",
-  projectId: "prueba-auth-vuex-router",
-  storageBucket: "prueba-auth-vuex-router.appspot.com",
-  messagingSenderId: "184901051080",
-  appId: "1:184901051080:web:0677b9175937de17a97bfd"
+  apiKey: process.env.VUE_APP_APIKEY,
+  authDomain: process.env.VUE_APP_AUTHDOMAIN,
+  projectId: process.env.VUE_APP_PROJETCTID,
+  storageBucket: process.env.VUE_APP_STORAGEBUCKET,
+  messagingSenderId: process.env.VUE_APP_MESSAGINGSENDERID,
+  appId: process.env.VUE_APP_APPID,
 };
 
 // Initialize Firebase

@@ -145,8 +145,10 @@
     export default {
         name: 'mainCont',
         data: ()=>({
-            
             cards: null,
+            cardsSalados: null,
+            cardsPanificados: null,
+            cardsDulces: null,
             dialogUser: false,
             dialogCarrito: false,
             carrito: [],
@@ -158,21 +160,38 @@
             
         }),
         beforeMount(){
-            onSnapshot(doc(db, "AdminStock/v-card1"), (doc) => {
-                
-                this.cards = doc.data().cards;
-                
-            });
+           
 
 
         },
         mounted(){
-            
+            onSnapshot(doc(db, "AdminStock/v-card1"), (doc) => {
+                
+                this.cards = doc.data().cards;
+                
+                
+            });
+            onSnapshot(doc(db, "AdminStock/Salados"), (doc) => {
+                
+                
+              this.cards = this.cards.concat(doc.data().cards) 
+
+            });
+            onSnapshot(doc(db, "AdminStock/Dulce"), (doc) => {
+                
+                this.cards = this.cards.concat(doc.data().cards) 
+                
+            });
+            onSnapshot(doc(db, "AdminStock/Panificados"), (doc) => {
+                
+                this.cards = this.cards.concat(doc.data().cards)
+                
+            });
+
+
 
         },
         methods:{
-
-
         //////////////// Funciones para el Carrito ///////////////////////////////////////////////////    
             aumentar(carr){
                 const index = this.carrito.findIndex(object => {
@@ -321,9 +340,6 @@
 
 
         },
-        created(){
-            
-        },
 
         watch:{
             carrito(){
@@ -336,7 +352,7 @@
             var sumaTotal = subTotales.reduce((prev, curr) => prev + curr, 0);
             this.precioTotalArray = sumaTotal
             
-         }
+         },
         },
          computed:{
       ...mapState(['usuario']),
@@ -348,7 +364,7 @@
         set (value) {
           store.commit('toggleCarrito', value)
         }
-      }
+      },
       
   },
     }
