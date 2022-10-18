@@ -11,8 +11,11 @@
          <Carrito :key="componentKey"/>
         </v-navigation-drawer>
         <v-row>
-        <v-col cols="12">
-        <mainCont class="mainCont" />
+          <v-col cols="3">
+            <menuFilterDulces class="menuFilterDulces"/>
+          </v-col>
+        <v-col cols="9">
+        <mainContDulces class="mainContDulces" />
         </v-col>
       </v-row>
     </v-container>
@@ -22,16 +25,18 @@
 <script>
 import Carrito from '../components/Carrito.vue'
 import navBar from '../components/navBar.vue'
-import mainCont from '../components/mainCont.vue'
+import menuFilterDulces from '../components/menuFilterDulces.vue'
 import store from '@/store';
+import mainContDulces from '@/components/mainContDulces.vue';
 
 export default {
   name: 'InicIo',
   components:{
     navBar,
-    mainCont,
+    menuFilterDulces,
     Carrito,
-  },
+    mainContDulces
+},
   data:()=>({
     componentKey: store.state.forceRenderCarrito,
 
@@ -58,8 +63,7 @@ export default {
 
 <style lang="scss" scoped>
 
-
-.menuFilterSalados{
+.menuFilterDulces{
   margin-top: 80px;
   position: fixed;
 

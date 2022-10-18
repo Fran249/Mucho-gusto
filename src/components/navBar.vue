@@ -1,50 +1,40 @@
 <template>
   <div>
-    <div>
-   <v-app-bar class="appbar" color="#000"
-   fixed
-   height="75px"
+   <v-app-bar
+    app
+    color="#000"
+    fixed
+    height="150px"
+    width="100%"
+    class="appbar"
    >
+   <div class="app-bar-container">
+    <div class="general-appbar">
+
+    <div class="rutas-sabores">
       <v-btn text fab @click="navDraw = true" v-if="existeUsuario">
         <v-avatar>
           <v-img :src="usuario.foto"></v-img>
         </v-avatar>
       </v-btn>
-      <v-btn text @click="dialog2 = true" v-if="!existeUsuario" color="#FEBF2C">Registro</v-btn> 
+        <v-btn text @click="dialog2 = true" v-if="!existeUsuario" color="#FEBF2C">Registro</v-btn>
       <v-dialog v-model="dialog2" width="500" transition="dialog-top-transition">
         <RegistroComponent/>
       </v-dialog>
       <v-btn text @click="dialog1 = true"  v-if="!existeUsuario" color="#FEBF2C">Ingreso</v-btn>
+
       <v-dialog v-model="dialog1" width="500" transition="dialog-top-transition">
         <IngresoComponent/>
       </v-dialog>
-      
-        <router-link style="text-decoration: none; color: inherit;" to="/inicio" >
-          <v-btn text color="#FEBF2C">
-            Inicio
-         </v-btn>
-        </router-link>
-        <v-spacer></v-spacer>
-        <v-badge
-        color="green"
-        overlap
-        class="mr-5 mt-3"
-        :content="notif"
-        :value="notif">
-          <v-btn text v-if="existeUsuario " @click.stop="carritoCompra = !carritoCompra" color="#FEBF2C" icon>
-            <v-icon size="30px">
-              mdi-cart-outline
-            </v-icon>
-          </v-btn>
-        </v-badge>
-          <div class="d-flex flex-row align-center">
+      </div>
+        <div class="buscador_vue">
           <v-text-field
           class="mt-7"
           label="Buscar Producto"
           solo
           rounded
+          full-width
         >
-
       </v-text-field>
         <v-btn icon>
             <v-icon color="white">
@@ -52,10 +42,61 @@
             </v-icon>
         </v-btn>
         </div>
-    </v-app-bar>
-      
+          <div class="cart-mg">
+            <v-badge
+            v-if="existeUsuario"
+            color="green"
+            overlap
+            class="mt-3"
+            :content="notif"
+            :value="notif">
+              <v-btn  v-if="existeUsuario " @click.stop="carritoCompra = !carritoCompra" rounded color="black" dark >
+                <v-icon size="30px" class="mr-2">
+                  mdi-briefcase
+                </v-icon>
+                Mis compras
+              </v-btn>
+            </v-badge>
+            <v-btn v-else disabled x-small>
+              <v-img src="https://i.imgur.com/6Xwvw8Y.png" width="50" height="50" contain>
+
+              </v-img>
+            </v-btn>
+          </div>
+      </div>
+      <div class="rutas-sabores">
+        <v-btn text disabled color="#FEBF2C" v-if="!existeUsuario">
+            Inicio
+         </v-btn>
+        <router-link style="text-decoration: none; color: inherit;" to="/" >
+          <v-btn text color="#FEBF2C">
+            Inicio
+         </v-btn>
+        </router-link>
+        <v-divider vertical color="#FEBF2C"></v-divider>
+        <router-link style="text-decoration: none; color: inherit;" to="/dulces" >
+          <v-btn text color="#FEBF2C">
+            Dulces
+         </v-btn>
+        </router-link>
+        <v-divider vertical color="#FEBF2C"></v-divider>
+        <router-link style="text-decoration: none; color: inherit;" to="/salados" >
+          <v-btn text color="#FEBF2C">
+            Salados
+         </v-btn>
+        </router-link>
+        <v-divider vertical color="#FEBF2C"></v-divider>  
+        <router-link style="text-decoration: none; color: inherit;" to="/panificados" >
+          <v-btn text color="#FEBF2C">
+            Panificados
+         </v-btn>
+        </router-link>
+        <v-btn text color="#FEBF2C" disabled v-if="existeUsuario">
+         </v-btn>
+      </div>
     </div>
-    <v-navigation-drawer
+    </v-app-bar>
+          <v-navigation-drawer
           
           v-model="navDraw"
           class="drawer-nav"
@@ -107,7 +148,8 @@
             </v-list-item>
           </v-list>
         </v-navigation-drawer>
-      </div>   
+    </div>
+
 </template>
 
 
@@ -168,17 +210,33 @@ import { mapActions, mapGetters, mapState } from 'vuex'
   background: rgb(0,0,0);
 background: linear-gradient(140deg, rgb(0, 0, 0) 37%, rgba(255, 255, 255, 0) 100%);
 }
-.h3-email{
-  color: #fff
-}
 .h3-name{
   color: #fff
 }
-.col-secciones{
-  height: 20px;
+.app-bar-container{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
 }
-.col-secciones1{
-  height: 55px;
+.general-appbar{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-
+.rutas-sabores{
+  margin-left: px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.buscador_vue{
+  width: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.registro-ingreso{
+  display: flex;
+}
 </style>

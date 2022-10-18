@@ -22,7 +22,9 @@ export default new Vuex.Store({
     error: null,
     carrito: false,
     sendNotif: 0,
+    carritoCompras: [],
     filterState: '',
+    forceRenderCarrito: 0,
     
   },
   getters: {
@@ -35,6 +37,9 @@ export default new Vuex.Store({
     },
     active: (state) => {
       return state.carrito;
+    },
+    array: (state) => {
+      return state.carritoCompras;
     }
   },
   mutations: {
@@ -46,7 +51,10 @@ export default new Vuex.Store({
     },
     toggleCarrito: (state, value) => (state.carrito = value),
     sendNotif: (state, value) => (state.sendNotif = value),
-    filterState: (state, value) => (state.filterState = value)
+    filterState: (state, value) => (state.filterState = value),
+    carritoCompras: (state, value) => (state.carritoCompras = value),
+    forceRenderCarrito: (state, value) => (state.forceRenderCarrito = value)
+    
   },
   actions: {
 
@@ -58,6 +66,12 @@ export default new Vuex.Store({
     },
     filterState({commit},value){
       commit("filterState", value);
+    },
+    carritoCompras({commit},value){
+      commit("carritoCompras", value);
+    },
+    forceRenderCarrito({commit},value){
+      commit("forceRenderCarrito", value);
     },
      
 
@@ -169,7 +183,7 @@ export default new Vuex.Store({
   },
     detectarUsuario({commit}, usuario){
       commit('setUsuario', usuario)
-      router.push('/inicio')
+      router.push('/')
   // eslint-disable-next-line no-unused-vars
   },
   

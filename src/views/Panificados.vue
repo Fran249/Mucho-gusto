@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-container fluid>
-      
+        
         <navBar/>
         <v-navigation-drawer
         fixed
@@ -11,8 +11,11 @@
          <Carrito :key="componentKey"/>
         </v-navigation-drawer>
         <v-row>
-        <v-col cols="12">
-        <mainCont class="mainCont" />
+          <v-col cols="3">
+            <menuFilterPanificados class="menuFilterPanificados"/>
+          </v-col>
+        <v-col cols="9">
+        <mainContPanificados class="mainContPanificados" />
         </v-col>
       </v-row>
     </v-container>
@@ -22,16 +25,18 @@
 <script>
 import Carrito from '../components/Carrito.vue'
 import navBar from '../components/navBar.vue'
-import mainCont from '../components/mainCont.vue'
+import menuFilterPanificados from '../components/menuFilterPanificados.vue'
 import store from '@/store';
+import mainContPanificados from '@/components/mainContPanificados.vue';
 
 export default {
   name: 'InicIo',
   components:{
     navBar,
-    mainCont,
+    menuFilterPanificados,
     Carrito,
-  },
+    mainContPanificados
+},
   data:()=>({
     componentKey: store.state.forceRenderCarrito,
 
@@ -59,7 +64,7 @@ export default {
 <style lang="scss" scoped>
 
 
-.menuFilterSalados{
+.menuFilterPanificados{
   margin-top: 80px;
   position: fixed;
 

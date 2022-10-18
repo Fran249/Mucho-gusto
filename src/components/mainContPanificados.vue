@@ -43,9 +43,9 @@
         <v-row >
             <v-col 
             v-for="card in cards" :key="card.title"
-            cols="3" >
-                <v-card   tile>
-                    <v-img :src="card.src" width="300px" height="150px">
+            cols="4" >
+                <v-card width="260px" height="650px">
+                    <v-img :src="card.src" width="250px" height="250px">
 
                     </v-img>
                     <v-card-title>
@@ -53,12 +53,15 @@
                            {{card.title}}
                         </h3>
                     </v-card-title>
+                    
                     <v-card-text>
+                        <p class="cardText">
                           Descripcion del producto
                           Descripcion del producto
                           Descripcion del producto
                           Descripcion del producto
                           Descripcion del producto
+                        </p>
                         <p v-if="card.cantidad >= 1">
                             {{card.cantidad}} Unidades disponibles
                         </p>
@@ -66,20 +69,10 @@
                         <p v-else>Sin stock</p>
                     </v-card-text>
                     <v-card-actions>
-                        <v-btn text icon @click="card.value = Number(card.value + 1)">
-                            <v-icon>
-                                mdi-plus
-                            </v-icon>
-                        </v-btn>
-                        {{card.value + 1}}
-                        <v-btn text icon @click="card.value = Number(card.value - 1)">
-                            <v-icon>
-                                mdi-minus
-                            </v-icon>
-                        </v-btn>
-                        <v-spacer></v-spacer>
                         <v-btn v-if="card.cantidad >= 1" text @click="detectUserAndBuy(card)">
-                                Agregar
+                            <h3 class="v-btn-comprar">
+                                Agregar al carrito
+                            </h3>
                         </v-btn>
                     </v-card-actions>
                 </v-card>
@@ -125,26 +118,10 @@
 
         },
         mounted(){
-            onSnapshot(doc(db, "AdminStock/v-card1"), (doc) => {
-                
-                this.cards = doc.data().cards;
-                
-                
-            });
-            onSnapshot(doc(db, "AdminStock/Salados"), (doc) => {
-                
-                
-              this.cards = this.cards.concat(doc.data().cards) 
 
-            });
-            onSnapshot(doc(db, "AdminStock/Dulce"), (doc) => {
-                
-                this.cards = this.cards.concat(doc.data().cards) 
-                
-            });
             onSnapshot(doc(db, "AdminStock/Panificados"), (doc) => {
                 
-                this.cards = this.cards.concat(doc.data().cards)
+                this.cards = doc.data().cards
                 
             });
 

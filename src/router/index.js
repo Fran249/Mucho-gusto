@@ -17,13 +17,36 @@ Vue.use(VueRouter)
 const routes = [
 
   {
-    path: '/inicIo',
+    path: '/',
     name: 'InicIo',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/Inicio.vue'),
-    
+  },
+  {
+    path: '/salados',
+    name: 'salados',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/Salados.vue'),
+  },
+  {
+    path: '/panificados',
+    name: 'panificados',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/Panificados.vue'),
+  },
+  {
+    path: '/dulces',
+    name: 'dulces',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/Dulces.vue'),
   },
   {
     path: '/pagina',
@@ -70,7 +93,7 @@ router.beforeEach((to, from, next) => {
 
     if (!usuario) {
       next({
-        path: '/inicio'
+        path: '/'
       })
     } else {
       next()
