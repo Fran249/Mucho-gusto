@@ -66,20 +66,28 @@
                         <p v-else>Sin stock</p>
                     </v-card-text>
                     <v-card-actions>
-                        <v-btn text icon @click="card.value = Number(card.value + 1)">
+                        <v-btn tile icon @click="aumentarCantidad(card)" outlined color="#02265c" width="30" height="30">
                             <v-icon>
                                 mdi-plus
                             </v-icon>
                         </v-btn>
-                        {{card.value + 1}}
-                        <v-btn text icon @click="card.value = Number(card.value - 1)">
+                        <div
+                        class="text-center pa-1 card-value"
+                        >
+                        <p class="number-value">{{Number(card.value)}}</p>
+                        </div>
+                        <v-btn tile icon @click="disminuirCantidad(card)" outlined color="#02265c" width="30" height="30">
                             <v-icon>
                                 mdi-minus
                             </v-icon>
                         </v-btn>
                         <v-spacer></v-spacer>
-                        <v-btn v-if="card.cantidad >= 1" text @click="detectUserAndBuy(card)">
-                                Agregar
+                        <v-btn v-if="card.cantidad >= 1" @click="detectUserAndBuy(card)" icon color="white" width="110" tile style="background-color: #02265C">
+                            <p class="mt-4 ml-2">AGREGAR</p>
+                            <v-icon size="15px" class="ml-2">
+                                mdi-briefcase
+                            </v-icon>
+                                
                         </v-btn>
                     </v-card-actions>
                 </v-card>
@@ -233,7 +241,20 @@
           
           
 
-        /////////////////// Funciones para el articulo/////////////////////////////////////////////// 
+        /////////////////// Funciones para el articulo///////////////////////////////////////////////
+        
+            aumentarCantidad(card){
+                card.value = Number(card.value) +1
+            },
+            disminuirCantidad(card){
+                if(card.value <= 1){
+                    return
+                } else{
+                        card.value = Number(card.value) -1
+                }
+            },
+
+
             detectUserAndBuy(card){
                 const index = this.carrito.findIndex(object => {
                     return object.id === card.id;
@@ -250,7 +271,7 @@
                     src: card.src,
                     precio: card.precio,
                     cantidad: card.cantidad,
-                    value: 1,
+                    value: card.value,
                     id: card.id,
                 }
                 this.carrito.push(cardItems)
@@ -258,6 +279,7 @@
                 localStorage.setItem(`cart/${auth.currentUser.uid}`, JSON.stringify(this.carrito))
 
                 store.commit('forceRenderCarrito', + 1)
+                card.value = 1
                }else{
                     return
                 
@@ -337,6 +359,33 @@
 <style lang="scss" scoped>
 
 
+@font-face{
+    font-family: humanst521-1;
+    src: url('/src/assets/Humanst521LtBTLight.ttf');
+    };
+    @font-face{
+    font-family:humanst521-2;
+    src: url('/src/assets/Humanst521BTBold.ttf');
+    };
+    @font-face{
+    font-family: humans521-3;
+    src: url('/src/assets/Hum521Rm.ttf');
+    }
+    @font-face {
+    font-family: 'humanst521_btroman';
+    src: url('/src/assets/hum521rm-webfont.woff2') format('woff2'),
+         url('/src/assets/hum521rm-webfont.woff') format('woff');
+    
+    
+    }
+
+.v-btn {
+  text-transform:none !important;
+}
+p{
+  font-family: humanst521-1;
+  font-size: 15px;
+}
 .cardText{
     text-align: match-parent;
 }
@@ -358,6 +407,15 @@
 }
 #lista-comprasOn{
     display: block;
+}
+.card-value{
+    width: 30px;
+    height: 30px;
+    border: 0.2px solid #02265C;
+    .number-value{
+        color: #02265C;
+        font-family: humanst521-2;
+    }
 }
 
 </style>

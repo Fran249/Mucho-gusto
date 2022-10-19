@@ -11,8 +11,10 @@
          <Carrito :key="componentKey"/>
         </v-navigation-drawer>
         <v-row>
-          <v-col cols="3">
+          <v-col cols="2">
+            <div class="menu-cont">
             <menuFilterSalados class="menuFilterSalados"/>
+            </div>
           </v-col>
         <v-col cols="9">
         <mainContSalados class="mainCont" />
@@ -63,10 +65,16 @@ export default {
 
 <style lang="scss" scoped>
 
-.menuFilterSalados{
-  margin-top: 80px;
-  position: fixed;
 
+.menu-cont{
+  height: 500px;
+
+  position: fixed;
+  overflow-y: auto;
+
+}
+.menuFilterSalados{
+  width: 100%;
 }
 
 </style>

@@ -11,8 +11,10 @@
          <Carrito :key="componentKey"/>
         </v-navigation-drawer>
         <v-row>
-          <v-col cols="3">
-            <menuFilterPanificados class="menuFilterPanificados"/>
+          <v-col cols="2">
+            <div class="menu-cont">
+              <menuFilterPanificados class="menuFilterPanificados"/>
+            </div>
           </v-col>
         <v-col cols="9">
         <mainContPanificados class="mainContPanificados" />
@@ -66,7 +68,13 @@ export default {
 
 .menuFilterPanificados{
   margin-top: 80px;
+
+}
+.menu-cont{
+  height: 500px;
+
   position: fixed;
+  overflow-y: auto;
 
 }
 

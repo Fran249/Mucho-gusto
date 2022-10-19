@@ -1,19 +1,6 @@
 <template>
     <div class="v-container">
-        <h3>Simples</h3>
-        <v-list v-for="simple in Simples" :key="simple.id">
-
-                <v-btn text x-small >
-                    {{simple.name}}
-                </v-btn>
- 
-        </v-list>
-        <h3>Rellenos</h3>
-        <v-list v-for="relleno in Rellenos" :key="relleno.id">
-                <v-btn text x-small>
-                    {{relleno.name}}
-                </v-btn>
-        </v-list>
+        <v-treeview :items="items" :multiple-active="true"></v-treeview>
     </div>
 </template>
 
@@ -22,41 +9,54 @@
     export default {
          name : 'menuFilter',
          data: ()=> ({
-            Simples: [
-                {   name : 'Cremona',
-                    id: 1
+            items:[
+                {
+                    name: 'Simples',
+                    id: 1,
+                    children: [
+                        {   name : 'Cremona',
+                            id: 2
+                        },
+                        {   name : 'Bizcocho',
+                            id: 3
+                        },
+                        {   name : 'Grisín',
+                            id: 4
+                        },
+                        {   name : 'Fajita Saborizada',
+                            id: 5
+                        },
+                        {   name : 'Marineras',
+                            id: 6
+                        },
+                        {   name : 'Fosforitos',
+                            id: 7
+                        },
+                    ]
                 },
-                {   name : 'Bizcocho',
-                    id: 2
-                },
-                {   name : 'Grisín',
-                    id: 3
-                },
-                {   name : 'Fajita Saborizada',
-                    id: 4
-                },
-                {   name : 'Marineras',
-                    id: 5
-                },
-                {   name : 'Fosforitos',
-                    id: 6
-                },
+                {
+                    name: 'Rellenos',
+                    id: 8,
+                    children: [
+                    {   name : 'Chips',
+                        id: 9
+                    },
+                    {   name : 'Sanguches de Miga',
+                        id: 10
+                    },
+                    {   name : 'Sacramentos',
+                        id: 11
+                    },
+                    {   name : 'Pebetes',
+                        id: 12
+                    },
+                        ] 
+                }
                 
             ],
             Rellenos: [
                 
-                {   name : 'Chips',
-                    id: 7
-                },
-                {   name : 'Sanguches de Miga',
-                    id: 8
-                },
-                {   name : 'Sacramentos',
-                    id: 9
-                },
-                {   name : 'Pebetes',
-                    id: 10
-                },
+               
             ]
          }),
          methods:{

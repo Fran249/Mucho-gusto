@@ -237,7 +237,7 @@
             updateCard(){
                 const cardRef = doc(db, `AdminStock/${this.selectedCategory.categoryName}`);
                 updateDoc(cardRef, {
-                cards: arrayUnion({title: this.title1,src: this.src1, id: this.id, cantidad: this.stock, precio: this.precio , value: ''}),
+                cards: arrayUnion({title: this.title1,src: this.src1, id: this.id, cantidad: this.stock, precio: this.precio , value: 1}),
                 
             });
                 

@@ -44,8 +44,8 @@
             <v-col 
             v-for="card in cards" :key="card.title"
             cols="4" >
-                <v-card width="260px" height="650px">
-                    <v-img :src="card.src" width="250px" height="250px">
+                <v-card tile>
+                    <v-img :src="card.src" width="310px" height="150px">
 
                     </v-img>
                     <v-card-title>
@@ -69,10 +69,28 @@
                         <p v-else>Sin stock</p>
                     </v-card-text>
                     <v-card-actions>
-                        <v-btn v-if="card.cantidad >= 1" text @click="detectUserAndBuy(card)">
-                            <h3 class="v-btn-comprar">
-                                Agregar al carrito
-                            </h3>
+                        <v-btn tile icon @click="aumentarCantidad(card)" outlined color="#02265c" width="30" height="30">
+                            <v-icon>
+                                mdi-plus
+                            </v-icon>
+                        </v-btn>
+                        <div
+                        class="text-center pa-1 card-value"
+                        >
+                        <p class="number-value">{{Number(card.value)}}</p>
+                        </div>
+                        <v-btn tile icon @click="disminuirCantidad(card)" outlined color="#02265c" width="30" height="30">
+                            <v-icon>
+                                mdi-minus
+                            </v-icon>
+                        </v-btn>
+                        <v-spacer></v-spacer>
+                        <v-btn v-if="card.cantidad >= 1" @click="detectUserAndBuy(card)" icon color="white" width="110" tile style="background-color: #02265C">
+                            Agregar
+                            <v-icon size="15px">
+                                mdi-briefcase
+                            </v-icon>
+                                
                         </v-btn>
                     </v-card-actions>
                 </v-card>
@@ -208,7 +226,17 @@
           
           
 
-        /////////////////// Funciones para el articulo/////////////////////////////////////////////// 
+        /////////////////// Funciones para el articulo///////////////////////////////////////////////
+        aumentarCantidad(card){
+                card.value = Number(card.value) +1
+            },
+            disminuirCantidad(card){
+                if(card.value <= 1){
+                    return
+                } else{
+                        card.value = Number(card.value) -1
+                }
+            },
             detectUserAndBuy(card){
                 const index = this.carrito.findIndex(object => {
                     return object.id === card.id;
@@ -334,5 +362,14 @@
 #lista-comprasOn{
     display: block;
 }
+.card-value{
+    width: 30px;
+    height: 30px;
+    border: 0.2px solid #02265C;
+    .number-value{
+        color: #02265C
+    }
+}
+
 
 </style>
