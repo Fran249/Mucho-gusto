@@ -43,9 +43,9 @@
         <v-row >
             <v-col 
             v-for="card in cards" :key="card.title"
-            cols="3" xl="2">
-                <v-card   tile>
-                    <v-img :src="card.src" width="100%" height="150px">
+            cols="4" lg="3" md="4" xl="2">
+                <v-card   tile elevation="9">
+                    <v-img :src="card.src" width="100%" height="250px">
 
                     </v-img>
                     <v-card-title>
@@ -82,9 +82,9 @@
                             </v-icon>
                         </v-btn>
                         <v-spacer></v-spacer>
-                        <v-btn v-if="card.cantidad >= 1" @click="detectUserAndBuy(card)" icon color="white" width="110" tile style="background-color: #02265C">
-                            <p class="mt-4 ml-2">AGREGAR</p>
-                            <v-icon size="15px" class="ml-2">
+                        <v-btn v-if="card.cantidad >= 1" @click="detectUserAndBuy(card)" icon color="white" width="120" tile style="background-color: #02265C">
+                            <p class="mt-4 ml-4">AGREGAR</p>
+                            <v-icon size="15px" class="ml-2 mr-2">
                                 mdi-briefcase
                             </v-icon>
                                 

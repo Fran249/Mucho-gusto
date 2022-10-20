@@ -1,25 +1,44 @@
 <template>
   <div class="v-dialog">
-      <h1 class="d-flex justify-center mb-5">Registro de usuarios</h1>
+      <h1 class="mb-5">¡CREÁ TU CUENTA!</h1>
       <form @submit.prevent="crearUsuario({email:email, password:pass1})" class="v-form">
           <v-text-field
               type="email" 
-              placeholder="Ingrese email"
               v-model="email"
-              
+              filled
+              full-width
+              append-icon="mdi-email"
+              placeholder="E-mail"
           ></v-text-field>
           <v-text-field
-              type="password" 
-              placeholder="Ingrese contraseña"
               v-model="pass1"
+              filled
+              full-width
+              :append-icon="value ? 'mdi-eye' : 'mdi-eye-off'"
+              @click:append="() => (value = !value)"
+              :type="value ? 'password' : 'text'"
+              placeholder="Contraseña"
           ></v-text-field>
           <v-text-field
-              type="password" 
-              placeholder="Repita contraseña"
               v-model="pass2"
+              filled
+              full-width
+              :append-icon="value ? 'mdi-eye' : 'mdi-eye-off'"
+              @click:append="() => (value = !value)"
+              :type="value ? 'password' : 'text'"
+              placeholder="Confirmar contraseña"
           ></v-text-field>
 
-          <v-btn type="submit" :disabled='!desactivar'>Registrar</v-btn>
+          <v-btn 
+          width="75%" 
+          class="ml-13" 
+          color="#febf2c"
+          type="submit" 
+          :disabled='!desactivar'>
+          <p class="mt-4 p-v-btn"  >
+            FINALIZAR REGISTRO
+          </p>
+          </v-btn>
       </form>
   </div>
 
@@ -31,6 +50,7 @@ import {mapActions, mapState} from 'vuex'
       name: "RegistroComponent",
       data(){
           return{
+              value: String,
               email: '',
               pass1: '',
               pass2: '',
@@ -55,20 +75,54 @@ import {mapActions, mapState} from 'vuex'
 </script>
 
 <style lang="scss" scoped>
+@font-face{
+    font-family: humanst521-1;
+    src: url('/src/assets/Humanst521LtBTLight.ttf');
+    };
+    @font-face{
+    font-family:humanst521-2;
+    src: url('/src/assets/Humanst521BTBold.ttf');
+    };
+    @font-face{
+    font-family: humans521-3;
+    src: url('/src/assets/Hum521Rm.ttf');
+    }
+    @font-face {
+    font-family: 'humanst521_btroman';
+    src: url('/src/assets/hum521rm-webfont.woff2') format('woff2'),
+         url('/src/assets/hum521rm-webfont.woff') format('woff');
+    
+    
+    }
+    @font-face {
+    font-family: 'humanst521_btbold';
+    src: url('/src/assets/humanst521_bt_bold-webfont.woff2') format('woff2'),
+         url('/src/assets/humanst521_bt_bold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 
+}
+
+.p-v-btn{
+    font-family: 'humanst521_btbold';
+    color: #fff
+}
+h1{
+    font-family: 'humanst521_btbold';
+    font-size: 20px;
+    font-weight: bold;
+    color: #374763;
+}
 .v-dialog{
         background-color: #fff;
         width: 100%;
-        height: 50%;
+        height: 100%;
         margin: 0;
-        padding: 15px;
+        padding: 50px;
         display: flex;
         flex-direction: column;
 
         .v-form{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             gap: 15px;
         }
     }

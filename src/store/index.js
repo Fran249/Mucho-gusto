@@ -73,9 +73,6 @@ export default new Vuex.Store({
     forceRenderCarrito({commit},value){
       commit("forceRenderCarrito", value);
     },
-     
-
-
 
     crearUsuario({commit}, usuario){
       createUserWithEmailAndPassword(auth, usuario.email, usuario.password)

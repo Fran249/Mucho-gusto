@@ -65,17 +65,40 @@ export default {
 
 <style lang="scss" scoped>
 
-.menuFilterDulces{
-  margin-top: 80px;
-  position: fixed;
-
-}
 .menu-cont{
   height: 500px;
-
+  width: 220px;
   position: fixed;
   overflow-y: auto;
 
+}
+.menu-cont::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+.menu-cont::-webkit-scrollbar:vertical {
+    width:10px;
+}
+
+.menu-cont::-webkit-scrollbar-button:increment,.contenedor::-webkit-scrollbar-button {
+    display: none;
+} 
+
+.menu-cont::-webkit-scrollbar:horizontal {
+    height: 10px;
+}
+
+.menu-cont::-webkit-scrollbar-thumb {
+    background-color: #797979;
+    border-radius: 20px;
+    border: 2px solid #f1f2f3;
+}
+
+.menu-cont::-webkit-scrollbar-track {
+    border-radius: 10px;  
+}
+.menuFilterDulces{
+  width: 100%;
 }
 
 </style>

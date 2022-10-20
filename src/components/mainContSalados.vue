@@ -43,9 +43,9 @@
         <v-row >
             <v-col 
             v-for="card in cards" :key="card.title"
-            cols="4" >
-                <v-card tile>
-                    <v-img :src="card.src" width="310px" height="150px">
+           cols="4" lg="4" md="5" xl="3">
+                <v-card tile elevation="9">
+                    <v-img :src="card.src" width="310px" height="250px">
 
                     </v-img>
                     <v-card-title>
@@ -85,9 +85,9 @@
                             </v-icon>
                         </v-btn>
                         <v-spacer></v-spacer>
-                        <v-btn v-if="card.cantidad >= 1" @click="detectUserAndBuy(card)" icon color="white" width="110" tile style="background-color: #02265C">
-                            Agregar
-                            <v-icon size="15px">
+                        <v-btn v-if="card.cantidad >= 1" @click="detectUserAndBuy(card)" icon color="white" width="120" tile style="background-color: #02265C">
+                            <p class="mt-4 ml-4">AGREGAR</p>
+                            <v-icon size="15px" class="ml-2 mr-2">
                                 mdi-briefcase
                             </v-icon>
                                 
@@ -341,6 +341,33 @@
 <style lang="scss" scoped>
 
 
+@font-face{
+    font-family: humanst521-1;
+    src: url('/src/assets/Humanst521LtBTLight.ttf');
+    };
+    @font-face{
+    font-family:humanst521-2;
+    src: url('/src/assets/Humanst521BTBold.ttf');
+    };
+    @font-face{
+    font-family: humans521-3;
+    src: url('/src/assets/Hum521Rm.ttf');
+    }
+    @font-face {
+    font-family: 'humanst521_btroman';
+    src: url('/src/assets/hum521rm-webfont.woff2') format('woff2'),
+         url('/src/assets/hum521rm-webfont.woff') format('woff');
+    
+    
+    }
+
+.v-btn {
+  text-transform:none !important;
+}
+p{
+  font-family: humanst521-1;
+  font-size: 15px;
+}
 .cardText{
     text-align: match-parent;
 }
@@ -368,9 +395,9 @@
     height: 30px;
     border: 0.2px solid #02265C;
     .number-value{
-        color: #02265C
+        color: #02265C;
+        font-family: humanst521-2;
     }
 }
-
 
 </style>

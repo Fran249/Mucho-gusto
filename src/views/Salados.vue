@@ -11,9 +11,9 @@
          <Carrito :key="componentKey"/>
         </v-navigation-drawer>
         <v-row>
-          <v-col cols="2">
+          <v-col cols="2" >
             <div class="menu-cont">
-            <menuFilterSalados class="menuFilterSalados"/>
+            <menuFilterSalados class="menuFilterSalados" />
             </div>
           </v-col>
         <v-col cols="9">
@@ -65,6 +65,31 @@ export default {
 
 <style lang="scss" scoped>
 
+.menu-cont::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+.menu-cont::-webkit-scrollbar:vertical {
+    width:10px;
+}
+
+.menu-cont::-webkit-scrollbar-button:increment,.contenedor::-webkit-scrollbar-button {
+    display: none;
+} 
+
+.menu-cont::-webkit-scrollbar:horizontal {
+    height: 10px;
+}
+
+.menu-cont::-webkit-scrollbar-thumb {
+    background-color: #797979;
+    border-radius: 20px;
+    border: 2px solid #f1f2f3;
+}
+
+.menu-cont::-webkit-scrollbar-track {
+    border-radius: 10px;  
+}
 
 .menu-cont{
   height: 500px;

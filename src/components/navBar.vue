@@ -3,7 +3,7 @@
    <v-app-bar
     app
     color="#000"
-    hide-on-scroll
+    fixed
     height="150px"
     width="100%"
     class="appbar"
@@ -24,15 +24,24 @@
         
         </div>
         <div class="registro-ingreso2" v-if="!existeUsuario">
-          <v-btn text @click="dialog2 = true" v-if="!existeUsuario" color="#FEBF2C">Registro</v-btn>
-        <v-dialog v-model="dialog2" width="500" transition="dialog-top-transition">
-          <RegistroComponent/>
-        </v-dialog>
-        <v-btn text @click="dialog1 = true"  v-if="!existeUsuario" color="#FEBF2C">Ingreso</v-btn>
+          <v-btn text @click="dialog1 = true"  v-if="!existeUsuario" color="#FEBF2C">
+          <p class="mt-3 registro-ingreso">
+            INGRESO
+          </p>
+        </v-btn>
 
         <v-dialog v-model="dialog1" width="500" transition="dialog-top-transition">
           <IngresoComponent/>
         </v-dialog>
+          <v-btn text @click="dialog2 = true" v-if="!existeUsuario" color="#FEBF2C">
+            <p class="mt-3 registro-ingreso">
+              REGISTRO
+            </p>
+          </v-btn>
+        <v-dialog v-model="dialog2" width="500" transition="dialog-top-transition">
+          <RegistroComponent/>
+        </v-dialog>
+
       </div>
     </div>
     </v-col>
@@ -235,6 +244,10 @@ import { mapActions, mapGetters, mapState } from 'vuex'
 p{
   font-family: humanst521-1;
   font-size: 15px;
+}
+.registro-ingreso{
+  font-family: humanst521-2;
+  font-size: 16px;
 }
 
 .drawer-nav{
