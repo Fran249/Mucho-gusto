@@ -43,9 +43,9 @@
         <v-row >
             <v-col 
             v-for="card in cards" :key="card.title"
-            cols="3" >
+            cols="3" xl="2">
                 <v-card   tile>
-                    <v-img :src="card.src" width="300px" height="150px">
+                    <v-img :src="card.src" width="100%" height="150px">
 
                     </v-img>
                     <v-card-title>
