@@ -1,7 +1,15 @@
 <template>
         <v-treeview :items="items" :multiple-active="true" transition>
             <template v-slot:label="{ item }">
-                <p class="item">{{ item.name }}</p>
+                <h3 v-if="item.name == 'Simples' || item.name == 'Rellenos' ">{{item.name}}</h3>
+                <p class="item" v-else>{{ item.name }}</p>
+                <v-progress-linear 
+                v-if="item.name =='Simples'"
+                background-color="#b3b6bc" color="#f2c04a" value="30" width="500px"></v-progress-linear>
+                <v-progress-linear 
+                v-if="item.name =='Rellenos'"
+                background-color="#b3b6bc" color="#f2c04a" value="30" width="500px"></v-progress-linear>
+                
             </template>
         </v-treeview>
 </template>
@@ -98,6 +106,12 @@
   font-family: humanst521-1;
   font-size: 15px;
   margin-top: 15px;
+}
+h3{
+    font-family: humanst521-2;
+    font-weight: bolder;
+    font-size: 20px;
+    margin-bottom: 5px;
 }
 
 

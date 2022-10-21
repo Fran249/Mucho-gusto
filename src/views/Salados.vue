@@ -92,8 +92,8 @@ export default {
 }
 
 .menu-cont{
-  height: 500px;
-
+  height: 100%;
+  width: 15%;
   position: fixed;
   overflow-y: auto;
 
@@ -101,5 +101,13 @@ export default {
 .menuFilterSalados{
   width: 100%;
 }
+@media only screen and (max-width: 1400px){
+    .menu-cont{
+    
+    height: 450px;
+    position: fixed;
+    overflow-y: auto;
 
+  }
+}
 </style>

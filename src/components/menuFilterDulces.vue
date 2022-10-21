@@ -1,7 +1,12 @@
 <template>
-        <v-treeview :items="items" :multiple-active="true" transition open-all>
+        <v-treeview :items="items" :multiple-active="true" transition open-all >
             <template v-slot:label="{ item }">
-                <p class="item">{{ item.name }}</p>
+                <h3 v-if="item.name == 'Dulces'">{{item.name}}</h3>
+                <p class="item" v-else>{{item.name}}</p>
+                <v-progress-linear 
+                v-if="item.name =='Dulces'"
+                background-color="#b3b6bc" color="#f2c04a" value="30" width="100%"></v-progress-linear>
+                 
             </template>
         </v-treeview>
 </template>
@@ -69,7 +74,7 @@
 </script>
 
 
-<style>
+<style lang="scss" scoped>
 @font-face{
     font-family: humanst521-1;
     src: url('/src/assets/Humanst521LtBTLight.ttf');
@@ -94,7 +99,12 @@
   font-size: 15px;
   margin-top: 15px;
 }
-
+h3{
+    font-family: humanst521-2;
+    font-weight: bolder;
+    font-size: 20px;
+    margin-bottom: 5px;
+}
 
 
 

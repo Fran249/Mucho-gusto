@@ -112,6 +112,7 @@
           v-if="existeUsuario"
           temporary
           app
+          width="275px"
           
         >
           <v-list>
@@ -132,28 +133,47 @@
             </v-list-item>
           </v-list>
     
-          <v-divider></v-divider>
+          <v-divider width="85%" class="ml-3 mb-10"></v-divider>
     
           <v-list
             nav
             dense
           >
-            <v-list-item>
-              <v-btn text @click="cerrarSesion" v-if="existeUsuario" color="#FEBF2C">Cerrar Sesión</v-btn>
-            </v-list-item>
-            <v-list-item>
-              <router-link style="text-decoration: none; color: inherit;" to="/adminView" >
-                <v-btn text v-if="existeUsuario && usuario.rol == 'admin'" color="#FEBF2C">
-                  Control de Stock
-                </v-btn>
-              </router-link>
-            </v-list-item>
-            <v-list-item>
+          <v-list-item v-if="existeUsuario">
               <router-link style="text-decoration: none; color: inherit;" to="/userView" >
-                <v-btn text v-if="existeUsuario" color="#FEBF2C">
-                  Mi Perfil
+                <v-btn text  color="#727272" >
+                  <v-icon class="mr-2">
+                  mdi-account
+                  </v-icon>
+                  <p class="title-draw mt-3">Mi Cuenta</p>
                 </v-btn>
               </router-link>
+            </v-list-item>
+            <v-list-item v-if="existeUsuario && usuario.rol == 'admin'" >
+              <router-link style="text-decoration: none; color: inherit;" to="/adminView" >
+                <v-btn text color="#727272">
+                  <v-icon class="mr-2">
+                    mdi-tune
+                  </v-icon>
+                  <p class="title-draw mt-3">Control de Stock</p>
+                </v-btn>
+              </router-link>
+            </v-list-item>
+            <v-list-item v-else>
+              <router-link style="text-decoration: none; color: inherit;" to="/" >
+                <v-btn text  color="#727272" >
+                  <v-icon class="mr-2">
+                    mdi-cart
+                  </v-icon>
+                  <p class="title-draw mt-3">Registro de Compra</p>
+                </v-btn>
+              </router-link>
+            </v-list-item>
+            <v-divider width="85%" class="ml-3 mb-10 mt-10"></v-divider>
+            <v-list-item v-if="existeUsuario">
+              <v-btn text @click="cerrarSesion"  color="#727272">
+                <p class="title-draw mt-3">CERRAR SESIÓN</p>
+              </v-btn>
             </v-list-item>
           </v-list>
         </v-navigation-drawer>
@@ -245,6 +265,11 @@ p{
   font-family: humanst521-1;
   font-size: 15px;
 }
+.title-draw{
+  font-family: humanst521-1;
+  font-weight: bold;
+  font-size: 16px;
+}
 .registro-ingreso{
   font-family: humanst521-2;
   font-size: 16px;
@@ -252,7 +277,7 @@ p{
 
 .drawer-nav{
   background: rgb(0,0,0);
-background: linear-gradient(140deg, rgb(0, 0, 0) 37%, rgba(255, 255, 255, 0) 100%);
+background-color: rgb(234,232,232,0.95);
 }
 .h3-name{
   color: #fff

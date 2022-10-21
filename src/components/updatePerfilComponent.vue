@@ -2,32 +2,39 @@
         <v-container fluid >
             
             <v-row row no-gutters>
-                <v-col cols="6">
                     <v-col cols="12" class="fotoContainer__2">
-                            <h3>Cambiar Foto de Perfil</h3>
-                            <v-progress-linear :value="UploadValue" max="100"></v-progress-linear>
-                            <input type="file" @change="onFileSelected">
-                            <v-btn @click="onUpload" v-if="this.UploadValue == 0">Subir</v-btn>
-                            
-                            <v-btn
-                            v-if="this.UploadValue == 100"
-                                :loading="loading3"
-                                :disabled="loading3"
-                                @click="cambiarFoto"
-                                >
-                                Cambiar Foto
+                            <h3>FOTO DE PERFIL</h3>
+                            <v-img :src="img" width="300" height="250">
+
+                            </v-img>
+                            <div class="linear-cont">
+                                <v-progress-linear 
+                                background-color="#b3b6bc" 
+                                color="#f2c04a"
+                                :value="UploadValue"
+                                max="100">
+                                </v-progress-linear>
+                            </div>
+                                <input type="file" @change="onFileSelected"/>
+                            <v-btn 
+                            @click="onUpload" 
+                            v-if="this.UploadValue == 0" 
+                            :disabled="disabled"
+                            color="#febf2c" 
+                            class="linear-cont">
+                                <p class="p-v-btn mt-4">SUBIR IMAGEN</p>
                                 <v-icon
                                     right
                                     dark
-                                    class="ml-2"
+                                    class="ml-2 mb-1"
+                                    color="#fff"
                                 >
                                     mdi-cloud-upload
                                 </v-icon>
-                                </v-btn>                
+                            </v-btn>              
 
                     </v-col>
                     <v-divider ></v-divider>
-                </v-col>
 
             </v-row>
         </v-container>
@@ -50,11 +57,11 @@ initializeApp(firebaseConfig);
 
         data:()=>({
             nombre:'',
+            disabledBtn: false,
             selectedFile: null,
             UploadValue: 0,
             picture: '',
-            loader: null,
-            loading3: false,
+            img: auth.currentUser.photoURL
         }),
         methods: {
             
@@ -73,7 +80,8 @@ initializeApp(firebaseConfig);
                     this.UploadValue = progress;
                     console.log(this.UploadValue)
                 })
-                
+                setTimeout(this.cambiarFoto, 1200)
+                this.loader = 'loading3'
             },
             //////////////////////------Funcion para cambiar Foto-----////////////////////// 
             cambiarFoto(){
@@ -85,10 +93,10 @@ initializeApp(firebaseConfig);
                 .catch((error) => {
                     console.log(error)
                 });
-                this.loader = 'loading3'
+                
             //////////////////////------timeOut para Esperar la carga completa del archivo -----//////////////////////
                 
-                setTimeout(this.changePic, 2300 )
+                setTimeout(this.changePic, 2000 )
 
             },
             changePic(){
@@ -106,24 +114,80 @@ initializeApp(firebaseConfig);
 
             },
             watch: {
-                loader () {
-                    const l = this.loader
-                    this[l] = !this[l]
-
-                    setTimeout(() => (this[l] = false), 2300)
-
-                    this.loader = null
-                }
+        
             },
 
             computed: { 
             ...mapState(['usuario']),
+
+            disabled: {
+                get () {
+                if(this.selectedFile != null){
+                    return false
+                } else { 
+                    return true
+                }
+                },
+            },
+      
             },
     }
 </script>
 
 
 <style lang="scss" scoped>
+
+@font-face{
+font-family: humanst521-1;
+src: url('/src/assets/Humanst521LtBTLight.ttf');
+};
+@font-face{
+font-family:humanst521-2;
+src: url('/src/assets/Humanst521BTBold.ttf');
+};
+@font-face{
+font-family: humans521-3;
+src: url('/src/assets/Hum521Rm.ttf');
+}
+@font-face {
+font-family: 'humanst521_btroman';
+src: url('/src/assets/hum521rm-webfont.woff2') format('woff2'),
+     url('/src/assets/hum521rm-webfont.woff') format('woff');
+
+
+}
+@font-face {
+font-family: 'humanst521_btbold';
+src: url('/src/assets/humanst521_bt_bold-webfont.woff2') format('woff2'),
+     url('/src/assets/humanst521_bt_bold-webfont.woff') format('woff');
+font-weight: normal;
+font-style: normal;
+
+}
+
+.linear-cont{
+width: 58%;
+
+}
+
+h3{
+    font-family: humanst521-1;
+    font-size: 20px;
+    color: grey
+}
+.p-v-btn{
+    font-family: 'humanst521_btbold';
+    color: #fff
+}
+
+.v-btn {
+  text-transform:none !important;
+}
+p{
+  font-family: 'humanst521_btbold';
+  font-size: 14px;
+}
+
 .fotoContainer__1{
     width: 500px;
     display: flex;

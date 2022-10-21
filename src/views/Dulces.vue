@@ -66,10 +66,10 @@ export default {
 <style lang="scss" scoped>
 
 .menu-cont{
-  height: 500px;
-  width: 220px;
+  height: 100%;
   position: fixed;
   overflow-y: auto;
+  width: 16%;
 
 }
 .menu-cont::-webkit-scrollbar {
@@ -100,5 +100,13 @@ export default {
 .menuFilterDulces{
   width: 100%;
 }
+@media only screen and (max-width: 1400px){
+  .menu-cont{
+  height: 450px;
+  position: fixed;
+  overflow-y: auto;
 
+}
+
+}
 </style>

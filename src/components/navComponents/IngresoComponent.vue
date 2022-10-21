@@ -59,7 +59,7 @@
             <p class="resetPass text-center" v-if="sendEmail">
                 <v-icon color="green">
                     mdi-check
-                </v-icon>  Enviamos un email a {{this.email}} para reeestablecer tu contraseña
+                </v-icon>  Enviamos un email a {{this.email}} para reestablecer tu contraseña
             </p>
            </div>
             <v-btn 

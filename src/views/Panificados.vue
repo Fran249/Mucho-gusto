@@ -92,8 +92,8 @@ export default {
 }
 
 .menu-cont{
-  height: 500px;
-
+  height: 100%;
+  width: 16%;
   position: fixed;
   overflow-y: auto;
 
