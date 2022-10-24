@@ -67,8 +67,9 @@
                         </p>
                         <p v-if="card.cantidad >= 1">${{card.precio}}</p>
                         <p v-else>Sin stock</p>
+                        
                     </v-card-text>
-                    <v-card-actions>
+                    <v-card-actions v-if="card.cantidad >= 1">
                         <v-btn tile icon @click="aumentarCantidad(card)" outlined color="#02265c" width="30" height="30">
                             <v-icon>
                                 mdi-plus
@@ -136,12 +137,7 @@
 
         },
         mounted(){
-            onSnapshot(doc(db, "AdminStock/Salados"), (doc) => {
-                
-                
-              this.cards = doc.data().cards 
 
-            });
 
 
         },
@@ -302,7 +298,19 @@
                     }
                     });
 
-                    
+                    onSnapshot(doc(db, "AdminStock/SaladosRellenos"), (doc) => {
+                
+                
+                this.cards = doc.data().cards
+  
+              });
+              onSnapshot(doc(db, "AdminStock/SaladosSimples"), (doc) => {
+                
+                
+                this.cards = this.cards.concat(doc.data().cards)
+  
+              });
+              
 
 
         },
@@ -360,7 +368,10 @@
     
     
     }
-
+    h3{
+    font-family: humanst521-2;
+  font-size: 30px;
+}
 .v-btn {
   text-transform:none !important;
 }

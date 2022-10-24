@@ -58,51 +58,22 @@
       </v-text-field>
       </div>
       <div class="rutas-sabores">
-          <router-link class="link" style="text-decoration: none; color: inherit;" to="/" >
-            <v-btn text color="white">
-               <p class="mt-3">Inicio</p>
+            <router-link class="link" style="text-decoration: none; color: inherit;" to="/agregar" >
+              <v-btn text color="white">
+                <p class="mt-3">Agregar</p>
             </v-btn>
             </router-link>
             <v-divider vertical color="white" inset class="mb-2"></v-divider>  
-            <router-link class="link" style="text-decoration: none; color: inherit;" to="/dulces" >
+            <router-link class="link" style="text-decoration: none; color: inherit;" to="/stock" >
               <v-btn text color="white">
-                <p class="mt-3">Dulces</p>
+                <p class="mt-3">Stock</p>
             </v-btn>
             </router-link>
-            <v-divider vertical color="white" inset class="mb-2"></v-divider>  
-            <router-link class="link" style="text-decoration: none; color: inherit;" to="/salados" >
-              <v-btn text color="white">
-                <p class="mt-3">Salados</p>
-            </v-btn>
-            </router-link>
-            <v-divider vertical color="white" inset class="mb-2"></v-divider>  
-            <router-link class="link" style="text-decoration: none; color: inherit;"  to="/panificados" >
-              <v-btn text color="white">
-                <p class="mt-3">Panificados</p>
-            </v-btn>
-          </router-link>
         </div>
       </div>
     </v-col>
       <v-col cols="4">
-          <div class="container-cart-mg">
-            <div class="cart-mg">
-              <v-badge
-              v-if="existeUsuario"
-              color="green"
-              overlap
-              class="mt-3"
-              :content="notif"
-              :value="notif">
-                <v-btn  v-if="existeUsuario " @click.stop="carritoCompra = !carritoCompra" width="160" outlined color="white" >
-                  <v-icon size="20px" class="mr-2">
-                    mdi-briefcase
-                  </v-icon>
-                  <p class="mt-4">MIS COMPRAS</p>
-                </v-btn>
-              </v-badge>
-            </div>
-          </div>
+          
         </v-col>
     </v-app-bar>
           <v-navigation-drawer
@@ -150,7 +121,7 @@
               </router-link>
             </v-list-item>
             <v-list-item v-if="existeUsuario && usuario.rol == 'admin'" >
-              <router-link style="text-decoration: none; color: inherit;" to="/stock" >
+              <router-link style="text-decoration: none; color: inherit;" to="/adminView" >
                 <v-btn text color="#727272">
                   <v-icon class="mr-2">
                     mdi-tune
@@ -318,7 +289,7 @@ background-color: rgb(234,232,232,0.95);
   align-items: flex-start;
   margin-bottom: 15%;
 }
-.link.exact-active .v-btn p {
+.link.active .v-btn p {
   color: #f2c04a;
 }
 </style>

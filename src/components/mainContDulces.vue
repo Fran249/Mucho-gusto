@@ -358,7 +358,10 @@
     
     
     }
-
+    h3{
+    font-family: humanst521-2;
+  font-size: 30px;
+}
 .v-btn {
   text-transform:none !important;
 }

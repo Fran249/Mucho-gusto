@@ -54,9 +54,25 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/Pagina.vue')
   },
   {
-    path: '/adminView',
-    name: 'adminView',
-    component: () => import(/* webpackChunkName: "about" */ '../views/AdminView.vue'),
+    path: '/agregar',
+    name: 'agregarView',
+    component: () => import(/* webpackChunkName: "about" */ '../views/agregarView.vue'),
+    beforeEnter: (to,from, next) => {
+      if( store.state.rol == 'admin'){
+        next()
+      }else if ( store.state.usuario.rol == null){
+        next('/error')
+      }else if (store.state.usuario.rol == 'user'){
+        next('/error')
+      }
+        next();
+
+    },
+  },
+  {
+    path: '/stock',
+    name: 'stockView',
+    component: () => import(/* webpackChunkName: "about" */ '../views/stockView.vue'),
     beforeEnter: (to,from, next) => {
       if( store.state.rol == 'admin'){
         next()
@@ -82,7 +98,9 @@ const routes = [
 
 
 const router = new VueRouter({
-  routes
+  routes,
+  linkActiveClass: "active",
+  linkExactActiveClass: "exact-active",
 })
 router.beforeEach((to, from, next) => {
 

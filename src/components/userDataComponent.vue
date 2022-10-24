@@ -1,6 +1,6 @@
 <template>
     <div>
-    <h3>DATOS PERSONALES</h3>
+    <h3 class="ml-3">DATOS PERSONALES</h3>
     <v-container>
         <v-row>
             <v-col cols="6">
@@ -55,7 +55,7 @@
                 </v-btn>
             </v-col>
             <v-col cols="6">
-                <v-btn @click="guardarCambios" class="ml-15 mt-15 linear-cont" elevation="0" color="#febf2c">
+                <v-btn @click="guardarCambios" class=" mt-15 linear-cont" elevation="0" color="#febf2c">
                     <p class="p-v-btn mt-4" >GUARDAR CAMBIOS</p> 
                 </v-btn>
             </v-col>
@@ -196,7 +196,8 @@ h3{
     color: grey
 }
 .linear-cont{
-width: 100%;
+width: 70%;
+margin-left: 30%;
 
 }
 .p-v-btn{

@@ -1,20 +1,28 @@
 <template>
     <div>
         <navBar/>
+        <v-navigation-drawer
+        fixed
+        temporary
+        right 
+        v-model="carritoCompra"
+        width="25%">
+         <Carrito :key="componentKey"/>
+        </v-navigation-drawer>
         <v-container fluid>
-            <h3 class="ml-10 mb-3">MI PERFIL</h3>
+            <h3 class="h3-title mb-3">MI PERFIL</h3>
             <div class="linear-cont">
                 <v-progress-linear 
                 background-color="#b3b6bc" 
                 color="#f2c04a" 
-                value="30">
+                :value="changeValue()">
                 </v-progress-linear>
             </div>
             <v-row>
-                <v-col cols="5" >
-                    <updatePerfilComponent class="ml-15" />
+                <v-col cols="3" >
+                    <updatePerfilComponent class="updatePerfilComp" />
                 </v-col>
-                <v-col cols="6" >
+                <v-col cols="9" >
                     <userDataComponent class="userData"/>
                 </v-col>
             </v-row>
@@ -28,6 +36,8 @@
 import navBar from '../components/navBar.vue'
 import updatePerfilComponent from '@/components/updatePerfilComponent.vue';
 import userDataComponent from '@/components/userDataComponent.vue';
+import Carrito from '@/components/Carrito.vue'
+import store from '@/store';
 
     export default{
         name: 'UserView',
@@ -35,12 +45,40 @@ import userDataComponent from '@/components/userDataComponent.vue';
             navBar,
             updatePerfilComponent,
             userDataComponent,
+            Carrito,
         },
         data:()=>({
-
-
+            componentKey: store.state.forceRenderCarrito,
             
         }),
+        methods:{
+            changeValue(){
+                
+                if(window.innerWidth >= 1400){
+                    return 10
+                }
+                else {
+                    return 13
+                }
+
+            }
+        },
+        watch:{
+        componentKey(){
+            this.componentKey = store.state.forceRenderCarrito
+            
+        }
+        },
+        computed:{
+            carritoCompra: {
+        get () {
+          return store.state.carrito
+        },
+        set (value) {
+          store.commit('toggleCarrito', value)
+        }
+      },
+        }
 
     }
 </script>
@@ -81,11 +119,18 @@ h3{
 }
 .linear-cont{
     width: 95%;
-    margin-left: 2%;
+    margin-left: 3%;
 }
 .userData{
     margin-top: 20px
 }
+.h3-title{
+    margin-left: 4.5%;
+}
+.updatePerfilComp{
 
+    margin-left: 13%;
+
+}
 
 </style>
