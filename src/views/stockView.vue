@@ -74,10 +74,10 @@
               <td v-if="prod.cantidad < 1">SIN STOCK</td>
               <td>$ {{ prod.precio }}</td>
               <td>
-                <v-btn class="mb-5 mr-5" icon @click="cambiarBtnTo(prod)">
+                <v-btn class="mb-5 mr-5" icon @click="cambiarBtnToID(prod) " >
                   <v-icon color="#9d9c9c"> mdi-barcode </v-icon>
                 </v-btn>
-                <v-btn class="mb-5 mr-5" icon @click="cambiarBtnTo(prod)">
+                <v-btn class="mb-5 mr-5" icon >
                   <v-icon color="#9d9c9c"> mdi-file-image </v-icon>
                 </v-btn>
                 <v-btn class="mb-5 mr-5" icon @click="cambiarBtnTo(prod)">
@@ -116,10 +116,10 @@
               <td v-if="prod.cantidad < 1">SIN STOCK</td>
               <td>$ {{ prod.precio }}</td>
               <td>
-                <v-btn class="mb-5 mr-5" icon @click="cambiarBtnTo(prod)">
+                <v-btn class="mb-5 mr-5" icon @click="cambiarBtnToID(prod) " >
                   <v-icon color="#9d9c9c"> mdi-barcode </v-icon>
                 </v-btn>
-                <v-btn class="mb-5 mr-5" icon @click="cambiarBtnTo(prod)">
+                <v-btn class="mb-5 mr-5" icon >
                   <v-icon color="#9d9c9c"> mdi-file-image </v-icon>
                 </v-btn>
                 <v-btn class="mb-5 mr-5" icon @click="cambiarBtnTo(prod)">
@@ -158,10 +158,10 @@
               <td v-if="prod.cantidad < 1">SIN STOCK</td>
               <td>$ {{ prod.precio }}</td>
               <td>
-                <v-btn class="mb-5 mr-5" icon @click="cambiarBtnTo(prod)">
+                <v-btn class="mb-5 mr-5" icon @click="cambiarBtnToID(prod) " >
                   <v-icon color="#9d9c9c"> mdi-barcode </v-icon>
                 </v-btn>
-                <v-btn class="mb-5 mr-5" icon @click="cambiarBtnTo(prod)">
+                <v-btn class="mb-5 mr-5" icon >
                   <v-icon color="#9d9c9c"> mdi-file-image </v-icon>
                 </v-btn>
                 <v-btn class="mb-5 mr-5" icon @click="cambiarBtnTo(prod)">
@@ -377,57 +377,6 @@ export default {
       this.idEdit = false;
       this.dialogEdit = false;
 },
-    editarStockDulces() {
-      const cardRef = doc(db, "AdminStock/Dulces");
-      updateDoc(cardRef, {
-        cards: arrayRemove({
-          title: this.prodTitle,
-          src: this.prodSrc,
-          id: this.prodId,
-          cantidad: this.prodCantidad,
-          precio: this.prodPrecio,
-          value: this.prodValue,
-        }),
-      });
-      updateDoc(cardRef, {
-        cards: arrayUnion({
-          title: this.prodTitle,
-          src: this.prodSrc,
-          id: this.prodId,
-          cantidad: this.stockEditado,
-          precio: this.prodPrecio,
-          value: this.prodValue,
-        }),
-      });
-      this.stockEditado = "";
-      this.dialogEdit = false;
-    },
-    editarStockPanificados() {
-      const cardRef = doc(db, "AdminStock/Panificados");
-      updateDoc(cardRef, {
-        cards: arrayRemove({
-          title: this.prodTitle,
-          src: this.prodSrc,
-          id: this.prodId,
-          cantidad: this.prodCantidad,
-          precio: this.prodPrecio,
-          value: this.prodValue,
-        }),
-      });
-      updateDoc(cardRef, {
-        cards: arrayUnion({
-          title: this.prodTitle,
-          src: this.prodSrc,
-          id: this.prodId,
-          cantidad: this.stockEditado,
-          precio: this.prodPrecio,
-          value: this.prodValue,
-        }),
-      });
-      this.stockEditado = "";
-      this.dialogEdit = false;
-    },
-
     updateCard() {
       const cardRef = doc(
         db,
