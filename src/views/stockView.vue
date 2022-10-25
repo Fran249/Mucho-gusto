@@ -10,11 +10,12 @@
         class="mb-10"
       >
       </v-progress-linear>
-      <h3>SALADO/SIMPLES</h3>
+      <h3 class="subTitle">SALADO/SIMPLES</h3>
       <v-simple-table>
         <template v-slot:default>
           <thead>
             <tr>
+              <th class="text-left"></th>
               <th class="text-left">NOMBRE</th>
               <th class="text-left">ID</th>
               <th class="text-left">STOCK</th>
@@ -24,14 +25,21 @@
           </thead>
           <tbody>
             <tr v-for="prod in productoSimple" :key="prod.title">
+              <td><v-img width="60px" height="60px" :src="prod.src"></v-img></td>
               <td>{{ prod.title }}</td>
               <td>{{ prod.id }}</td>
               <td v-if="prod.cantidad >= 0">{{ prod.cantidad }}</td>
               <td v-if="prod.cantidad < 1">SIN STOCK</td>
               <td>$ {{ prod.precio }}</td>
               <td>
+                <v-btn class="mb-5 mr-5" icon @click="cambiarBtnToID(prod) " >
+                  <v-icon color="#9d9c9c"> mdi-barcode </v-icon>
+                </v-btn>
+                <v-btn class="mb-5 mr-5" icon >
+                  <v-icon color="#9d9c9c"> mdi-file-image </v-icon>
+                </v-btn>
                 <v-btn class="mb-5 mr-5" icon @click="cambiarBtnTo(prod)">
-                  <v-icon color="green"> mdi-grease-pencil </v-icon>
+                  <v-icon color="#9d9c9c"> mdi-grease-pencil </v-icon>
                 </v-btn>
                 <v-divider class="mt-5" vertical inset></v-divider>
                 <v-btn class="mb-5 ml-3" @click="borrarCard(prod)" text icon>
@@ -44,11 +52,12 @@
       </v-simple-table>
     </v-container>
     <v-container>
-      <h3>SALADO/RELLENOS</h3>
+      <h3 class="subTitle">SALADO/RELLENOS</h3>
       <v-simple-table>
         <template v-slot:default>
           <thead>
             <tr>
+              <th class="text-left"></th>
               <th class="text-left">NOMBRE</th>
               <th class="text-left">ID</th>
               <th class="text-left">STOCK</th>
@@ -58,6 +67,7 @@
           </thead>
           <tbody>
             <tr v-for="prod in productoRelleno" :key="prod.title">
+              <td><v-img width="60px" height="60px" :src="prod.src"></v-img></td>
               <td>{{ prod.title }}</td>
               <td>{{ prod.id }}</td>
               <td v-if="prod.cantidad >= 0">{{ prod.cantidad }}</td>
@@ -65,7 +75,13 @@
               <td>$ {{ prod.precio }}</td>
               <td>
                 <v-btn class="mb-5 mr-5" icon @click="cambiarBtnTo(prod)">
-                  <v-icon color="green"> mdi-grease-pencil </v-icon>
+                  <v-icon color="#9d9c9c"> mdi-barcode </v-icon>
+                </v-btn>
+                <v-btn class="mb-5 mr-5" icon @click="cambiarBtnTo(prod)">
+                  <v-icon color="#9d9c9c"> mdi-file-image </v-icon>
+                </v-btn>
+                <v-btn class="mb-5 mr-5" icon @click="cambiarBtnTo(prod)">
+                  <v-icon color="#9d9c9c"> mdi-grease-pencil </v-icon>
                 </v-btn>
                 <v-divider class="mt-5" vertical inset></v-divider>
                 <v-btn class="mb-5 ml-3" @click="borrarCard(prod)" text icon>
@@ -78,11 +94,12 @@
       </v-simple-table>
     </v-container>
     <v-container>
-      <h3>DULCES</h3>
+      <h3 class="subTitle">DULCES</h3>
       <v-simple-table>
         <template v-slot:default>
           <thead>
             <tr>
+              <th class="text-left"></th>
               <th class="text-left">NOMBRE</th>
               <th class="text-left">ID</th>
               <th class="text-left">STOCK</th>
@@ -92,6 +109,7 @@
           </thead>
           <tbody>
             <tr v-for="prod in productoDulces" :key="prod.title">
+              <td><v-img width="60px" height="60px" :src="prod.src"></v-img></td>
               <td>{{ prod.title }}</td>
               <td>{{ prod.id }}</td>
               <td v-if="prod.cantidad >= 0">{{ prod.cantidad }}</td>
@@ -99,7 +117,13 @@
               <td>$ {{ prod.precio }}</td>
               <td>
                 <v-btn class="mb-5 mr-5" icon @click="cambiarBtnTo(prod)">
-                  <v-icon color="green"> mdi-grease-pencil </v-icon>
+                  <v-icon color="#9d9c9c"> mdi-barcode </v-icon>
+                </v-btn>
+                <v-btn class="mb-5 mr-5" icon @click="cambiarBtnTo(prod)">
+                  <v-icon color="#9d9c9c"> mdi-file-image </v-icon>
+                </v-btn>
+                <v-btn class="mb-5 mr-5" icon @click="cambiarBtnTo(prod)">
+                  <v-icon color="#9d9c9c"> mdi-grease-pencil </v-icon>
                 </v-btn>
                 <v-divider class="mt-5" vertical inset></v-divider>
                 <v-btn class="mb-5 ml-3" @click="borrarCard(prod)" text icon>
@@ -112,11 +136,12 @@
       </v-simple-table>
     </v-container>
     <v-container>
-      <h3>PANIFICADOS</h3>
+      <h3 class="subTitle">PANIFICADOS</h3>
       <v-simple-table>
         <template v-slot:default>
           <thead>
             <tr>
+              <th class="text-left"></th>
               <th class="text-left">NOMBRE</th>
               <th class="text-left">ID</th>
               <th class="text-left">STOCK</th>
@@ -126,6 +151,7 @@
           </thead>
           <tbody>
             <tr v-for="prod in productoPanificados" :key="prod.title">
+              <td><v-img width="60px" height="60px" :src="prod.src"></v-img></td>
               <td>{{ prod.title }}</td>
               <td>{{ prod.id }}</td>
               <td v-if="prod.cantidad >= 0">{{ prod.cantidad }}</td>
@@ -133,7 +159,13 @@
               <td>$ {{ prod.precio }}</td>
               <td>
                 <v-btn class="mb-5 mr-5" icon @click="cambiarBtnTo(prod)">
-                  <v-icon color="green"> mdi-grease-pencil </v-icon>
+                  <v-icon color="#9d9c9c"> mdi-barcode </v-icon>
+                </v-btn>
+                <v-btn class="mb-5 mr-5" icon @click="cambiarBtnTo(prod)">
+                  <v-icon color="#9d9c9c"> mdi-file-image </v-icon>
+                </v-btn>
+                <v-btn class="mb-5 mr-5" icon @click="cambiarBtnTo(prod)">
+                  <v-icon color="#9d9c9c"> mdi-grease-pencil </v-icon>
                 </v-btn>
                 <v-divider class="mt-5" vertical inset></v-divider>
                 <v-btn class="mb-5 ml-3" @click="borrarCard(prod)" text icon>
@@ -145,26 +177,32 @@
         </template>
       </v-simple-table>
     </v-container>
-    <v-dialog v-model="dialogEdit">
-      <form class="v-dialog">
+    <v-dialog v-model="dialogEdit" persistent>
+      <form class="v-dialog" v-if="idEdit == true">
+        <div class="d-flex flex-row justify-end">
+          <v-btn icon text @click="closeAll()">
+            <v-icon>
+              mdi-close
+            </v-icon>
+          </v-btn>
+        </div>
+        <v-text-field v-model="idEditado" filled label="Editar ID">
+        </v-text-field>
+        <v-btn width="200px" @click="editarID()"> Guardar Cambios </v-btn>
+      </form>
+      <form class="v-dialog" v-else>
+        <div class="d-flex flex-row justify-end">
+          <v-btn icon text @click="closeAll()">
+            <v-icon>
+              mdi-close
+            </v-icon>
+          </v-btn>
+        </div>
         <v-text-field v-model="stockEditado" filled label="Editar Cantidad">
         </v-text-field>
         <v-btn width="200px" @click="editarStock()"> Guardar Cambios </v-btn>
       </form>
-    </v-dialog>
-    <v-dialog v-model="dialogEdit">
-      <form class="v-dialog">
-        <v-text-field v-model="stockEditado" filled label="Editar Cantidad">
-        </v-text-field>
-        <v-btn width="200px" @click="editarStock()"> Guardar Cambios </v-btn>
-      </form>
-    </v-dialog>
-    <v-dialog v-model="dialogEdit">
-      <form class="v-dialog">
-        <v-text-field v-model="stockEditado" filled label="Editar Cantidad">
-        </v-text-field>
-        <v-btn width="200px" @click="editarStock()"> Guardar Cambios </v-btn>
-      </form>
+
     </v-dialog>
   </div>
 </template>
@@ -219,6 +257,7 @@ export default {
     imagenes: [],
     selectedFile: null,
     stockEditado: "",
+    idEditado:'',
     stock: "",
     clickedit: true,
     cambiarBtn: false,
@@ -229,14 +268,30 @@ export default {
     prodPrecio: "",
     prodValue: "",
     dialogEdit: false,
+    rutaID: '',
+    rutaAgregar: '',
+    idEdit : false
   }),
   watch: {
-    selectedCategory() {
-      console.log("Label: ", this.selectedCategory.categoryName);
-    },
+    rutaID(){
+      if(this.rutaID == 'DC'){
+        this.rutaAgregar = 'Dulce'
+      } else if(this.rutaID == 'PN'){
+        this.rutaAgregar = 'Panificados'
+      } else if(this.rutaID == 'SS'){
+        this.rutaAgregar = 'SaladosSimples'
+      } else if(this.rutaID == 'SR'){
+        this.rutaAgregar = 'SaladosRellenos'
+      }
+    }
   },
 
   methods: {
+    closeAll(){
+      this.dialogEdit = false
+      this.idEdit = false
+
+    },
     changeValue() {
       if (window.innerWidth >= 1400) {
         return 10;
@@ -252,15 +307,29 @@ export default {
       this.prodCantidad = prod.cantidad;
       this.prodPrecio = prod.precio;
       this.prodValue = prod.value;
+      this.rutaID= prod.idRoute
     },
-    editarStockSalados() {
-      const cardRef = doc(db, "AdminStock/Salados");
+    cambiarBtnToID(prod){
+      this.dialogEdit = true;
+      this.idEdit = true;
+      this.prodTitle = prod.title;
+      this.prodSrc = prod.src;
+      this.prodId = prod.id;
+      this.prodCantidad = prod.cantidad;
+      this.prodPrecio = prod.precio;
+      this.prodValue = prod.value;
+      this.rutaID= prod.idRoute
+    },
+    editarStock() {
+
+      const cardRef = doc(db, `AdminStock/${this.rutaAgregar}`);
       updateDoc(cardRef, {
         cards: arrayRemove({
           title: this.prodTitle,
           src: this.prodSrc,
           id: this.prodId,
           cantidad: this.prodCantidad,
+          idRoute: this.rutaID,
           precio: this.prodPrecio,
           value: this.prodValue,
         }),
@@ -271,6 +340,7 @@ export default {
           src: this.prodSrc,
           id: this.prodId,
           cantidad: this.stockEditado,
+          idRoute: this.rutaID,
           precio: this.prodPrecio,
           value: this.prodValue,
         }),
@@ -278,6 +348,35 @@ export default {
       this.stockEditado = "";
       this.dialogEdit = false;
     },
+    editarID() {
+
+      const cardRef = doc(db, `AdminStock/${this.rutaAgregar}`);
+      updateDoc(cardRef, {
+        cards: arrayRemove({
+          title: this.prodTitle,
+          src: this.prodSrc,
+          id: this.prodId,
+          cantidad: this.prodCantidad,
+          idRoute: this.rutaID,
+          precio: this.prodPrecio,
+          value: this.prodValue,
+        }),
+      });
+      updateDoc(cardRef, {
+        cards: arrayUnion({
+          title: this.prodTitle,
+          src: this.prodSrc,
+          id: this.idEditado,
+          cantidad: this.prodCantidad,
+          idRoute: this.rutaID,
+          precio: this.prodPrecio,
+          value: this.prodValue,
+        }),
+      });
+      this.idEditado = "";
+      this.idEdit = false;
+      this.dialogEdit = false;
+},
     editarStockDulces() {
       const cardRef = doc(db, "AdminStock/Dulces");
       updateDoc(cardRef, {
@@ -494,5 +593,8 @@ h3 {
 .alerta {
   margin-right: 150px;
   margin-top: 100px;
+}
+.subTitle{
+  color: rgb(102,103,104)
 }
 </style>

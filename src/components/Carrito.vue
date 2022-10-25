@@ -54,7 +54,7 @@
                 <v-btn 
                     @click="comprarPrimerPaso(carrito)"
                     width="90%" 
-                    class="pa-5"
+                    class="mb-10 pa-5"
                     color="#febf2c">
                     <p class="mt-4 p-v-btn ">
                       INICIAR MI COMPRA
@@ -203,10 +203,10 @@ const auth = getAuth();
             var subTotales = []
 
              this.carrito.forEach(element => {
-                        subTotales.push(Number(element.value) * Number(element.precio))
+                        subTotales.push((Number(element.value) * Number(element.precio)))
                         
                     })
-            var sumaTotal = subTotales.reduce((prev, curr) => prev + curr, 0);
+            var sumaTotal = subTotales.reduce((prev, curr) => prev + curr, 0)
             this.precioTotalArray = sumaTotal
 
             store.commit('carritoCompras', this.carrito)

@@ -44,40 +44,8 @@
         label="Precio"
         clearable
       ></v-text-field>
-      <v-btn @click="updateCard"> Agregar </v-btn>
     </v-container>
     <v-divider></v-divider>
-    <v-container fluid>
-      <div class="div-files-selection">
-        <v-icon v-if="UploadValue == 100" class="input-btn-file" color="green">
-          mdi-check</v-icon
-        >
-        <input
-          v-if="UploadValue == 0"
-          type="file"
-          @change="onFileSelected"
-          class="input-file"
-        />
-        <v-btn v-if="UploadValue == 0" @click="onUpload" class="input-btn-file"
-          >Subir imagen</v-btn
-        >
-      </div>
-    </v-container>
-    <v-snackbar
-    v-model="hidden"
-    color="green"
-    >
-    <div class="d-flex flex-row justify-space-between">
-      <p class="mt-2 ml-5" style=" font-size: 20px;">
-      Imagen Seleccionada!
-    </p>
-    <v-btn icon text @click="hidden = false">
-      <v-icon>
-        mdi-close
-      </v-icon>
-    </v-btn>
-    </div>
-    </v-snackbar>
     <v-container>
       <v-row>
         <v-col v-for="imagen in imagenes" :key="imagen.imagen" cols="2">
@@ -94,6 +62,38 @@
         </v-col>
       </v-row>
     </v-container>
+    <v-container fluid>
+      <div class="div-files-selection">
+        <input
+          v-if="UploadValue == 0"
+          type="file"
+          @change="onFileSelected"
+          class="input-file"
+        />
+      </div>
+      <div class="d-flex flex-row justify-space-between">
+        <v-hover v-slot="{ hover }">
+          <v-btn @click="onUpload" class=" ml-15"
+            color="#b3b6bc"
+            width="200" 
+            height="40"
+            :style="{ 'background-color': hover ? '#febf2c' : '#b3b6bc'}"
+          >
+            <p class="mt-4">
+              Subir imagen
+            </p>
+            <v-icon color="white">
+              mdi-upload
+            </v-icon>
+          </v-btn>
+        </v-hover>
+        <v-btn @click="updateCard" class="mr-15 mt-10" color="#febf2c" width="150" height="40">
+          <p class="p-agregar mt-4">
+            Agregar
+          </p>
+        </v-btn>
+      </div>
+    </v-container>
     <v-divider></v-divider>
     <v-dialog v-model="dialogEdit">
       <form class="v-dialog">
@@ -102,6 +102,37 @@
         <v-btn width="200px" @click="editarStock()"> Guardar Cambios </v-btn>
       </form>
     </v-dialog>
+    <!----------------------------------Snackbars----------------------------->
+    <v-snackbar
+    v-model="hidden"
+    color="green"
+    timeout="1200"
+    transition="scroll-x-transition"
+    >
+    <div class="d-flex flex-row justify-space-between">
+      <p class="mt-2 ml-5" style=" font-size: 20px;">
+      Imagen Seleccionada!
+    </p>
+    <v-btn icon text @click="hidden = false">
+      <v-icon>
+        mdi-close
+      </v-icon>
+    </v-btn>
+    </div>
+    </v-snackbar>
+    <v-snackbar
+    v-model="upload"
+    color="green"
+    timeout="1200"
+    transition="scroll-x-transition"
+    >
+      <div class="d-flex flex-row justify-space-between">
+        <p class="p-img-upload mt-4">Imagen Subida!</p>
+          <v-icon  class="input-btn-file" color="white">
+          mdi-check</v-icon
+        >
+      </div>
+    </v-snackbar>
   </div>
 </template>
 
@@ -167,18 +198,37 @@ export default {
     prodPrecio: "",
     prodValue: "",
     dialogEdit: false,
+    disabled: true,
+    upload: false,
+    idRoute: '',
   }),
   watch: {
+    UploadValue(){
+      if(this.UploadValue == 100){
+        this.upload = true
+      }else{
+        this.upload = false
+      }
+    },
     selectedCategory() {
       this.selectedCategoryName = this.selectedCategory.categoryName;
-
       console.log("Label: ", this.selectedCategoryName);
+      if(this.selectedCategoryName == 'Dulce'){
+        this.idRoute = 'DC'
+      } else if(this.selectedCategoryName == 'Panificados'){
+        this.idRoute = 'PN'
+      }
     },
     selectedSubCategory() {
       console.log(
         "Label: ",
         this.selectedCategoryName + this.selectedSubCategory
       );
+      if(this.selectedCategoryName + this.selectedSubCategory == 'SaladosSimples'){
+        this.idRoute = 'SS'
+      } else if(this.selectedCategoryName + this.selectedSubCategory == 'SaladosRellenos'){
+        this.idRoute = 'SR'
+      } 
     },
   },
 
@@ -189,40 +239,6 @@ export default {
       } else {
         return 13;
       }
-    },
-    cambiarBtnTo(prod) {
-      this.dialogEdit = true;
-      this.prodTitle = prod.title;
-      this.prodSrc = prod.src;
-      this.prodId = prod.id;
-      this.prodCantidad = prod.cantidad;
-      this.prodPrecio = prod.precio;
-      this.prodValue = prod.value;
-    },
-    editarStock() {
-      const cardRef = doc(db, "AdminStock/v-card1");
-      updateDoc(cardRef, {
-        cards: arrayRemove({
-          title: this.prodTitle,
-          src: this.prodSrc,
-          id: this.prodId,
-          cantidad: this.prodCantidad,
-          precio: this.prodPrecio,
-          value: this.prodValue,
-        }),
-      });
-      updateDoc(cardRef, {
-        cards: arrayUnion({
-          title: this.prodTitle,
-          src: this.prodSrc,
-          id: this.prodId,
-          cantidad: this.stockEditado,
-          precio: this.prodPrecio,
-          value: this.prodValue,
-        }),
-      });
-      this.stockEditado = "";
-      this.dialogEdit = false;
     },
 
     updateCard() {
@@ -240,6 +256,7 @@ export default {
             id: this.id,
             cantidad: this.stock,
             precio: this.precio,
+            idRoute: this.idRoute,
             value: 1,
           }),
         });
@@ -261,6 +278,7 @@ export default {
             src: this.src1,
             id: this.id,
             cantidad: this.stock,
+            idRoute: this.idRoute,
             precio: this.precio,
             value: 1,
           }),
@@ -384,6 +402,24 @@ h3 {
   font-weight: bolder;
   font-size: 25px;
 }
+p {
+  font-family: humanst521-1;
+  font-size: 13px;
+  color: #fff
+}
+.p-agregar{
+  font-family: humanst521-1;
+  font-size: 13px;
+  font-weight: bolder;
+  color: #fff
+}
+.p-img-upload{
+  margin-left: 32%;
+  font-family: humanst521-1;
+  font-size: 18px;
+  color: #fff
+}
+
 .container {
   margin-top: 100px;
 }

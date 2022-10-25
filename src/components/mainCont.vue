@@ -1,45 +1,6 @@
 <template>
     <div>
     <v-container>
-        <v-fab-transition>
-              <v-btn
-                v-show="dialogUser"
-                fixed
-                right
-                fab
-                text
-                height="1px"
-                width="1px"
-                class="alerta"
-              >
-              <v-alert
-                shaped
-                type="warning"
-                >
-                Por favor, Inicia Sesion
-                </v-alert>
-              </v-btn>
-        </v-fab-transition>
-        <v-fab-transition>
-              <v-btn
-                v-show="dialogCarrito"
-                fixed
-                right
-                fab
-                text
-                height="1px"
-                width="1px"
-                class="alerta"
-              >
-              <v-alert
-                dense
-                text
-                type="success"
-                >
-                Agregado al carrito!
-                </v-alert>
-              </v-btn>
-        </v-fab-transition>
         <v-row >
             <v-col 
             v-for="card in cards" :key="card.title"
@@ -94,6 +55,27 @@
             </v-col>
         </v-row>
     </v-container>
+        <!-----------------------------------------SnackBars----------------------------------------------------->
+        <v-snackbar
+        v-show="dialogUser"
+        color="red"
+        >
+        <p class="p-inicie-sesion mt-4">
+            Por favor, Inicia Sesion
+        </p>
+        </v-snackbar>
+        <v-snackbar
+        v-model="dialogCarrito"
+        color="green">
+            <div class="d-flex flex-row justify-space-between">
+                <p class="p-agregado-carr mt-4 ml-15">
+                    Agregado al carrito!
+                </p>
+                <v-icon color="white" size="25">
+                    mdi-check
+                </v-icon>
+            </div>
+        </v-snackbar>
     </div>
 </template>
 
@@ -269,7 +251,7 @@
                 const cardItems = {
                     title: card.title,
                     src: card.src,
-                    precio: card.precio,
+                    precio: parseFloat(card.precio),
                     cantidad: card.cantidad,
                     value: card.value,
                     id: card.id,
@@ -388,6 +370,10 @@ h3{
 p{
   font-family: humanst521-1;
   font-size: 15px;
+}
+.p-agregado-carr{
+font-family: humanst521-1;
+  font-size: 20px;
 }
 .cardText{
     text-align: match-parent;

@@ -7,7 +7,8 @@
         fixed
         temporary
         right 
-        v-model="carritoCompra">
+        v-model="carritoCompra"
+        width="25%">
          <Carrito :key="componentKey"/>
         </v-navigation-drawer>
         <v-row>

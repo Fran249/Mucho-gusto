@@ -88,7 +88,7 @@
           <div class="container-cart-mg">
             <div class="cart-mg">
               <v-badge
-              v-if="existeUsuario"
+              v-if="existeUsuario && usuario.rol === 'user'"
               color="green"
               overlap
               class="mt-3"
