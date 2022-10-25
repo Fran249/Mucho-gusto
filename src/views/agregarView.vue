@@ -63,31 +63,31 @@
         >
       </div>
     </v-container>
-    <v-fab-transition>
-      <v-btn
-        v-show="hidden"
-        fixed
-        right
-        top
-        fab
-        text
-        height="1px"
-        width="1px"
-        class="alerta"
-      >
-        <v-alert shaped type="success"> Imagen Seleccionada </v-alert>
-      </v-btn>
-    </v-fab-transition>
+    <v-snackbar
+    v-model="hidden"
+    color="green"
+    >
+    <div class="d-flex flex-row justify-space-between">
+      <p class="mt-2 ml-5" style=" font-size: 20px;">
+      Imagen Seleccionada!
+    </p>
+    <v-btn icon text @click="hidden = false">
+      <v-icon>
+        mdi-close
+      </v-icon>
+    </v-btn>
+    </div>
+    </v-snackbar>
     <v-container>
       <v-row>
         <v-col v-for="imagen in imagenes" :key="imagen.imagen" cols="2">
           <v-img :src="imagen.imagen" height="250px">
             <div class="container-img-btn">
               <v-btn @click="eliminarImg(imagen)" icon>
-                <v-icon color="red"> mdi-delete </v-icon>
+                <v-icon color="white"> mdi-delete </v-icon>
               </v-btn>
               <v-btn @click="seleccionarImg(imagen)" icon>
-                <v-icon color="green"> mdi-check </v-icon>
+                <v-icon color="white"> mdi-check </v-icon>
               </v-btn>
             </div>
           </v-img>
@@ -400,9 +400,10 @@ h3 {
   }
 }
 .container-img-btn {
+  margin-top:122%;
   width: 100%;
-  height: 100%;
-
+  height: 15%;
+  background-color: rgba(0,0,0, 0.5);
   display: flex;
   justify-content: end;
   align-items: flex-end;
