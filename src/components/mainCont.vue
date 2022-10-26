@@ -3,7 +3,7 @@
     <v-container>
         <v-row >
             <v-col 
-            v-for="card in cards" :key="card.title"
+            v-for="card in cardsfiltradas" :key="card.title"
             cols="4" lg="3" md="4" xl="2">
                 <v-card   tile elevation="9">
                     <v-img :src="card.src" width="100%" height="250px">
@@ -96,9 +96,7 @@
         name: 'mainCont',
         data: ()=>({
             cards: null,
-            cardsSalados: null,
-            cardsPanificados: null,
-            cardsDulces: null,
+            cardsfiltradas: null,
             dialogUser: false,
             dialogCarrito: false,
             carrito: [],
@@ -107,14 +105,10 @@
             precioTotal:'',
             precioTotalArray: [],
             currentUser: '',
+            texto: '',
             
         }),
         beforeMount(){
-           
-
-
-        },
-        mounted(){
             onSnapshot(doc(db, "AdminStock/SaladosSimples"), (doc) => {
                 
                 this.cards = doc.data().cards;
@@ -135,10 +129,15 @@
             onSnapshot(doc(db, "AdminStock/Panificados"), (doc) => {
                 
                 this.cards = this.cards.concat(doc.data().cards)
-                
+                this.cardsfiltradas = this.cards
+                console.log(this.cardsfiltradas)
             });
 
-
+        },
+        mounted(){
+            
+            
+            
 
         },
         methods:{
@@ -306,6 +305,9 @@
 
 
         },
+        created(){
+            
+        },
 
         watch:{
             carrito(){
@@ -321,6 +323,10 @@
             store.commit('carritoCompras', this.carrito)
             console.log(store.state.carritoCompras)
          },
+         filterValue(){
+            console.log(this.filterValue)
+            this.cardsfiltradas = this.cards.filter(item => item.title.toLowerCase().indexOf(this.filterValue) !== -1);
+         }
         },
          computed:{
             ...mapState(['usuario']),
@@ -333,7 +339,16 @@
                 store.commit('toggleCarrito', value)
                 }
             },
-      
+        filterValue:{
+            get(){
+                return store.state.filterValue
+            },
+            set(){
+                
+                
+            }
+        },
+
         },
     }
 </script>

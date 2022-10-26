@@ -32,19 +32,42 @@
               <td v-if="prod.cantidad < 1">SIN STOCK</td>
               <td>$ {{ prod.precio }}</td>
               <td>
-                <v-btn class="mb-5 mr-5" icon @click="cambiarBtnToID(prod) " >
-                  <v-icon color="#9d9c9c"> mdi-barcode </v-icon>
-                </v-btn>
                 <v-btn class="mb-5 mr-5" icon >
                   <v-icon color="#9d9c9c"> mdi-file-image </v-icon>
                 </v-btn>
-                <v-btn class="mb-5 mr-5" icon @click="cambiarBtnTo(prod)">
-                  <v-icon color="#9d9c9c"> mdi-grease-pencil </v-icon>
+                <v-tooltip right>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn v-bind="attrs" v-on="on" class="mb-5 mr-5" icon @click="cambiarBtnToID(prod) " >
+                    <v-icon color="#9d9c9c"> mdi-barcode </v-icon>
+                  </v-btn>
+                </template>
+                <span>Editar ID</span>
+                </v-tooltip>
+                <v-tooltip right>
+                <template v-slot:activator="{ on, attrs }">
+                <v-btn v-bind="attrs" v-on="on" class="mb-5 mr-5" icon @click="cambiarBtnTo(prod)">
+                  <v-icon color="#9d9c9c"> mdi-package-variant </v-icon>
                 </v-btn>
+                </template>
+                <span>Editar stock</span>
+                </v-tooltip>
+                <v-tooltip right>
+                <template v-slot:activator="{ on, attrs }">
+                <v-btn v-bind="attrs" v-on="on" class="mb-5 mr-5" icon @click="cambiarBtnToPrice(prod)" >
+                  <v-icon color="#9d9c9c"> mdi-cash </v-icon>
+                </v-btn>
+                </template>
+                <span>Cambiar precio</span>
+                </v-tooltip>
                 <v-divider class="mt-5" vertical inset></v-divider>
-                <v-btn class="mb-5 ml-3" @click="borrarCard(prod)" text icon>
+                <v-tooltip right>
+                <template v-slot:activator="{ on, attrs }">
+                <v-btn v-bind="attrs" v-on="on" class="mb-5 ml-3" @click="borrarCard(prod)" text icon>
                   <v-icon color="red"> mdi-delete </v-icon>
                 </v-btn>
+                </template>
+                <span>Borrar articulo</span>
+                </v-tooltip>
               </td>
             </tr>
           </tbody>
@@ -74,19 +97,42 @@
               <td v-if="prod.cantidad < 1">SIN STOCK</td>
               <td>$ {{ prod.precio }}</td>
               <td>
-                <v-btn class="mb-5 mr-5" icon @click="cambiarBtnToID(prod) " >
-                  <v-icon color="#9d9c9c"> mdi-barcode </v-icon>
-                </v-btn>
                 <v-btn class="mb-5 mr-5" icon >
                   <v-icon color="#9d9c9c"> mdi-file-image </v-icon>
                 </v-btn>
-                <v-btn class="mb-5 mr-5" icon @click="cambiarBtnTo(prod)">
-                  <v-icon color="#9d9c9c"> mdi-grease-pencil </v-icon>
+                <v-tooltip right>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn v-bind="attrs" v-on="on" class="mb-5 mr-5" icon @click="cambiarBtnToID(prod) " >
+                    <v-icon color="#9d9c9c"> mdi-barcode </v-icon>
+                  </v-btn>
+                </template>
+                <span>Editar ID</span>
+                </v-tooltip>
+                <v-tooltip right>
+                <template v-slot:activator="{ on, attrs }">
+                <v-btn v-bind="attrs" v-on="on" class="mb-5 mr-5" icon @click="cambiarBtnTo(prod)">
+                  <v-icon color="#9d9c9c"> mdi-package-variant </v-icon>
                 </v-btn>
+                </template>
+                <span>Editar stock</span>
+                </v-tooltip>
+                <v-tooltip right>
+                <template v-slot:activator="{ on, attrs }">
+                <v-btn v-bind="attrs" v-on="on" class="mb-5 mr-5" icon @click="cambiarBtnToPrice(prod)" >
+                  <v-icon color="#9d9c9c"> mdi-cash </v-icon>
+                </v-btn>
+                </template>
+                <span>Cambiar precio</span>
+                </v-tooltip>
                 <v-divider class="mt-5" vertical inset></v-divider>
-                <v-btn class="mb-5 ml-3" @click="borrarCard(prod)" text icon>
+                <v-tooltip right>
+                <template v-slot:activator="{ on, attrs }">
+                <v-btn v-bind="attrs" v-on="on" class="mb-5 ml-3" @click="borrarCard(prod)" text icon>
                   <v-icon color="red"> mdi-delete </v-icon>
                 </v-btn>
+                </template>
+                <span>Borrar articulo</span>
+                </v-tooltip>
               </td>
             </tr>
           </tbody>
@@ -116,19 +162,42 @@
               <td v-if="prod.cantidad < 1">SIN STOCK</td>
               <td>$ {{ prod.precio }}</td>
               <td>
-                <v-btn class="mb-5 mr-5" icon @click="cambiarBtnToID(prod) " >
-                  <v-icon color="#9d9c9c"> mdi-barcode </v-icon>
-                </v-btn>
                 <v-btn class="mb-5 mr-5" icon >
                   <v-icon color="#9d9c9c"> mdi-file-image </v-icon>
                 </v-btn>
-                <v-btn class="mb-5 mr-5" icon @click="cambiarBtnTo(prod)">
-                  <v-icon color="#9d9c9c"> mdi-grease-pencil </v-icon>
+                <v-tooltip right>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn v-bind="attrs" v-on="on" class="mb-5 mr-5" icon @click="cambiarBtnToID(prod) " >
+                    <v-icon color="#9d9c9c"> mdi-barcode </v-icon>
+                  </v-btn>
+                </template>
+                <span>Editar ID</span>
+                </v-tooltip>
+                <v-tooltip right>
+                <template v-slot:activator="{ on, attrs }">
+                <v-btn v-bind="attrs" v-on="on" class="mb-5 mr-5" icon @click="cambiarBtnTo(prod)">
+                  <v-icon color="#9d9c9c"> mdi-package-variant </v-icon>
                 </v-btn>
+                </template>
+                <span>Editar stock</span>
+                </v-tooltip>
+                <v-tooltip right>
+                <template v-slot:activator="{ on, attrs }">
+                <v-btn v-bind="attrs" v-on="on" class="mb-5 mr-5" icon @click="cambiarBtnToPrice(prod)" >
+                  <v-icon color="#9d9c9c"> mdi-cash </v-icon>
+                </v-btn>
+                </template>
+                <span>Cambiar precio</span>
+                </v-tooltip>
                 <v-divider class="mt-5" vertical inset></v-divider>
-                <v-btn class="mb-5 ml-3" @click="borrarCard(prod)" text icon>
+                <v-tooltip right>
+                <template v-slot:activator="{ on, attrs }">
+                <v-btn v-bind="attrs" v-on="on" class="mb-5 ml-3" @click="borrarCard(prod)" text icon>
                   <v-icon color="red"> mdi-delete </v-icon>
                 </v-btn>
+                </template>
+                <span>Borrar articulo</span>
+                </v-tooltip>
               </td>
             </tr>
           </tbody>
@@ -158,49 +227,114 @@
               <td v-if="prod.cantidad < 1">SIN STOCK</td>
               <td>$ {{ prod.precio }}</td>
               <td>
-                <v-btn class="mb-5 mr-5" icon @click="cambiarBtnToID(prod) " >
-                  <v-icon color="#9d9c9c"> mdi-barcode </v-icon>
-                </v-btn>
                 <v-btn class="mb-5 mr-5" icon >
                   <v-icon color="#9d9c9c"> mdi-file-image </v-icon>
                 </v-btn>
-                <v-btn class="mb-5 mr-5" icon @click="cambiarBtnTo(prod)">
-                  <v-icon color="#9d9c9c"> mdi-grease-pencil </v-icon>
+                <v-tooltip right>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn v-bind="attrs" v-on="on" class="mb-5 mr-5" icon @click="cambiarBtnToID(prod) " >
+                    <v-icon color="#9d9c9c"> mdi-barcode </v-icon>
+                  </v-btn>
+                </template>
+                <span>Editar ID</span>
+                </v-tooltip>
+                <v-tooltip right>
+                <template v-slot:activator="{ on, attrs }">
+                <v-btn v-bind="attrs" v-on="on" class="mb-5 mr-5" icon @click="cambiarBtnTo(prod)">
+                  <v-icon color="#9d9c9c"> mdi-package-variant </v-icon>
                 </v-btn>
+                </template>
+                <span>Editar stock</span>
+                </v-tooltip>
+                <v-tooltip right>
+                <template v-slot:activator="{ on, attrs }">
+                <v-btn v-bind="attrs" v-on="on" class="mb-5 mr-5" icon @click="cambiarBtnToPrice(prod)" >
+                  <v-icon color="#9d9c9c"> mdi-cash </v-icon>
+                </v-btn>
+                </template>
+                <span>Cambiar precio</span>
+                </v-tooltip>
                 <v-divider class="mt-5" vertical inset></v-divider>
-                <v-btn class="mb-5 ml-3" @click="borrarCard(prod)" text icon>
+                <v-tooltip right>
+                <template v-slot:activator="{ on, attrs }">
+                <v-btn v-bind="attrs" v-on="on" class="mb-5 ml-3" @click="borrarCard(prod)" text icon>
                   <v-icon color="red"> mdi-delete </v-icon>
                 </v-btn>
+                </template>
+                <span>Borrar articulo</span>
+                </v-tooltip>
               </td>
             </tr>
           </tbody>
         </template>
       </v-simple-table>
     </v-container>
-    <v-dialog v-model="dialogEdit" persistent>
+    <v-dialog v-model="dialogEdit" persistent width="500">
       <form class="v-dialog" v-if="idEdit == true">
         <div class="d-flex flex-row justify-end">
-          <v-btn icon text @click="closeAll()">
+          <v-tooltip right>
+          <template v-slot:activator="{ on, attrs }">
+          <v-btn icon text v-bind="attrs"
+          v-on="on" @click="closeAll()">
             <v-icon>
               mdi-close
             </v-icon>
           </v-btn>
+          </template>
+          <span>Cerrar</span>
+        </v-tooltip>
         </div>
         <v-text-field v-model="idEditado" filled label="Editar ID">
         </v-text-field>
-        <v-btn width="200px" @click="editarID()"> Guardar Cambios </v-btn>
+        <v-btn width="200px" @click="editarID()" class="mr-15 mt-10" color="#febf2c" height="40">
+          <p class="p-agregar mt-4">
+            Guardar Cambios
+          </p> 
+        </v-btn>
       </form>
-      <form class="v-dialog" v-else>
+      <form class="v-dialog" v-if="priceEdit == true">
         <div class="d-flex flex-row justify-end">
-          <v-btn icon text @click="closeAll()">
+          <v-tooltip right>
+          <template v-slot:activator="{ on, attrs }">
+          <v-btn icon text v-bind="attrs"
+          v-on="on" @click="closeAll()">
             <v-icon>
               mdi-close
             </v-icon>
           </v-btn>
+          </template>
+          <span>Cerrar</span>
+        </v-tooltip>
+        </div>
+        <v-text-field v-model="precioEditado" filled label="Editar Precio">
+        </v-text-field>
+        <v-btn width="200px" @click="editarPrecio()" class="mr-15 mt-10" color="#febf2c" height="40">
+          <p class="p-agregar mt-4">
+            Guardar Cambios
+          </p> 
+        </v-btn>
+      </form>
+      <form class="v-dialog" v-if="editCantidad == true">
+        <div class="d-flex flex-row justify-end">
+          <v-tooltip right>
+          <template v-slot:activator="{ on, attrs }">
+          <v-btn icon text v-bind="attrs"
+          v-on="on" @click="closeAll()">
+            <v-icon>
+              mdi-close
+            </v-icon>
+          </v-btn>
+          </template>
+          <span>Cerrar</span>
+        </v-tooltip>
         </div>
         <v-text-field v-model="stockEditado" filled label="Editar Cantidad">
         </v-text-field>
-        <v-btn width="200px" @click="editarStock()"> Guardar Cambios </v-btn>
+        <v-btn width="200px" @click="editarStock()" class="mr-15 mt-10" color="#febf2c" height="40">
+          <p class="p-agregar mt-4">
+            Guardar Cambios
+          </p> 
+        </v-btn>
       </form>
 
     </v-dialog>
@@ -270,7 +404,10 @@ export default {
     dialogEdit: false,
     rutaID: '',
     rutaAgregar: '',
-    idEdit : false
+    editCantidad: false,
+    idEdit : false,
+    priceEdit: false,
+    precioEditado: '',
   }),
   watch: {
     rutaID(){
@@ -288,9 +425,14 @@ export default {
 
   methods: {
     closeAll(){
-      this.dialogEdit = false
+   
       this.idEdit = false
-
+      this.editCantidad= false
+      this.priceEdit = false
+      this.dialogEdit = false
+      this.precioEditado = ''
+      this.stockEditado = ''
+      this.idEditado = ''
     },
     changeValue() {
       if (window.innerWidth >= 1400) {
@@ -301,6 +443,7 @@ export default {
     },
     cambiarBtnTo(prod) {
       this.dialogEdit = true;
+      this.editCantidad = true;
       this.prodTitle = prod.title;
       this.prodSrc = prod.src;
       this.prodId = prod.id;
@@ -320,8 +463,19 @@ export default {
       this.prodValue = prod.value;
       this.rutaID= prod.idRoute
     },
+    cambiarBtnToPrice(prod){
+      this.dialogEdit = true;
+      this.priceEdit= true
+      this.prodTitle = prod.title;
+      this.prodSrc = prod.src;
+      this.prodId = prod.id;
+      this.prodCantidad = prod.cantidad;
+      this.prodPrecio = prod.precio;
+      this.prodValue = prod.value;
+      this.rutaID= prod.idRoute
+    },
     editarStock() {
-
+      
       const cardRef = doc(db, `AdminStock/${this.rutaAgregar}`);
       updateDoc(cardRef, {
         cards: arrayRemove({
@@ -346,6 +500,7 @@ export default {
         }),
       });
       this.stockEditado = "";
+      this.editCantidad = false
       this.dialogEdit = false;
     },
     editarID() {
@@ -373,10 +528,40 @@ export default {
           value: this.prodValue,
         }),
       });
-      this.idEditado = "";
+      this.idEditado = '';
       this.idEdit = false;
       this.dialogEdit = false;
 },
+    editarPrecio() {
+
+    const cardRef = doc(db, `AdminStock/${this.rutaAgregar}`);
+    updateDoc(cardRef, {
+      cards: arrayRemove({
+        title: this.prodTitle,
+        src: this.prodSrc,
+        id: this.prodId,
+        cantidad: this.prodCantidad,
+        idRoute: this.rutaID,
+        precio: this.prodPrecio,
+        value: this.prodValue,
+      }),
+    });
+    updateDoc(cardRef, {
+      cards: arrayUnion({
+        title: this.prodTitle,
+        src: this.prodSrc,
+        id: this.idEditado,
+        cantidad: this.prodCantidad,
+        idRoute: this.rutaID,
+        precio: this.precioEditado,
+        value: this.prodValue,
+      }),
+    });
+
+    this.precioEditado = "";
+    this.editarPrecio = false;
+    this.dialogEdit = false;
+    },
     updateCard() {
       const cardRef = doc(
         db,
@@ -401,7 +586,22 @@ export default {
         setTimeout(this.actualizarPagina, 1500);
     },
     borrarCard(prod) {
-      const cardRef = doc(db, "AdminStock/v-card1");
+
+      this.rutaID = prod.idRoute
+      
+      if(this.rutaID == 'DC'){
+        this.rutaAgregar = 'Dulce'
+      } else if(this.rutaID == 'PN'){
+        this.rutaAgregar = 'Panificados'
+      } else if(this.rutaID == 'SS'){
+        this.rutaAgregar = 'SaladosSimples'
+      } else if(this.rutaID == 'SR'){
+        this.rutaAgregar = 'SaladosRellenos'
+      }
+
+
+
+      const cardRef = doc(db, `AdminStock/${this.rutaAgregar}`);
       updateDoc(cardRef, {
         cards: arrayRemove({
           title: prod.title,
@@ -410,6 +610,7 @@ export default {
           cantidad: prod.cantidad,
           precio: prod.precio,
           value: prod.value,
+          idRoute: prod.idRoute
         }),
       });
     },
@@ -507,10 +708,12 @@ h3 {
 .container {
   margin-top: 100px;
 }
+
 .v-dialog {
   background-color: white;
   margin: 0;
-  padding: 25px;
+  width: 500px;
+  padding: 50px;
   display: flex;
   flex-direction: column;
 
@@ -538,6 +741,12 @@ h3 {
   .input-btn-file {
     width: 250px;
   }
+}
+.p-agregar{
+  font-family: humanst521-1;
+  font-size: 13px;
+  font-weight: bolder;
+  color: #fff
 }
 .alerta {
   margin-right: 150px;

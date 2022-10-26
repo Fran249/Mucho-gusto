@@ -121,7 +121,7 @@
               </router-link>
             </v-list-item>
             <v-list-item v-if="existeUsuario && usuario.rol == 'admin'" >
-              <router-link style="text-decoration: none; color: inherit;" to="/adminView" >
+              <router-link style="text-decoration: none; color: inherit;" to="/stock" >
                 <v-btn text color="#727272">
                   <v-icon class="mr-2">
                     mdi-tune

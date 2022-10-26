@@ -2,7 +2,7 @@
   <div>
     <navBarAdmin />
     <v-container class="container">
-      <h3>AGREGAR</h3>
+      <h3>AGREGAR PRODUCTOS</h3>
       <v-progress-linear
         background-color="#b3b6bc"
         color="#f2c04a"
@@ -48,15 +48,32 @@
     <v-divider></v-divider>
     <v-container>
       <v-row>
-        <v-col v-for="imagen in imagenes" :key="imagen.imagen" cols="2">
-          <v-img :src="imagen.imagen" height="250px">
+        <v-col v-for="imagen in imagenes" :key="imagen.imagen" cols="3" xl="2" lg="3" md="3">
+          <v-img :src="imagen.imagen" :height="250" class="v-img">
+            <div class="container-checked" v-if="imagen.imagen == imagenSrc" >
+              <v-btn icon color="white" style="background-color: green;" > 
+                <v-icon>
+                  mdi-check
+                </v-icon>
+              </v-btn>
+            </div>
             <div class="container-img-btn">
-              <v-btn @click="eliminarImg(imagen)" icon>
+              <v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">
+              <v-btn v-bind="attrs" v-on="on" @click="eliminarImg(imagen)" icon>
                 <v-icon color="white"> mdi-delete </v-icon>
               </v-btn>
-              <v-btn @click="seleccionarImg(imagen)" icon>
+              </template>
+              <span>Eliminar Imagen</span>
+              </v-tooltip>
+              <v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">
+              <v-btn v-bind="attrs" v-on="on"  @click="seleccionarImg(imagen)" icon>
                 <v-icon color="white"> mdi-check </v-icon>
               </v-btn>
+              </template>
+              <span>Seleccionar imagen</span>
+              </v-tooltip>
             </div>
           </v-img>
         </v-col>
@@ -103,23 +120,6 @@
       </form>
     </v-dialog>
     <!----------------------------------Snackbars----------------------------->
-    <v-snackbar
-    v-model="hidden"
-    color="green"
-    timeout="1200"
-    transition="scroll-x-transition"
-    >
-    <div class="d-flex flex-row justify-space-between">
-      <p class="mt-2 ml-5" style=" font-size: 20px;">
-      Imagen Seleccionada!
-    </p>
-    <v-btn icon text @click="hidden = false">
-      <v-icon>
-        mdi-close
-      </v-icon>
-    </v-btn>
-    </div>
-    </v-snackbar>
     <v-snackbar
     v-model="upload"
     color="green"
@@ -201,6 +201,7 @@ export default {
     disabled: true,
     upload: false,
     idRoute: '',
+    imagenSrc: '',
   }),
   watch: {
     UploadValue(){
@@ -235,9 +236,9 @@ export default {
   methods: {
     changeValue() {
       if (window.innerWidth >= 1400) {
-        return 10;
+        return 17;
       } else {
-        return 13;
+        return 25;
       }
     },
 
@@ -325,6 +326,7 @@ export default {
     },
     seleccionarImg(imagen) {
       console.log(imagen.imagen);
+      this.imagenSrc = imagen.imagen;
       this.src1 = imagen.imagen;
       this.hidden = true;
       setTimeout(this.quitarAlerta, 1500);
@@ -436,13 +438,22 @@ p {
   }
 }
 .container-img-btn {
-  margin-top:122%;
+  
   width: 100%;
-  height: 15%;
   background-color: rgba(0,0,0, 0.5);
   display: flex;
   justify-content: end;
+}
+.container-checked{
+  width: 100%;
+  padding-bottom: 65% ;
+  padding-left: 85% ;
+}
+
+.v-img{
+  display: flex;
   align-items: flex-end;
+
 }
 .div-files-selection {
   display: flex;

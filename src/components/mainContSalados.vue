@@ -3,7 +3,7 @@
     <v-container>
         <v-row >
             <v-col 
-            v-for="card in cards" :key="card.title"
+            v-for="card in cardsfiltradas" :key="card.title"
            cols="4" lg="4" md="5" xl="3">
                 <v-card tile elevation="9">
                     <v-img :src="card.src" width="310px" height="250px">
@@ -100,9 +100,7 @@
         name: 'mainCont',
         data: ()=>({
             cards: null,
-            cardsSalados: null,
-            cardsPanificados: null,
-            cardsDulces: null,
+            cardsfiltradas: null,
             dialogUser: false,
             dialogCarrito: false,
             carrito: [],
@@ -115,7 +113,21 @@
         }),
         beforeMount(){
            
+            onSnapshot(doc(db, "AdminStock/SaladosRellenos"), (doc) => {
+                
+                
+                this.cards = doc.data().cards
+  
+              });
+              onSnapshot(doc(db, "AdminStock/SaladosSimples"), (doc) => {
+                
+                
+                this.cards = this.cards.concat(doc.data().cards)
 
+                this.cardsfiltradas = this.cards
+                console.log(this.cardsfiltradas)
+  
+              });
 
         },
         mounted(){
@@ -279,19 +291,6 @@
                         // ...
                     }
                     });
-
-                    onSnapshot(doc(db, "AdminStock/SaladosRellenos"), (doc) => {
-                
-                
-                this.cards = doc.data().cards
-  
-              });
-              onSnapshot(doc(db, "AdminStock/SaladosSimples"), (doc) => {
-                
-                
-                this.cards = this.cards.concat(doc.data().cards)
-  
-              });
               
 
 
@@ -311,6 +310,10 @@
             store.commit('carritoCompras', this.carrito)
             console.log(store.state.carritoCompras)
          },
+         filterValue(){
+            console.log(this.filterValue)
+            this.cardsfiltradas = this.cards.filter(item => item.title.toLowerCase().indexOf(this.filterValue) !== -1);
+         },
         },
          computed:{
             ...mapState(['usuario']),
@@ -323,6 +326,15 @@
                 store.commit('toggleCarrito', value)
                 }
             },
+            filterValue:{
+            get(){
+                return store.state.filterValue
+            },
+            set(){
+                
+                
+            }
+        },
       
         },
     }

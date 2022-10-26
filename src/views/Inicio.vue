@@ -13,7 +13,7 @@
         </v-navigation-drawer>
         <v-row>
         <v-col cols="12">
-        <mainCont class="mainCont" />
+        <mainCont class="mainCont"/>
         </v-col>
       </v-row>
     </v-container>

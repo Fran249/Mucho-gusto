@@ -25,6 +25,7 @@ export default new Vuex.Store({
     carritoCompras: [],
     filterState: '',
     forceRenderCarrito: 0,
+    filterValue: '',
     
   },
   getters: {
@@ -53,8 +54,8 @@ export default new Vuex.Store({
     sendNotif: (state, value) => (state.sendNotif = value),
     filterState: (state, value) => (state.filterState = value),
     carritoCompras: (state, value) => (state.carritoCompras = value),
-    forceRenderCarrito: (state, value) => (state.forceRenderCarrito = value)
-    
+    forceRenderCarrito: (state, value) => (state.forceRenderCarrito = value),
+    filterValue: (state, value) => (state.filterValue = value),
   },
   actions: {
 
@@ -73,7 +74,9 @@ export default new Vuex.Store({
     forceRenderCarrito({commit},value){
       commit("forceRenderCarrito", value);
     },
-
+    filterValue({ commit }, value) {
+      commit("filterValue", value);
+    },
     crearUsuario({commit}, usuario){
       createUserWithEmailAndPassword(auth, usuario.email, usuario.password)
         .then(res => {

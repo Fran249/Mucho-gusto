@@ -54,6 +54,7 @@
           solo
           rounded
           full-width
+          v-model="filtro"
           >
       </v-text-field>
       </div>
@@ -202,6 +203,7 @@ import { mapActions, mapGetters, mapState } from 'vuex'
             dialog2 : false,
             navDraw: false,
             email: '',
+            texto: '',
         }),
         methods:{
     ...mapActions(['cerrarSesion']),
@@ -226,6 +228,18 @@ import { mapActions, mapGetters, mapState } from 'vuex'
         },
         set (value) {
           store.commit('sendNotif', value)
+        }
+      },
+      filtro: {
+        get(){
+          return this.texto
+        },
+        set(value){
+
+          value = value.toLowerCase();
+          store.commit('filterValue',value)
+          console.log(value)
+          store.commit('forceRenderCarrito', + 1)
         }
       }
   },
