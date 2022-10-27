@@ -93,7 +93,7 @@
                         </v-col>
                         <v-col cols="6">
                             <div>
-                            <h3 class="ml-15 h3-sub-desc-total"> ${{precioTotalArray}} </h3>
+                            <h3 class="ml-15 h3-sub-desc-total"> ${{ precioTotalArray}} </h3>
                             </div>
                             <div>
                             <h3 class="ml-15 mt-15 h3-sub-desc-total"> ${{descuento}} </h3>
@@ -109,7 +109,7 @@
                         </v-col>
                         <v-col cols="6">
                             <h3 class="ml-15 h3-resumen">
-                            ${{precioTotalArray}} 
+                            ${{Number(precioTotalArray)- Number(descuento)}} 
                             </h3>
                         </v-col>
                         <v-btn 

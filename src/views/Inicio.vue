@@ -8,7 +8,7 @@
         temporary
         right 
         v-model="carritoCompra"
-        width="25%" v-if=" existeUsuario ">
+        width="25%" >
          <Carrito :key="componentKey"/>
         </v-navigation-drawer>
         <v-row>
