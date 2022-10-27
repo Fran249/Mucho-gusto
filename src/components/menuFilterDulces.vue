@@ -1,11 +1,13 @@
 <template>
-        <v-treeview :items="items" :multiple-active="true" transition open-all >
-            <template v-slot:label="{ item }">
+        <v-treeview :items="items" :multiple-active="false" transition open-all item-text v-model="select">
+            <template v-slot:label="{ item }" >
                 <h3 v-if="item.name == 'Dulces'">{{item.name}}</h3>
-                <p class="item" v-else>{{item.name}}</p>
-                <v-progress-linear 
-                v-if="item.name =='Dulces'"
-                background-color="#b3b6bc" color="#f2c04a" value="30" width="100%"></v-progress-linear>
+                <div class="d-flex flex-row" v-if="!item.children">
+                    <v-checkbox v-model="item.selected" />
+                    <p class="item" >{{item.name}}</p>
+                </div>
+                <div class="bar-container" v-if="item.name =='Dulces'">
+                </div>
                  
             </template>
         </v-treeview>
@@ -13,9 +15,11 @@
 
 
 <script>
+
     export default {
          name : 'menuFilter',
          data: ()=> ({
+            texto: '',
             items: [
                  {
                     name:'Dulces',
@@ -68,7 +72,14 @@
   
          },
          computed:{
-            
+            select: {
+                get(value){
+                    return value
+                },
+                set(value){
+                    console.log(value)
+                }
+            }
          }
     }
 </script>
@@ -106,6 +117,13 @@ h3{
     margin-bottom: 5px;
 }
 
-
+.bar-container{
+  width: 95%;
+  height: 0.2rem;
+  display: flex;
+  flex-direction: row;
+  background: rgb(242,192,74);
+  background: linear-gradient(90deg, rgba(242,192,74,1) 70px, rgba(179,182,188,1) 70px);
+}
 
 </style>

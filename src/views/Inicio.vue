@@ -8,7 +8,7 @@
         temporary
         right 
         v-model="carritoCompra"
-        width="25%">
+        width="25%" v-if=" existeUsuario ">
          <Carrito :key="componentKey"/>
         </v-navigation-drawer>
         <v-row>
@@ -25,6 +25,7 @@ import Carrito from '../components/Carrito.vue'
 import navBar from '../components/navBar.vue'
 import mainCont from '../components/mainCont.vue'
 import store from '@/store';
+import { mapState , mapGetters } from 'vuex'
 
 export default {
   name: 'InicIo',
@@ -35,6 +36,7 @@ export default {
   },
   data:()=>({
     componentKey: store.state.forceRenderCarrito,
+    width : window.innerWidth
 
   }),
  watch:{
@@ -44,6 +46,8 @@ export default {
   }
  },
  computed: {
+  ...mapState(['usuario']),
+  ...mapGetters(['existeUsuario']),
   carritoCompra: {
         get () {
           return store.state.carrito
@@ -52,6 +56,7 @@ export default {
           store.commit('toggleCarrito', value)
         }
       },
+    
  }
 
 }

@@ -2,14 +2,11 @@
   <div>
     <navBarAdmin />
     <v-container class="container">
-      <h3>AGREGAR PRODUCTOS</h3>
-      <v-progress-linear
-        background-color="#b3b6bc"
-        color="#f2c04a"
-        :value="changeValue()"
-        class="mb-10"
-      >
-      </v-progress-linear>
+      <div>
+        <h3>AGREGAR PRODUCTOS</h3>
+      <div class="bar-container">
+      </div>
+      </div>
       <v-select
         v-model="selectedCategory"
         :items="items"
@@ -25,6 +22,8 @@
         label="Categoria"
       ></v-select>
       <v-text-field v-model="title1" filled label="Agrega un Titulo" clearable>
+      </v-text-field>
+      <v-text-field v-model="descripcion" filled label="Descripcion del producto" clearable>
       </v-text-field>
       <v-text-field
         v-model="stock"
@@ -182,6 +181,7 @@ export default {
     src1: "",
     id: "",
     precio: "",
+    descripcion: '',
     hidden: false,
     productos: null,
     UploadValue: 0,
@@ -197,6 +197,7 @@ export default {
     prodCantidad: "",
     prodPrecio: "",
     prodValue: "",
+    prodDescripcion: "",
     dialogEdit: false,
     disabled: true,
     upload: false,
@@ -235,8 +236,8 @@ export default {
 
   methods: {
     changeValue() {
-      if (window.innerWidth >= 1400) {
-        return 17;
+      if (window.innerWidth >= 1400 ) {
+        return 25;
       } else {
         return 25;
       }
@@ -257,6 +258,7 @@ export default {
             id: this.id,
             cantidad: this.stock,
             precio: this.precio,
+            descripcion: this.descripcion,
             idRoute: this.idRoute,
             value: 1,
           }),
@@ -267,6 +269,7 @@ export default {
           (this.id = ""),
           (this.stock = ""),
           (this.precio = ""),
+          (this.descripcion = ""),
           setTimeout(this.actualizarPagina, 1500);
       } else {
         const cardRef = doc(
@@ -281,6 +284,7 @@ export default {
             cantidad: this.stock,
             idRoute: this.idRoute,
             precio: this.precio,
+            descripcion: this.descripcion,
             value: 1,
           }),
         });
@@ -290,6 +294,7 @@ export default {
           (this.id = ""),
           (this.stock = ""),
           (this.precio = ""),
+          (this.descripcion = ""),
           setTimeout(this.actualizarPagina, 1500);
       }
     },
@@ -303,6 +308,7 @@ export default {
           cantidad: prod.cantidad,
           precio: prod.precio,
           value: prod.value,
+          descripcion: prod.descripcion,
         }),
       });
     },
@@ -470,5 +476,15 @@ p {
 .alerta {
   margin-right: 150px;
   margin-top: 100px;
+}
+
+
+.bar-container{
+  width: 100%;
+  height: 0.2rem;
+  display: flex;
+  flex-direction: row;
+  background: rgb(242,192,74);
+  background: linear-gradient(90deg, rgba(242,192,74,1) 290px, rgba(179,182,188,1) 290px);
 }
 </style>

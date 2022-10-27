@@ -8,7 +8,7 @@
         temporary
         right 
         v-model="carritoCompra"
-        width="25%">
+        width="25%" v-if=" existeUsuario ">
          <Carrito :key="componentKey"/>
         </v-navigation-drawer>
         <v-row>
@@ -31,6 +31,7 @@ import navBar from '../components/navBar.vue'
 import menuFilterDulces from '../components/menuFilterDulces.vue'
 import store from '@/store';
 import mainContDulces from '@/components/mainContDulces.vue';
+import { mapState , mapGetters } from 'vuex'
 
 export default {
   name: 'InicIo',
@@ -51,6 +52,8 @@ export default {
   }
  },
  computed: {
+  ...mapState(['usuario']),
+  ...mapGetters(['existeUsuario']),
   carritoCompra: {
         get () {
           return store.state.carrito

@@ -4,9 +4,9 @@
         <v-row >
             <v-col 
             v-for="card in cardsfiltradas" :key="card.title"
-            cols="4" lg="3" md="4" xl="2">
-                <v-card   tile elevation="9">
-                    <v-img :src="card.src" width="100%" height="250px">
+            cols="4" lg="3" md="4" sm="4" xl="2">
+                <v-card :width="width()" :height="height()" tile elevation="9">
+                    <v-img :src="card.src" width="100%" :height="heightsm()">
 
                     </v-img>
                     <v-card-title>
@@ -15,11 +15,7 @@
                         </h3>
                     </v-card-title>
                     <v-card-text>
-                          Descripcion del producto
-                          Descripcion del producto
-                          Descripcion del producto
-                          Descripcion del producto
-                          Descripcion del producto
+                        {{card.descripcion}}
                         <p v-if="card.cantidad >= 1">
                             {{card.cantidad}} Unidades disponibles
                         </p>
@@ -141,6 +137,28 @@
 
         },
         methods:{
+
+            width(){
+                if(window.innerWidth < 600){
+                    return 250
+                } else {
+                    return ''
+                }
+            },
+            height(){
+                if(window.innerWidth < 600){
+                    return 200
+                } else {
+                    return ''
+                }
+            },
+            heightsm(){
+                if(window.innerWidth < 600){
+                    return 50   
+                } else {
+                    return 250
+                }
+            },
         //////////////// Funciones para el Carrito ///////////////////////////////////////////////////    
             aumentar(carr){
                 const index = this.carrito.findIndex(object => {

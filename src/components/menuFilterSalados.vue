@@ -3,12 +3,10 @@
             <template v-slot:label="{ item }">
                 <h3 v-if="item.name == 'Simples' || item.name == 'Rellenos' ">{{item.name}}</h3>
                 <p class="item" v-else>{{ item.name }}</p>
-                <v-progress-linear 
-                v-if="item.name =='Simples'"
-                background-color="#b3b6bc" color="#f2c04a" value="30" width="500px"></v-progress-linear>
-                <v-progress-linear 
-                v-if="item.name =='Rellenos'"
-                background-color="#b3b6bc" color="#f2c04a" value="30" width="500px"></v-progress-linear>
+                <div class="bar-container" v-if="item.name =='Simples'">
+                </div>
+                <div class="bar-container" v-if="item.name =='Rellenos'">
+                </div>
                 
             </template>
         </v-treeview>
@@ -114,7 +112,14 @@ h3{
     margin-bottom: 5px;
 }
 
-
+.bar-container{
+  width: 95%;
+  height: 0.2rem;
+  display: flex;
+  flex-direction: row;
+  background: rgb(242,192,74);
+  background: linear-gradient(90deg, rgba(242,192,74,1) 80px, rgba(179,182,188,1) 80px);
+}
 
 
 </style>

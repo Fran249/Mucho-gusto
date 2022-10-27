@@ -10,13 +10,10 @@
          <Carrito :key="componentKey"/>
         </v-navigation-drawer>
         <v-container fluid>
-            <h3 class="h3-title mb-3">MI PERFIL</h3>
-            <div class="linear-cont">
-                <v-progress-linear 
-                background-color="#b3b6bc" 
-                color="#f2c04a" 
-                :value="changeValue()">
-                </v-progress-linear>
+            <div>
+                <h3 class="h3-title mb-3">MI PERFIL</h3>
+                <div class="bar-container">
+                </div>
             </div>
             <v-row>
                 <v-col cols="3" >
@@ -131,6 +128,15 @@ h3{
 
     margin-left: 13%;
 
+}
+.bar-container{
+  width: 95%;
+  margin-left: 3%;
+  height: 0.2rem;
+  display: flex;
+  flex-direction: row;
+  background: rgb(242,192,74);
+  background: linear-gradient(90deg, rgba(242,192,74,1) 180px, rgba(179,182,188,1) 180px);
 }
 
 </style>

@@ -17,11 +17,7 @@
                     
                     <v-card-text>
                         <p class="cardText">
-                          Descripcion del producto
-                          Descripcion del producto
-                          Descripcion del producto
-                          Descripcion del producto
-                          Descripcion del producto
+                            {{card.descripcion}}
                         </p>
                         <p v-if="card.cantidad >= 1">
                             {{card.cantidad}} Unidades disponibles

@@ -1,15 +1,12 @@
 <template>
   <div>
     <navBarAdmin />
-    <v-container>
-      <H3>STOCK</H3>
-      <v-progress-linear
-        background-color="#b3b6bc"
-        color="#f2c04a"
-        :value="changeValue()"
-        class="mb-10"
-      >
-      </v-progress-linear>
+    <v-container class="container">
+      <div class="mb-10">
+        <H3>STOCK</H3>
+        <div class="bar-container">
+        </div>
+      </div>
       <h3 class="subTitle">SALADO/SIMPLES</h3>
       <v-simple-table>
         <template v-slot:default>
@@ -705,10 +702,10 @@ h3 {
   font-weight: bolder;
   font-size: 25px;
 }
-.container {
-  margin-top: 100px;
-}
 
+.container {
+  margin-top: 50px;
+}
 .v-dialog {
   background-color: white;
   margin: 0;
@@ -716,43 +713,23 @@ h3 {
   padding: 50px;
   display: flex;
   flex-direction: column;
+}
 
-  .v-btn-guardar {
-    display: flex;
-    justify-self: center;
-  }
-}
-.container-img-btn {
-  width: 100%;
-  height: 100%;
-
-  display: flex;
-  justify-content: end;
-  align-items: flex-end;
-}
-.div-files-selection {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  .input-file {
-    width: 250px;
-  }
-  .input-btn-file {
-    width: 250px;
-  }
-}
 .p-agregar{
   font-family: humanst521-1;
   font-size: 13px;
   font-weight: bolder;
   color: #fff
 }
-.alerta {
-  margin-right: 150px;
-  margin-top: 100px;
-}
 .subTitle{
   color: rgb(102,103,104)
+}
+.bar-container{
+  width: 100%;
+  height: 0.2rem;
+  display: flex;
+  flex-direction: row;
+  background: rgb(242,192,74);
+  background: linear-gradient(90deg, rgba(242,192,74,1) 100px, rgba(179,182,188,1) 100px);
 }
 </style>

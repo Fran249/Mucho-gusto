@@ -146,7 +146,7 @@
                   <v-icon class="mr-2">
                   mdi-account
                   </v-icon>
-                  <p class="title-draw mt-3">Mi Cuenta</p>
+                  <p class="title-draw mt-3">Mi Perfil</p>
                 </v-btn>
               </router-link>
             </v-list-item>

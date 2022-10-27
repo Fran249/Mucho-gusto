@@ -1,19 +1,35 @@
 <template>
     <div>
-        <v-row>
-                <v-col cols="12">
-                    <h3 class="mt-3 mb-3 ml-5">Carrito</h3>
-                </v-col>
-            </v-row>
-            <v-divider class="mb-5"> </v-divider>
-            <v-list width="250px"  v-for="carr in carrito" :key="carr.title" >
-                <v-list-item class="d-flex justify-space-between">
-                <v-img :src="carr.src" width="100" height="100" ></v-img>
-                <div class="d-flex flex-column justify-center">
-                  <h3 class="ml-2">{{carr.title}}</h3>
+        <v-container>
+            <div class="mb-10">
+            <h3 class="mi-compra mb-2">MI COMPRA</h3>
+            <div class="bar-container">
+            </div>
+            </div>
 
-                    <div class="d-flex flex-row justify-center ml-3 mt-10">
-                        <v-btn tile icon @click="disminuir(carr)"  outlined color="#02265c" width="30" height="30">
+            <v-row>
+                <v-col cols="7">
+                    <div class="d-flex flex-row">
+                    <router-link to="/" style="text-decoration: none;" class="mb-5">
+                        <v-btn text>
+                            <v-icon color="#374763" size="25" class="mb-1">
+                                arrow_back_ios
+                            </v-icon>
+                            <h3 class="h3-btn">SEGUIR COMPRANDO</h3>
+                        </v-btn>
+                    </router-link>
+                </div>
+                <v-list width="100%" v-for="carr in carrito" :key="carr.title" >
+                <v-list-item>
+                <div class="img-container">
+                    <v-img :src="carr.src" width="100%" height="100" ></v-img>
+                </div>
+                <div class="d-flex flex-column justify-center">
+                  <h3 class="h3-prod ml-2">{{carr.title}}</h3>
+
+                    <div class="d-flex flex-row">
+                        <div class="d-flex flex-row justify-center ml-3 mt-10">
+                            <v-btn tile icon @click="disminuir(carr)"  outlined color="#02265c" width="30" height="30">
                             <v-icon size="15px">
                                 mdi-minus
                             </v-icon>
@@ -28,31 +44,75 @@
                                 mdi-plus
                             </v-icon>
                         </v-btn>
-                        <p class="precio-value ml-5">${{carr.precio}}</p>
+                        </div>
+                            
                         </div>
                 </div>
-                <div class="d-flex flex-column align-self-start ml-2">
-                    <v-btn icon @click="borrarArticuloCarrito(carr)">
+                <div class=" d-flex flex-column align-self-start delete-art ">
+                    <v-btn icon @click="borrarArticuloCarrito(carr)" class="ml-10">
                         <v-icon color="#b3b6bc">
                             mdi-close
                         </v-icon>
                     </v-btn>
-                    
+                    <p class="precio-value ml-5 mt-10" v-if="carr.value == 1">${{carr.precio}}</p>
+                    <p class="precio-value ml-5 mt-10" v-else>${{Number(carr.precio) * Number(carr.value)}}</p>
                 </div>
+                
                 </v-list-item>
-                <v-divider class="mt-10"></v-divider>
+                <v-divider></v-divider>
             </v-list>
-            <div v-if="precioTotalArray == 0">
-                <h3 class="h3-carrito text-center mt-10">
-                    Parece que no tienes articulos en tu carrito!
-                </h3>
-            </div>      
-            <div v-else class="div-comprar-total">
-                <h3 >
-                    Total: ${{precioTotalArray}} 
-                </h3>
-                <router-link style="text-decoration: none;" :to="{ path: `/user/${this.usuario}/compra`, params: {username: this.usuario}}">
-                <v-btn 
+            <v-divider class="mt-5"></v-divider>
+                </v-col>
+                <v-col cols="5">
+                    <v-row>
+                        <v-col cols="12">
+                            <h3 class="h3-resumen mt-5 mb-5">RESUMEN DE CUENTA</h3>
+                            <h3 class="mt-5 mb-5">{{this.carrito.length}} Artículos</h3>
+                            <div class="d-flex flex-row mt-5 mb-5">
+                                <v-icon color="#374763" class="mr-2">
+                                    mdi-ticket-confirmation
+                                </v-icon>
+                                <h3 class="h3-promo">¿Tienes un código de promoción?</h3>
+                            </div>
+                            <div>
+                                <v-text-field color="grey" label="Codigo" append-icon="mdi-ticket-confirmation" filled>
+
+                                </v-text-field>
+                            </div>
+                        </v-col>
+                    </v-row>
+                    <v-divider class="mb-5"></v-divider>
+                    <v-row>
+                        <v-col cols="6">
+                            <div>
+                            <h3 class="h3-sub-desc-total">SUBTOTAL:</h3>
+                            </div>
+                            <div>
+                            <h3 class="mt-15 h3-sub-desc-total">DESCUENTO:</h3>
+                            </div>
+                        </v-col>
+                        <v-col cols="6">
+                            <div>
+                            <h3 class="ml-15 h3-sub-desc-total"> ${{precioTotalArray}} </h3>
+                            </div>
+                            <div>
+                            <h3 class="ml-15 mt-15 h3-sub-desc-total"> ${{descuento}} </h3>
+                            </div>
+                        </v-col>
+                    </v-row>
+                    <v-divider class="mb-5 mt-5"></v-divider>
+                    <v-row>
+                        <v-col cols="6">
+                            <h3 class="h3-resumen"  >
+                            TOTAL:
+                            </h3>
+                        </v-col>
+                        <v-col cols="6">
+                            <h3 class="ml-15 h3-resumen">
+                            ${{precioTotalArray}} 
+                            </h3>
+                        </v-col>
+                        <v-btn 
                     @click="comprarPrimerPaso(carrito)"
                     width="90%" 
                     class="mb-10 pa-5"
@@ -60,33 +120,34 @@
                     <p class="mt-4 p-v-btn ">
                       INICIAR MI COMPRA
                     </p>
-                </v-btn>
-            </router-link>
-            </div>
-
+                    </v-btn>
+                    </v-row>
+                </v-col>
+            </v-row>
+        </v-container>
     </div>
 </template>
 
-<script>
 
+<script>
 import { mapState, mapGetters } from 'vuex'
 import { getAuth, onAuthStateChanged} from "firebase/auth";
 import store from '@/store';
 
 const auth = getAuth();
- export default {
-    name: 'CarritoCompras',
+    export default {
+        
+        name: 'confirmBuy',
 
-    data: ()=>({
-        precioTotalArray: [],
-        carrito: store.state.carritoCompras,
-        usuario: null,
-    }),
-    updated(){
-        this.carrito = store.state.carritoCompras
-    },
-    methods:{
-        aumentar(carr){
+        data: ()=>({
+            precioTotalArray: [],
+            carrito: store.state.carritoCompras,
+            descuento: 0,
+            totalCard: []
+        }),
+        methods: {
+
+            aumentar(carr){
                 const index = this.carrito.findIndex(object => {
                     return object.id === carr.id;
                     });
@@ -211,9 +272,7 @@ const auth = getAuth();
       },
       
   },
-
- }
-
+    }
 
 </script>
 
@@ -227,7 +286,7 @@ const auth = getAuth();
     };
     @font-face{
     font-family:humanst521-2;
-    src: url('/src/assets/Humanst521LtBTLight.ttf');
+    src: url('/src/assets/Humanst521 BT Bold.ttf');
     };
     @font-face{
     font-family: humans521-3;
@@ -240,23 +299,57 @@ const auth = getAuth();
     
     
     }
+    @font-face {
+    font-family: 'humanst521_btbold';
+    src: url('/src/assets/humanst521_bt_bold-webfont.woff2') format('woff2'),
+         url('/src/assets/humanst521_bt_bold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 
+}
 .p-v-btn{
     font-family: 'humanst521_btbold';
     color: #fff
 }
-.h3-carrito{
-    font-family: humanst521-2;
-    font-weight: bolder;
-    font-size: 20px;
-    color: #02265C;
+
+.delete-art{
+    margin-left: 40%;
+}
+.img-container{
+    width: 25%;
+}
+.h3-resumen{
+    font-family: 'humanst521_btbold';
+    ;
+    font-size: 19px;
+    color: #374763;
 }
 .v-btn {
   text-transform:none !important;
+
 }
 p{
   font-family: humanst521-1;
   font-size: 15px;
+}
+
+.h3-sub-desc-total{
+    font-family: humanst521-1;
+  font-size: 15px;
+}
+h3{
+    font-family: humanst521-1;
+    color: #727272; 
+}
+.h3-promo{
+    font-family: 'humanst521_btroman';
+    font-size: 15;
+    color: #374763;
+}
+.h3-prod{
+    font-family: 'humanst521_btbold';
+    font-size: 15;
+    color: black 
 }
 
 .div-comprar-total{
@@ -279,12 +372,33 @@ p{
     color: #02265C;
     font-family: humanst521-2;
     font-size: 19px;
+    margin-left: 50%;
+    
 }
 h3{
     font-family: humanst521-2;
     font-weight: bolder;
     font-size: 20px;
 }
+.bar-container{
+  width: 100%;
+  height: 0.2rem;
+  display: flex;
+  flex-direction: row;
+  background: rgb(242,192,74);
+  background: linear-gradient(90deg, rgba(242,192,74,1) 140px, rgba(179,182,188,1) 140px);
+}
 
+.mi-compra{
+    font-family: 'humanst521_btbold';
+    color: black;
+    font-size: 20px;
+}
+.h3-btn{
+    font-family: 'humanst521_btbold';
+    color: #374763;
+    font-size: 18px;
+    letter-spacing: 0ch;
+}
 
 </style>

@@ -49,9 +49,13 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/Dulces.vue'),
   },
   {
-    path: '/pagina',
-    name: 'pagina',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Pagina.vue')
+    path: "/user/:username/compra",
+    name: "compras",
+    props: true,
+    meta: {
+      requiresAuth : true
+    },
+    component: () => import(/* webpackChunkName: "about" */ '../views/confirmBuy.vue')
   },
   {
     path: '/agregar',
