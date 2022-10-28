@@ -1,9 +1,18 @@
 <template>
         <v-treeview :items="items" :multiple-active="true" transition open-all >
             <template v-slot:label="{ item }">
-                <h3 v-if="item.name == 'Panificados'">{{item.name}}</h3>
-                <p class="item" v-else>{{ item.name }}</p>
-                <div class="bar-container" v-if="item.name =='Panificados'">
+                <div v-if="item.name == 'Panificados'">
+                    <h3 >{{item.name}}</h3>
+                    <div class="bar-container" v-if="item.name =='Panificados'">
+                </div>
+                </div>
+                <div v-else >
+                    <v-btn text class="item"  @click="select(item)" ><p>{{item.name}}</p></v-btn>
+                    <v-btn text icon v-if="item.id == selected" @click="reset()">
+                        <v-icon>
+                            mdi-close
+                        </v-icon>
+                    </v-btn>
                 </div>
             </template>
         </v-treeview>
@@ -11,9 +20,12 @@
 
 
 <script>
+import store from '@/store';
     export default {
          name : 'menuFilter',
          data: ()=> ({
+            selectedItemName:'',
+            selected : '',
             items: [
                 {   name: 'Panificados',
                     id: 1,
@@ -41,10 +53,22 @@
             ],
          }),
          methods:{
-
+            select(item){
+                this.selectedItemName = item.name
+                this.selected = item.id
+            },
+            reset(){
+                this.selectedItemName = ''
+                this.selected = ''
+            }
          },
          watch:{
-  
+            selectedItemName(){
+                this.selectedItemName = this.selectedItemName.toLowerCase();
+                store.commit('filterValue',this.selectedItemName)
+                console.log(this.selectedItemName)
+                store.commit('forceRenderCarrito', + 1)
+            }
          },
          computed:{
             
@@ -73,10 +97,13 @@
     
     
     }
+    .v-btn {
+  text-transform:none !important;
+  
+}
+
 .item{
   font-family: humanst521-1;
-  font-size: 15px;
-  margin-top: 15px;
 }
 h3{
     font-family: humanst521-2;
@@ -91,7 +118,7 @@ h3{
   display: flex;
   flex-direction: row;
   background: rgb(242,192,74);
-  background: linear-gradient(90deg, rgba(242,192,74,1) 100px, rgba(179,182,188,1) 100px);
+  background: linear-gradient(90deg, rgba(242,192,74,1) 70px, rgba(179,182,188,1) 70px);
 }
 
 

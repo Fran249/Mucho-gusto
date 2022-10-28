@@ -73,7 +73,7 @@ export default {
   height: 100%;
   position: fixed;
   overflow-y: auto;
-  width: 16%;
+  width: 17.8%;
 
 }
 .menu-cont::-webkit-scrollbar {

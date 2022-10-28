@@ -46,8 +46,25 @@
     </v-container>
     <v-divider></v-divider>
     <v-container>
+      <div>
+        <h3>SELECCIONAR IMAGEN</h3>
+      <div class="bar-container">
+      </div>
+      </div>
+    </v-container>
+    <v-container>
       <v-row>
-        <v-col v-for="imagen in imagenes" :key="imagen.imagen" cols="3" xl="2" lg="3" md="3">
+        <v-expansion-panels>
+          <v-expansion-panel
+            v-for="(i) in 1"
+            :key="i"
+          >
+            <v-expansion-panel-header>
+             <p class="title-img-expan mt-3">SALADOS</p>
+            </v-expansion-panel-header>
+            <v-expansion-panel-content>
+              <v-row>
+                <v-col v-for="imagen in imagenesSalados" :key="imagen.imagen" cols="3" xl="2" lg="3" md="3">
           <v-img :src="imagen.imagen" :height="250" class="v-img">
             <div class="container-checked" v-if="imagen.imagen == imagenSrc" >
               <v-btn icon color="white" style="background-color: green;" > 
@@ -76,40 +93,159 @@
             </div>
           </v-img>
         </v-col>
+              </v-row>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
       </v-row>
     </v-container>
-    <v-container fluid>
-      <div class="div-files-selection">
-        <input
-          v-if="UploadValue == 0"
-          type="file"
-          @change="onFileSelected"
-          class="input-file"
-        />
-      </div>
-      <div class="d-flex flex-row justify-space-between">
-        <v-hover v-slot="{ hover }">
-          <v-btn @click="onUpload" class=" ml-15"
-            color="#b3b6bc"
-            width="200" 
-            height="40"
-            :style="{ 'background-color': hover ? '#febf2c' : '#b3b6bc'}"
+    <v-divider></v-divider>
+    <v-container>
+      <v-row>
+        <v-expansion-panels>
+          <v-expansion-panel
+            v-for="(i) in 1"
+            :key="i"
           >
-            <p class="mt-4">
-              Subir imagen
-            </p>
-            <v-icon color="white">
-              mdi-upload
-            </v-icon>
-          </v-btn>
-        </v-hover>
-        <v-btn @click="updateCard" class="mr-15 mt-10" color="#febf2c" width="150" height="40">
+            <v-expansion-panel-header>
+             <p class="title-img-expan mt-3">DULCES</p>
+            </v-expansion-panel-header>
+            <v-expansion-panel-content>
+              <v-row>
+                <v-col v-for="imagen in imagenesDulces" :key="imagen.imagen" cols="3" xl="2" lg="3" md="3">
+          <v-img :src="imagen.imagen" :height="250" class="v-img">
+            <div class="container-checked" v-if="imagen.imagen == imagenSrc" >
+              <v-btn icon color="white" style="background-color: green;" > 
+                <v-icon>
+                  mdi-check
+                </v-icon>
+              </v-btn>
+            </div>
+            <div class="container-img-btn">
+              <v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">
+              <v-btn v-bind="attrs" v-on="on" @click="eliminarImg(imagen)" icon>
+                <v-icon color="white"> mdi-delete </v-icon>
+              </v-btn>
+              </template>
+              <span>Eliminar Imagen</span>
+              </v-tooltip>
+              <v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">
+              <v-btn v-bind="attrs" v-on="on"  @click="seleccionarImg(imagen)" icon>
+                <v-icon color="white"> mdi-check </v-icon>
+              </v-btn>
+              </template>
+              <span>Seleccionar imagen</span>
+              </v-tooltip>
+            </div>
+          </v-img>
+        </v-col>
+              </v-row>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
+      </v-row>
+    </v-container>
+    <v-divider></v-divider>
+    <v-container>
+      <v-row>
+        <v-expansion-panels>
+          <v-expansion-panel
+            v-for="(i) in 1"
+            :key="i"
+          >
+            <v-expansion-panel-header>
+             <p class="title-img-expan mt-3">PANIFICADOS</p>
+            </v-expansion-panel-header>
+            <v-expansion-panel-content>
+              <v-row>
+                <v-col v-for="imagen in imagenesPanificados" :key="imagen.imagen" cols="3" xl="2" lg="3" md="3">
+          <v-img :src="imagen.imagen" :height="250" class="v-img">
+            <div class="container-checked" v-if="imagen.imagen == imagenSrc" >
+              <v-btn icon color="white" style="background-color: green;" > 
+                <v-icon>
+                  mdi-check
+                </v-icon>
+              </v-btn>
+            </div>
+            <div class="container-img-btn">
+              <v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">
+              <v-btn v-bind="attrs" v-on="on" @click="eliminarImg(imagen)" icon>
+                <v-icon color="white"> mdi-delete </v-icon>
+              </v-btn>
+              </template>
+              <span>Eliminar Imagen</span>
+              </v-tooltip>
+              <v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">
+              <v-btn v-bind="attrs" v-on="on"  @click="seleccionarImg(imagen)" icon>
+                <v-icon color="white"> mdi-check </v-icon>
+              </v-btn>
+              </template>
+              <span>Seleccionar imagen</span>
+              </v-tooltip>
+            </div>
+          </v-img>
+        </v-col>
+              </v-row>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
+      </v-row>
+    </v-container>  
+    <v-container >
+      <div class="d-flex flex-row justify-space-between">
+        <v-expansion-panels>
+          <v-expansion-panel>
+            <v-expansion-panel-header>
+              <h3 class="title-img-expan mt-3 mb-3">ADMINISTRAR IMAGENES</h3>
+            </v-expansion-panel-header>
+            <v-expansion-panel-content>
+              <v-select
+              v-model="selectedCategoryImg"
+              :items="itemsImg"
+              item-text="categoryName"
+              return-object
+              label="Categoria"
+            ></v-select>
+            <div class="div-files-selection">
+              <input
+                v-if="UploadValue == 0"
+                type="file"
+                @change="onFileSelected"
+                class="input-file"
+              />
+            </div>
+              <v-hover v-slot="{ hover }">
+                <v-btn @click="onUpload" class=" ml-15"
+                  color="#b3b6bc"
+                  width="200" 
+                  height="40"
+                  :style="{ 'background-color': hover ? '#febf2c' : '#b3b6bc'}"
+                >
+                  <p class="mt-4">
+                    Subir imagen
+                  </p>
+                  <v-icon color="white">
+                    mdi-upload
+                  </v-icon>
+                </v-btn>
+              </v-hover>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
+      </div>
+
+    </v-container>
+    <div class="agregar-cont">
+      <v-btn @click="updateCard" class="mr-15 mb-10 mt-10" color="#febf2c" width="180" height="40">
           <p class="p-agregar mt-4">
-            Agregar
+           AGREGAR PRODUCTO
           </p>
         </v-btn>
-      </div>
-    </v-container>
+    </div>
     <v-divider></v-divider>
     <v-dialog v-model="dialogEdit">
       <form class="v-dialog">
@@ -171,10 +307,17 @@ export default {
     selectedCategory: null,
     selectedCategoryName: "",
     selectedSubCategory: null,
+    selectedCategoryImg: null,
+    selectedCategoryNameImg: "",
     items: [
       { categoryName: "Salados" },
       { categoryName: "Panificados" },
       { categoryName: "Dulce" },
+    ],
+    itemsImg: [
+      { categoryName: "Salados" },
+      { categoryName: "Panificados" },
+      { categoryName: "Dulces" },
     ],
     itemSub: [{ subCategoryName: "Simples" }, { subCategoryName: "Rellenos" }],
     title1: "",
@@ -185,7 +328,9 @@ export default {
     hidden: false,
     productos: null,
     UploadValue: 0,
-    imagenes: [],
+    imagenesSalados: [],
+    imagenesDulces: [],
+    imagenesPanificados: [],
     selectedFile: null,
     stockEditado: "",
     stock: "",
@@ -220,6 +365,12 @@ export default {
       } else if(this.selectedCategoryName == 'Panificados'){
         this.idRoute = 'PN'
       }
+    },
+    selectedCategoryImg() {
+      this.selectedCategoryNameImg = this.selectedCategoryImg.categoryName;
+      console.log("Label: ", this.selectedCategoryNameImg);
+
+     
     },
     selectedSubCategory() {
       console.log(
@@ -316,7 +467,7 @@ export default {
       this.selectedFile = event.target.files[0];
     },
     onUpload() {
-      const storageRef = ref(storage, `/AdminStock/${this.selectedFile.name}`);
+      const storageRef = ref(storage, `/AdminStock/${this.selectedCategoryNameImg}/${this.selectedFile.name}`);
       // eslint-disable-next-line no-unused-vars
       uploadBytesResumable(storageRef, this.selectedFile).then((snapshot) => {
         //////////////////////------Barra de progreso-----//////////////////////
@@ -361,8 +512,11 @@ export default {
     onSnapshot(doc(db, "AdminStock/v-card1"), (doc) => {
       this.productos = doc.data().cards;
     });
-    const listRef = ref(storage, "AdminStock/");
-    listAll(listRef).then((res) => {
+    const listRef1 = ref(storage, "AdminStock/Salados");
+    const listRef2 = ref(storage, "AdminStock/Dulces");
+    const listRef3 = ref(storage, "AdminStock/Panificados");
+
+    listAll(listRef1).then((res) => {
       // eslint-disable-next-line no-unused-vars
       res.items.forEach((itemRef) => {
         // All the items under listRef.
@@ -372,7 +526,35 @@ export default {
             imagen: url,
             ruta: itemRef.fullPath,
           };
-          this.imagenes.push(imgUrls);
+          this.imagenesSalados.push(imgUrls);
+        });
+      });
+    });
+    listAll(listRef2).then((res) => {
+      // eslint-disable-next-line no-unused-vars
+      res.items.forEach((itemRef) => {
+        // All the items under listRef.
+        let downloadUrl = getDownloadURL(ref(storage, itemRef));
+        downloadUrl.then((url) => {
+          const imgUrls = {
+            imagen: url,
+            ruta: itemRef.fullPath,
+          };
+          this.imagenesDulces.push(imgUrls);
+        });
+      });
+    });
+    listAll(listRef3).then((res) => {
+      // eslint-disable-next-line no-unused-vars
+      res.items.forEach((itemRef) => {
+        // All the items under listRef.
+        let downloadUrl = getDownloadURL(ref(storage, itemRef));
+        downloadUrl.then((url) => {
+          const imgUrls = {
+            imagen: url,
+            ruta: itemRef.fullPath,
+          };
+          this.imagenesPanificados.push(imgUrls);
         });
       });
     });
@@ -415,11 +597,22 @@ p {
   font-size: 13px;
   color: #fff
 }
+.agregar-cont{
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
 .p-agregar{
   font-family: humanst521-1;
   font-size: 13px;
   font-weight: bolder;
   color: #fff
+}
+.title-img-expan{
+  font-family: 'humanst521_btbold';
+    ;
+    font-size: 19px;
+    color: #727272; 
 }
 .p-img-upload{
   margin-left: 32%;

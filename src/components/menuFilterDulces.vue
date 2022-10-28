@@ -1,25 +1,33 @@
 <template>
-        <v-treeview :items="items" :multiple-active="false" transition open-all item-text v-model="select">
+        <v-treeview :items="items" :multiple-active="false" transition open-all :return-object="true" >
             <template v-slot:label="{ item }" >
-                <h3 v-if="item.name == 'Dulces'">{{item.name}}</h3>
-                <div class="d-flex flex-row" v-if="!item.children">
-                    <v-checkbox v-model="item.selected" />
-                    <p class="item" >{{item.name}}</p>
+                <div v-if="item.name == 'Dulces'">
+                    <h3 >{{item.name}}</h3>
+                    <div class="bar-container" v-if="item.name =='Dulces'">
                 </div>
-                <div class="bar-container" v-if="item.name =='Dulces'">
                 </div>
-                 
+                <div class="d-flex flex-row" v-else >
+                    <v-btn text class="item"  @click="select(item)" ><p>{{item.name}}</p></v-btn>
+                    <v-btn text icon v-if="item.id == selected" @click="reset()">
+                        <v-icon>
+                            mdi-close
+                        </v-icon>
+                    </v-btn>
+                </div>
             </template>
         </v-treeview>
 </template>
 
 
 <script>
+import store from '@/store';
+
 
     export default {
          name : 'menuFilter',
          data: ()=> ({
-            texto: '',
+            selectedItemName:'',
+            selected : '',
             items: [
                  {
                     name:'Dulces',
@@ -66,20 +74,25 @@
                 ],
          }),
          methods:{
-
+            select(item){
+                this.selectedItemName = item.name
+                this.selected = item.id
+            },
+            reset(){
+                this.selectedItemName = ''
+                this.selected = ''
+            }
          },
          watch:{
-  
+            selectedItemName(){
+                this.selectedItemName = this.selectedItemName.toLowerCase();
+                store.commit('filterValue',this.selectedItemName)
+                console.log(this.selectedItemName)
+                store.commit('forceRenderCarrito', + 1)
+            }
          },
          computed:{
-            select: {
-                get(value){
-                    return value
-                },
-                set(value){
-                    console.log(value)
-                }
-            }
+                
          }
     }
 </script>
@@ -105,10 +118,12 @@
     
     
     }
+    .v-btn {
+  text-transform:none !important;
+  
+}
 .item{
   font-family: humanst521-1;
-  font-size: 15px;
-  margin-top: 15px;
 }
 h3{
     font-family: humanst521-2;

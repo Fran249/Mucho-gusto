@@ -4,7 +4,7 @@
         <v-row >
             <v-col 
             v-for="card in cardsfiltradas" :key="card.title"
-            cols="4" lg="4" md="5" xl="3">
+            cols="4" lg="4" md="5" xl="3">  
                 <v-card tile elevation="9">
                     <v-img :src="card.src"  width="100%" height="250px">
 
@@ -95,7 +95,7 @@
         name: 'mainCont',
         data: ()=>({
             cards: null,
-            cardsfiltradas: null,
+            cardsfiltradas: [],
             dialogUser: false,
             dialogCarrito: false,
             carrito: [],
@@ -298,8 +298,9 @@
             console.log(store.state.carritoCompras)
          },
          filterValue(){
-            console.log(this.filterValue)
-            this.cardsfiltradas = this.cards.filter(item => item.title.toLowerCase().indexOf(this.filterValue) !== -1);
+            
+            this.cardsfiltradas = this.cards.filter(item => item.title.toLowerCase().indexOf(this.filterValue ) !== -1)
+
          }
         },
          computed:{

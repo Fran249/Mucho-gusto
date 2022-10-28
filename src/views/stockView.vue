@@ -29,9 +29,14 @@
               <td v-if="prod.cantidad < 1">SIN STOCK</td>
               <td>$ {{ prod.precio }}</td>
               <td>
-                <v-btn class="mb-5 mr-5" icon >
-                  <v-icon color="#9d9c9c"> mdi-file-image </v-icon>
-                </v-btn>
+                <v-tooltip right>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn class="mb-5 mr-5" icon v-bind="attrs" v-on="on" @click="cambiarBtnToImg(prod) " >
+                    <v-icon color="#9d9c9c"> mdi-file-image </v-icon>
+                  </v-btn>
+                </template>
+                <span>Editar imagen</span>
+                </v-tooltip>
                 <v-tooltip right>
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn v-bind="attrs" v-on="on" class="mb-5 mr-5" icon @click="cambiarBtnToID(prod) " >
@@ -94,7 +99,7 @@
               <td v-if="prod.cantidad < 1">SIN STOCK</td>
               <td>$ {{ prod.precio }}</td>
               <td>
-                <v-btn class="mb-5 mr-5" icon >
+                <v-btn class="mb-5 mr-5" icon @click="cambiarBtnToImg(prod) " >
                   <v-icon color="#9d9c9c"> mdi-file-image </v-icon>
                 </v-btn>
                 <v-tooltip right>
@@ -159,7 +164,7 @@
               <td v-if="prod.cantidad < 1">SIN STOCK</td>
               <td>$ {{ prod.precio }}</td>
               <td>
-                <v-btn class="mb-5 mr-5" icon >
+                <v-btn class="mb-5 mr-5" icon  @click="cambiarBtnToImg(prod) ">
                   <v-icon color="#9d9c9c"> mdi-file-image </v-icon>
                 </v-btn>
                 <v-tooltip right>
@@ -224,7 +229,7 @@
               <td v-if="prod.cantidad < 1">SIN STOCK</td>
               <td>$ {{ prod.precio }}</td>
               <td>
-                <v-btn class="mb-5 mr-5" icon >
+                <v-btn class="mb-5 mr-5" icon  @click="cambiarBtnToImg(prod) ">
                   <v-icon color="#9d9c9c"> mdi-file-image </v-icon>
                 </v-btn>
                 <v-tooltip right>
@@ -335,6 +340,72 @@
       </form>
 
     </v-dialog>
+    <v-dialog
+      v-model="dialogImg"
+      fullscreen
+      width="100%" 
+      transition="dialog-bottom-transition"
+      class="dialogImg">
+        <v-toolbar
+          dark
+          color="black"
+          
+          height="100px"
+        >
+
+          <h3 class="h3-select-img">SELECCIONE UNA IMAGEN</h3>
+          <v-spacer></v-spacer>
+          <v-btn
+            icon
+            dark
+            
+           @click="dialogImg = false">
+              <v-icon color="rgb(242,192,74)">
+                mdi-close
+              </v-icon>
+          </v-btn>
+      </v-toolbar>
+      <v-tooltip right v-if="SaveImg">
+          <template v-slot:activator="{ on, attrs }">
+          <v-btn 
+          v-bind="attrs"
+          v-on="on" @click="guardarImg()"
+          elevation="2"
+            fab
+            right
+            fixed
+            color="yellow">
+            <v-icon color="black"> mdi-content-save</v-icon>
+          </v-btn>
+          </template>
+          <span>Guardar Cambios</span>
+        </v-tooltip>
+      <div class="container-bckg">
+      <v-row>
+        <v-col v-for="imagen in imagenes" :key="imagen.imagen" cols="3" xl="2" lg="3" md="3" class="pa-10">
+          <v-img :src="imagen.imagen" :height="250" class="v-img">
+            <div class="container-checked" v-if="imagen.imagen == imagenSrc" >
+              <v-btn icon color="white" style="background-color: green;" > 
+                <v-icon>
+                  mdi-check
+                </v-icon>
+              </v-btn>
+            </div>
+            <div class="container-img-btn">
+              <v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">
+              <v-btn v-bind="attrs" v-on="on"  @click="seleccionarImg(imagen)" icon>
+                <v-icon color="white"> mdi-check </v-icon>
+              </v-btn>
+              </template>
+              <span>Seleccionar imagen</span>
+              </v-tooltip>
+            </div>
+          </v-img>
+        </v-col>
+      </v-row>
+    </div>
+    </v-dialog>
   </div>
 </template>
 
@@ -350,8 +421,11 @@ import {
 import {
   getStorage,
   ref,
-  deleteObject,
   uploadBytesResumable,
+} from "firebase/storage";
+import {
+  listAll,
+  getDownloadURL,
 } from "firebase/storage";
 //import { getAuth } from "firebase/auth"
 import { initializeApp } from "firebase/app";
@@ -369,6 +443,7 @@ export default {
     navBarAdmin,
   },
   data: () => ({
+
     selectedCategory: null,
     items: [
       { categoryName: "Salados" },
@@ -384,8 +459,10 @@ export default {
     productoRelleno: [],
     productoDulces: [],
     productoPanificados: [],
-    UploadValue: 0,
     imagenes: [],
+    imagenSrc: '',
+    dialogImg: false,
+    UploadValue: 0,
     selectedFile: null,
     stockEditado: "",
     idEditado:'',
@@ -398,6 +475,7 @@ export default {
     prodCantidad: "",
     prodPrecio: "",
     prodValue: "",
+    prodDescripcion: '',
     dialogEdit: false,
     rutaID: '',
     rutaAgregar: '',
@@ -405,6 +483,7 @@ export default {
     idEdit : false,
     priceEdit: false,
     precioEditado: '',
+    SaveImg: false,
   }),
   watch: {
     rutaID(){
@@ -448,6 +527,19 @@ export default {
       this.prodPrecio = prod.precio;
       this.prodValue = prod.value;
       this.rutaID= prod.idRoute
+      this.prodDescripcion = prod.descripcion
+    },
+    cambiarBtnToImg(prod) {
+      this.prodTitle = prod.title;
+      this.prodSrc = prod.src;
+      this.prodId = prod.id;
+      this.prodCantidad = prod.cantidad;
+      this.prodPrecio = prod.precio;
+      this.prodValue = prod.value;
+      this.rutaID= prod.idRoute
+      this.prodDescripcion = prod.descripcion
+      this.dialogImg = true;
+      console.log(prod)
     },
     cambiarBtnToID(prod){
       this.dialogEdit = true;
@@ -458,6 +550,7 @@ export default {
       this.prodCantidad = prod.cantidad;
       this.prodPrecio = prod.precio;
       this.prodValue = prod.value;
+      this.prodDescripcion = prod.descripcion
       this.rutaID= prod.idRoute
     },
     cambiarBtnToPrice(prod){
@@ -470,6 +563,39 @@ export default {
       this.prodPrecio = prod.precio;
       this.prodValue = prod.value;
       this.rutaID= prod.idRoute
+      this.prodDescripcion = prod.descripcion
+    },
+    guardarImg(){
+      const cardRef = doc(db, `AdminStock/${this.rutaAgregar}`);
+      updateDoc(cardRef, {
+        cards: arrayRemove({
+          title: this.prodTitle,
+          src: this.prodSrc,
+          id: this.prodId,
+          cantidad: this.prodCantidad,
+          idRoute: this.rutaID,
+          precio: this.prodPrecio,
+          value: this.prodValue,
+          descripcion: this.prodDescripcion
+        }),
+      });
+      updateDoc(cardRef, {
+      cards: arrayUnion({
+        title: this.prodTitle,
+        src: this.src1,
+        id: this.prodId,
+        cantidad: this.prodCantidad,
+        idRoute: this.rutaID,
+        precio: this.prodPrecio,
+        value: this.prodValue,
+        descripcion: this.prodDescripcion
+      }),
+    });
+      
+    this.SaveImg = false
+    this.dialogImg = false
+    this.hidden = false
+    this.imagenSrc = '';
     },
     editarStock() {
       
@@ -483,6 +609,7 @@ export default {
           idRoute: this.rutaID,
           precio: this.prodPrecio,
           value: this.prodValue,
+          descripcion: this.prodDescripcion
         }),
       });
       updateDoc(cardRef, {
@@ -494,6 +621,7 @@ export default {
           idRoute: this.rutaID,
           precio: this.prodPrecio,
           value: this.prodValue,
+          descripcion: this.prodDescripcion
         }),
       });
       this.stockEditado = "";
@@ -512,6 +640,7 @@ export default {
           idRoute: this.rutaID,
           precio: this.prodPrecio,
           value: this.prodValue,
+          descripcion: this.prodDescripcion
         }),
       });
       updateDoc(cardRef, {
@@ -523,6 +652,7 @@ export default {
           idRoute: this.rutaID,
           precio: this.prodPrecio,
           value: this.prodValue,
+          descripcion: this.prodDescripcion
         }),
       });
       this.idEditado = '';
@@ -541,22 +671,24 @@ export default {
         idRoute: this.rutaID,
         precio: this.prodPrecio,
         value: this.prodValue,
+        descripcion: this.prodDescripcion
       }),
     });
     updateDoc(cardRef, {
       cards: arrayUnion({
         title: this.prodTitle,
         src: this.prodSrc,
-        id: this.idEditado,
+        id: this.prodId,
         cantidad: this.prodCantidad,
         idRoute: this.rutaID,
         precio: this.precioEditado,
         value: this.prodValue,
+        descripcion: this.prodDescripcion
       }),
     });
 
     this.precioEditado = "";
-    this.editarPrecio = false;
+    this.priceEdit = false;
     this.dialogEdit = false;
     },
     updateCard() {
@@ -607,7 +739,8 @@ export default {
           cantidad: prod.cantidad,
           precio: prod.precio,
           value: prod.value,
-          idRoute: prod.idRoute
+          idRoute: prod.idRoute,
+          descripcion: prod.descripcion
         }),
       });
     },
@@ -632,28 +765,12 @@ export default {
     seleccionarImg(imagen) {
       console.log(imagen.imagen);
       this.src1 = imagen.imagen;
+      this.imagenSrc = imagen.imagen;
+      this.src1 = imagen.imagen;
       this.hidden = true;
-      setTimeout(this.quitarAlerta, 1500);
+      this.SaveImg = true
     },
-    quitarAlerta() {
-      this.hidden = false;
-    },
-    eliminarImg(imagen) {
-      if (confirm("Seguro que quieres eliminar esta imagen?")) {
-        const imgRef = ref(storage, `${imagen.ruta}`);
-
-        // Delete the file
-        deleteObject(imgRef)
-          .then(() => {
-            // File deleted successfully
-            location.reload();
-          })
-          .catch((error) => {
-            // Uh-oh, an error occurred!
-            console.log(error);
-          });
-      }
-    },
+    
   },
   mounted() {
     onSnapshot(doc(db, "AdminStock/SaladosSimples"), (doc) => {
@@ -667,6 +784,22 @@ export default {
     });
     onSnapshot(doc(db, "AdminStock/Panificados"), (doc) => {
       this.productoPanificados = doc.data().cards;
+    });
+
+    const listRef = ref(storage, "AdminStock/");
+    listAll(listRef).then((res) => {
+      // eslint-disable-next-line no-unused-vars
+      res.items.forEach((itemRef) => {
+        // All the items under listRef.
+        let downloadUrl = getDownloadURL(ref(storage, itemRef));
+        downloadUrl.then((url) => {
+          const imgUrls = {
+            imagen: url,
+            ruta: itemRef.fullPath,
+          };
+          this.imagenes.push(imgUrls);
+        });
+      });
     });
   },
 };
@@ -702,7 +835,39 @@ h3 {
   font-weight: bolder;
   font-size: 25px;
 }
+.v-img{
+  display: flex;
+  align-items: flex-end;
 
+}
+.container-img-btn {
+  
+  width: 100%;
+  background-color: rgba(0,0,0, 0.5);
+  display: flex;
+  justify-content: end;
+}
+.container-checked{
+  width: 100%;
+  padding-bottom: 65% ;
+  padding-left: 85% ;
+}
+.h3-select-img{
+  font-family: humanst521-2;
+  font-weight: bolder;
+  font-size: 18px;
+  color: rgb(242,192,74);
+}
+
+.dialogImg{
+  margin: 0;
+  padding: 0;
+}
+.container-bckg{
+  background-color: transparent;
+  backdrop-filter: blur(10px);
+  width: 100%;
+}
 .container {
   margin-top: 50px;
 }
