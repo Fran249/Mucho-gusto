@@ -4,7 +4,7 @@
         <v-row >
              <v-col 
             v-for="card in cardsfiltradas" :key="card.title"
-            cols="6" lg="4" md="4" sm="4" xl="2" >
+            cols="6" lg="3" md="4" sm="4" xl="2"  >
                 <v-card  tile elevation="9" class="v-card">
                     <div >
                         <v-img :src="card.src" width="100%" :height ="heightImg()" class="v-img-card">

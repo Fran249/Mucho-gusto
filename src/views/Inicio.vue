@@ -3,13 +3,7 @@
 
       
         <navBar />
-        <v-row>
-        <v-col cols="12">
-        <mainCont class="mainCont"/>
-        </v-col>
-      </v-row>
-
-    <v-navigation-drawer
+        <v-navigation-drawer
         fixed
         temporary
         right
@@ -18,6 +12,13 @@
         width="25%" >
          <Carrito :key="componentKey"/>
         </v-navigation-drawer>
+        <v-row>
+        <v-col cols="12">
+        <mainCont class="mainCont"/>
+        </v-col>
+      </v-row>
+
+
   </div>
 </template>
 

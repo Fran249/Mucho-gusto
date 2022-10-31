@@ -9,7 +9,7 @@
               <menuFilterPanificados class="menuFilterPanificados"/>
             </div>
           </v-col>
-        <v-col cols="12" lg="10" sm="5" xl="4">
+        <v-col cols="12" lg="10" sm="5" xl="10">
         <mainContPanificados class="mainContPanificados" />
         </v-col>
       </v-row>
