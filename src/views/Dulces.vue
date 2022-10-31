@@ -8,16 +8,17 @@
         temporary
         right 
         v-model="carritoCompra"
-        width="25%" v-if=" existeUsuario ">
+        touchless
+        width="25%">
          <Carrito :key="componentKey"/>
         </v-navigation-drawer>
         <v-row>
-          <v-col cols="2">
+          <v-col cols="2" v-if="width > 960">
             <div class="menu-cont">
               <menuFilterDulces class="menuFilterDulces"/>
             </div>
           </v-col>
-        <v-col cols="9">
+        <v-col cols="12" lg="9" sm="5" xl="4">
         <mainContDulces class="mainContDulces" />
         </v-col>
       </v-row>
@@ -43,6 +44,7 @@ export default {
 },
   data:()=>({
     componentKey: store.state.forceRenderCarrito,
+    width: window.innerWidth
 
   }),
  watch:{

@@ -292,4 +292,5 @@ background-color: rgb(234,232,232,0.95);
 .link.active .v-btn p {
   color: #f2c04a;
 }
+
 </style>

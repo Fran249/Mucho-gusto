@@ -7,7 +7,7 @@
                 </div>
                 </div>
                 <div v-else >
-                    <v-btn text class="item"  @click="select(item)" ><p>{{item.name}}</p></v-btn>
+                    <v-btn text class="item"  @click="select(item)" ><p class="mt-3">{{item.name}}</p></v-btn>
                     <v-btn text icon v-if="item.id == selected" @click="reset()">
                         <v-icon>
                             mdi-close

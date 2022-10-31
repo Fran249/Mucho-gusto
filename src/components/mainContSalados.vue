@@ -4,30 +4,29 @@
         <v-row >
             <v-col 
             v-for="card in cardsfiltradas" :key="card.title"
-           cols="4" lg="4" md="5" xl="3">
-                <v-card tile elevation="9">
-                    <v-img :src="card.src" width="310px" height="250px">
+            cols="6" lg="4" md="4" sm="4" xl="2" >
+                <v-card  tile elevation="9" class="v-card">
+                    <div >
+                        <v-img :src="card.src" width="100%" :height ="heightImg()" class="v-img-card">
 
-                    </v-img>
-                    <v-card-title>
+                        </v-img>
+                    </div>
+                    <v-card-title class="v-card-title">
                         <h3>
                            {{card.title}}
                         </h3>
                     </v-card-title>
-                    
-                    <v-card-text>
-                        <p class="cardText">
-                            {{card.descripcion}}
-                        </p>
+                    <v-card-text class="v-card-text">
+                        {{card.descripcion}}
                         <p v-if="card.cantidad >= 1">
                             {{card.cantidad}} Unidades disponibles
                         </p>
                         <p v-if="card.cantidad >= 1">${{card.precio}}</p>
                         <p v-else>Sin stock</p>
-                        
                     </v-card-text>
-                    <v-card-actions v-if="card.cantidad >= 1">
-                        <v-btn tile icon @click="aumentarCantidad(card)" outlined color="#02265c" width="30" height="30">
+                    <v-card-actions v-if="card.cantidad >= 1" class="actions-card">
+                        <div class="div-btn">
+                        <v-btn tile icon @click="aumentarCantidad(card)" outlined color="#02265c" width="30" height="30" class="v-btn-sumrest">
                             <v-icon>
                                 mdi-plus
                             </v-icon>
@@ -37,12 +36,12 @@
                         >
                         <p class="number-value">{{Number(card.value)}}</p>
                         </div>
-                        <v-btn tile icon @click="disminuirCantidad(card)" outlined color="#02265c" width="30" height="30">
+                        <v-btn tile icon @click="disminuirCantidad(card)" outlined color="#02265c" width="30" height="30" class="v-btn-sumrest">
                             <v-icon>
                                 mdi-minus
                             </v-icon>
                         </v-btn>
-                        <v-spacer></v-spacer>
+                    </div>
                         <v-btn v-if="card.cantidad >= 1" @click="detectUserAndBuy(card)" icon color="white" width="120" tile style="background-color: #02265C">
                             <p class="mt-4 ml-4">AGREGAR</p>
                             <v-icon size="15px" class="ml-2 mr-2">
@@ -132,6 +131,15 @@
 
         },
         methods:{
+
+
+            heightImg(){
+                if(window.innerWidth < 960){
+                    return 100
+                } else if (window.innerWidth > 960){
+                    return 250
+                }
+            },
         //////////////// Funciones para el Carrito ///////////////////////////////////////////////////    
             aumentar(carr){
                 const index = this.carrito.findIndex(object => {
@@ -403,6 +411,59 @@ font-family: humanst521-1;
         color: #02265C;
         font-family: humanst521-2;
     }
+}
+.actions-card{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 50px;
+
+}
+.div-btn{
+    display: flex;
+}
+
+
+@media only screen and (max-width: 960px){
+    .v-card {
+        transform: scale(0.96);
+        height: 250px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .actions-card{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    transform: scale(0.5);
+    height: 25px;
+    margin-top: 60px;
+    margin-right: 100%;
+    
+    gap: 55px;
+}
+
+.v-card-title{
+    transform: scale(0.8);
+    height: 25px;
+    margin-right: 25%;
+    width: 100%;
+}
+.v-card-title h3{
+    font-size: 15px;
+}
+
+.v-card-text{
+    transform: scale(0.8);
+
+    height: 25px;
+}
+.v-card-text p {
+    font-size: 12px;
+}
+
+
 }
 
 </style>

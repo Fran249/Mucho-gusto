@@ -1,22 +1,23 @@
 <template>
   <div>
-    <v-container fluid>
+
       
-        <navBar/>
-        <v-navigation-drawer
-        fixed
-        temporary
-        right 
-        v-model="carritoCompra"
-        width="25%" >
-         <Carrito :key="componentKey"/>
-        </v-navigation-drawer>
+        <navBar />
         <v-row>
         <v-col cols="12">
         <mainCont class="mainCont"/>
         </v-col>
       </v-row>
-    </v-container>
+
+    <v-navigation-drawer
+        fixed
+        temporary
+        right
+        touchless
+        v-model="carritoCompra"
+        width="25%" >
+         <Carrito :key="componentKey"/>
+        </v-navigation-drawer>
   </div>
 </template>
 
@@ -65,10 +66,6 @@ export default {
 <style lang="scss" scoped>
 
 
-.menuFilterSalados{
-  margin-top: 80px;
-  position: fixed;
 
-}
 
 </style>

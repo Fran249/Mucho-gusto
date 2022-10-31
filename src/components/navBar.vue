@@ -116,29 +116,10 @@
           width="275px"
           
         >
-          <v-list>
-            <v-list-item class="px-2">
-              <v-list-item-avatar >
-                <v-img :src="usuario.foto" ></v-img>
-              </v-list-item-avatar>
-            </v-list-item>
-    
-            <v-list-item>
-              <v-list-item-content>
-                <v-list-item-title >
-                  <h3 class="h3-name">
-                    {{usuario.name}}
-                  </h3>
-                </v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
-    
-          <v-divider width="85%" class="ml-3 mb-10"></v-divider>
-    
           <v-list
             nav
             dense
+            class="list-nav-draw"
           >
           <v-list-item v-if="existeUsuario">
               <router-link style="text-decoration: none; color: inherit;" to="/userView" >
@@ -271,6 +252,9 @@ import { mapActions, mapGetters, mapState } from 'vuex'
     }
 
 
+.list-nav-draw{
+ margin-top: 150px;
+}
 
 .v-btn {
   text-transform:none !important;
@@ -335,4 +319,22 @@ background-color: rgb(234,232,232,0.95);
 .link.exact-active .v-btn p {
   color: #f2c04a;
 }
+
+@media only screen and (max-width: 960px){
+  .rutas-sabores{
+    
+    transform: scale(0.7);
+
+  }
+  .container-registro-ingreso-avatar{
+    transform: scale(0.6);
+    margin-right: 100%;
+  }
+  .buscador_vue{
+    transform: scale(0.7);
+    width: 250px;
+    
+  }
+}
+  
 </style>

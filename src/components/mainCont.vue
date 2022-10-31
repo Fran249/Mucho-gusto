@@ -4,17 +4,19 @@
         <v-row >
             <v-col 
             v-for="card in cardsfiltradas" :key="card.title"
-            cols="4" lg="3" md="4" sm="4" xl="2">
-                <v-card :width="width()" :height="height()" tile elevation="9">
-                    <v-img :src="card.src" width="100%" :height="heightsm()">
+            cols="6" lg="3" md="4" sm="4" xl="2" >
+                <v-card  tile elevation="9" class="v-card">
+                    <div >
+                        <v-img :src="card.src" width="100%" :height ="heightImg()" class="v-img-card">
 
-                    </v-img>
-                    <v-card-title>
+                        </v-img>
+                    </div>
+                    <v-card-title class="v-card-title">
                         <h3>
                            {{card.title}}
                         </h3>
                     </v-card-title>
-                    <v-card-text>
+                    <v-card-text class="v-card-text">
                         {{card.descripcion}}
                         <p v-if="card.cantidad >= 1">
                             {{card.cantidad}} Unidades disponibles
@@ -22,8 +24,9 @@
                         <p v-if="card.cantidad >= 1">${{card.precio}}</p>
                         <p v-else>Sin stock</p>
                     </v-card-text>
-                    <v-card-actions v-if="card.cantidad >= 1">
-                        <v-btn tile icon @click="aumentarCantidad(card)" outlined color="#02265c" width="30" height="30">
+                    <v-card-actions v-if="card.cantidad >= 1" class="actions-card">
+                        <div class="div-btn">
+                        <v-btn tile icon @click="aumentarCantidad(card)" outlined color="#02265c" width="30" height="30" class="v-btn-sumrest">
                             <v-icon>
                                 mdi-plus
                             </v-icon>
@@ -33,12 +36,12 @@
                         >
                         <p class="number-value">{{Number(card.value)}}</p>
                         </div>
-                        <v-btn tile icon @click="disminuirCantidad(card)" outlined color="#02265c" width="30" height="30">
+                        <v-btn tile icon @click="disminuirCantidad(card)" outlined color="#02265c" width="30" height="30" class="v-btn-sumrest">
                             <v-icon>
                                 mdi-minus
                             </v-icon>
                         </v-btn>
-                        <v-spacer></v-spacer>
+                    </div>
                         <v-btn v-if="card.cantidad >= 1" @click="detectUserAndBuy(card)" icon color="white" width="120" tile style="background-color: #02265C">
                             <p class="mt-4 ml-4">AGREGAR</p>
                             <v-icon size="15px" class="ml-2 mr-2">
@@ -52,26 +55,26 @@
         </v-row>
     </v-container>
         <!-----------------------------------------SnackBars----------------------------------------------------->
-        <v-snackbar
-        v-show="dialogUser"
-        color="red"
-        >
-        <p class="p-inicie-sesion mt-4">
-            Por favor, Inicia Sesion
-        </p>
-        </v-snackbar>
-        <v-snackbar
-        v-model="dialogCarrito"
-        color="green">
-            <div class="d-flex flex-row justify-space-between">
-                <p class="p-agregado-carr mt-4 ml-15">
-                    Agregado al carrito!
-                </p>
-                <v-icon color="white" size="25">
-                    mdi-check
-                </v-icon>
-            </div>
-        </v-snackbar>
+            <v-snackbar
+            v-show="dialogUser"
+            color="red"
+            >
+            <p class="p-inicie-sesion mt-4">
+                Por favor, Inicia Sesion
+            </p>
+            </v-snackbar>
+            <v-snackbar
+            v-model="dialogCarrito"
+            color="green">
+                <div class="d-flex flex-row justify-space-between">
+                    <p class="p-agregado-carr mt-4 ml-15">
+                        Agregado al carrito!
+                    </p>
+                    <v-icon color="white" size="25">
+                        mdi-check
+                    </v-icon>
+                </div>
+            </v-snackbar>
     </div>
 </template>
 
@@ -138,24 +141,11 @@
         },
         methods:{
 
-            width(){
-                if(window.innerWidth < 600){
-                    return 250
-                } else {
-                    return ''
-                }
-            },
-            height(){
-                if(window.innerWidth < 600){
-                    return 200
-                } else {
-                    return ''
-                }
-            },
-            heightsm(){
-                if(window.innerWidth < 600){
-                    return 50   
-                } else {
+
+            heightImg(){
+                if(window.innerWidth < 960){
+                    return 100
+                } else if (window.innerWidth > 960){
                     return 250
                 }
             },
@@ -397,6 +387,8 @@ h3{
     font-family: humanst521-2;
   font-size: 30px;
 }
+
+
 .v-btn {
   text-transform:none !important;
 }
@@ -439,5 +431,60 @@ font-family: humanst521-1;
         font-family: humanst521-2;
     }
 }
+
+.actions-card{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 50px;
+
+}
+.div-btn{
+    display: flex;
+}
+
+
+@media only screen and (max-width: 960px){
+    .v-card {
+        transform: scale(0.96);
+        height: 250px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .actions-card{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    transform: scale(0.5);
+    height: 25px;
+    margin-top: 60px;
+    margin-right: 100%;
+    
+    gap: 55px;
+}
+
+.v-card-title{
+    transform: scale(0.8);
+    height: 25px;
+    margin-right: 25%;
+    width: 100%;
+}
+.v-card-title h3{
+    font-size: 15px;
+}
+
+.v-card-text{
+    transform: scale(0.8);
+
+    height: 25px;
+}
+.v-card-text p {
+    font-size: 12px;
+}
+
+
+}
+
 
 </style>

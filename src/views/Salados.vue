@@ -3,30 +3,31 @@
     <v-container fluid>
       
         <navBar/>
-        <v-navigation-drawer
-        fixed
-        temporary
-        right 
-        v-model="carritoCompra"
-        width="25%" >
-         <Carrito :key="componentKey"/>
-        </v-navigation-drawer>
         <v-row>
-          <v-col cols="2" >
+          <v-col cols="2" v-if="width > 960">
             <div class="menu-cont">
             <menuFilterSalados class="menuFilterSalados" />
             </div>
           </v-col>
-        <v-col cols="9">
+          <v-col cols="12" lg="9" sm="5" xl="4">
         <mainContSalados class="mainCont" />
         </v-col>
       </v-row>
     </v-container>
+    <v-navigation-drawer
+        fixed
+        temporary
+        right
+        touchless
+        v-model="carritoCompra"
+        width="25%" >
+         <Carrito :key="componentKey"/>
+        </v-navigation-drawer>
   </div>
 </template>
 
 <script>
-import Carrito from '../components/Carrito.vue'
+//import Carrito from '../components/Carrito.vue'
 import navBar from '../components/navBar.vue'
 import menuFilterSalados from '../components/menuFilterSalados.vue'
 import store from '@/store';
@@ -38,11 +39,12 @@ export default {
   components:{
     navBar,
     menuFilterSalados,
-    Carrito,
+    //Carrito,
     mainContSalados
 },
   data:()=>({
     componentKey: store.state.forceRenderCarrito,
+    width: window.innerWidth
 
   }),
  watch:{
