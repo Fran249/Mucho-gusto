@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div >
         <div class="v-dialog" v-if="ingreso == true">
         <h1 class="mb-5"><strong>¡BIENVENIDO A MUCHO GUSTO!</strong></h1>
         <h3 class="mb-10">¡Seleccioná los productos que queres y te lo llevamos!</h3>
@@ -94,6 +94,19 @@ export default {
       }
   },
   methods:{
+
+
+        widthFunction(){
+
+            if(window.innerWidth > 960){
+                return '70%'
+            } else if(window.innerWidth < 960){
+                return '100%'
+            }
+
+        },
+
+
       ...mapActions(['ingresoUsuario']),
 
       reEstablecerContraseña(){
@@ -199,4 +212,13 @@ h3{
     .password{
         width: 100%;
     }
+
+
+@media only screen and (max-width: 960px){
+
+    .v-dialog{
+        transform: scale(0.9);
+    }
+
+}
 </style>

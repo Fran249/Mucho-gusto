@@ -331,9 +331,13 @@ background-color: rgb(234,232,232,0.95);
     margin-right: 100%;
   }
   .buscador_vue{
-    transform: scale(0.7);
+    transform: scale(0.5);
     width: 250px;
+    margin-top: 45px;
     
+  }
+  .registro-ingreso2{
+    transform: scale(0.9);
   }
 }
   
