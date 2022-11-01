@@ -3,7 +3,7 @@
     <h3 class="ml-3">DATOS PERSONALES</h3>
     <v-container>
         <v-row>
-            <v-col cols="6">
+            <v-col cols="6" v-if="width > 960">
                 <h3>Nombre Completo</h3>
                 <v-text-field
                 filled
@@ -12,7 +12,7 @@
                 :value="nombreCompleto"
                 ></v-text-field>
             </v-col>
-            <v-col cols="6">
+            <v-col cols="6" v-if="width > 960">
                 <h3>Direccion</h3>
                 <v-text-field
                 filled
@@ -22,7 +22,17 @@
                 >
                 </v-text-field>
             </v-col>
-            <v-col cols="6">
+            <v-col cols="6" v-if="width > 960">
+                <h3>Direccion</h3>
+                <v-text-field
+                filled
+                :disabled="edit"
+                v-model="direccion"
+                :value="direccion"
+                >
+                </v-text-field>
+            </v-col>
+            <v-col cols="6" v-if="width > 960">
                 <h3>DNI</h3>
                 <v-text-field
                 filled
@@ -31,7 +41,7 @@
                 :value="documentodni"
                 ></v-text-field>
             </v-col>
-            <v-col cols="6">
+            <v-col cols="6" v-if="width > 960">
                 <h3>Telefono de Contacto</h3>
                 <v-text-field
                 filled
@@ -40,16 +50,53 @@
                 :value="telefonoContacto"
                 ></v-text-field>
             </v-col>
-            <v-col cols="6">
+            <v-col cols="12" v-if="width < 960">
+                <h3>Nombre Completo</h3>
+                <v-text-field
+                filled
+                :disabled="edit"
+                v-model="nombreCompleto"
+                :value="nombreCompleto"
+                ></v-text-field>
+            </v-col>
+            <v-col cols="12" v-if="width < 960">
+                <h3>Direccion</h3>
+                <v-text-field
+                filled
+                :disabled="edit"
+                v-model="direccion"
+                :value="direccion"
+                >
+                </v-text-field>
+            </v-col>
+            <v-col cols="12" v-if="width < 960">
+                <h3>DNI</h3>
+                <v-text-field
+                filled
+                :disabled="edit"
+                v-model="documentodni"
+                :value="documentodni"
+                ></v-text-field>
+            </v-col>
+            <v-col cols="12" v-if="width < 960">
+                <h3>Telefono de Contacto</h3>
+                <v-text-field
+                filled
+                :disabled="edit"
+                v-model="telefonoContacto"
+                :value="telefonoContacto"
+                ></v-text-field>
+            </v-col>
+            <v-col :cols="cols()">
                 <v-btn  elevation="0" v-if="edit" @click="editarInfo" color="#febf2c">
                     <p class="p-v-btn mt-4"  >EDITAR</p> 
-                    <v-icon class="ml-3">
+                    <v-icon class="ml-3" color="white">
                         mdi-pencil
                     </v-icon>
                 </v-btn>
                 <v-btn v-else @click="editarInfoTrue" elevation="0" color="#febf2c">
                     <p class="p-v-btn mt-4" >EDITAR</p> 
-                    <v-icon class="ml-3">
+                    <v-icon class="ml-3" color="white">
                         mdi-pencil
                     </v-icon>
                 </v-btn>
@@ -104,8 +151,16 @@
             telefonoContacto:'',
             edit: true,
             hidden: false,
+            width: window.innerWidth
         }),
         methods:{
+            cols(){
+                if(this.width > 960){
+                    return 6
+                } else if (this.width < 960){
+                    return 5
+                }
+            },
             editarInfo(){
                 this.edit = false
             },
@@ -213,4 +268,11 @@ margin-left: 30%;
         margin-bottom: 1000px
     }
 
+@media only screen and (max-width: 960px){
+    .linear-cont{
+        width: 120%;
+        margin-left: 0;
+
+    }
+}
 </style>

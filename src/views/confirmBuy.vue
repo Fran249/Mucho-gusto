@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-container>
+        <v-container v-if="width >= 960">
             <div class="mb-10">
             <h3 class="mi-compra mb-2">MI COMPRA</h3>
             <div class="bar-container">
@@ -125,6 +125,131 @@
                 </v-col>
             </v-row>
         </v-container>
+        <v-container v-else class="container-mobile">
+            <div class="mb-10">
+            <h3 class="mi-compra mb-2">MI COMPRA</h3>
+            <div class="bar-container">
+            </div>
+            </div>
+
+            <v-row>
+                <v-col cols="12">
+                    <div class="d-flex flex-row">
+                    <router-link to="/" style="text-decoration: none;" class="mb-5">
+                        <v-btn text>
+                            <v-icon color="#374763" size="25" class="mb-1">
+                                arrow_back_ios
+                            </v-icon>
+                            <h3 class="h3-btn">SEGUIR COMPRANDO</h3>
+                        </v-btn>
+                    </router-link>
+                </div>
+                <v-list width="100%" v-for="carr in carrito" :key="carr.title" >
+                <v-list-item>
+                <div class="img-container">
+                    <v-img :src="carr.src" width="100%" height="100" ></v-img>
+                </div>
+                <div class="d-flex flex-column justify-center">
+                  <h3 class="h3-prod ml-2">{{carr.title}}</h3>
+
+                    <div class="d-flex flex-row">
+                        <div class="d-flex flex-row justify-center ml-3 mt-10">
+                            <v-btn tile icon @click="disminuir(carr)"  outlined color="#02265c" width="30" height="30">
+                            <v-icon size="15px">
+                                mdi-minus
+                            </v-icon>
+                        </v-btn>
+                        <div
+                        class="text-center pa-1 card-value"
+                        >
+                        <p class="number-value">{{Number(carr.value)}}</p>
+                        </div>
+                        <v-btn tile icon @click="aumentar(carr)"  outlined color="#02265c" width="30" height="30">
+                            <v-icon size="15px">
+                                mdi-plus
+                            </v-icon>
+                        </v-btn>
+                        </div>
+                        <div class=" d-flex flex-column align-self-start delete-art ">
+                    <v-btn icon @click="borrarArticuloCarrito(carr)" class="ml-10">
+                        <v-icon color="#b3b6bc">
+                            mdi-close
+                        </v-icon>
+                    </v-btn>
+                    <p class="precio-value ml-5 mt-10" v-if="carr.value == 1">${{carr.precio}}</p>
+                    <p class="precio-value ml-5 mt-10" v-else>${{Number(carr.precio) * Number(carr.value)}}</p>
+                </div>
+                
+                        </div>
+                </div>
+     
+                </v-list-item>
+                <v-divider></v-divider>
+            </v-list>
+            <v-divider class="mt-5"></v-divider>
+                </v-col>
+                <v-col cols="12">
+                    <v-row>
+                        <v-col cols="12">
+                            <h3 class="h3-resumen mt-5 mb-5">RESUMEN DE CUENTA</h3>
+                            <h3 class="mt-5 mb-5">{{this.carrito.length}} Artículos</h3>
+                            <div class="d-flex flex-row mt-5 mb-5">
+                                <v-icon color="#374763" class="mr-2">
+                                    mdi-ticket-confirmation
+                                </v-icon>
+                                <h3 class="h3-promo">¿Tienes un código de promoción?</h3>
+                            </div>
+                            <div>
+                                <v-text-field color="grey" label="Codigo" append-icon="mdi-ticket-confirmation" filled>
+
+                                </v-text-field>
+                            </div>
+                        </v-col>
+                    </v-row>
+                    <v-divider class="mb-5"></v-divider>
+                    <v-row>
+                        <v-col cols="6">
+                            <div>
+                            <h3 class="h3-sub-desc-total">SUBTOTAL:</h3>
+                            </div>
+                            <div>
+                            <h3 class="mt-15 h3-sub-desc-total">DESCUENTO:</h3>
+                            </div>
+                        </v-col>
+                        <v-col cols="6">
+                            <div>
+                            <h3 class="ml-15 h3-sub-desc-total"> ${{ precioTotalArray}} </h3>
+                            </div>
+                            <div>
+                            <h3 class="ml-15 mt-15 h3-sub-desc-total"> ${{descuento}} </h3>
+                            </div>
+                        </v-col>
+                    </v-row>
+                    <v-divider class="mb-5 mt-5"></v-divider>
+                    <v-row>
+                        <v-col cols="6">
+                            <h3 class="h3-resumen"  >
+                            TOTAL:
+                            </h3>
+                        </v-col>
+                        <v-col cols="6">
+                            <h3 class="ml-15 h3-resumen">
+                            ${{Number(precioTotalArray)- Number(descuento)}} 
+                            </h3>
+                        </v-col>
+                        <v-btn 
+                    @click="comprarPrimerPaso(carrito)"
+                    width="90%" 
+                    class="mb-10 pa-5"
+                    color="#febf2c">
+                    <p class="mt-4 p-v-btn ">
+                      INICIAR MI COMPRA
+                    </p>
+                    </v-btn>
+                    </v-row>
+                </v-col>
+            </v-row>
+        </v-container>
     </div>
 </template>
 
@@ -133,6 +258,7 @@
 import { mapState, mapGetters } from 'vuex'
 import { getAuth, onAuthStateChanged} from "firebase/auth";
 import store from '@/store';
+import router from '@/router';
 
 const auth = getAuth();
     export default {
@@ -143,7 +269,8 @@ const auth = getAuth();
             precioTotalArray: [],
             carrito: store.state.carritoCompras,
             descuento: 0,
-            totalCard: []
+            totalCard: [],
+            width: window.innerWidth
         }),
         methods: {
 
@@ -256,7 +383,11 @@ const auth = getAuth();
             store.commit('carritoCompras', this.carrito)
             console.log(store.state.carritoCompras)
             this.carrito = store.state.carritoCompras
-            
+            if(this.carrito.length <= 0 ){
+                router.push('/')
+            }else{
+                return
+            }
          },
         },
          computed:{
@@ -401,4 +532,9 @@ h3{
     letter-spacing: 0ch;
 }
 
+@media only screen and (max-width: 960px){
+    .container-mobile{
+        transform: scale(0.85);
+    }
+}
 </style>

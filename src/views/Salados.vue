@@ -1,7 +1,15 @@
 <template>
   <div>
     <v-container fluid>
-      
+      <v-navigation-drawer
+        fixed
+        temporary
+        right
+        touchless
+        v-model="carritoCompra"
+        :width="widthPercent()">
+         <Carrito :key="componentKey"/>
+        </v-navigation-drawer>
         <navBar/>
         <v-row>
           <v-col cols="2" v-if="width > 960">
@@ -14,20 +22,12 @@
         </v-col>
       </v-row>
     </v-container>
-    <v-navigation-drawer
-        fixed
-        temporary
-        right
-        touchless
-        v-model="carritoCompra"
-        width="25%" >
-         <Carrito :key="componentKey"/>
-        </v-navigation-drawer>
+
   </div>
 </template>
 
 <script>
-//import Carrito from '../components/Carrito.vue'
+import Carrito from '../components/Carrito.vue'
 import navBar from '../components/navBar.vue'
 import menuFilterSalados from '../components/menuFilterSalados.vue'
 import store from '@/store';
@@ -39,18 +39,26 @@ export default {
   components:{
     navBar,
     menuFilterSalados,
-    //Carrito,
+    Carrito,
     mainContSalados
 },
   data:()=>({
     componentKey: store.state.forceRenderCarrito,
     width: window.innerWidth
-
   }),
  watch:{
   componentKey(){
     this.componentKey = store.state.forceRenderCarrito
     
+  }
+ },
+ methods:{
+  widthPercent(){
+    if(window.innerWidth >960){
+        return '25%'
+    }else {
+      return '100%'
+    }
   }
  },
  computed: {

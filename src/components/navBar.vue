@@ -4,11 +4,11 @@
     app
     color="#000"
     fixed
-    height="150px"
+    height="150"
     width="100%"
     class="appbar"
    >
-   <v-col cols="4">
+   <v-col cols="3" lg="4" md="4" xl="4">
       <div class="container-registro-ingreso-avatar">
         <v-btn width="50" height="50" text tile x-small class="mt-6 mr-2" href="https://mucho-gusto-web.web.app/">
             <v-img src="https://i.imgur.com/6Xwvw8Y.png" width="50" height="50" contain>
@@ -30,7 +30,7 @@
           </p>
         </v-btn>
 
-        <v-dialog v-model="dialog1" width="500" transition="dialog-top-transition">
+        <v-dialog  v-if="!existeUsuario" v-model="dialog1" width="500" transition="dialog-top-transition">
           <IngresoComponent/>
         </v-dialog>
           <v-btn text @click="dialog2 = true" v-if="!existeUsuario" color="#FEBF2C">
@@ -38,14 +38,14 @@
               REGISTRO
             </p>
           </v-btn>
-        <v-dialog v-model="dialog2" width="500" transition="dialog-top-transition">
+        <v-dialog v-if="!existeUsuario" v-model="dialog2" width="500" transition="dialog-top-transition">
           <RegistroComponent/>
         </v-dialog>
 
       </div>
     </div>
     </v-col>
-    <v-col cols="4">
+    <v-col cols="4" lg="4" md="4" xl="4">
       <div class="container-buscador-sabores">
         <div class="buscador_vue">
           <v-text-field
@@ -53,7 +53,6 @@
           label="¿Que estas buscando?"
           solo
           rounded
-          full-width
           v-model="filtro"
           >
       </v-text-field>
@@ -85,7 +84,7 @@
         </div>
       </div>
     </v-col>
-      <v-col cols="4">
+      <v-col cols="4" lg="4" md="4" xl="4">
           <div class="container-cart-mg">
             <div class="cart-mg">
               <v-badge
@@ -116,11 +115,19 @@
           width="275px"
           
         >
+       <div class="close">
+        <v-btn text icon @click="navDraw = false">
+            <v-icon >
+              mdi-close
+            </v-icon>
+          </v-btn>
+        </div>
           <v-list
             nav
             dense
             class="list-nav-draw"
           >
+
           <v-list-item v-if="existeUsuario">
               <router-link style="text-decoration: none; color: inherit;" to="/userView" >
                 <v-btn text  color="#727272" >
@@ -320,10 +327,19 @@ background-color: rgb(234,232,232,0.95);
   color: #f2c04a;
 }
 
+.close{
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  
+}
+
+
 @media only screen and (max-width: 960px){
   .rutas-sabores{
     
     transform: scale(0.7);
+    margin-left: 50%;
 
   }
   .container-registro-ingreso-avatar{
@@ -332,12 +348,19 @@ background-color: rgb(234,232,232,0.95);
   }
   .buscador_vue{
     transform: scale(0.5);
-    width: 250px;
     margin-top: 45px;
+    margin-right: 50%;
+    width: 140px;
     
   }
   .registro-ingreso2{
     transform: scale(0.9);
+    flex-direction: column;
+  }
+
+  .container-cart-mg{
+    transform: scale(0.5);
+    margin-left: 120%;
   }
 }
   

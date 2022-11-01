@@ -1,22 +1,19 @@
-<template>
-  <div>
+<template >
+  <div >
 
       
-        <navBar />
+        <navBar  />
         <v-navigation-drawer
         fixed
         temporary
         right
         touchless
         v-model="carritoCompra"
-        width="25%" >
+        :width="width()" >
          <Carrito :key="componentKey"/>
         </v-navigation-drawer>
-        <v-row>
-        <v-col cols="12">
         <mainCont class="mainCont"/>
-        </v-col>
-      </v-row>
+
 
 
   </div>
@@ -38,13 +35,21 @@ export default {
   },
   data:()=>({
     componentKey: store.state.forceRenderCarrito,
-    width : window.innerWidth
 
   }),
  watch:{
   componentKey(){
     this.componentKey = store.state.forceRenderCarrito
     
+  }
+ },
+ methods:{
+  width(){
+    if(window.innerWidth >960){
+        return '25%'
+    }else {
+      return '100%'
+    }
   }
  },
  computed: {
@@ -66,6 +71,9 @@ export default {
 
 <style lang="scss" scoped>
 
+.container{
+  width: 50%;
+}
 
 
 

@@ -2,11 +2,19 @@
     <div>
         <v-row>
                 <v-col cols="12">
+                    
+                    <div class="close">
                     <h3 class="mt-3 mb-3 ml-5">Carrito</h3>
+                    <v-btn text icon class="mt-3" @click="cerrarCarrito()">
+                        <v-icon >
+                        mdi-close
+                        </v-icon>
+                    </v-btn>
+                    </div>
                 </v-col>
             </v-row>
             <v-divider class="mb-5"> </v-divider>
-            <v-list width="250px"  v-for="carr in carrito" :key="carr.title" >
+            <v-list width="250px"  v-for="carr in carrito" :key="carr.title"   class="list" >
                 <v-list-item class="d-flex justify-space-between">
                 <v-img :src="carr.src" width="100" height="100" ></v-img>
                 <div class="d-flex flex-column justify-center">
@@ -134,6 +142,9 @@ const auth = getAuth();
                 
                 
                 }
+            },
+            cerrarCarrito(){
+                store.commit('toggleCarrito', false)
             },
             borrarArticuloCarrito(carr){
 
@@ -285,6 +296,18 @@ h3{
     font-weight: bolder;
     font-size: 20px;
 }
+.close{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
 
+@media only screen and (max-width: 960px){
+
+    .list{
+        transform: scale(0.7);
+    }
+}
 
 </style>

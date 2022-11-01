@@ -1,6 +1,6 @@
 <template>
-    <div>
-    <v-container>
+    <div class="cont">
+    <v-container >
         <v-row >
             <v-col 
             v-for="card in cardsfiltradas" :key="card.title"
@@ -451,6 +451,7 @@ font-family: humanst521-1;
         display: flex;
         flex-direction: column;
         justify-content: center;
+        width: 100%;
     }
     .actions-card{
     display: flex;
@@ -482,7 +483,6 @@ font-family: humanst521-1;
 .v-card-text p {
     font-size: 12px;
 }
-
 
 }
 

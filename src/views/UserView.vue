@@ -6,10 +6,10 @@
         temporary
         right 
         v-model="carritoCompra"
-        width="25%">
+        :width="widthPercent()">
          <Carrito :key="componentKey"/>
         </v-navigation-drawer>
-        <v-container fluid>
+        <v-container fluid v-if="width >= 960">
             <div>
                 <h3 class="h3-title mb-3">MI PERFIL</h3>
                 <div class="bar-container">
@@ -20,6 +20,21 @@
                     <updatePerfilComponent class="updatePerfilComp" />
                 </v-col>
                 <v-col cols="9" >
+                    <userDataComponent class="userData"/>
+                </v-col>
+            </v-row>
+        </v-container>
+        <v-container fluid v-else>
+            <div>
+                <h3 class="h3-title mb-3">MI PERFIL</h3>
+                <div class="bar-container">
+                </div>
+            </div>
+            <v-row>
+                <v-col cols="12" >
+                    <updatePerfilComponent class="updatePerfilComp" />
+                </v-col>
+                <v-col cols="12" >
                     <userDataComponent class="userData"/>
                 </v-col>
             </v-row>
@@ -46,9 +61,16 @@ import store from '@/store';
         },
         data:()=>({
             componentKey: store.state.forceRenderCarrito,
-            
+            width: window.innerWidth
         }),
         methods:{
+            widthPercent(){
+                if(window.innerWidth >960){
+                    return '25%'
+                }else {
+                return '100%'
+                }
+            },
             changeValue(){
                 
                 if(window.innerWidth >= 1400){
@@ -139,4 +161,8 @@ h3{
   background: linear-gradient(90deg, rgba(242,192,74,1) 180px, rgba(179,182,188,1) 180px);
 }
 
+
+@media only screen and (max-width: 960px) {
+
+}
 </style>

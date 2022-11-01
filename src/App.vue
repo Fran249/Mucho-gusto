@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app >
     <v-main>
         <router-view/>
   </v-main>
@@ -27,11 +27,6 @@ export default {
 
 
 <style lang="scss" >
-  .v-navigation-drawer {
-z-index: 999999 !important;
-}
-#nav{
- z-index: 99;
-}
+
   
 </style>

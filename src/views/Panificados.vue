@@ -20,7 +20,7 @@
         right 
         v-model="carritoCompra"
         touchless
-        width="25%">
+        :width="widthPercent()">
          <Carrito :key="componentKey"/>
         </v-navigation-drawer>
   </div>
@@ -51,6 +51,15 @@ export default {
   componentKey(){
     this.componentKey = store.state.forceRenderCarrito
     
+  }
+ },
+ methods:{
+  widthPercent(){
+    if(window.innerWidth >960){
+        return '25%'
+    }else {
+      return '100%'
+    }
   }
  },
  computed: {

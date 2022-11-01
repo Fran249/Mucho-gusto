@@ -9,11 +9,11 @@
         right 
         v-model="carritoCompra"
         touchless
-        width="25%">
+        :width="widthPercent()">
          <Carrito :key="componentKey"/>
         </v-navigation-drawer>
         <v-row>
-          <v-col cols="2" v-if="width > 960">
+          <v-col cols="2" v-if="width >= 960">
             <div class="menu-cont">
               <menuFilterDulces class="menuFilterDulces"/>
             </div>
@@ -45,12 +45,21 @@ export default {
   data:()=>({
     componentKey: store.state.forceRenderCarrito,
     width: window.innerWidth
-
   }),
  watch:{
   componentKey(){
     this.componentKey = store.state.forceRenderCarrito
     
+  }
+  
+ },
+ methods:{
+  widthPercent(){
+    if(window.innerWidth >960){
+        return '25%'
+    }else {
+      return '100%'
+    }
   }
  },
  computed: {
