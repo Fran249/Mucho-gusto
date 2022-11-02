@@ -20,7 +20,7 @@
           </v-col>
         <v-col cols="12" lg="10" sm="5" xl="10">
         <mainContDulces class="mainContDulces" />
-        </v-col>
+          </v-col>
       </v-row>
     </v-container>
   </div>

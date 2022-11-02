@@ -1,6 +1,6 @@
 <template>
     <div>
-    <v-container>
+    <v-container v-if="width > 960">
         <v-row >
              <v-col 
             v-for="card in cardsfiltradas" :key="card.title"
@@ -50,6 +50,91 @@
                                 
                         </v-btn>
                     </v-card-actions>
+                </v-card>
+            </v-col>
+        </v-row>
+    </v-container>
+    <v-container v-if="width < 960" fluid>
+        <v-row dense>
+            <v-col 
+            v-for="card in cardsfiltradas" :key="card.title"
+            cols="6" lg="3" md="4" sm="4" xl="2" >
+                <v-card  tile elevation="9" height="250px" width="100%">
+                    <div >
+                        <v-img :src="card.src" width="100%" :height ="heightImg()" class="v-img-card">
+
+                        </v-img>
+                    </div>
+                    <v-card-title class="v-card-title">
+                        <h3>
+                           {{card.title}}
+                        </h3>
+                    </v-card-title>
+                    <v-card-text class="v-card-text">
+                        {{card.descripcion}}
+                        <p v-if="card.cantidad >= 1">
+                            {{card.cantidad}} Unidades disponibles
+                        </p>
+                        <p v-if="card.cantidad >= 1">${{card.precio}}</p>
+                        <p v-else>Sin stock</p>
+                    </v-card-text>
+
+                    <v-card-actions class="actions-card">
+                        <v-spacer></v-spacer>
+                        <v-btn v-if="card.cantidad >= 1" @click="transition(card)" icon color="white" tile style="background-color: #02265C; width: 65px ; height: 15px;" >
+                                    <p class="mt-4 ml-5" style="font-size: 7px">AGREGAR</p>
+                                    <v-icon size="9px" class="ml-1 mr-3">
+                                        mdi-briefcase
+                                    </v-icon>
+                                        
+                                </v-btn>
+                        </v-card-actions>
+
+                        <v-expand-transition>
+                        <v-card
+                        v-if="card.cantidad >= 1 && reveal && card.id == cardId" class="transition-fast-in-fast-out v-card--reveal "  height="35%" >
+
+                        <v-card-actions  class="actions-card-expanded mb-14" style="height: 5px;">
+
+                                <div class="div-btn">
+                                    <v-btn tile icon @click="disminuirCantidad(card)" outlined color="#02265c" width="20" height="20" class="v-btn-sumrest">
+                                    <v-icon>
+                                        mdi-minus
+                                    </v-icon>
+                                </v-btn>
+                                <div
+                                class="card-value"
+                                >
+                                <p class="number-value ">{{Number(card.value)}}</p>
+                                </div>
+                                <v-btn tile icon @click="aumentarCantidad(card)" outlined color="#02265c" width="20" height="20" class="v-btn-sumrest">
+                                    <v-icon>
+                                        mdi-plus
+                                    </v-icon>
+                                </v-btn>
+                                </div>
+                                <div class="d-flex flex-column mb-9 ml-3">
+                                    <v-btn
+                                        text
+                                        @click="reveal = false"
+                                        icon
+                                        class="ml-9"
+                                    >
+                                        <v-icon>
+                                            mdi-close
+                                        </v-icon>
+                                    </v-btn>
+                                    <v-btn v-if="card.cantidad >= 1" @click="detectUserAndBuy(card)" icon color="white" width="70px" height="20px" tile style="background-color: #02265C; margin-bottom: 6px; ">
+        <p class="mt-4 ml-5" style="font-size: 8px;">AGREGAR</p>
+        <v-icon size="11px" class="ml-1 mr-4">
+            mdi-briefcase
+        </v-icon>        
+    </v-btn>
+                                    </div>
+                                
+                            </v-card-actions>
+                        </v-card>
+                        </v-expand-transition>
                 </v-card>
             </v-col>
         </v-row>
@@ -104,6 +189,9 @@
             precioTotal:'',
             precioTotalArray: [],
             currentUser: '',
+            width: window.innerWidth,
+            reveal: false,
+            cardId: null,
             
         }),
         beforeMount(){
@@ -126,6 +214,14 @@
 
         },
         methods:{
+
+            transition(card){
+                this.cardId = card.id
+
+                if(card.id == this.cardId){
+                    this.reveal = true
+                }
+            },
             heightImg(){
                 if(window.innerWidth < 960){
                     return 100
@@ -341,7 +437,6 @@
 <style lang="scss" scoped>
 
 
-
 @font-face{
     font-family: humanst521-1;
     src: url('/src/assets/Humanst521LtBTLight.ttf');
@@ -362,19 +457,21 @@
     
     }
 h3{
-font-family: humanst521-2;
-font-size: 30px;
+    font-family: humanst521-2;
+  font-size: 30px;
 }
-.p-agregado-carr{
-font-family: humanst521-1;
-  font-size: 20px;
-}
+
+
 .v-btn {
   text-transform:none !important;
 }
 p{
   font-family: humanst521-1;
   font-size: 15px;
+}
+.p-agregado-carr{
+font-family: humanst521-1;
+  font-size: 20px;
 }
 .cardText{
     text-align: match-parent;
@@ -405,6 +502,8 @@ p{
     .number-value{
         color: #02265C;
         font-family: humanst521-2;
+        margin-bottom: 200px;
+
     }
 }
 
@@ -418,28 +517,51 @@ p{
 .div-btn{
     display: flex;
 }
+.v-card--reveal {
+  bottom: 0;
+  position: absolute;
+  width: 100%;
+}
 
+.actions-card-expanded {
+    
+    display: flex;
+    flex-direction: row;
+    margin-top: 60px;
+    margin-right: 100%;
+    gap: 13 px;
+}
 
 @media only screen and (max-width: 960px){
     .v-card {
-        transform: scale(0.96);
         height: 250px;
         display: flex;
         flex-direction: column;
         justify-content: center;
+        width: 100%;
     }
     .actions-card{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    transform: scale(0.5);
     height: 25px;
     margin-top: 60px;
     margin-right: 100%;
     
     gap: 55px;
 }
-
+.card-value{
+    height: 20px;
+    width: 20px;
+    margin-bottom: 10%;
+    .number-value{
+        color: #02265C;
+        font-family: humanst521-2;
+        font-size: 13px;
+        text-align: center;
+       
+    }
+}
 .v-card-title{
     transform: scale(0.8);
     height: 25px;
@@ -459,6 +581,7 @@ p{
     font-size: 12px;
 }
 
-
 }
+
+
 </style>

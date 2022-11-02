@@ -8,13 +8,124 @@
     width="100%"
     class="appbar"
    >
-   <v-col cols="3" lg="4" md="4" xl="4">
+   <v-col cols="3" lg="4" md="4" xl="4" class="pa-0">
       <div class="container-registro-ingreso-avatar">
-        <v-btn width="50" height="50" text tile x-small class="mt-6 mr-2" href="https://mucho-gusto-web.web.app/">
+
+        <div class="registro-ingreso1" v-if="existeUsuario">
+          <v-btn width="50" height="50" text tile x-small class="mt-4 mr-2" href="https://mucho-gusto-web.web.app/">
             <v-img src="https://i.imgur.com/6Xwvw8Y.png" width="50" height="50" contain>
             </v-img>
           </v-btn>  
-        <div class="registro-ingreso1" v-if="existeUsuario">
+        <v-btn class="mt-5" text fab @click="navDraw = true" v-if="existeUsuario">
+          <v-avatar>
+            <v-img :src="usuario.foto"></v-img>
+          </v-avatar>
+        </v-btn>
+        
+        </div>
+        <div class="registro-ingreso2" v-if="!existeUsuario && width > 960">
+          <v-btn text @click="dialog1 = true"  v-if="!existeUsuario" color="#FEBF2C">
+          <p class="mt-3 registro-ingreso">
+            INGRESO
+          </p>
+        </v-btn>
+
+        <v-dialog  v-if="!existeUsuario" v-model="dialog1" width="500" transition="dialog-top-transition">
+          <IngresoComponent/>
+        </v-dialog>
+          <v-btn text @click="dialog2 = true" v-if="!existeUsuario" color="#FEBF2C">
+            <p class="mt-3 registro-ingreso">
+              REGISTRO
+            </p>
+          </v-btn>
+        <v-dialog v-if="!existeUsuario" v-model="dialog2" width="500" transition="dialog-top-transition">
+          <RegistroComponent/>
+        </v-dialog>
+
+      </div>
+    </div>
+    </v-col>
+    <v-col cols="4" lg="4" md="4" xl="4">
+
+        <div class="buscador_vue" >
+          <v-text-field
+          v-if="width > 960"
+          class="mt-7"
+          label="¿Que estas buscando?"
+          solo
+          rounded
+          v-model="filtro"
+          >
+      </v-text-field>
+      <div class="d-flex justify-end mb-4">
+            <div>
+              <v-menu style="position: absolute;" v-model="busqueda">
+            <v-text-field
+            heigth="100px"
+            class="mt-7 ml-10 fab-transition"
+            label="¿Que estas buscando?"
+            solo
+            rounded
+            v-model="filtro">
+            </v-text-field>
+          </v-menu>
+              <v-btn rounded @click="busqueda = true"> 
+            <p style="color: grey;" class="mt-3">¿Que estas buscando?</p>
+                <v-icon color="grey" class="ml-3">
+                  mdi-search-web
+              </v-icon>
+          </v-btn>
+
+            </div>
+        </div>
+      </div>
+      <div class="rutas-sabores">
+          <router-link class="link" style="text-decoration: none; color: inherit;" to="/" >
+            <v-btn text color="white">
+               <p class="mt-3">Inicio</p>
+            </v-btn>
+            </router-link>
+            <v-divider vertical color="white" inset class="mb-2"></v-divider>  
+            <router-link class="link" style="text-decoration: none; color: inherit;" to="/dulces" >
+              <v-btn text color="white">
+                <p class="mt-3">Dulces</p>
+            </v-btn>
+            </router-link>
+            <v-divider vertical color="white" inset class="mb-2"></v-divider>  
+            <router-link class="link" style="text-decoration: none; color: inherit;" to="/salados" >
+              <v-btn text color="white">
+                <p class="mt-3">Salados</p>
+            </v-btn>
+            </router-link>
+            <v-divider vertical color="white" inset class="mb-2"></v-divider>  
+            <router-link class="link" style="text-decoration: none; color: inherit;"  to="/panificados" >
+              <v-btn text color="white">
+                <p class="mt-3">Panificados</p>
+            </v-btn>
+          </router-link>
+        </div>
+    </v-col>
+      <v-col cols="4" lg="4" md="4" xl="4">
+          <div class="container-cart-mg">
+            <div class="cart-mg">
+              <v-badge
+              v-if="existeUsuario && usuario.rol === 'user'"
+              color="green"
+              overlap
+              class="mt-3"
+              :content="notif"
+              :value="notif">
+                <v-btn  v-if="existeUsuario " @click.stop="carritoCompra = !carritoCompra" width="160" outlined color="white" >
+                  <v-icon size="20px" class="mr-2">
+                    mdi-briefcase
+                  </v-icon>
+                  <p class="mt-4">MIS COMPRAS</p>
+                </v-btn>
+              </v-badge>
+            </div>
+          </div>
+          <div class="container-registro-ingreso-avatar" v-if="!existeUsuario && width < 960">
+        <div class="registro-ingreso1" v-if="existeUsuario && width > 960">
 
         <v-btn class="mt-5" text fab @click="navDraw = true" v-if="existeUsuario">
           <v-avatar>
@@ -44,65 +155,6 @@
 
       </div>
     </div>
-    </v-col>
-    <v-col cols="4" lg="4" md="4" xl="4">
-      <div class="container-buscador-sabores">
-        <div class="buscador_vue">
-          <v-text-field
-          class="mt-7"
-          label="¿Que estas buscando?"
-          solo
-          rounded
-          v-model="filtro"
-          >
-      </v-text-field>
-      </div>
-      <div class="rutas-sabores">
-          <router-link class="link" style="text-decoration: none; color: inherit;" to="/" >
-            <v-btn text color="white">
-               <p class="mt-3">Inicio</p>
-            </v-btn>
-            </router-link>
-            <v-divider vertical color="white" inset class="mb-2"></v-divider>  
-            <router-link class="link" style="text-decoration: none; color: inherit;" to="/dulces" >
-              <v-btn text color="white">
-                <p class="mt-3">Dulces</p>
-            </v-btn>
-            </router-link>
-            <v-divider vertical color="white" inset class="mb-2"></v-divider>  
-            <router-link class="link" style="text-decoration: none; color: inherit;" to="/salados" >
-              <v-btn text color="white">
-                <p class="mt-3">Salados</p>
-            </v-btn>
-            </router-link>
-            <v-divider vertical color="white" inset class="mb-2"></v-divider>  
-            <router-link class="link" style="text-decoration: none; color: inherit;"  to="/panificados" >
-              <v-btn text color="white">
-                <p class="mt-3">Panificados</p>
-            </v-btn>
-          </router-link>
-        </div>
-      </div>
-    </v-col>
-      <v-col cols="4" lg="4" md="4" xl="4">
-          <div class="container-cart-mg">
-            <div class="cart-mg">
-              <v-badge
-              v-if="existeUsuario && usuario.rol === 'user'"
-              color="green"
-              overlap
-              class="mt-3"
-              :content="notif"
-              :value="notif">
-                <v-btn  v-if="existeUsuario " @click.stop="carritoCompra = !carritoCompra" width="160" outlined color="white" >
-                  <v-icon size="20px" class="mr-2">
-                    mdi-briefcase
-                  </v-icon>
-                  <p class="mt-4">MIS COMPRAS</p>
-                </v-btn>
-              </v-badge>
-            </div>
-          </div>
         </v-col>
     </v-app-bar>
           <v-navigation-drawer
@@ -192,6 +244,8 @@ import { mapActions, mapGetters, mapState } from 'vuex'
             navDraw: false,
             email: '',
             texto: '',
+            width: window.innerWidth,
+            busqueda: false,
         }),
         methods:{
     ...mapActions(['cerrarSesion']),
@@ -344,7 +398,7 @@ background-color: rgb(234,232,232,0.95);
   }
   .container-registro-ingreso-avatar{
     transform: scale(0.6);
-    margin-right: 100%;
+    margin-right: 150%;
   }
   .buscador_vue{
     transform: scale(0.5);
@@ -355,12 +409,12 @@ background-color: rgb(234,232,232,0.95);
   }
   .registro-ingreso2{
     transform: scale(0.9);
-    flex-direction: column;
+    flex-direction: row;
   }
 
   .container-cart-mg{
     transform: scale(0.5);
-    margin-left: 120%;
+    margin-left: 150%;
   }
 }
   
