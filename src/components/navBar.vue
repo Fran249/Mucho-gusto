@@ -11,7 +11,7 @@
    <v-col cols="3" lg="4" md="4" xl="4" class="pa-0">
       <div class="container-registro-ingreso-avatar">
 
-        <div class="registro-ingreso1" v-if="existeUsuario">
+        <div class="registro-ingreso1" >
           <v-btn width="50" height="50" text tile x-small class="mt-4 mr-2" href="https://mucho-gusto-web.web.app/">
             <v-img src="https://i.imgur.com/6Xwvw8Y.png" width="50" height="50" contain>
             </v-img>
@@ -47,7 +47,7 @@
     </v-col>
     <v-col cols="4" lg="4" md="4" xl="4">
 
-        <div class="buscador_vue" >
+        <div class="buscador_vue">
           <v-text-field
           v-if="width > 960"
           class="mt-7"
@@ -57,9 +57,9 @@
           v-model="filtro"
           >
       </v-text-field>
-      <div class="d-flex justify-end mb-4">
+      <div class="d-flex justify-end mb-4" v-if="width < 960">
             <div>
-              <v-menu style="position: absolute;" v-model="busqueda">
+              <v-menu style="position: absolute;" v-model="busqueda" :close-on-content-click="false" >
             <v-text-field
             heigth="100px"
             class="mt-7 ml-10 fab-transition"
@@ -69,7 +69,7 @@
             v-model="filtro">
             </v-text-field>
           </v-menu>
-              <v-btn rounded @click="busqueda = true"> 
+              <v-btn rounded @click="busqueda = true" width="100%" height="50px" class="ml-10"> 
             <p style="color: grey;" class="mt-3">¿Que estas buscando?</p>
                 <v-icon color="grey" class="ml-3">
                   mdi-search-web

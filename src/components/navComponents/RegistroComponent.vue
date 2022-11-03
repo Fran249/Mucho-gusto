@@ -31,9 +31,9 @@
 
           <v-btn 
           width="75%" 
-          class="ml-13" 
+          class="ml-13 btn-reg" 
           color="#febf2c"
-          type="submit" 
+          type="submit"
           :disabled='!desactivar'>
           <p class="mt-4 p-v-btn"  >
             FINALIZAR REGISTRO
@@ -127,4 +127,11 @@ h1{
         }
     }
 
+@media only screen and (max-width: 960px){
+
+    .p-v-btn{
+        font-size: 11px;
+    }
+
+}
 </style>

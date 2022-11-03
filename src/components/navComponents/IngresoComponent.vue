@@ -216,9 +216,7 @@ h3{
 
 @media only screen and (max-width: 960px){
 
-    .v-dialog{
-        transform: scale(0.9);
-    }
+    
 
 }
 </style>

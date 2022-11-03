@@ -238,7 +238,7 @@
                             </h3>
                         </v-col>
                         <v-btn 
-                    @click="comprarPrimerPaso(carrito)"
+                    @click="comprarPrimerPaso()"
                     width="90%" 
                     class="mb-10 pa-5"
                     color="#febf2c">
@@ -259,6 +259,9 @@ import { mapState, mapGetters } from 'vuex'
 import { getAuth, onAuthStateChanged} from "firebase/auth";
 import store from '@/store';
 import router from '@/router';
+
+
+
 
 const auth = getAuth();
     export default {
@@ -346,6 +349,8 @@ const auth = getAuth();
                             
             },
 
+            
+            
         },
             beforeCreate(){
 
@@ -365,7 +370,7 @@ const auth = getAuth();
                 }
                 });
 
-                
+
 
 
         },

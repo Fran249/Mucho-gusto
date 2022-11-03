@@ -19,8 +19,9 @@
                 <v-img :src="carr.src" width="100" height="100" ></v-img>
                 <div class="d-flex flex-column justify-center">
                   <h3 class="ml-2">{{carr.title}}</h3>
-
+                  <p class="ml-2">{{carr.descripcion}}</p>
                     <div class="d-flex flex-row justify-center ml-3 mt-10">
+                        
                         <v-btn tile icon @click="disminuir(carr)"  outlined color="#02265c" width="30" height="30">
                             <v-icon size="15px">
                                 mdi-minus
@@ -61,7 +62,6 @@
                 </h3>
                 <router-link style="text-decoration: none;" :to="{ path: `/user/${this.usuario}/compra`, params: {username: this.usuario}}">
                 <v-btn 
-                    @click="comprarPrimerPaso(carrito)"
                     width="90%" 
                     class="mb-10 pa-5"
                     color="#febf2c">
