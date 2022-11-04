@@ -62,12 +62,21 @@
                 </v-icon>  Enviamos un email a {{this.email}} para reestablecer tu contraseña
             </p>
            </div>
-            <v-btn 
+           <v-btn 
             width="70%" 
             type="submit" 
             class="ml-15" 
             color="#febf2c" 
-
+            v-if="width > 960"
+            >
+                <p class="mt-4 p-v-btn" >
+                    REESTABLECER CONTRASEÑA
+                </p>
+            </v-btn>            <v-btn 
+            width="100%" 
+            type="submit" 
+            color="#febf2c" 
+                v-if="width < 960"
             >
                 <p class="mt-4 p-v-btn" >
                     REESTABLECER CONTRASEÑA
@@ -91,6 +100,7 @@ export default {
             email: '',
             pass: '',
             value: String,
+            width : window.innerWidth
       }
   },
   methods:{

@@ -141,7 +141,6 @@
     import {  firebaseConfig} from '../firebase/index'
     import { getAuth, onAuthStateChanged} from "firebase/auth";
     import store from '@/store';
- 
 
     const auth = getAuth();
     const app = initializeApp(firebaseConfig);
@@ -193,9 +192,7 @@
 
         },
         mounted(){
-            
-            
-            
+
 
         },
         methods:{
@@ -359,8 +356,7 @@
 
         },
         beforeCreate(){
-
-            onAuthStateChanged(auth, (user) => {
+                        onAuthStateChanged(auth, (user) => {
                     if (user) {
                         let datosLocalStorage = JSON.parse(localStorage.getItem(`cart/${auth.currentUser.uid}`));
                         if(datosLocalStorage === null){
@@ -375,12 +371,12 @@
                     }
                     });
 
-                    
+
 
 
         },
         created(){
-            
+
         },
 
         watch:{

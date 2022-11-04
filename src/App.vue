@@ -10,17 +10,24 @@
 
 
 export default {
+
+  
   data: ()=>({
-     name: 'app'
+     name: 'app',
 
+            
+            // Agrega credenciales
 
-        
   }),
   components:{
 
     
 },
 
+beforeMount(){
+
+        
+},
 
 }
 </script>

@@ -275,6 +275,7 @@ const auth = getAuth();
             totalCard: [],
             width: window.innerWidth
         }),
+        
         methods: {
 
             aumentar(carr){
@@ -353,6 +354,7 @@ const auth = getAuth();
             
         },
             beforeCreate(){
+
 
         onAuthStateChanged(auth, (user) => {
                 this.usuario = auth.currentUser.uid
