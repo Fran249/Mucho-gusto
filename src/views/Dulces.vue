@@ -20,7 +20,9 @@
           </v-col>
         <v-col cols="12" lg="10" sm="5" xl="10">
         <mainContDulces class="mainContDulces" />
+
           </v-col>
+          <Footer/>
       </v-row>
     </v-container>
   </div>
@@ -30,6 +32,7 @@
 import Carrito from '../components/Carrito.vue'
 import navBar from '../components/navBar.vue'
 import menuFilterDulces from '../components/menuFilterDulces.vue'
+import Footer from '@/components/Footer.vue';
 import store from '@/store';
 import mainContDulces from '@/components/mainContDulces.vue';
 import { mapState , mapGetters } from 'vuex'
@@ -40,7 +43,8 @@ export default {
     navBar,
     menuFilterDulces,
     Carrito,
-    mainContDulces
+    mainContDulces,
+    Footer
 },
   data:()=>({
     componentKey: store.state.forceRenderCarrito,
@@ -81,8 +85,8 @@ export default {
 <style lang="scss" scoped>
 
 .menu-cont{
-  height: 100%;
-  position: fixed;
+  height: 50%;
+  position: absolute;
   overflow-y: auto;
   width: 17.8%;
 
@@ -118,7 +122,7 @@ export default {
 @media only screen and (max-width: 1400px){
   .menu-cont{
   height: 450px;
-  position: fixed;
+  position: absolute;
   overflow-y: auto;
 
 }

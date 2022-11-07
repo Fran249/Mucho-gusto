@@ -13,16 +13,18 @@
          <Carrito :key="componentKey"/>
         </v-navigation-drawer>
         <mainCont class="mainCont"/>
-
+        <Footer class="footer"/>
 
 
   </div>
+
 </template>
 
 <script>
 import Carrito from '../components/Carrito.vue'
 import navBar from '../components/navBar.vue'
 import mainCont from '../components/mainCont.vue'
+import Footer from '../components/Footer.vue'
 import store from '@/store';
 import { mapState , mapGetters } from 'vuex'
 
@@ -32,6 +34,7 @@ export default {
     navBar,
     mainCont,
     Carrito,
+    Footer,
   },
   data:()=>({
     componentKey: store.state.forceRenderCarrito,
@@ -74,6 +77,7 @@ export default {
 .container{
   width: 50%;
 }
+
 
 
 

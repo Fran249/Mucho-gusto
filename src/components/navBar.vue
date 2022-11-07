@@ -13,7 +13,7 @@
 
         <div class="registro-ingreso1" >
           <v-btn width="50" height="50" text tile x-small class="mt-4 mr-2" href="https://mucho-gusto-web.web.app/">
-            <v-img src="https://i.imgur.com/6Xwvw8Y.png" width="50" height="50" contain>
+            <v-img src="https://i.imgur.com/6Xwvw8Y.png" width="50" height="50" contain class="mt-3">
             </v-img>
           </v-btn>  
         <v-btn class="mt-5" text fab @click="navDraw = true" v-if="existeUsuario">
@@ -358,7 +358,7 @@ background-color: rgb(234,232,232,0.95);
 .registro-ingreso1{
   display: flex;
   height: 100%;
-  margin-bottom: 1rem;
+
 }
 .registro-ingreso2{
   display: flex;
@@ -416,6 +416,7 @@ background-color: rgb(234,232,232,0.95);
     transform: scale(0.5);
     margin-left: 150%;
   }
+
 }
   
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container-main">
     <v-container v-if="width > 960">
         <v-row >
             <v-col 
@@ -522,6 +522,10 @@ font-family: humanst521-1;
 }
 
 @media only screen and (max-width: 960px){
+
+    .container-main{
+        margin-bottom: 30%;
+    }
     .v-card {
         height: 250px;
         display: flex;

@@ -19,8 +19,13 @@
           </v-col>
           <v-col cols="12" lg="10" sm="5" xl="10">
         <mainContSalados class="mainCont" />
+
         </v-col>
+
+          <Footer/>
+
       </v-row>
+
     </v-container>
 
   </div>
@@ -30,6 +35,7 @@
 import Carrito from '../components/Carrito.vue'
 import navBar from '../components/navBar.vue'
 import menuFilterSalados from '../components/menuFilterSalados.vue'
+import Footer from '@/components/Footer.vue';
 import store from '@/store';
 import mainContSalados from '@/components/mainContSalados.vue';
 import { mapState , mapGetters } from 'vuex'
@@ -40,7 +46,8 @@ export default {
     navBar,
     menuFilterSalados,
     Carrito,
-    mainContSalados
+    mainContSalados,
+    Footer
 },
   data:()=>({
     componentKey: store.state.forceRenderCarrito,
@@ -106,7 +113,7 @@ export default {
 }
 
 .menu-cont{
-  height: 100%;
+  height: 50%;
   width: 15%;
   position: fixed;
   overflow-y: auto;
@@ -119,7 +126,7 @@ export default {
     .menu-cont{
     
     height: 450px;
-    position: fixed;
+    position: absolute;
     overflow-y: auto;
 
   }

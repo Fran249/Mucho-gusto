@@ -1,5 +1,5 @@
 <template>
-        <v-treeview :items="items" :multiple-active="true" transition>
+        <v-treeview :items="items" :multiple-active="true" transition >
             <template v-slot:label="{ item }">    
                 <div v-if="item.name == 'Simples' || item.name == 'Rellenos' ">
                     <h3 >{{item.name}}</h3>
