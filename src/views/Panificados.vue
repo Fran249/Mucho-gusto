@@ -13,7 +13,7 @@
         <mainContPanificados class="mainContPanificados" />
 
         </v-col>
-        <Footer/>
+        <FootEr/>
       </v-row>
     </v-container>
     <v-navigation-drawer
@@ -32,7 +32,7 @@
 import Carrito from '../components/Carrito.vue'
 import navBar from '../components/navBar.vue'
 import menuFilterPanificados from '../components/menuFilterPanificados.vue'
-import Footer from '@/components/Footer.vue';
+import FootEr from '@/components/Footer.vue';
 import store from '@/store';
 import mainContPanificados from '@/components/mainContPanificados.vue';
 import { mapState , mapGetters } from 'vuex'
@@ -44,7 +44,7 @@ export default {
     menuFilterPanificados,
     Carrito,
     mainContPanificados,
-    Footer
+    FootEr
 },
   data:()=>({
     componentKey: store.state.forceRenderCarrito,

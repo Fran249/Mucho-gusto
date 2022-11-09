@@ -27,5 +27,19 @@
         "npm --prefix \"%RESOURCE_DIR%\" run"
       ]
     }
-  ]
+  ],
+  "emulators": {
+    "auth": {
+      "port": 9001
+    },
+    "functions": {
+      "port": 5001
+    },
+    "hosting": {
+      "port": 8080
+    },
+    "ui": {
+      "enabled": true
+    }
+  }
 }
