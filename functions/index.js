@@ -16,19 +16,18 @@ admin.initializeApp({
 // REPLACE WITH YOUR ACCESS TOKEN AVAILABLE IN: https://developers.mercadopago.com/panel
 mercadopago.configure({
   // eslint-disable-next-line max-len
-  access_token: "TEST-7013260771266051-100918-aa63e869198f3c6891f8fe2dffc460d1-768310453",
+  access_token: "APP_USR-230223288523320-110912-97c1dc3e80cdc76c92fb312792fb0abb-1214270037",
+  client_id: "230223288523320",
+  client_secret: "4fqLxozdeLsitKi7eljQXwWsUs5MDHAW",
 });
 
 
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
-app.use(express.static("../functions"));
+app.use(express.static("./client"));
 app.use(cors());
-app.get("/", function(req, res) {
-  res.status(200).sendFile("index.html");
-});
 
-app.post("/create_preference", (req, res) => {
+app.post("/", (req, res) => {
     const preference = {
     items: [
       {
@@ -64,6 +63,9 @@ app.get("/feedback", function(req, res) {
   });
 });
 
+app.get("/", function(req, res) {
+  res.status(200).sendFile("index.html");
+});
 
 exports.app = functions.https.onRequest(app);
 
