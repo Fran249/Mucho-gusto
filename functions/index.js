@@ -28,7 +28,7 @@ app.use(express.static("./client"));
 app.use(cors());
 
 app.post("/", (req, res) => {
-    const preference = {
+  const preference = {
     items: [
       {
         title: req.body.description,
@@ -69,4 +69,7 @@ app.get("/", function(req, res) {
 
 exports.app = functions.https.onRequest(app);
 
-
+exports.cart = functions.https.onCall((data, context)=>{
+  const cart = JSON.stringify(data.cart);
+  return `esta es tu data ${cart}`;
+});

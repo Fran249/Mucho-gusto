@@ -260,7 +260,9 @@ import { getAuth, onAuthStateChanged} from "firebase/auth";
 import store from '@/store';
 import router from '@/router';
 
+import { getFunctions ,httpsCallable } from 'firebase/functions';
 
+ const functions = getFunctions();
 
 
 const auth = getAuth();
@@ -350,7 +352,17 @@ const auth = getAuth();
                             
             },
 
-            
+            comprarPrimerPaso(){
+                const addMessage = httpsCallable(functions, 'cart');
+                addMessage({ cart: store.state.carritoCompras })
+                .then((result) => {
+                    const resultado = result.data
+                    console.log(resultado)
+                }).then(()=>{
+                })
+
+
+            }
             
         },
             beforeCreate(){
