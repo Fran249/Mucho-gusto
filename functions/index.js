@@ -71,5 +71,8 @@ exports.app = functions.https.onRequest(app);
 
 exports.cart = functions.https.onCall((data, context)=>{
   const cart = JSON.stringify(data.cart);
-  return `esta es tu data ${cart}`;
+  const descripcion= data.descripcion;
+  const price = data.price;
+
+  return `esta es tu data ${cart , descripcion, price}`;
 });

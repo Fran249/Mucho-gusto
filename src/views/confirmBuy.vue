@@ -354,7 +354,7 @@ const auth = getAuth();
 
             comprarPrimerPaso(){
                 const addMessage = httpsCallable(functions, 'cart');
-                addMessage({ cart: store.state.carritoCompras })
+                addMessage({ cart: store.state.carritoCompras ,descripcion: 'descripcion' , price: 'price'})
                 .then((result) => {
                     const resultado = result.data
                     console.log(resultado)
