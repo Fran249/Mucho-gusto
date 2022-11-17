@@ -370,15 +370,15 @@ const auth = getAuth();
                     body: JSON.stringify({
                         items: [
                         {
-                        title: ["cart","cart","cart"],
+                        title: 'Productos',
                         unit_price: this.precioTotalArray,
                         quantity: 1,
                         },
                     ],
                     back_urls: {
-                        "success": "https://prueba-auth-vuex-router.web.app/sucess",
-                        "failure": "https://prueba-auth-vuex-router.web.app/failure",
-                        "pending": "https://prueba-auth-vuex-router.web.app/pending",
+                        "success": "https://us-central1-prueba-auth-vuex-router.cloudfunctions.net/app/feedback",
+                        "failure": "https://us-central1-prueba-auth-vuex-router.cloudfunctions.net/app/feedback",
+                        "pending": "https://us-central1-prueba-auth-vuex-router.cloudfunctions.net/app/feedback",
                     },
                     auto_return: "approved",
                     }),
@@ -397,7 +397,8 @@ const auth = getAuth();
                         }
                     });
                     mp.open()
-                    });
+                    localStorage.clear()
+                    })
 
             }
             

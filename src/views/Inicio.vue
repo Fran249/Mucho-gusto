@@ -1,84 +1,85 @@
-<template >
-  <div >
-
-      
-        <navBar  />
-        <v-navigation-drawer
-        fixed
-        temporary
-        right
-        touchless
-        v-model="carritoCompra"
-        :width="width()" >
-         <Carrito :key="componentKey"/>
-        </v-navigation-drawer>
-        <mainCont class="mainCont"/>
-        <Footer class="footer"/>
-
-
+<template>
+  <div>
+    <navBar />
+    <v-navigation-drawer
+      fixed
+      temporary
+      right
+      touchless
+      v-model="carritoCompra"
+      :width="width()"
+    >
+      <Carrito :key="componentKey" />
+    </v-navigation-drawer>
+    <mainCont class="mainCont" />
+    <Footer class="footer" />
   </div>
-
 </template>
 
 <script>
-import Carrito from '../components/Carrito.vue'
-import navBar from '../components/navBar.vue'
-import mainCont from '../components/mainCont.vue'
-import Footer from '../components/Footer.vue'
-import store from '@/store';
-import { mapState , mapGetters } from 'vuex'
+const url =
+  `https://us-central1-prueba-auth-vuex-router.cloudfunctions.net/app/feedback`
+fetch(url)
+  .then((response) =>
+    response.json({
+      Payment: response.query.payment_id,
+      Status: response.query.status,
+      MerchantOrder: response.query.merchant_order_id,
+    })
+  )
+  .then((data) => {
+    console.log(data);
+  });
+
+import Carrito from "../components/Carrito.vue";
+import navBar from "../components/navBar.vue";
+import mainCont from "../components/mainCont.vue";
+import Footer from "../components/Footer.vue";
+import store from "@/store";
+import { mapState, mapGetters } from "vuex";
 
 export default {
-  name: 'InicIo',
-  components:{
+  name: "InicIo",
+  components: {
     navBar,
     mainCont,
     Carrito,
     Footer,
   },
-  data:()=>({
+  data: () => ({
     componentKey: store.state.forceRenderCarrito,
-
   }),
- watch:{
-  componentKey(){
-    this.componentKey = store.state.forceRenderCarrito
-    
-  }
- },
- methods:{
-  width(){
-    if(window.innerWidth >960){
-        return '25%'
-    }else {
-      return '100%'
-    }
-  }
- },
- computed: {
-  ...mapState(['usuario']),
-  ...mapGetters(['existeUsuario']),
-  carritoCompra: {
-        get () {
-          return store.state.carrito
-        },
-        set (value) {
-          store.commit('toggleCarrito', value)
-        }
+  watch: {
+    componentKey() {
+      this.componentKey = store.state.forceRenderCarrito;
+    },
+  },
+  methods: {
+    width() {
+      if (window.innerWidth > 960) {
+        return "25%";
+      } else {
+        return "100%";
+      }
+    },
+  },
+  computed: {
+    ...mapState(["usuario"]),
+    ...mapGetters(["existeUsuario"]),
+    carritoCompra: {
+      get() {
+        return store.state.carrito;
       },
-    
- }
-
-}
+      set(value) {
+        store.commit("toggleCarrito", value);
+      },
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-
-.container{
+.container {
   width: 50%;
 }
-
-
-
-
 </style>

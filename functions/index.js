@@ -37,9 +37,9 @@ app.post("/", (req, res) => {
       },
     ],
     back_urls: {
-      "success": "http://localhost:8080/feedback",
-      "failure": "http://localhost:8080/feedback",
-      "pending": "http://localhost:8080/feedback",
+      "success": "https://us-central1-prueba-auth-vuex-router.cloudfunctions.net/app/feedback",
+      "failure": "https://us-central1-prueba-auth-vuex-router.cloudfunctions.net/app/feedback",
+      "pending": "https://us-central1-prueba-auth-vuex-router.cloudfunctions.net/app/feedback",
     },
     auto_return: "approved",
   };
@@ -56,11 +56,27 @@ app.post("/", (req, res) => {
 });
 
 app.get("/feedback", function(req, res) {
-  res.json({
-    Payment: req.query.payment_id,
-    Status: req.query.status,
-    MerchantOrder: req.query.merchant_order_id,
-  });
+  res.send(`<!DOCTYPE html>
+  <html>
+  <head>
+  <style>
+  body {background-color: green;
+        display: flex;
+        justify-content: center;}
+  h1   {color:black;}
+  p    {color: black;}
+  </style>
+  </head>
+  <body>
+  
+  <h1>${req.query.status}</h1>
+  
+  </body>
+  </html>`);
+});
+app.post("/app", (req, res)=>{
+  console.log(req.body);
+  res.send(200).send("OK");
 });
 
 app.get("/", function(req, res) {
