@@ -1,5 +1,5 @@
-<template>
-    <div>
+<template >
+    <div id="template">
         <v-container v-if="width >= 960">
             <div class="mb-10">
             <h3 class="mi-compra mb-2">MI COMPRA</h3>
@@ -246,6 +246,7 @@
                       INICIAR MI COMPRA
                     </p>
                     </v-btn>
+                    <div id="button-checkout"></div>
                     </v-row>
                 </v-col>
             </v-row>
@@ -260,9 +261,12 @@ import { getAuth, onAuthStateChanged} from "firebase/auth";
 import store from '@/store';
 import router from '@/router';
 
-import { getFunctions ,httpsCallable } from 'firebase/functions';
 
- const functions = getFunctions();
+
+// eslint-disable-next-line no-undef, no-unused-vars
+const mercadopago = new MercadoPago('APP_USR-5b1c8b38-3817-4122-8a38-b3aa9c101518', {
+  locale: 'es-AR' // The most common are: 'pt-BR', 'es-AR' and 'en-US'
+});
 
 
 const auth = getAuth();
@@ -353,14 +357,47 @@ const auth = getAuth();
             },
 
             comprarPrimerPaso(){
-                const addMessage = httpsCallable(functions, 'cart');
-                addMessage({ cart: store.state.carritoCompras ,descripcion: 'descripcion' , price: 'price'})
-                .then((result) => {
-                    const resultado = result.data
-                    console.log(resultado)
-                }).then(()=>{
-                })
 
+                // eslint-disable-next-line no-unused-vars
+                    const AccessToken = process.env.VUE_APP_ACCESS_TOKEN
+                    const url = `https://api.mercadopago.com/checkout/preferences?${AccessToken}`;
+                    const options = {
+                    method: "POST",
+                    headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json;charset=UTF-8",
+                    },
+                    body: JSON.stringify({
+                        items: [
+                        {
+                        title: ["cart","cart","cart"],
+                        unit_price: this.precioTotalArray,
+                        quantity: 1,
+                        },
+                    ],
+                    back_urls: {
+                        "success": "https://prueba-auth-vuex-router.web.app/sucess",
+                        "failure": "https://prueba-auth-vuex-router.web.app/failure",
+                        "pending": "https://prueba-auth-vuex-router.web.app/pending",
+                    },
+                    auto_return: "approved",
+                    }),
+                    };
+                    fetch(url, options)
+                    .then((response) => response.json())
+                    .then((data) => {
+
+                       const mp = mercadopago.checkout({
+                        preference: {
+                        id: data.id
+                        },
+                        render: {
+                        container: '#button-checkout', // Class name where the payment button will be displayed
+                        label: 'Pay', // Change the payment button text (optional)
+                        }
+                    });
+                    mp.open()
+                    });
 
             }
             

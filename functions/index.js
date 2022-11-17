@@ -5,7 +5,6 @@ const admin = require("firebase-admin");
 const cors = require("cors");
 const mercadopago = require("mercadopago");
 
-
 const app = express();
 admin.initializeApp({
   credential: admin.credential.applicationDefault(),
@@ -28,7 +27,8 @@ app.use(express.static("./client"));
 app.use(cors());
 
 app.post("/", (req, res) => {
-  const preference = {
+  const preference =
+  {
     items: [
       {
         title: req.body.description,
@@ -69,10 +69,41 @@ app.get("/", function(req, res) {
 
 exports.app = functions.https.onRequest(app);
 
-exports.cart = functions.https.onCall((data, context)=>{
-  const cart = JSON.stringify(data.cart);
-  const descripcion= data.descripcion;
-  const price = data.price;
+exports.cart = functions.https.onCall((data, context) => {
+  const mercadopago = require("mercadopago");
 
-  return `esta es tu data ${cart , descripcion, price}`;
+
+  const cart = data.cart;
+  let resp = "";
+  mercadopago.configure({
+    // eslint-disable-next-line max-len
+    access_token: "APP_USR-230223288523320-110912-97c1dc3e80cdc76c92fb312792fb0abb-1214270037",
+    client_id: "230223288523320",
+    client_secret: "4fqLxozdeLsitKi7eljQXwWsUs5MDHAW",
+  });
+  // eslint-disable-next-line max-len
+  const AccessToken = "APP_USR-230223288523320-110912-97c1dc3e80cdc76c92fb312792fb0abb-1214270037";
+  const preference =
+    {
+      items: [
+        {
+          title: cart,
+          unit_price: 123,
+          quantity: 123,
+        },
+      ],
+      back_urls: {
+        "success": "http://localhost:8080/feedback",
+        "failure": "http://localhost:8080/feedback",
+        "pending": "http://localhost:8080/feedback",
+      },
+      auto_return: "approved",
+    };
+  fetch(`https://api.mercadopago.com/checkout/preferences?access_token=${AccessToken}`, {
+    method: "POST",
+    body: preference,
+  }).then(function(response) {
+    resp = response;
+  });
+  return `esta es tu data ${resp}`;
 });
