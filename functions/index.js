@@ -153,7 +153,7 @@ exports.webHooksNotif = functions.https.onRequest((req, res ) => {
           return console.log(error.message)
         }else {
           
-          res.status(200).send(res.body)
+          res.status(200).send(req.body)
           console.log("Mensaje enviado")
         }
       })

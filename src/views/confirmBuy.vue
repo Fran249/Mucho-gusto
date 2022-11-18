@@ -378,7 +378,6 @@ const auth = getAuth();
                        const mp =  mercadopago.checkout({
                     preference: {
                     id: preference.id,
-                    notification_url: preference.notification_url
                     },
                 });
                 mp.open()
