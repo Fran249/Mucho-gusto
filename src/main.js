@@ -4,7 +4,6 @@ import router from './router'
 import store from './store'
 import IngresoComponent from '@/components/navComponents/IngresoComponent.vue'
 import RegistroComponent from '@/components/navComponents/RegistroComponent.vue'
-import LoadScript from 'vue-plugin-load-script';
 
 Vue.component('IngresoComponent', IngresoComponent)
 Vue.component('RegistroComponent', RegistroComponent)
@@ -64,6 +63,5 @@ new Vue({
   router,
   store,
   vuetify,
-  LoadScript,
   render: h => h(App)
 }).$mount('#app')

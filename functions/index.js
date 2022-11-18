@@ -5,6 +5,8 @@ const express = require("express");
 const admin = require("firebase-admin");
 const cors = require("cors");
 const mercadopago = require("mercadopago");
+const nodemailer = require('nodemailer');
+const { json } = require("express");
 
 const app = express();
 admin.initializeApp({
@@ -129,9 +131,32 @@ exports.webHooksNotif = functions.https.onRequest((req, res ) => {
   switch (req.method) {
     case "GET":
       res.send("method GET on fire");
+      fetch()
       break;
     case "POST":
-      console.log(req.body);
+      const transporter = nodemailer.createTransport({
+        host: 'smtp.ethereal.email',
+        port: 587,
+        auth: {
+            user: 'jolie.johns@ethereal.email',
+            pass: 'GVeRbqd4HGYjz5rqDu'
+        }
+      });
+      const mailOptions = {
+        from : "remitente",
+        to : "franciscol.goup@gmail.com",
+        subject: "Enviado desde Nodemailer",
+        text : req.body,
+      }
+      transporter.sendMail(mailOptions,(error, info)=> {
+        if(error){
+          return console.log(error.message)
+        }else {
+          
+          res.status(200).send(res.body)
+          console.log("Mensaje enviado")
+        }
+      })
       res.status(200).send(req.body);
       break;
     default:
@@ -148,6 +173,7 @@ exports.mpActions = functions.https.onRequest((req, res ) => {
       res.send("method GET on fire");
       break;
     case "POST":
+      console.log('estas usando mp')
       const mercadopago = require("mercadopago");
       mercadopago.configure({
         // eslint-disable-next-line max-len
@@ -164,6 +190,7 @@ exports.mpActions = functions.https.onRequest((req, res ) => {
             quantity: Number(req.body.quantity),
           },
         ],
+        notification_url: "https://us-central1-prueba-auth-vuex-router.cloudfunctions.net/webHooksNotif",
         back_urls: {
           "success": "https://us-central1-prueba-auth-vuex-router.cloudfunctions.net/app/feedback",
           "failure": "https://us-central1-prueba-auth-vuex-router.cloudfunctions.net/app/feedback",
