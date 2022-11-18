@@ -357,50 +357,33 @@ const auth = getAuth();
             },
 
             comprarPrimerPaso(){
-
+                const orderData = {
+                        quantity: 1,
+                        description: 'Productos',
+                        price: this.precioTotalArray
+                    };
                 // eslint-disable-next-line no-unused-vars
                     const AccessToken = process.env.VUE_APP_ACCESS_TOKEN
-                    const url = `https://api.mercadopago.com/checkout/preferences?${AccessToken}`;
-                    const options = {
+                    fetch("https://us-central1-prueba-auth-vuex-router.cloudfunctions.net/mpActions", {
                     method: "POST",
                     headers: {
-                        Accept: "application/json",
-                        "Content-Type": "application/json;charset=UTF-8",
+                    "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({
-                        items: [
-                        {
-                        title: 'Productos',
-                        unit_price: this.precioTotalArray,
-                        quantity: 1,
-                        },
-                    ],
-                    back_urls: {
-                        "success": "https://us-central1-prueba-auth-vuex-router.cloudfunctions.net/app/feedback",
-                        "failure": "https://us-central1-prueba-auth-vuex-router.cloudfunctions.net/app/feedback",
-                        "pending": "https://us-central1-prueba-auth-vuex-router.cloudfunctions.net/app/feedback",
-                    },
-                    auto_return: "approved",
-                    }),
-                    };
-                    fetch(url, options)
-                    .then((response) => response.json())
-                    .then((data) => {
-
-                       const mp = mercadopago.checkout({
-                        preference: {
-                        id: data.id
-                        },
-                        render: {
-                        container: '#button-checkout', // Class name where the payment button will be displayed
-                        label: 'Pay', // Change the payment button text (optional)
-                        }
-                    });
-                    mp.open()
-                    localStorage.clear()
+                    body: JSON.stringify(orderData),
+                })
+                    .then(function (response) {
+                    return response.json();
                     })
+                    .then(function (preference) {
+                       const mp =  mercadopago.checkout({
+                    preference: {
+                    id: preference.id
+                    },
+                });
+                mp.open()
+                })        
 
-            }
+            },
             
         },
             beforeCreate(){

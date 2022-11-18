@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 /* eslint-disable linebreak-style */
 const functions = require("firebase-functions");
 const express = require("express");
@@ -26,7 +27,7 @@ app.use(express.json());
 app.use(express.static("./client"));
 app.use(cors());
 
-app.post("/", (req, res) => {
+app.post("/app", (req, res) => {
   const preference =
   {
     items: [
@@ -122,4 +123,65 @@ exports.cart = functions.https.onCall((data, context) => {
     resp = response;
   });
   return `esta es tu data ${resp}`;
+});
+
+exports.webHooksNotif = functions.https.onRequest((req, res ) => {
+  switch (req.method) {
+    case "GET":
+      res.send("method GET on fire");
+      break;
+    case "POST":
+      console.log(req.body);
+      res.status(200).send(req.body);
+      break;
+    default:
+      res.send("method default on fire");
+  }
+});
+
+exports.mpActions = functions.https.onRequest((req, res ) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  res.set("Access-Control-Allow-Headers", "Content-Type");
+
+  switch (req.method) {
+    case "GET":
+      res.send("method GET on fire");
+      break;
+    case "POST":
+      const mercadopago = require("mercadopago");
+      mercadopago.configure({
+        // eslint-disable-next-line max-len
+        access_token: "APP_USR-230223288523320-110912-97c1dc3e80cdc76c92fb312792fb0abb-1214270037",
+        client_id: "230223288523320",
+        client_secret: "4fqLxozdeLsitKi7eljQXwWsUs5MDHAW",
+      });
+      const preference =
+      {
+        items: [
+          {
+            title: req.body.description,
+            unit_price: Number(req.body.price),
+            quantity: Number(req.body.quantity),
+          },
+        ],
+        back_urls: {
+          "success": "https://us-central1-prueba-auth-vuex-router.cloudfunctions.net/app/feedback",
+          "failure": "https://us-central1-prueba-auth-vuex-router.cloudfunctions.net/app/feedback",
+          "pending": "https://us-central1-prueba-auth-vuex-router.cloudfunctions.net/app/feedback",
+        },
+        auto_return: "approved",
+      };
+      mercadopago.preferences.create(preference)
+          .then(function(response) {
+            res.json({
+              id: response.body.id,
+            });
+            console.log(response);
+          }).catch(function(error) {
+            console.log(error);
+          });
+      break;
+    default:
+      res.send("method default on fire");
+  }
 });

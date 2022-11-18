@@ -130,7 +130,7 @@ document.getElementById("checkout-btn").addEventListener("click", function () {
     price: document.getElementById("unit-price").innerHTML
   };
 
-  fetch("app", {
+  fetch("https://us-central1-prueba-auth-vuex-router.cloudfunctions.net/mpActions", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
