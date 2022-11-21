@@ -1,13 +1,12 @@
+/* eslint-disable max-len */
 /* eslint-disable no-case-declarations */
 /* eslint-disable linebreak-style */
+const fetch = require("node-fetch");
 const functions = require("firebase-functions");
 const express = require("express");
 const admin = require("firebase-admin");
 const cors = require("cors");
 const mercadopago = require("mercadopago");
-const nodemailer = require('nodemailer');
-const { json } = require("express");
-
 const app = express();
 admin.initializeApp({
   credential: admin.credential.applicationDefault(),
@@ -58,25 +57,6 @@ app.post("/app", (req, res) => {
       });
 });
 
-app.get("/feedback", function(req, res) {
-  res.send(`<!DOCTYPE html>
-  <html>
-  <head>
-  <style>
-  body {background-color: green;
-        display: flex;
-        justify-content: center;}
-  h1   {color:black;}
-  p    {color: black;}
-  </style>
-  </head>
-  <body>
-  
-  <h1>${req.query.status}</h1>
-  
-  </body>
-  </html>`);
-});
 app.post("/app", (req, res)=>{
   console.log(req.body);
   res.send(200).send("OK");
@@ -130,33 +110,35 @@ exports.cart = functions.https.onCall((data, context) => {
 exports.webHooksNotif = functions.https.onRequest((req, res ) => {
   switch (req.method) {
     case "GET":
-      res.send("method GET on fire");
-      fetch()
+      fetch(`https://api.mercadopago.com/merchant_orders/${req.query.merchant_order_id}`, {
+        headers: {
+          "Authorization": "Bearer APP_USR-230223288523320-110912-97c1dc3e80cdc76c92fb312792fb0abb-1214270037",
+          "Access-Control-Allow-Origin": "*",
+        },
+      }).then((response) => response.json()).then((data) =>
+        res.send(`<!DOCTYPE html>
+        <html>
+        <head>
+        <style>
+        body {background-color: green;
+              display: flex;
+              justify-content: center;}
+        h1   {color:black;}
+        p    {color: black;}
+        </style>
+        </head>
+        <body>
+        <h1>${JSON.stringify(data.order_status)}</h1>
+        <h1>${JSON.stringify(data.items[0].title)}</h1>
+        <h1>${JSON.stringify(data.items[0].quantity)}</h1>
+        <h1>${JSON.stringify(data.items[0].unit_price)}</h1>
+        </body>
+        </html>`)
+      );
       break;
     case "POST":
-      const transporter = nodemailer.createTransport({
-        host: 'smtp.ethereal.email',
-        port: 587,
-        auth: {
-            user: 'jolie.johns@ethereal.email',
-            pass: 'GVeRbqd4HGYjz5rqDu'
-        }
-      });
-      const mailOptions = {
-        from : "remitente",
-        to : "franciscol.goup@gmail.com",
-        subject: "Enviado desde Nodemailer",
-        text : req.body,
-      }
-      transporter.sendMail(mailOptions,(error, info)=> {
-        if(error){
-          return console.log(error.message)
-        }else {
-          
-          res.status(200).send(req.body)
-          console.log("Mensaje enviado")
-        }
-      })
+      console.log(JSON.stringify(req.body.data));
+      console.log(req.body.id);
       res.status(200).send(req.body);
       break;
     default:
@@ -173,7 +155,7 @@ exports.mpActions = functions.https.onRequest((req, res ) => {
       res.send("method GET on fire");
       break;
     case "POST":
-      console.log('estas usando mp')
+      console.log("estas usando mp");
       const mercadopago = require("mercadopago");
       mercadopago.configure({
         // eslint-disable-next-line max-len
@@ -190,11 +172,10 @@ exports.mpActions = functions.https.onRequest((req, res ) => {
             quantity: Number(req.body.quantity),
           },
         ],
-        notification_url: "https://us-central1-prueba-auth-vuex-router.cloudfunctions.net/webHooksNotif",
         back_urls: {
-          "success": "https://us-central1-prueba-auth-vuex-router.cloudfunctions.net/app/feedback",
-          "failure": "https://us-central1-prueba-auth-vuex-router.cloudfunctions.net/app/feedback",
-          "pending": "https://us-central1-prueba-auth-vuex-router.cloudfunctions.net/app/feedback",
+          "success": "https://us-central1-prueba-auth-vuex-router.cloudfunctions.net/webHooksNotif",
+          "failure": "https://us-central1-prueba-auth-vuex-router.cloudfunctions.net/webHooksNotif",
+          "pending": "https://us-central1-prueba-auth-vuex-router.cloudfunctions.net/webHooksNotif",
         },
         auto_return: "approved",
       };
