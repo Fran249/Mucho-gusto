@@ -86,11 +86,29 @@ exports.cart = functions.https.onCall((data, context) => {
     {
       items: [
         {
-          title: cart,
-          unit_price: 123,
-          quantity: 123,
+          title: req.body.title,
+          currency_id: "ARS",
+          picture_url: req.body.picture_url,
+          description: req.body.description,
+          quantity: req.body.quantity,
+          unit_price: req.body.unit_price
         },
       ],
+      payer: {
+        name: req.body.name,
+        email: req.body.email,
+        phone: {
+            number: req.body.number
+        },
+        identification: {
+            type: req.body.type,
+            number: req.body.number
+        },
+        address: {
+            street_name: req.body.street_name, 
+            zip_code: req.body.zip_code
+        }
+    },
       back_urls: {
         "success": "http://localhost:8080/feedback",
         "failure": "http://localhost:8080/feedback",
@@ -115,30 +133,15 @@ exports.webHooksNotif = functions.https.onRequest((req, res ) => {
           "Authorization": "Bearer APP_USR-230223288523320-110912-97c1dc3e80cdc76c92fb312792fb0abb-1214270037",
           "Access-Control-Allow-Origin": "*",
         },
-      }).then((response) => response.json()).then((data) =>
-        res.send(`<!DOCTYPE html>
-        <html>
-        <head>
-        <style>
-        body {background-color: green;
-              display: flex;
-              justify-content: center;}
-        h1   {color:black;}
-        p    {color: black;}
-        </style>
-        </head>
-        <body>
-        <h1>${JSON.stringify(data.order_status)}</h1>
-        <h1>${JSON.stringify(data.items[0].title)}</h1>
-        <h1>${JSON.stringify(data.items[0].quantity)}</h1>
-        <h1>${JSON.stringify(data.items[0].unit_price)}</h1>
-        </body>
-        </html>`)
+      }).then((response) => response.json()).then((data)=>
+        console.log(JSON.stringify(data))
       );
+      res.send('method get')
       break;
     case "POST":
-      console.log(JSON.stringify(req.body.data));
-      console.log(req.body.id);
+      const id = JSON.stringify(req.body.data)
+      console.log(id)
+      console.log(req.body.data)
       res.status(200).send(req.body);
       break;
     default:
@@ -165,13 +168,8 @@ exports.mpActions = functions.https.onRequest((req, res ) => {
       });
       const preference =
       {
-        items: [
-          {
-            title: req.body.description,
-            unit_price: Number(req.body.price),
-            quantity: Number(req.body.quantity),
-          },
-        ],
+        metadata: req.body.metadata,
+        items:req.body.items,
         back_urls: {
           "success": "https://us-central1-prueba-auth-vuex-router.cloudfunctions.net/webHooksNotif",
           "failure": "https://us-central1-prueba-auth-vuex-router.cloudfunctions.net/webHooksNotif",
@@ -181,6 +179,7 @@ exports.mpActions = functions.https.onRequest((req, res ) => {
       };
       mercadopago.preferences.create(preference)
           .then(function(response) {
+            console.log(response.body)
             res.json({
               id: response.body.id,
             });

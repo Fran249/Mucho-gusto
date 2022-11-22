@@ -258,8 +258,13 @@
 <script>
 import { mapState, mapGetters } from 'vuex'
 import { getAuth, onAuthStateChanged} from "firebase/auth";
+import { getFirestore, onSnapshot, doc } from "firebase/firestore";
+import { initializeApp } from 'firebase/app';
+import { firebaseConfig} from '../firebase/index'
 import store from '@/store';
 import router from '@/router';
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
 
 
@@ -279,7 +284,12 @@ const auth = getAuth();
             carrito: store.state.carritoCompras,
             descuento: 0,
             totalCard: [],
-            width: window.innerWidth
+            width: window.innerWidth,
+            name : "",
+            email : "",
+            numberPhone : "",
+            numberDNI : "",
+            streetName : "",
         }),
         
         methods: {
@@ -357,11 +367,49 @@ const auth = getAuth();
             },
 
             comprarPrimerPaso(){
-                const orderData = {
-                        quantity: 1,
-                        description: 'Productos',
-                        price: this.precioTotalArray
+
+                const items = [];
+                onSnapshot(doc(db, `/Usuarios/${auth.currentUser.uid}/`), (doc) => {
+                
+                        this.name =  doc.data().nombreCompleto
+                        this.email = auth.currentUser.email
+                        this.numberPhone = doc.data().telefonoContacto    
+                        this.numberDN = doc.data().dni
+                        this.streetName = doc.data().direccion
+            });
+                let dataStorage = JSON.parse(localStorage.getItem(`cart/${auth.currentUser.uid}`));
+                console.log(dataStorage)
+                dataStorage.forEach(element =>{
+                    const articulos = {
+                        picture_url : element.src,
+                        quantity : element.value,
+                        description : element.descripcion,
+                        unit_price: element.precio,
+                        title: element.title,
+                    }
+                    items.push(articulos)
+                })
+                const infoParaEnvio = 
+               {
+                        name: this.name,
+                        email: this.email,
+                        phone: {
+                        number: this.numberPhone
+                    },
+                    identification: {
+                        type: "DNI",
+                        number: this.numberDNI
+                    },
+                    address: {
+                        street_name: this.streetName, 
+                        zip_code: "7400"
+                    }
                     };
+                const orderData = {
+                    metadata: infoParaEnvio,
+                    items : items,   
+                }
+                console.log(items)
                 // eslint-disable-next-line no-unused-vars
                     const AccessToken = process.env.VUE_APP_ACCESS_TOKEN
                     fetch("https://us-central1-prueba-auth-vuex-router.cloudfunctions.net/mpActions", {
@@ -369,7 +417,7 @@ const auth = getAuth();
                     headers: {
                     "Content-Type": "application/json",
                     },
-                    body: JSON.stringify(orderData),
+                    body: orderData,
                 })
                     .then(function (response) {
                     return response.json();
