@@ -3,11 +3,9 @@
 /* eslint-disable linebreak-style */
 const fetch = require("node-fetch");
 const functions = require("firebase-functions");
-const express = require("express");
 const admin = require("firebase-admin");
-const cors = require("cors");
 const mercadopago = require("mercadopago");
-const app = express();
+
 admin.initializeApp({
   credential: admin.credential.applicationDefault(),
   databaseURL: "https://prueba-auth-vuex-router-default-rtdb.firebaseio.com",
@@ -23,109 +21,8 @@ mercadopago.configure({
 });
 
 
-app.use(express.urlencoded({extended: false}));
-app.use(express.json());
-app.use(express.static("./client"));
-app.use(cors());
 
-app.post("/app", (req, res) => {
-  const preference =
-  {
-    items: [
-      {
-        title: req.body.description,
-        unit_price: Number(req.body.price),
-        quantity: Number(req.body.quantity),
-      },
-    ],
-    back_urls: {
-      "success": "https://us-central1-prueba-auth-vuex-router.cloudfunctions.net/app/feedback",
-      "failure": "https://us-central1-prueba-auth-vuex-router.cloudfunctions.net/app/feedback",
-      "pending": "https://us-central1-prueba-auth-vuex-router.cloudfunctions.net/app/feedback",
-    },
-    auto_return: "approved",
-  };
-
-  mercadopago.preferences.create(preference)
-      .then(function(response) {
-        res.json({
-          id: response.body.id,
-        });
-        console.log(response);
-      }).catch(function(error) {
-        console.log(error);
-      });
-});
-
-app.post("/app", (req, res)=>{
-  console.log(req.body);
-  res.send(200).send("OK");
-});
-
-app.get("/", function(req, res) {
-  res.status(200).sendFile("index.html");
-});
-
-exports.app = functions.https.onRequest(app);
-
-exports.cart = functions.https.onCall((data, context) => {
-  const mercadopago = require("mercadopago");
-
-
-  const cart = data.cart;
-  let resp = "";
-  mercadopago.configure({
-    // eslint-disable-next-line max-len
-    access_token: "APP_USR-230223288523320-110912-97c1dc3e80cdc76c92fb312792fb0abb-1214270037",
-    client_id: "230223288523320",
-    client_secret: "4fqLxozdeLsitKi7eljQXwWsUs5MDHAW",
-  });
-  // eslint-disable-next-line max-len
-  const AccessToken = "APP_USR-230223288523320-110912-97c1dc3e80cdc76c92fb312792fb0abb-1214270037";
-  const preference =
-    {
-      items: [
-        {
-          title: req.body.title,
-          currency_id: "ARS",
-          picture_url: req.body.picture_url,
-          description: req.body.description,
-          quantity: req.body.quantity,
-          unit_price: req.body.unit_price
-        },
-      ],
-      payer: {
-        name: req.body.name,
-        email: req.body.email,
-        phone: {
-            number: req.body.number
-        },
-        identification: {
-            type: req.body.type,
-            number: req.body.number
-        },
-        address: {
-            street_name: req.body.street_name, 
-            zip_code: req.body.zip_code
-        }
-    },
-      back_urls: {
-        "success": "http://localhost:8080/feedback",
-        "failure": "http://localhost:8080/feedback",
-        "pending": "http://localhost:8080/feedback",
-      },
-      auto_return: "approved",
-    };
-  fetch(`https://api.mercadopago.com/checkout/preferences?access_token=${AccessToken}`, {
-    method: "POST",
-    body: preference,
-  }).then(function(response) {
-    resp = response;
-  });
-  return `esta es tu data ${resp}`;
-});
-
-exports.webHooksNotif = functions.https.onRequest((req, res ) => {
+exports.webHooksNotif = functions.https.onRequest( async (req, res ) => {
   switch (req.method) {
     case "GET":
       fetch(`https://api.mercadopago.com/merchant_orders/${req.query.merchant_order_id}`, {
@@ -139,10 +36,49 @@ exports.webHooksNotif = functions.https.onRequest((req, res ) => {
       res.send('method get')
       break;
     case "POST":
-      const id = JSON.stringify(req.body.data)
-      console.log(id)
-      console.log(req.body.data)
-      res.status(200).send(req.body);
+      const {query} =req;
+      const topic = query.topic || query.type;
+      var merchantOrder;
+      let compraDb = [];
+      let uid = "";
+      switch (topic) {
+        case "payment":
+            const paymentId = query.id || query["data.id"];
+            const payment = await mercadopago.payment.findById(paymentId);
+            const paymentMetadata = payment.body.metadata
+            uid = paymentMetadata.user_uid
+            compraDb.push(paymentMetadata)
+            merchantOrder = await mercadopago.merchant_orders.findById(payment.body.order.id);
+            const status = {estado : merchantOrder.body.order_status}
+            const items = merchantOrder.body.items;
+            const array1 = items[2];
+              let items = {};
+              array1.forEach( element => {
+                const item = {
+                    cantidad: element.quantity,
+                    titulo : element.title,
+                  }
+                  Object.assign(items, item)
+              })
+            compraDb.push(status, items)
+            admin.firestore().collection(`Compras`).add(compraDb). then(writeResult => {
+                console.log(writeResult)
+              }); 
+          break;
+        default:
+          break;
+      }
+      //console.log(merchantOrder.body.items)
+      console.log(JSON.stringify(compraDb))
+      
+      //const data = JSON.stringify(req.body)
+      //const data1 = JSON.stringify(req.query)
+      //const id = req.body.data
+      //console.log("este es el id stringify", JSON.stringify(id))
+      //console.log("este es el id normal",req.body.data)
+      //console.log(data)
+      //console.log(data1)
+      //res.status(200).send(req.body);
       break;
     default:
       res.send("method default on fire");
@@ -168,14 +104,15 @@ exports.mpActions = functions.https.onRequest((req, res ) => {
       });
       const preference =
       {
-        metadata: req.body.metadata,
-        items:req.body.items,
+        
+        items:  req.body.items,
         back_urls: {
           "success": "https://us-central1-prueba-auth-vuex-router.cloudfunctions.net/webHooksNotif",
           "failure": "https://us-central1-prueba-auth-vuex-router.cloudfunctions.net/webHooksNotif",
           "pending": "https://us-central1-prueba-auth-vuex-router.cloudfunctions.net/webHooksNotif",
         },
         auto_return: "approved",
+        metadata: req.body.metadata,
       };
       mercadopago.preferences.create(preference)
           .then(function(response) {

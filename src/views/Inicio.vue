@@ -17,19 +17,6 @@
 </template>
 
 <script>
-const url =
-  `https://us-central1-prueba-auth-vuex-router.cloudfunctions.net/app/feedback`
-fetch(url)
-  .then((response) =>
-    response.json({
-      Payment: response.query.payment_id,
-      Status: response.query.status,
-      MerchantOrder: response.query.merchant_order_id,
-    })
-  )
-  .then((data) => {
-    console.log(data);
-  });
 
 import Carrito from "../components/Carrito.vue";
 import navBar from "../components/navBar.vue";

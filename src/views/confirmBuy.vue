@@ -374,7 +374,7 @@ const auth = getAuth();
                         this.name =  doc.data().nombreCompleto
                         this.email = auth.currentUser.email
                         this.numberPhone = doc.data().telefonoContacto    
-                        this.numberDN = doc.data().dni
+                        this.numberDNI = doc.data().dni
                         this.streetName = doc.data().direccion
             });
                 let dataStorage = JSON.parse(localStorage.getItem(`cart/${auth.currentUser.uid}`));
@@ -389,27 +389,22 @@ const auth = getAuth();
                     }
                     items.push(articulos)
                 })
-                const infoParaEnvio = 
-               {
-                        name: this.name,
-                        email: this.email,
-                        phone: {
-                        number: this.numberPhone
-                    },
-                    identification: {
-                        type: "DNI",
-                        number: this.numberDNI
-                    },
-                    address: {
-                        street_name: this.streetName, 
-                        zip_code: "7400"
-                    }
-                    };
+              
                 const orderData = {
-                    metadata: infoParaEnvio,
-                    items : items,   
+                    items : items,
+                    
+                    metadata: { userUID : auth.currentUser.uid,
+                            nombre: this.name,
+                            numberPhone : this.numberPhone,
+                            numberDNI : this.numberDNI,
+                            direccion : this.streetName,
+                            email : this.email,
+
+                        },
+                    
                 }
                 console.log(items)
+                console.log(orderData)
                 // eslint-disable-next-line no-unused-vars
                     const AccessToken = process.env.VUE_APP_ACCESS_TOKEN
                     fetch("https://us-central1-prueba-auth-vuex-router.cloudfunctions.net/mpActions", {
@@ -417,7 +412,7 @@ const auth = getAuth();
                     headers: {
                     "Content-Type": "application/json",
                     },
-                    body: orderData,
+                    body: JSON.stringify(orderData),
                 })
                     .then(function (response) {
                     return response.json();
@@ -456,6 +451,16 @@ const auth = getAuth();
 
 
 
+        },
+        mounted(){
+            onSnapshot(doc(db, `/Usuarios/${auth.currentUser.uid}/`), (doc) => {
+                
+                this.name =  doc.data().nombreCompleto
+                this.email = auth.currentUser.email
+                this.numberPhone = doc.data().telefonoContacto    
+                this.numberDN = doc.data().dni
+                this.streetName = doc.data().direccion
+            });
         },
         watch:{
             carrito(){
