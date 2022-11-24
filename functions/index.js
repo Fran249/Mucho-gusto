@@ -5,6 +5,7 @@ const fetch = require("node-fetch");
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const mercadopago = require("mercadopago");
+const { doc } = require("firebase/firestore");
 
 admin.initializeApp({
   credential: admin.credential.applicationDefault(),
@@ -31,7 +32,7 @@ exports.webHooksNotif = functions.https.onRequest( async (req, res ) => {
           "Access-Control-Allow-Origin": "*",
         },
       }).then((response) => response.json()).then((data)=>
-        console.log(JSON.stringify(data))
+        console.log("data")
       );
       res.send('method get')
       break;
@@ -39,7 +40,7 @@ exports.webHooksNotif = functions.https.onRequest( async (req, res ) => {
       const {query} =req;
       const topic = query.topic || query.type;
       var merchantOrder;
-      let compraDb = [];
+      let compraDb = {};
       let uid = "";
       switch (topic) {
         case "payment":
@@ -47,23 +48,22 @@ exports.webHooksNotif = functions.https.onRequest( async (req, res ) => {
             const payment = await mercadopago.payment.findById(paymentId);
             const paymentMetadata = payment.body.metadata
             uid = paymentMetadata.user_uid
-            compraDb.push(paymentMetadata)
+            Object.assign(compraDb, paymentMetadata)
             merchantOrder = await mercadopago.merchant_orders.findById(payment.body.order.id);
-            const status = {estado : merchantOrder.body.order_status}
+            const estado = {estado : merchantOrder.body.order_status}
+            Object.assign(compraDb, estado)
             const items = merchantOrder.body.items;
-            const array1 = [items];
-              let items1 = {};
-              array1.forEach( element => {
-                const item = {
-                    cantidad: element.quantity,
-                    titulo : element.title,
-                  }
-                  Object.assign(items1, item)
-              })
-            compraDb.push(status, items)
-            admin.firestore().collection(`Compras`).add(compraDb). then(writeResult => {
-                console.log(writeResult)
-              }); 
+            Object.assign(compraDb, items)
+            admin.firestore().collection(`Compras`).get().then((docSnapshot)=>{
+              if(docSnapshot.isEqual(compraDb)){
+                return console.log("el documento ya existe")
+              }else{
+                admin.firestore().collection(`Compras`).add(compraDb). then(writeResult => {
+                  console.log(writeResult)
+                }); 
+              }
+            })
+
           break;
         default:
           break;
