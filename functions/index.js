@@ -5,7 +5,6 @@ const fetch = require("node-fetch");
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const mercadopago = require("mercadopago");
-const { doc } = require("firebase/firestore");
 
 admin.initializeApp({
   credential: admin.credential.applicationDefault(),
@@ -41,28 +40,29 @@ exports.webHooksNotif = functions.https.onRequest( async (req, res ) => {
       const topic = query.topic || query.type;
       var merchantOrder;
       let compraDb = {};
-      let uid = "";
       switch (topic) {
         case "payment":
             const paymentId = query.id || query["data.id"];
             const payment = await mercadopago.payment.findById(paymentId);
             const paymentMetadata = payment.body.metadata
-            uid = paymentMetadata.user_uid
-            Object.assign(compraDb, paymentMetadata)
             merchantOrder = await mercadopago.merchant_orders.findById(payment.body.order.id);
             const estado = {estado : merchantOrder.body.order_status}
-            Object.assign(compraDb, estado)
             const items = merchantOrder.body.items;
+            items.push(paymentMetadata)
+            items.push(estado)
             Object.assign(compraDb, items)
-            admin.firestore().collection(`Compras`).get().then((docSnapshot)=>{
-              if(docSnapshot.isEqual(compraDb)){
-                return console.log("el documento ya existe")
-              }else{
-                admin.firestore().collection(`Compras`).add(compraDb). then(writeResult => {
-                  console.log(writeResult)
-                }); 
-              }
-            })
+
+            admin.firestore().collection(`Compras`).doc(`${paymentId}`).set(compraDb).then(writeResult => {
+              console.log(writeResult)
+            });
+
+            //admin.firestore().collection(`Compras`).doc().get().then((docSnapshot)=>{
+              //if(docSnapshot.exists){
+                //return console.log("el documento ya existe")
+              //}else{
+
+              //}
+            //})
 
           break;
         default:
@@ -104,7 +104,7 @@ exports.mpActions = functions.https.onRequest((req, res ) => {
       });
       const preference =
       {
-        
+        binary_mode: true,
         items:  req.body.items,
         back_urls: {
           "success": "https://us-central1-prueba-auth-vuex-router.cloudfunctions.net/webHooksNotif",

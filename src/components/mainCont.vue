@@ -136,7 +136,7 @@
 
 <script>
     import { mapState, mapGetters } from 'vuex'
-    import { getFirestore, doc, onSnapshot } from "firebase/firestore";
+    import { getFirestore, doc, onSnapshot, collection, query, getDocs } from "firebase/firestore";
     import { initializeApp } from 'firebase/app';
     import {  firebaseConfig} from '../firebase/index'
     import { getAuth, onAuthStateChanged} from "firebase/auth";
@@ -193,7 +193,15 @@
         },
         mounted(){
 
+                const q = query(collection(db, "Compras"));
 
+                getDocs(q).then(resolve =>{
+                    resolve.forEach((doc) => {
+                // doc.data() is never undefined for query doc snapshots
+                console.log(doc.id, " => ", doc.data());
+                });
+                })
+ 
         },
         methods:{
             transition(card){
