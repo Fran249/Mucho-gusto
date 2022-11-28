@@ -25,15 +25,7 @@ mercadopago.configure({
 exports.webHooksNotif = functions.https.onRequest( async (req, res ) => {
   switch (req.method) {
     case "GET":
-      fetch(`https://api.mercadopago.com/merchant_orders/${req.query.merchant_order_id}`, {
-        headers: {
-          "Authorization": "Bearer APP_USR-230223288523320-110912-97c1dc3e80cdc76c92fb312792fb0abb-1214270037",
-          "Access-Control-Allow-Origin": "*",
-        },
-      }).then((response) => response.json()).then((data)=>
-        console.log("data")
-      );
-      res.send('method get')
+      res.status(200).send("ok")
       break;
     case "POST":
       const {query} =req;
@@ -55,30 +47,12 @@ exports.webHooksNotif = functions.https.onRequest( async (req, res ) => {
             admin.firestore().collection(`Compras`).doc(`${paymentId}`).set(compraDb).then(writeResult => {
               console.log(writeResult)
             });
-
-            //admin.firestore().collection(`Compras`).doc().get().then((docSnapshot)=>{
-              //if(docSnapshot.exists){
-                //return console.log("el documento ya existe")
-              //}else{
-
-              //}
-            //})
-
           break;
         default:
           break;
       }
-      //console.log(merchantOrder.body.items)
       console.log(JSON.stringify(compraDb))
-      
-      //const data = JSON.stringify(req.body)
-      //const data1 = JSON.stringify(req.query)
-      //const id = req.body.data
-      //console.log("este es el id stringify", JSON.stringify(id))
-      //console.log("este es el id normal",req.body.data)
-      //console.log(data)
-      //console.log(data1)
-      //res.status(200).send(req.body);
+      res.status(200).send("OK")
       break;
     default:
       res.send("method default on fire");
