@@ -505,6 +505,9 @@ font-family: humanst521-1;
     margin-right: 100%;
     gap: 13 px;
 }
+.container-main{
+        margin-bottom: 25%;
+    }
 
 @media only screen and (max-width: 960px){
 

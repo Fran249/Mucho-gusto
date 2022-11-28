@@ -130,13 +130,13 @@
                 </v-btn>
               </router-link>
             </v-list-item>
-            <v-list-item v-else>
-              <router-link style="text-decoration: none; color: inherit;" to="/" >
+            <v-list-item v-if="existeUsuario && usuario.rol == 'admin'" >
+              <router-link style="text-decoration: none; color: inherit;" to="/compras" >
                 <v-btn text  color="#727272" >
                   <v-icon class="mr-2">
                     mdi-cart
                   </v-icon>
-                  <p class="title-draw mt-3">Registro de Compra</p>
+                  <p class="title-draw mt-3">Compras</p>
                 </v-btn>
               </router-link>
             </v-list-item>

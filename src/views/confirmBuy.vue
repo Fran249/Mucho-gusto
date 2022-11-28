@@ -461,6 +461,7 @@ const auth = getAuth();
                 this.numberDN = doc.data().dni
                 this.streetName = doc.data().direccion
             });
+
             
         },
         watch:{

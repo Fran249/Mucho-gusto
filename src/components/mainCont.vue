@@ -109,6 +109,7 @@
                 </v-card>
             </v-col>
         </v-row>
+
     </v-container>
         <!-----------------------------------------SnackBars----------------------------------------------------->
             <v-snackbar
@@ -136,7 +137,7 @@
 
 <script>
     import { mapState, mapGetters } from 'vuex'
-    import { getFirestore, doc, onSnapshot, collection, query, getDocs } from "firebase/firestore";
+    import { getFirestore, doc, onSnapshot} from "firebase/firestore";
     import { initializeApp } from 'firebase/app';
     import {  firebaseConfig} from '../firebase/index'
     import { getAuth, onAuthStateChanged} from "firebase/auth";
@@ -149,6 +150,7 @@
     export default {
         name: 'mainCont',
         data: ()=>({
+            comprasHechas : [],
             cards: null,
             cardsfiltradas: null,
             dialogUser: false,
@@ -192,16 +194,7 @@
 
         },
         mounted(){
-
-                const q = query(collection(db, "Compras"));
-
-                getDocs(q).then(resolve =>{
-                    resolve.forEach((doc) => {
-                // doc.data() is never undefined for query doc snapshots
-                console.log(doc.id, " => ", doc.data());
-                });
-                })
- 
+            
         },
         methods:{
             transition(card){
@@ -528,6 +521,10 @@ font-family: humanst521-1;
     margin-right: 100%;
     gap: 13 px;
 }
+.container-main{
+    margin-bottom: 25%;
+
+    }
 
 @media only screen and (max-width: 960px){
 

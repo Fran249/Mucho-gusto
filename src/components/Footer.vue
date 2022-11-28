@@ -1,6 +1,7 @@
 <template>
     <v-footer
       color="black"
+      absolute
       :fixed="fixed()"
       :height="height"
       class="grid-container">
