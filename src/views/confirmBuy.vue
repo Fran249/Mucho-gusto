@@ -424,7 +424,10 @@ const auth = getAuth();
                     },
                 });
                 mp.open()
-                })        
+                }).then( ()=> {
+                    localStorage.clear()
+                })
+
 
             },
             
@@ -458,7 +461,7 @@ const auth = getAuth();
                 this.name =  doc.data().nombreCompleto
                 this.email = auth.currentUser.email
                 this.numberPhone = doc.data().telefonoContacto    
-                this.numberDN = doc.data().dni
+                this.numberDNI = doc.data().dni
                 this.streetName = doc.data().direccion
             });
 

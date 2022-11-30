@@ -11,6 +11,7 @@
                     <v-card-text><h3>Telefono</h3>{{comprados.number_phone}}</v-card-text>
                     <v-card-text><h3>Direccion</h3>{{comprados.direccion}}</v-card-text>
                     <v-card-text><h3>Estado de compra</h3>{{comprados.estado}}</v-card-text>
+                    <v-card-text><h3>Total</h3>{{comprados.total}}</v-card-text>
                     
             </v-card>
             <v-card v-for="comp in comprados.items" :key="comp">
@@ -29,7 +30,7 @@
 
                 </v-card> 
                 </div>
-            <v-btn @click="despacharCompra(comprados)">
+            <v-btn @click="despacharCompra(comprados)" width="100%">
                 Despachar compra
             </v-btn>
             </v-col>

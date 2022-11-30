@@ -37,16 +37,23 @@ exports.webHooksNotif = functions.https.onRequest( async (req, res ) => {
             const paymentId = query.id || query["data.id"];
             const payment = await mercadopago.payment.findById(paymentId);
             const paymentMetadata = payment.body.metadata
+            const uid = paymentMetadata.user_uid
             merchantOrder = await mercadopago.merchant_orders.findById(payment.body.order.id);
             const estado = {estado : merchantOrder.body.order_status}
             const items = {items: merchantOrder.body.items};
             const total = {total : payment.body.transaction_amount}
+            const fecha = {fecha: new Date().toLocaleString("es-AR")}
             Object.assign(compraDb, total)
             Object.assign(compraDb,paymentMetadata)
             Object.assign(compraDb,estado)
             Object.assign(compraDb, items)
+            Object.assign(compraDb, fecha)
 
             admin.firestore().collection(`Compras`).doc(`${paymentId}`).set(compraDb).then(writeResult => {
+              console.log(writeResult)
+            });
+
+            admin.firestore().collection(`Usuarios`).doc(`${uid}`).collection(`Compras`).doc(`${paymentId}`).set(compraDb).then(writeResult => {
               console.log(writeResult)
             });
           break;
