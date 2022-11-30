@@ -424,7 +424,9 @@ const auth = getAuth();
                     },
                 });
                 mp.open()
-                }).then( ()=> {
+                })
+                //Clear al Local Storage, para cerrar la compra y proceder al pago
+                .then( ()=> {
                     localStorage.clear()
                 })
 
