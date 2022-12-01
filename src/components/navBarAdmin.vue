@@ -69,6 +69,12 @@
                 <p class="mt-3">Stock</p>
             </v-btn>
             </router-link>
+            <v-divider vertical color="white" inset class="mb-2"></v-divider>  
+            <router-link class="link" style="text-decoration: none; color: inherit;" to="/compras" >
+              <v-btn text color="white">
+                <p class="mt-3">Compras</p>
+            </v-btn>
+            </router-link>
         </div>
       </div>
     </v-col>
@@ -110,16 +116,6 @@
             nav
             dense
           >
-          <v-list-item v-if="existeUsuario">
-              <router-link style="text-decoration: none; color: inherit;" to="/userView" >
-                <v-btn text  color="#727272" >
-                  <v-icon class="mr-2">
-                  mdi-account
-                  </v-icon>
-                  <p class="title-draw mt-3">Mi Cuenta</p>
-                </v-btn>
-              </router-link>
-            </v-list-item>
             <v-list-item v-if="existeUsuario && usuario.rol == 'admin'" >
               <router-link style="text-decoration: none; color: inherit;" to="/stock" >
                 <v-btn text color="#727272">

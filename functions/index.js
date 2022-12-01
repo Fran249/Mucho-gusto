@@ -25,7 +25,64 @@ mercadopago.configure({
 exports.webHooksNotif = functions.https.onRequest( async (req, res ) => {
   switch (req.method) {
     case "GET":
-      res.status(200).send("ok")
+      res.send(
+        `
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Finalizado!</title>
+        </head>
+        <body>
+            <style>
+                body{
+                    display: flex;
+                    justify-content: center;
+                    align-content:center ;
+                }
+            
+                body div{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    margin-top: 10%;
+                    height: 50%;
+                    background-color: green;
+                    width: 100%;
+                    
+                }
+                h3, p {
+                    color: white;
+                    
+                }
+                h3{
+                    font-size: 25px;
+                }
+                p{
+                    font-size: 15px;
+                }
+            </style>
+        
+            <div>
+                <h3>Compra Aprobada!</h3>
+                <p>
+                    Por favor, guarda estos datos , en caso de que tu compra tenga algun problema,
+                    te los pediremos.
+                </p>
+                <h3>ID: ${req.query.collection_id}</h3>
+                <h3>Estado: ${req.query.collection_status}</h3>
+                <h3>Numero de orden Mercantil: ${req.query.merchant_order_id}</h3>
+            </div>
+        </body>
+        </html>
+        
+        `
+
+
+      )
       break;
     case "POST":
       const {query} =req;
@@ -90,9 +147,9 @@ exports.mpActions = functions.https.onRequest((req, res ) => {
         binary_mode: true,
         items:  req.body.items,
         back_urls: {
-          "success": "https://us-central1-prueba-auth-vuex-router.cloudfunctions.net/webHooksNotif",
-          "failure": "https://us-central1-prueba-auth-vuex-router.cloudfunctions.net/webHooksNotif",
-          "pending": "https://us-central1-prueba-auth-vuex-router.cloudfunctions.net/webHooksNotif",
+          "success": "https://prueba-auth-vuex-router.web.app",
+          "failure": "https://prueba-auth-vuex-router.web.app",
+          "pending": "https://prueba-auth-vuex-router.web.app",
         },
         auto_return: "approved",
         metadata: req.body.metadata,

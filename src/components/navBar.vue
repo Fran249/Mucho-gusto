@@ -211,7 +211,7 @@
               </router-link>
             </v-list-item>
             <v-list-item v-else>
-              <router-link style="text-decoration: none; color: inherit;" to="/" >
+              <router-link style="text-decoration: none; color: inherit;" to="/misCompras" >
                 <v-btn text  color="#727272" >
                   <v-icon class="mr-2">
                     mdi-cart
