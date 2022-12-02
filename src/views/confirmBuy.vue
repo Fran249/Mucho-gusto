@@ -425,10 +425,9 @@ const auth = getAuth();
                 });
                 mp.open()
                 })
+                localStorage.clear()
                 //Clear al Local Storage, para cerrar la compra y proceder al pago
-                .then( ()=> {
-                    localStorage.clear()
-                })
+
 
 
             },

@@ -17,32 +17,50 @@
             </div>
             </div>
         <v-row>
-            <v-col cols="12" md="6" sm="6" v-for="compras in comprasHechas" :key="compras.items">
-                <v-card class="mt-15">
+            <v-col cols="12" md="4" sm="6" v-for="compras in comprasHechas" :key="compras.items">
+                <v-card class="mt-15" >
                     <v-card-text>
                         {{compras.fecha}}
                     </v-card-text>
-                    <h3 class="ml-5 articulos">Articulos</h3>
+                    <div class="pa-5">
+                        <h3 class="ml-5 articulos">ARTÍCULOS</h3>
+                    <div class="bar-container"></div>
+                    </div>
                     <v-card-text v-for="items in compras.items" :key="items.unit_price">
-                                <v-list-item>
-                                    <v-list-item-content>
-                                        <v-list-item-title class="mb-3">
-                                        {{items.title}}
-                                        </v-list-item-title>
-                                        <v-list-item-subtititle class="mb-3">
-                                        {{items.quantity}}
-                                        </v-list-item-subtititle>
-                                        {{items.unit_price}}
-                                    </v-list-item-content>
-
-                                </v-list-item>
+                        <div class="d-flex flex-row">
+                            <v-card>
+                            <v-card-title>
+                                <h3 class="articulos">{{items.title}}</h3>
+                            </v-card-title>
+                            <v-card-text>
+                                    <v-list-item>
+                                        <v-list-item-content>
+                                            <div class="d-flex flex-row" style="gap: 5px;">
+                                                <h3>Cantidad:</h3>
+                                                <h3>{{items.quantity}}</h3>
+                                            </div>
+                                        </v-list-item-content>
+                                    </v-list-item>
+                                    <v-divider class="mt-2 mb-2"></v-divider>
+                                    <v-list-item>
+                                        <v-list-item-content>
+                                            <h3>Precio/U: ${{items.unit_price}}</h3>
+                                        </v-list-item-content>
+                                    </v-list-item>
+                                    <v-divider class="mt-1 mb-2"></v-divider>
+                            </v-card-text>
+                        </v-card>
+                            <v-img  width="100" :src="items.picture_url"></v-img>
+                        </div>
                     </v-card-text>
-                    <h3 class="ml-5 total">Total: {{compras.total}}</h3>
+                    <div class="d-flex flex-row justify-space-between mt-5 mb-5" style="height: 50px;">
+                        <h3 class="ml-5 total">TOTAL:</h3>
+                        <h3 class="pr-3">${{compras.total}}</h3>
+                    </div>
                 </v-card>
             </v-col>
         </v-row>
         </v-container>
-
     </div>
 </template>
 

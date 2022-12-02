@@ -33,6 +33,10 @@ exports.webHooksNotif = functions.https.onRequest( async (req, res ) => {
             <meta charset="UTF-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap" rel="stylesheet">
+        
             <title>Finalizado!</title>
         </head>
         <body>
@@ -41,6 +45,8 @@ exports.webHooksNotif = functions.https.onRequest( async (req, res ) => {
                     display: flex;
                     justify-content: center;
                     align-content:center ;
+                    padding: 0;
+                    margin: 0;
                 }
             
                 body div{
@@ -48,14 +54,23 @@ exports.webHooksNotif = functions.https.onRequest( async (req, res ) => {
                     flex-direction: column;
                     justify-content: center;
                     align-items: center;
-                    margin-top: 10%;
                     height: 50%;
-                    background-color: green;
+                    background-color: #fff;
                     width: 100%;
+                    padding: 0;
+                    margin: 0;
                     
                 }
+                body div h3 , body div p{
+                    font-family: 'Montserrat', sans-serif;
+                    color: #000;
+                    font-size: 15px;
+                }
+                body div p{
+                    font-size: 25px;
+                }
                 h3, p {
-                    color: white;
+                    color: #000;
                     
                 }
                 h3{
@@ -64,19 +79,109 @@ exports.webHooksNotif = functions.https.onRequest( async (req, res ) => {
                 p{
                     font-size: 15px;
                 }
+                .div-container{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+        
+                }
+                .img-container{
+                    width: 15%;
+                    height: 15%;
+                }
+                .img-mg{
+                    width: 15%;
+                    height: 15%;
+                    padding-top: 3%;
+                    padding-bottom: 3%;
+                }
+                .img-mp{
+                    width: 15%;
+                    height: 15%;
+                }
+                .btn{
+                    height:40px;
+                    width: 120px;
+                    border: 2px solid transparent;
+                    border-radius: 10px;
+                    margin-bottom: 2%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    margin-top: 1.5%;
+        
+                }
+                .btn:hover {
+                    transform: scale(0.98);
+                    cursor: pointer;
+                }
+                .btn h3{
+                    font-family: 'Montserrat', sans-serif;
+                    color: #000;
+                    font-size: 13px;
+                    margin: 0;
+                    padding: 0;
+                }
+                .h3-principal{
+                    font-size: 30px
+        
+                }
+                .img-mg-container{
+                    width: 100vw;
+                    height: 15%;
+                    background-color: #000;
+                }
+                .id{
+                    display: flex;
+                    flex-direction: row;
+                    gap: 15px;
+                }
+                .estado{
+                    display: flex;
+                    flex-direction: row;
+                    gap: 15px;
+                }
+                .ord-merch{
+                    display: flex;
+                    flex-direction: row;
+                    gap: 15px;
+                }
+        
+                @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap');
+        
             </style>
         
             <div>
-                <h3>Compra Aprobada!</h3>
+                <div class="div-container">
+                        <div class="img-mg-container">
+                            <img src="https://i.imgur.com/BxRmSFz.png" alt="Mucho Gusto" class="img-mg">
+                        </div>
+                        <img src="https://i.imgur.com/WtZxMaP.png" alt="mercadopago" class="img-mp">
+                        <h3 class="h3-principal">Compra Aprobada!</h3>
+                </div>
                 <p>
                     Por favor, guarda estos datos , en caso de que tu compra tenga algun problema,
                     te los pediremos.
                 </p>
-                <h3>ID: ${req.query.collection_id}</h3>
-                <h3>Estado: ${req.query.collection_status}</h3>
-                <h3>Numero de orden Mercantil: ${req.query.merchant_order_id}</h3>
+                <div class="id">
+                    <h3>ID:</h3> <h3> ${req.query.collection_id}</h3>
+                </div>
+                <div class="estado">
+                    <h3>Estado:</h3> <h3> ${req.query.collection_status}</h3>
+                </div>
+                <div class="ord-merch">
+                    <h3>Numero de orden Mercantil: </h3> <h3> ${req.query.merchant_order_id}</h3>
+                </div>
+                <button class="btn"><h3>Volver al Sitio</h3></button>
             </div>
+                
         </body>
+        <script>
+            let btn = document.querySelector('.btn')
+            btn.addEventListener('click', ()=>{
+                window.open('https://prueba-auth-vuex-router.web.app/', '_self')
+            })
+        </script>
         </html>
         
         `
@@ -147,9 +252,9 @@ exports.mpActions = functions.https.onRequest((req, res ) => {
         binary_mode: true,
         items:  req.body.items,
         back_urls: {
-          "success": "https://prueba-auth-vuex-router.web.app",
-          "failure": "https://prueba-auth-vuex-router.web.app",
-          "pending": "https://prueba-auth-vuex-router.web.app",
+          "success": "https://us-central1-prueba-auth-vuex-router.cloudfunctions.net/webHooksNotif",
+          "failure": "https://us-central1-prueba-auth-vuex-router.cloudfunctions.net/webHooksNotif",
+          "pending": "https://us-central1-prueba-auth-vuex-router.cloudfunctions.net/webHooksNotif",
         },
         auto_return: "approved",
         metadata: req.body.metadata,
