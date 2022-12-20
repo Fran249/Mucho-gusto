@@ -74,6 +74,22 @@ const routes = [
     },
   },
   {
+    path: '/reembolso',
+    name: 'reembolsoView',
+    component: () => import(/* webpackChunkName: "about" */ '../views/reembolsoView.vue'),
+    beforeEnter: (to,from, next) => {
+      if( store.state.rol == 'admin'){
+        next()
+      }else if ( store.state.usuario.rol == null){
+        next('/error')
+      }else if (store.state.usuario.rol == 'user'){
+        next('/error')
+      }
+        next();
+
+    },
+  },
+  {
     path: '/compras',
     name: 'compras',
     component: () => import(/* webpackChunkName: "about" */ '../views/comprasView.vue'),

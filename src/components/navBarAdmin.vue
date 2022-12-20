@@ -75,6 +75,12 @@
                 <p class="mt-3">Compras</p>
             </v-btn>
             </router-link>
+            <v-divider vertical color="white" inset class="mb-2"></v-divider>  
+            <router-link class="link" style="text-decoration: none; color: inherit;" to="/reembolso" >
+              <v-btn text color="white">
+                <p class="mt-3">Reembolso</p>
+            </v-btn>
+            </router-link>
         </div>
       </div>
     </v-col>
