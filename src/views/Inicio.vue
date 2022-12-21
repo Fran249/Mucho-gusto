@@ -1,6 +1,8 @@
 <template>
   <div>
-    <navBar />
+    
+    <navBarAdminVue v-if="existeUsuario && usuario.rol == 'admin'"/>
+    <navBar v-else/>
     <v-navigation-drawer
       fixed
       temporary
@@ -17,7 +19,7 @@
 </template>
 
 <script>
-
+import navBarAdminVue from "@/components/navBarAdmin.vue";
 import Carrito from "../components/Carrito.vue";
 import navBar from "../components/navBar.vue";
 import mainCont from "../components/mainCont.vue";
@@ -29,6 +31,7 @@ export default {
   name: "InicIo",
   components: {
     navBar,
+    navBarAdminVue,
     mainCont,
     Carrito,
     Footer,

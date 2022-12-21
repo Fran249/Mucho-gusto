@@ -17,6 +17,7 @@
     "firebase-functions": "^4.0.2",
     "https-browserify": "^1.0.0",
     "jquery": "^3.6.1",
+    "jspdf-autotable": "^3.5.28",
     "mercadopago": "^1.5.14",
     "querystring-es3": "^0.2.1",
     "stream-browserify": "^3.0.0",

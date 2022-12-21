@@ -1,7 +1,7 @@
 <template>
   <div>
     <navBarAdmin />
-    <div class="d-flex flex-column" style="width: 100%">
+    <div class="d-flex flex-column"  style="width: 100%">
                                     <h3 class="ma-15 text-center" style="font-size: 20px;">COMPRAS DE HOY {{new Date().toLocaleString('es-AR', {timeZone: 'America/Argentina/Buenos_Aires'})}}</h3>
                                     <div class="bar-container-title ml-15"></div>
                                 </div>
@@ -45,8 +45,8 @@
                                 </div>
                             </v-expansion-panel-header>
                             <v-expansion-panel-content>
-                                <v-card>
-                      <div>
+                                <v-card >
+                      <div  id="element-pdf">
                         <v-divider class="ma-3"></v-divider>
                         <v-card-text class="mb-1"
                           ><h3>Email:</h3>
@@ -128,6 +128,11 @@
         </v-container>
       </v-col>
     </v-row>
+    <div class="d-flex justify-end mr-5">
+      <v-btn @click="exportPDF">
+      Descargar pdf 
+    </v-btn>
+    </div>
   </div>
 </template>
 
@@ -136,6 +141,7 @@ import navBarAdmin from "@/components/navBarAdmin.vue";
 import { getFirestore, collection, query, getDocs } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 import { firebaseConfig } from "../firebase/index";
+
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 export default {
@@ -145,13 +151,14 @@ export default {
   },
   data: () => ({
     comprasHechas: [],
+    titulos: []
   }),
 
   methods: {
     despacharCompra(comprados) {
       console.log(comprados);
     },
-  },
+},
   beforeCreate() {
     const q = query(collection(db, "Compras"));
 

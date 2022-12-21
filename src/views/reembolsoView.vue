@@ -15,10 +15,23 @@
                         filled
                         label="Seleccione un porcentaje para descontar"
                         ></v-select>
+                        <v-card-text v-if="valorDelCodigo.toString().length == 6">
+                            <div >
+                                <p id="myInput">
+                                    CODIGO GENERADO:
+                            {{ valorDelCodigo }}
+                                </p>
+                            </div>
+                        </v-card-text>
                         <v-card-actions>
-                            <v-btn @click="crearCodigo()" style="padding: 25px">
-                                Generar
-                            </v-btn>
+                            <v-btn
+                            @click="crearCodigo()"
+              
+              class="mb-10 pa-5"
+              color="#febf2c"
+            >
+              <p class="mt-4 p-v-btn">GENERAR</p>
+            </v-btn>
                         </v-card-actions>
                     </v-card>
                 </v-col>
@@ -32,6 +45,7 @@
 import navbarAdmin from '@/components/navBarAdmin.vue'
 import { getFirestore, doc, setDoc } from "firebase/firestore"; 
 import firebaseConfig from '../firebase/index'
+
 const db = getFirestore(firebaseConfig);
 export default {
     components:{
@@ -52,20 +66,48 @@ export default {
             '90%',
             '100%',
         ],
-        selectedPercentage: ''
-
+        selectedPercentage: '',
+        percentageWithComa: '',
     }),
     methods:{
         crearCodigo(){
-            const numeroRandom = Math.floor(Math.random() * 1000000)
+            const numeroRandom = Math.round(Math.random()*999999)
             this.valorDelCodigo = Number(numeroRandom)
+            console.log(this.valorDelCodigo)
 
             setDoc(doc(db, "codigos", `${this.valorDelCodigo}`), {
-                descuento: this.selectedPercentage,
+                descuento: this.percentageWithComa,
                 });
 
         }
-    }
+    },
+    watch: {
+        selectedPercentage(){
+            if(this.selectedPercentage == '10%'){
+                this.percentageWithComa = 0.1
+            } else if(this.selectedPercentage == '20%'){
+                this.percentageWithComa = 0.2
+            } else if(this.selectedPercentage == '30%'){
+                this.percentageWithComa = 0.3
+            }  else if(this.selectedPercentage == '40%'){
+                this.percentageWithComa = 0.4
+            }  else if(this.selectedPercentage == '50%'){
+                this.percentageWithComa = 0.5
+            }  else if(this.selectedPercentage == '60%'){
+                this.percentageWithComa = 0.6
+            }  else if(this.selectedPercentage == '70%'){
+                this.percentageWithComa = 0.7
+            }  else if(this.selectedPercentage == '80%'){
+                this.percentageWithComa = 0.8
+            }  else if(this.selectedPercentage == '90%'){
+                this.percentageWithComa = 0.9
+            }  else if(this.selectedPercentage == '100%'){
+                this.percentageWithComa = 1
+            }
+            
+        }
+    },
+
 }
 
 
@@ -83,6 +125,9 @@ export default {
   background: rgb(242,192,74);
   background: linear-gradient(90deg, rgba(242,192,74,1) 70px, rgba(179,182,188,1) 70px);
 }
-
+.p-v-btn {
+  font-family: "humanst521_btbold";
+  color: #fff;
+}
 
 </style>

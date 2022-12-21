@@ -374,6 +374,7 @@ background-color: rgb(234,232,232,0.95);
   height: 100%;
   margin-top: 30px;
   margin-bottom: 1rem;
+ 
 }
 
 .container-cart-mg{
@@ -419,6 +420,7 @@ background-color: rgb(234,232,232,0.95);
   .registro-ingreso2{
     transform: scale(0.9);
     flex-direction: row;
+     margin-left: 0.8rem;
   }
 
   .container-cart-mg{
