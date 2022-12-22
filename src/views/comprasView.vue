@@ -138,10 +138,11 @@
 
 <script>
 import navBarAdmin from "@/components/navBarAdmin.vue";
-import { getFirestore, collection, query, getDocs } from "firebase/firestore";
+import { getFirestore, collection, query, getDocs , doc, deleteDoc} from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 import { firebaseConfig } from "../firebase/index";
-
+import { jsPDF } from "jspdf";
+import autoTable from 'jspdf-autotable'
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 export default {
@@ -151,14 +152,65 @@ export default {
   },
   data: () => ({
     comprasHechas: [],
-    titulos: []
+    arrayNuevo : [],
   }),
 
   methods: {
     despacharCompra(comprados) {
       console.log(comprados);
     },
-},
+    exportPDF(){
+      const dc = new jsPDF()
+      
+      this.comprasHechas.forEach(element=>{
+         const info = {
+          nombre: element.nombre,
+          direccion: element.direccion,
+          dni : element.number_dni,
+          celular : element.number_phone,
+          total: element.total,
+          fecha: element.fecha,
+          email : element.email
+         }
+          this.arrayNuevo.push(info)
+         element.items.forEach(element=>{
+         const  items = {
+          titulo: element.title,
+          precio: element.unit_price,
+          cantidad: element.quantity
+         }
+         
+          this.arrayNuevo.push(items)
+          console.log(this.arrayNuevo)
+         })
+
+      })
+      
+
+      autoTable(dc, {
+  columnStyles: { nombre: { halign: 'center' } }, // European countries centered
+  body: this.arrayNuevo,
+  columns: [
+    { header: 'Nombre', dataKey: 'nombre' },
+    { header: 'Email', dataKey: 'email' },
+    { header: 'Celular', dataKey: 'celular' },
+    { header: 'DNI', dataKey: 'dni' },
+    { header: 'Fecha', dataKey: 'fecha' },
+    { header: 'Titulo', dataKey: 'titulo' },
+    { header: 'Precio', dataKey: 'precio' },
+    { header: 'Cantidad', dataKey: 'cantidad' },
+    { header: 'Total', dataKey: 'total' },
+
+  ],
+})
+dc.save(`compras de ${new Date().toLocaleString('es-AR', {timeZone: 'America/Argentina/Buenos_Aires'})}`)
+this.comprasHechas.forEach(element=>{
+    deleteDoc(doc(db, "Compras",`${element.idCompra}`));
+  })
+    }
+
+
+    },
   beforeCreate() {
     const q = query(collection(db, "Compras"));
 

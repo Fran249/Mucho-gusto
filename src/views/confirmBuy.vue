@@ -434,12 +434,17 @@ export default {
       );
       console.log(dataStorage);
       this.carrito.forEach((element) => {
-
+        let precio = ''
+        if(this.percentDesc != 1){
+          precio = Number(element.precio - Math.round( element.precio * this.percentDesc ))
+        }else {
+          precio = element.precio
+        }
         const articulos = {
           picture_url: element.src,
           quantity: element.value,
           description: element.descripcion,
-          unit_price: Number(element.precio - Math.round( element.precio * this.percentDesc )),
+          unit_price: precio,
           title: element.title,
         };
         items.push(articulos);
@@ -484,7 +489,11 @@ export default {
         });
       localStorage.clear();
       //Clear al Local Storage, para cerrar la compra y proceder al pago
+     if(this.valorTotalDesc != ''){
       deleteDoc(doc(db, "codigos", `${this.valorTotalDesc}`));
+     }else {
+      return
+     }
     },
     checkFirebaseDesc(){
         onSnapshot(doc(db, `/codigos/${this.valorTotalDesc}/`), (doc) => {
