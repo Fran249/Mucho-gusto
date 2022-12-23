@@ -204,7 +204,7 @@ exports.webHooksNotif = functions.https.onRequest( async (req, res ) => {
             const estado = {estado : merchantOrder.body.order_status}
             const items = {items: merchantOrder.body.items};
             const total = {total : payment.body.transaction_amount}
-            const idCompra = {id : payment.body.order.id}
+            const idCompra = {id : paymentId}
             const fecha = {fecha: new Date().toLocaleString('es-Ar' , {timeZone: 'America/Argentina/Buenos_Aires'})}
             Object.assign(compraDb, total)
             Object.assign(compraDb,paymentMetadata)

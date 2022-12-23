@@ -1,11 +1,15 @@
 <template>
   <div>
     <navBarAdmin />
-    <div class="d-flex flex-column"  style="width: 100%">
-                                    <h3 class="ma-15 text-center" style="font-size: 20px;">COMPRAS DE HOY {{new Date().toLocaleString('es-AR', {timeZone: 'America/Argentina/Buenos_Aires'})}}</h3>
-                                    <div class="bar-container-title ml-15"></div>
-                                </div>
-    <v-row>
+    <div class="d-flex flex-column"  style="width: 100%" v-if="comprasHechas.length >=1">
+      <h3 class="ma-15 text-center" style="font-size: 20px;">COMPRAS DE HOY {{new Date().toLocaleString('es-AR', {timeZone: 'America/Argentina/Buenos_Aires'})}}</h3>
+      <div class="bar-container-title ml-15"></div>
+    </div>
+    <div class="d-flex flex-column"  style="width: 100%" v-else>
+      <h3 class="ma-15 text-center" style="font-size: 20px;">NO HAY COMPRAS HECHAS EL DIA DE HOY</h3>
+      <div class="bar-container-title ml-15"></div>
+    </div>
+    <v-row >
        
       <v-col
         cols="12"
@@ -129,7 +133,7 @@
       </v-col>
     </v-row>
     <div class="d-flex justify-end mr-5">
-      <v-btn @click="exportPDF">
+      <v-btn v-if="comprasHechas.length >= 1" @click="exportPDF">
       Descargar pdf 
     </v-btn>
     </div>
@@ -138,7 +142,7 @@
 
 <script>
 import navBarAdmin from "@/components/navBarAdmin.vue";
-import { getFirestore, collection, query, getDocs , doc, deleteDoc} from "firebase/firestore";
+import { getFirestore, collection, query, getDocs , doc, deleteDoc } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 import { firebaseConfig } from "../firebase/index";
 import { jsPDF } from "jspdf";
@@ -153,6 +157,8 @@ export default {
   data: () => ({
     comprasHechas: [],
     arrayNuevo : [],
+    dialogLoading: true
+
   }),
 
   methods: {
@@ -172,7 +178,7 @@ export default {
           fecha: element.fecha,
           email : element.email
          }
-          this.arrayNuevo.push(info)
+          
          element.items.forEach(element=>{
          const  items = {
           titulo: element.title,
@@ -180,7 +186,9 @@ export default {
           cantidad: element.quantity
          }
          
-          this.arrayNuevo.push(items)
+         Object.assign(info, items)
+        
+          this.arrayNuevo.push(info)
           console.log(this.arrayNuevo)
          })
 
@@ -188,7 +196,15 @@ export default {
       
 
       autoTable(dc, {
-  columnStyles: { nombre: { halign: 'center' } }, // European countries centered
+  columnStyles: { nombre: { halign: 'center' , cellWidth: '10'},
+                  email: { halign: 'center', cellWidth: '10' }, 
+                  celular: { halign: 'center' , cellWidth: '10'}, 
+                  dni: { halign: 'center' , cellWidth: '10'},
+                  fecha: { halign: 'center', cellWidth: '10' } ,
+                  titulo: { halign: 'center', cellWidth: '10', cellPadding: '10'} , 
+                  precio: { halign: 'center',cellWidth: '10'},
+                  cantidad: {halign : 'center', cellWidth: '10'},
+                  total: {halign: 'total', cellWidth: '10'}},
   body: this.arrayNuevo,
   columns: [
     { header: 'Nombre', dataKey: 'nombre' },
@@ -203,10 +219,15 @@ export default {
 
   ],
 })
-dc.save(`compras de ${new Date().toLocaleString('es-AR', {timeZone: 'America/Argentina/Buenos_Aires'})}`)
-this.comprasHechas.forEach(element=>{
-    deleteDoc(doc(db, "Compras",`${element.idCompra}`));
+dc.save(`compras de ${new Date().toLocaleString('es-AR', {timeZone: 'America/Argentina/Buenos_Aires'})}`) 
+  this.comprasHechas.forEach(element=>{
+    deleteDoc(doc(db, "Compras",`${element.id}`));
   })
+    setTimeout(()=>{
+    location.reload()
+  } ,4000)
+ 
+  
     }
 
 
@@ -224,6 +245,7 @@ this.comprasHechas.forEach(element=>{
   mounted() {
     console.log(this.comprasHechas);
   },
+
 };
 </script>
 

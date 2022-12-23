@@ -63,11 +63,12 @@
                 <p class="precio-value ml-5 mt-10" v-if="carr.value == 1">
                   ${{ carr.precio }}
                 </p>
-                <p class="precio-value ml-5 mt-10" v-else>
-                  ${{
-                    Number(carr.precio ) * Number(carr.value) * percentDesc
-                  }}
-                </p>
+                <p class="precio-value ml-5 mt-10" v-if="activarDescuento">
+                      ${{ Number(carr.precio - Math.round(carr.precio * percentDesc)) * Number(carr.value)  }}
+                    </p>
+                    <p class="precio-value ml-5 mt-10" v-else>
+                      ${{ Number(carr.precio ) * Number(carr.value)  }}
+                    </p>
               </div>
             </v-list-item>
             <v-divider></v-divider>
@@ -132,7 +133,7 @@
             </v-col>
             <v-col cols="6">
               <h3 class="ml-15 h3-resumen">
-                ${{ Number(precioTotalArray) }}
+                ${{ Number(precioTotalArray - Math.round(descuento))}}
               </h3>
             </v-col>
             <v-btn
