@@ -61,10 +61,7 @@
                   <v-icon color="#b3b6bc"> mdi-close </v-icon>
                 </v-btn>
                 <p class="precio-value ml-5 mt-10" v-if="carr.value == 1">
-                  ${{ carr.precio }}
-                </p>
-                <p class="precio-value ml-5 mt-10" v-if="activarDescuento">
-                      ${{ Number(carr.precio - Math.round(carr.precio * percentDesc)) * Number(carr.value)  }}
+                      ${{ carr.precio }}
                     </p>
                     <p class="precio-value ml-5 mt-10" v-else>
                       ${{ Number(carr.precio ) * Number(carr.value)  }}
@@ -213,8 +210,11 @@
                     <p class="precio-value ml-5 mt-10" v-if="carr.value == 1">
                       ${{ carr.precio }}
                     </p>
-                    <p class="precio-value ml-5 mt-10" v-if="activarDescuento">
+                    <p class="precio-value ml-5 mt-10" v-if="activarDescuento && tipo == 'porcentaje'">
                       ${{ Number(carr.precio - Math.round(carr.precio * percentDesc)) * Number(carr.value)  }}
+                    </p>
+                    <p class="precio-value ml-5 mt-10" v-if="activarDescuento && tipo == 'neto'">
+                      ${{ Number(carr.precio - percentDesc) * Number(carr.value)  }}
                     </p>
                     <p class="precio-value ml-5 mt-10" v-else>
                       ${{ Number(carr.precio ) * Number(carr.value)  }}
@@ -343,7 +343,8 @@ export default {
     checkValue: false,
     valorTotalDesc: '',
     percentDesc: 1,
-    activarDescuento : false
+    activarDescuento : false,
+    tipo: '',
   }),
 
   methods: {
@@ -436,10 +437,13 @@ export default {
       console.log(dataStorage);
       this.carrito.forEach((element) => {
         let precio = ''
-        if(this.percentDesc != 1){
+        if(this.percentDesc != 1 && this.tipo == 'porcentaje'){
           precio = Number(element.precio - Math.round( element.precio * this.percentDesc ))
-        }else {
-          precio = element.precio
+        }else if(this.percentDesc != 1 && this.tipo == 'neto') {
+         let descuento =  Number(this.descuento) 
+         let length = Number(this.carrito.length)
+
+          precio = Number(element.precio - (descuento / length))
         }
         const articulos = {
           picture_url: element.src,
@@ -499,6 +503,7 @@ export default {
     checkFirebaseDesc(){
         onSnapshot(doc(db, `/codigos/${this.valorTotalDesc}/`), (doc) => {
            this.percentDesc = doc.data().descuento
+           this.tipo = doc.data().tipo
             
       });
       this.activarDescuento = true
@@ -557,8 +562,15 @@ export default {
             subTotales.push(Number(element.value) * Number(element.precio))
             });
             let sumaTotal = subTotales.reduce((prev, curr) => prev + curr, 0);
-            let resultadoFinal = sumaTotal * this.percentDesc
+            if(this.tipo == 'porcentaje'){
+              let resultadoFinal = sumaTotal * this.percentDesc
             this.descuento = resultadoFinal
+            console.log(this.descuento)
+            } else if(this.tipo == 'neto'){
+           
+            this.descuento = this.percentDesc
+            console.log(this.descuento)
+            }
     }
    
   },

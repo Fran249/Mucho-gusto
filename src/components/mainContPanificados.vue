@@ -307,7 +307,7 @@
                     precio: parseFloat(card.precio),
                     cantidad: card.cantidad,
                     descripcion: card.descripcion,
-                    value: 1,
+                    value: card.value,
                     id: card.id,
                 }
                 this.carrito.push(cardItems)
@@ -315,6 +315,7 @@
                 localStorage.setItem(`cart/${auth.currentUser.uid}`, JSON.stringify(this.carrito))
 
                 store.commit('forceRenderCarrito', + 1)
+                card.value = 1
                }else{
                     return
                 

@@ -9,12 +9,37 @@
                             Generar codigo de reembolso
                         </v-card-title>
                         <div class="bar-container" style=" margin-bottom: 30px; margin-left: 10px"></div>
+                        <v-text-field
+                        v-model="valorCompra"
+                        label="Seleccione un valor Neto para descontar"
+                        ></v-text-field>
+                        <v-btn
+                            @click="crearCodigoNeto()"
+              
+              class="mb-10 pa-5"
+              color="#febf2c"
+              
+            >
+              <p class="mt-4 p-v-btn">GENERAR CODIGO NETO</p>
+            </v-btn>
                         <v-select
                         v-model="selectedPercentage"
                         :items="items"
                         filled
                         label="Seleccione un porcentaje para descontar"
                         ></v-select>
+                        
+                        <v-card-actions>
+                            <v-btn
+                            @click="crearCodigoPorcentaje()"
+              
+              class="mb-10 pa-5"
+              color="#febf2c"
+       
+            >
+              <p class="mt-4 p-v-btn">GENERAR CODIGO EN %</p>
+            </v-btn>
+                        </v-card-actions>
                         <v-card-text v-if="valorDelCodigo.toString().length == 6">
                             <div >
                                 <p id="myInput">
@@ -23,16 +48,6 @@
                                 </p>
                             </div>
                         </v-card-text>
-                        <v-card-actions>
-                            <v-btn
-                            @click="crearCodigo()"
-              
-              class="mb-10 pa-5"
-              color="#febf2c"
-            >
-              <p class="mt-4 p-v-btn">GENERAR</p>
-            </v-btn>
-                        </v-card-actions>
                     </v-card>
                 </v-col>
             </v-row>
@@ -66,18 +81,34 @@ export default {
             '90%',
             '100%',
         ],
+        valorCompraNeto : '',
         selectedPercentage: '',
         percentageWithComa: '',
     }),
     methods:{
-        crearCodigo(){
+        crearCodigoPorcentaje(){
             const numeroRandom = Math.round(Math.random()*999999)
             this.valorDelCodigo = Number(numeroRandom)
             console.log(this.valorDelCodigo)
 
             setDoc(doc(db, "codigos", `${this.valorDelCodigo}`), {
                 descuento: this.percentageWithComa,
+                tipo : 'porcentaje'
                 });
+
+        },
+        crearCodigoNeto(){
+            const numeroRandom = Math.round(Math.random()*999999)
+            this.valorDelCodigo = Number(numeroRandom)
+            console.log(this.valorDelCodigo)
+
+            setDoc(doc(db, "codigos", `${this.valorDelCodigo}`), {
+                descuento: this.valorCompraNeto,
+                tipo : 'neto'
+                });
+            setTimeout(()=>{
+                location.reload()
+            }, 2000)
 
         }
     },
@@ -107,6 +138,18 @@ export default {
             
         }
     },
+    computed: {
+        valorCompra: {
+            get(){
+              return ''
+            },
+            set(value){
+                this.valorCompraNeto = value
+                console.log(this.valorCompraNeto)
+            }
+        }
+    
+    }
 
 }
 
