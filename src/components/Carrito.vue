@@ -37,7 +37,7 @@
                                 mdi-plus
                             </v-icon>
                         </v-btn>
-                        <p class="precio-value ml-5">${{carr.precio}}</p>
+                        <p class="precio-value ml-5">${{carr.precio * carr.value}}</p>
                         </div>
                 </div>
                 <div class="d-flex flex-column align-self-start ml-2">

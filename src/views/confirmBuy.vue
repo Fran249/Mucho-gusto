@@ -60,10 +60,13 @@
                 <v-btn icon @click="borrarArticuloCarrito(carr)" class="ml-10">
                   <v-icon color="#b3b6bc"> mdi-close </v-icon>
                 </v-btn>
-                <p class="precio-value ml-5 mt-10" v-if="carr.value == 1">
-                      ${{ carr.precio }}
+                <p class="precio-value ml-5 mt-10" v-if="activarDescuento && tipo == 'porcentaje'">
+                      ${{ Number(carr.precio - Math.round(carr.precio * percentDesc)) * Number(carr.value)  }}
                     </p>
-                    <p class="precio-value ml-5 mt-10" v-else>
+                    <p class="precio-value ml-5 mt-10" v-if="activarDescuento && tipo == 'neto'" >
+                      ${{ Number((carr.precio * carr.value )) - Number(descuento)  }}
+                    </p>
+                    <p class="precio-value ml-5 mt-10" v-if="activarDescuento == false && tipo == ''" >
                       ${{ Number(carr.precio ) * Number(carr.value)  }}
                     </p>
               </div>
@@ -119,7 +122,8 @@
                 <h3 class="ml-15 h3-sub-desc-total">${{ precioTotalArray }}</h3>
               </div>
               <div>
-                <h3 class="ml-15 mt-15 h3-sub-desc-total">${{ descuento }}</h3>
+                <h3 class="ml-15 mt-15 h3-sub-desc-total" v-if=" tipo == 'porcentaje'">${{ descuento }}</h3>
+                <h3 class="ml-15 mt-15 h3-sub-desc-total" v-if=" tipo == 'neto'">${{ (descuento * carrito.length) }}</h3>
               </div>
             </v-col>
           </v-row>
@@ -129,8 +133,14 @@
               <h3 class="h3-resumen">TOTAL:</h3>
             </v-col>
             <v-col cols="6">
-              <h3 class="ml-15 h3-resumen">
+              <h3 class="ml-15 h3-resumen" v-if="tipo == 'porcentaje'">
                 ${{ Number(precioTotalArray - Math.round(descuento))}}
+              </h3>
+              <h3 class="ml-15 h3-resumen" v-if="tipo == 'neto'">
+                ${{ Number(precioTotalArray - Math.round(descuento * carrito.length))}}
+              </h3>
+              <h3 class="ml-15 h3-resumen" v-if="tipo == ''">
+                ${{ Number(precioTotalArray )}}
               </h3>
             </v-col>
             <v-btn
@@ -214,7 +224,7 @@
                       ${{ Number(carr.precio - Math.round(carr.precio * percentDesc)) * Number(carr.value)  }}
                     </p>
                     <p class="precio-value ml-5 mt-10" v-if="activarDescuento && tipo == 'neto'">
-                      ${{ Number(carr.precio - percentDesc) * Number(carr.value)  }}
+                      ${{ Number((carr.precio * carr.value )) - Number(descuento)  }}
                     </p>
                     <p class="precio-value ml-5 mt-10" v-else>
                       ${{ Number(carr.precio ) * Number(carr.value)  }}
@@ -307,7 +317,8 @@
 <script>
 import { mapState, mapGetters } from "vuex";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { getFirestore, onSnapshot, doc, deleteDoc} from "firebase/firestore";
+import { getFirestore, onSnapshot, doc, deleteDoc } from "firebase/firestore";
+//
 import { initializeApp } from "firebase/app";
 import { firebaseConfig } from "../firebase/index";
  
@@ -436,23 +447,38 @@ export default {
       );
       console.log(dataStorage);
       this.carrito.forEach((element) => {
-        let precio = ''
-        if(this.percentDesc != 1 && this.tipo == 'porcentaje'){
-          precio = Number(element.precio - Math.round( element.precio * this.percentDesc ))
-        }else if(this.percentDesc != 1 && this.tipo == 'neto') {
-         let descuento =  Number(this.descuento) 
-         let length = Number(this.carrito.length)
-
-          precio = Number(element.precio - (descuento / length))
-        }
-        const articulos = {
+        if(this.tipo == 'porcentaje'){
+            
+          const articulos = {
           picture_url: element.src,
           quantity: element.value,
           description: element.descripcion,
-          unit_price: precio,
+          unit_price: Number(element.precio - Math.round( element.precio * this.percentDesc )),
           title: element.title,
         };
         items.push(articulos);
+        
+        }else if( this.tipo == 'neto') {
+            let Y = (element.precio * element.value) 
+            let X = this.descuento
+          const articulos = {
+          picture_url: element.src,
+          quantity: element.value,
+          description: element.descripcion,
+          unit_price: Number(element.precio - ( element.precio * (X / Y ) )),
+          title: element.title,
+        };
+        items.push(articulos);
+        } else {
+          const articulos = {
+          picture_url: element.src,
+          quantity: element.value,
+          description: element.descripcion,
+          unit_price: element.precio,
+          title: element.title,
+        };
+        items.push(articulos);
+        }
       });
 
       const orderData = {
@@ -492,13 +518,14 @@ export default {
           });
           mp.open();
         });
-      localStorage.clear();
+     
       //Clear al Local Storage, para cerrar la compra y proceder al pago
      if(this.valorTotalDesc != ''){
       deleteDoc(doc(db, "codigos", `${this.valorTotalDesc}`));
      }else {
       return
      }
+     localStorage.clear();
     },
     checkFirebaseDesc(){
         onSnapshot(doc(db, `/codigos/${this.valorTotalDesc}/`), (doc) => {
@@ -567,9 +594,9 @@ export default {
             this.descuento = resultadoFinal
             console.log(this.descuento)
             } else if(this.tipo == 'neto'){
-           
-            this.descuento = this.percentDesc
-            console.log(this.descuento)
+            let length = this.carrito.length
+            this.descuento = (this.percentDesc / length)
+            console.log(' este es el descuento ', this.descuento)
             }
     }
    
