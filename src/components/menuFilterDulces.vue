@@ -105,11 +105,11 @@ import store from '@/store';
   
 }
 .item{
-  font-family: 'humanst521-2';
+  font-family: 'humanst521-1';
   font-size: 18px;
 }
 h3{
-    font-family: 'humanst521-1';
+    font-family: 'humanst521-2';
     font-weight: bolder;
     font-size: 20px;
     margin-bottom: 5px;

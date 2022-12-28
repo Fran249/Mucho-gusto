@@ -1,10 +1,16 @@
-@font-face {
+
+
+@font-face{
     font-family: 'humanst521-1';
     src: url('../src/assets/ContenidoMain/Humanst521BTBold.ttf');
+  }
+  @font-face{
+    font-family:'humanst521-2';
+    src: url('../src/assets/ContenidoMain/Humanst521LtBTLight.ttf')
+  }
 
-}
 
-@font-face {
-    font-family: 'humanst521-2';
-    src: url('../src/assets/ContenidoMain/Humanst521BTRoman.ttf')
-}
+  @font-face{
+    font-family:'humanst521_btroman';
+    src: url('../src/assets/Humanst521BTRoman.ttf')
+  }

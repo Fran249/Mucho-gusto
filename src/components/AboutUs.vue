@@ -74,7 +74,7 @@
         justify-self: center;
         align-self: center;
         flex-direction: column;
-        font-family: humanst521-2;
+        font-family: 'humanst521-1';
         font-size: 50px;
         color: #fff;
         text-align: center;
@@ -82,7 +82,7 @@
     }
 
     .h3-title2{
-        font-family: humanst521-1;
+        font-family: 'humanst521-2';
         font-size: 100px;
         color: #FEBF2C
     }
@@ -96,7 +96,7 @@
         margin-left: 30px;
         
         .text1{
-            font-family: humanst521_btroman;
+            font-family: 'humanst521_btroman';
         color: #fff;
         font-size: 20px;
         text-align: match-parent;
@@ -104,7 +104,7 @@
         line-height: 30px;
         }
         .text2{
-            font-family: humanst521_btroman;
+            font-family: 'humanst521_btroman';
         color: #fff;
         font-size: 20px;
         text-align: match-parent;
@@ -112,7 +112,7 @@
         line-height: 30px;
         }
         .text3{
-            font-family: humanst521_btroman;
+            font-family:'humanst521_btroman';
         color: #fff;
         font-size: 20px;
         text-align: match-parent;

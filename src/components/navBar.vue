@@ -311,7 +311,7 @@ import { mapActions, mapGetters, mapState } from 'vuex'
   text-transform:none !important;
 }
 p{
-  font-family: 'humanst521-2';
+  font-family: 'humanst521-1';
   font-size: 15px;
 }
 .title-draw{
@@ -320,7 +320,7 @@ p{
   font-size: 16px;
 }
 .registro-ingreso{
-  font-family: 'humanst521-1';
+  font-family:'humanst521-2';
   font-size: 16px;
 }
 

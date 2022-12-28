@@ -166,7 +166,7 @@
 
 .title-mg1{
   color:#FFF;
-  font-family: humanst521-2;
+  font-family: 'humanst521-1';
   font-weight: lighter;
   font-size: 16px;
   margin-top: 3px;
@@ -198,22 +198,22 @@
 
 .title1-1{
   color: #FFF;
-  font-family: humanst521-1;
+  font-family: 'humanst521-1';
   
   
   
 }
 .title1-2{
   color: #FFF;
-  font-family: humanst521-2;
+  font-family: 'humanst521-2';
 }
 .title1-3{
   color:#FFF;
-  font-family: humanst521-2;
+  font-family: 'humanst521-2';
 }
 .title1-4{
   color:#FFF;
-  font-family: humanst521-2;
+  font-family: 'humanst521-2';
   font-weight: lighter;
   margin-top: 3px;
   

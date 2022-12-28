@@ -414,7 +414,7 @@
 
 
 h3{
-    font-family: 'humanst521-1';
+    font-family: 'humanst521-2';
   font-size: 30px;
 }
 
@@ -423,7 +423,7 @@ h3{
   text-transform:none !important;
 }
 p{
-  font-family: 'humanst521-2';
+  font-family: 'humanst521-1';
   font-size: 15px;
 }
 .p-agregado-carr{

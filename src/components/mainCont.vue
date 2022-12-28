@@ -446,7 +446,7 @@
 
 
 h3{
-    font-family: 'humanst521-1';
+    font-family: 'humanst521-2';
   font-size: 30px;
 }
 
@@ -455,7 +455,7 @@ h3{
   text-transform:none !important;
 }
 p{
-  font-family: 'humanst521-2';
+  font-family: 'humanst521-1';
   font-size: 15px;
 }
 .p-agregado-carr{
@@ -490,7 +490,7 @@ font-family: 'humanst521-2';
     border: 0.2px solid #02265C;
     .number-value{
         color: #02265C;
-        font-family: 'humanst521-1';
+        font-family: 'humanst521-2';
         margin-bottom: 200px;
 
     }
