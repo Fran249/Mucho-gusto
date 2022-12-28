@@ -95,7 +95,8 @@
                         <div class="div-btn">
                             <v-btn style="border-radius: 5px;
                                 border-top-right-radius: 1px;
-                                border-bottom-right-radius: 1px;"  icon @click="aumentarCantidad(card)" outlined color="#02265c" width="20" height="20" class="v-btn-sumrest">
+                                border-bottom-right-radius: 1px;"  
+                                icon @click="aumentarCantidad(card)" outlined color="#02265c" width="20" height="20" class="v-btn-sumrest">
                                     <v-icon>
                                         mdi-plus
                                     </v-icon>
