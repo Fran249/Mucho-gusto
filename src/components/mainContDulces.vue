@@ -451,7 +451,7 @@ font-family: 'humanst521-2';
     border: 0.2px solid #02265C;
     .number-value{
         color: #02265C;
-        font-family: humanst521-2;
+        font-family: 'humanst521-1';
         margin-bottom: 200px;
 
     }

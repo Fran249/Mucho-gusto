@@ -5,9 +5,12 @@
             <v-col 
             v-for="card in cardsfiltradas" :key="card.title"
             cols="6" lg="3" md="4" sm="4" xl="2" >
-                <v-card  tile elevation="9" class="v-card">
+                <v-card  style="border-radius: 10px;" elevation="9" class="v-card">
                     <div >
-                        <v-img :src="card.src" width="100%" :height ="heightImg()" class="v-img-card">
+                        <v-img style="border-radius: 10px;
+                        border-bottom-right-radius: 1px;
+                        border-bottom-left-radius: 1px;" 
+                        :src="card.src" width="100%" :height ="heightImg()" class="v-img-card">
 
                         </v-img>
                     </div>
@@ -26,7 +29,10 @@
                     </v-card-text>
                     <v-card-actions v-if="card.cantidad >= 1" class="actions-card">
                         <div class="div-btn">
-                        <v-btn tile icon @click="aumentarCantidad(card)" outlined color="#02265c" width="30" height="30" class="v-btn-sumrest">
+                        <v-btn style="border-radius: 10px;
+                                border-top-right-radius: 1px;
+                                border-bottom-right-radius: 1px;" 
+                                icon @click="aumentarCantidad(card)" outlined color="#02265c" width="30" height="30" class="v-btn-sumrest">
                             <v-icon>
                                 mdi-plus
                             </v-icon>
@@ -36,13 +42,16 @@
                         >
                         <p class="number-value">{{Number(card.value)}}</p>
                         </div>
-                        <v-btn tile icon @click="disminuirCantidad(card)" outlined color="#02265c" width="30" height="30" class="v-btn-sumrest">
+                        <v-btn style="border-radius: 1px;
+                            border-top-right-radius: 10px;
+                            border-bottom-right-radius: 10px;" 
+                            icon @click="disminuirCantidad(card)" outlined color="#02265c" width="30" height="30" class="v-btn-sumrest">
                             <v-icon>
                                 mdi-minus
                             </v-icon>
                         </v-btn>
                     </div>
-                        <v-btn v-if="card.cantidad >= 1" @click="detectUserAndBuy(card)" icon color="white" width="120" tile style="background-color: #02265C">
+                        <v-btn v-if="card.cantidad >= 1" @click="detectUserAndBuy(card)" icon color="white" width="120" tile style="background-color: #02265C ; border-radius: 10px">
                             <p class="mt-4 ml-4">AGREGAR</p>
                             <v-icon size="15px" class="ml-2 mr-2">
                                 mdi-briefcase
@@ -59,9 +68,12 @@
             <v-col 
             v-for="card in cardsfiltradas" :key="card.title"
             cols="6" lg="3" md="4" sm="4" xl="2" >
-                <v-card  tile elevation="9" height="250px" width="100%">
+                <v-card  style="border-radius: 10px;" elevation="9" height="250px" width="100%">
                     <div >
-                        <v-img :src="card.src" width="100%" :height ="heightImg()" class="v-img-card">
+                        <v-img style="border-radius: 10px;
+                        border-bottom-right-radius: 1px;
+                        border-bottom-left-radius: 1px;"
+                        :src="card.src" width="100%" :height ="heightImg()" class="v-img-card">
 
                         </v-img>
                     </div>
@@ -81,24 +93,29 @@
 
                     <v-card-actions class="actions-card">
                         <div class="div-btn">
-                                    <v-btn tile icon @click="disminuirCantidad(card)" outlined color="#02265c" width="20" height="20" class="v-btn-sumrest">
+                            <v-btn style="border-radius: 5px;
+                                border-top-right-radius: 1px;
+                                border-bottom-right-radius: 1px;"  icon @click="aumentarCantidad(card)" outlined color="#02265c" width="20" height="20" class="v-btn-sumrest">
                                     <v-icon>
-                                        mdi-minus
+                                        mdi-plus
                                     </v-icon>
                                 </v-btn>
+                                    
                                 <div
                                 class="card-value"
                                 >
                                 <p class="number-value ">{{Number(card.value)}}</p>
                                 </div>
-                                <v-btn tile icon @click="aumentarCantidad(card)" outlined color="#02265c" width="20" height="20" class="v-btn-sumrest">
+                                <v-btn style="border-radius: 5px;
+                                border-top-left-radius: 1px;
+                                border-bottom-left-radius: 1px;"   icon @click="disminuirCantidad(card)" outlined color="#02265c" width="20" height="20" class="v-btn-sumrest">
                                     <v-icon>
-                                        mdi-plus
+                                        mdi-minus
                                     </v-icon>
                                 </v-btn>
                                 </div>
-                    
-                                    <v-btn v-if="card.cantidad >= 1" @click="detectUserAndBuy(card)" icon color="white" width="75px" height="20px" tile style="background-color: #02265C; margin-bottom: 6px; ">
+                                
+                                    <v-btn v-if="card.cantidad >= 1" @click="detectUserAndBuy(card)" icon color="white" width="75px" height="20px" tile style="background-color: #02265C; margin-bottom: 6px; border-radius: 5px">
                                     <p class="mt-4 ml-6" style="font-size: 8px;">AGREGAR</p>
                                     <v-icon size="11px" class="ml-1 mr-4">
                                         mdi-briefcase
@@ -534,7 +551,7 @@ font-family: 'humanst521-2';
     margin-bottom: 10%;
     .number-value{
         color: #02265C;
-        font-family: humanst521-2;
+        font-family: 'humanst521-1';
         font-size: 13px;
         text-align: center;
        

@@ -13,6 +13,11 @@
     >
       <Carrito :key="componentKey" />
     </v-navigation-drawer>
+      <v-img  height="300" src="../assets/ContenidoMain/8.jpg">
+        <div style="width: 100%; height:100%; " class="d-flex justify-center align-center">
+            <v-img contain width="150" height="150" src="../assets/ContenidoMain/4.png"></v-img>
+        </div>
+      </v-img>
     <mainCont class="mainCont" />
     <Footer class="footer" />
   </div>
