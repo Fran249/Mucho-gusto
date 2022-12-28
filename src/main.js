@@ -4,7 +4,7 @@ import router from './router'
 import store from './store'
 import IngresoComponent from '@/components/navComponents/IngresoComponent.vue'
 import RegistroComponent from '@/components/navComponents/RegistroComponent.vue'
-
+import '../src/fonts.css'
 Vue.component('IngresoComponent', IngresoComponent)
 Vue.component('RegistroComponent', RegistroComponent)
 

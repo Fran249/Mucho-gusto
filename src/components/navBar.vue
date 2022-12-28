@@ -12,7 +12,7 @@
       <div class="container-registro-ingreso-avatar">
 
         <div class="registro-ingreso1" >
-          <v-btn width="50" height="50" text tile x-small class="mt-4 mr-2" href="https://mucho-gusto-web.web.app/">
+          <v-btn width="50" height="50" text tile x-small class="mt-4 mr-2" @click="$router.push('/')">
             <v-img src="https://i.imgur.com/6Xwvw8Y.png" width="50" height="50" contain class="mt-3">
             </v-img>
           </v-btn>  
@@ -80,7 +80,7 @@
         </div>
       </div>
       <div class="rutas-sabores">
-          <router-link class="link" style="text-decoration: none; color: inherit;" to="/" >
+          <router-link class="link" style="text-decoration: none; color: inherit;" to="/MuchoGustoCompras" >
             <v-btn text color="white">
                <p class="mt-3">Inicio</p>
             </v-btn>
@@ -301,25 +301,6 @@ import { mapActions, mapGetters, mapState } from 'vuex'
 
 <style lang="scss" scoped>
 
-@font-face{
-    font-family: humanst521-1;
-    src: url('/src/assets/Humanst521LtBTLight.ttf');
-    };
-    @font-face{
-    font-family:humanst521-2;
-    src: url('/src/assets/Humanst521LtBTLight.ttf');
-    };
-    @font-face{
-    font-family: humans521-3;
-    src: url('/src/assets/Hum521Rm.ttf');
-    }
-    @font-face {
-    font-family: 'humanst521_btroman';
-    src: url('/src/assets/hum521rm-webfont.woff2') format('woff2'),
-         url('/src/assets/hum521rm-webfont.woff') format('woff');
-    
-    
-    }
 
 
 .list-nav-draw{
@@ -330,16 +311,16 @@ import { mapActions, mapGetters, mapState } from 'vuex'
   text-transform:none !important;
 }
 p{
-  font-family: humanst521-1;
+  font-family: 'humanst521-2';
   font-size: 15px;
 }
 .title-draw{
-  font-family: humanst521-1;
+  font-family: 'humanst521-2';
   font-weight: bold;
   font-size: 16px;
 }
 .registro-ingreso{
-  font-family: humanst521-2;
+  font-family: 'humanst521-1';
   font-size: 16px;
 }
 

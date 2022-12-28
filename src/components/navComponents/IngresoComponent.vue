@@ -24,7 +24,7 @@
               @click:append="() => (value = !value)"
               :type="value ? 'password' : 'text'"
           ></v-text-field>
-            <a @click="ingreso = false" class="d-flex justify-end"><p>¿Olvidaste tu contraseña?</p></a>
+            <a @click="ingreso = false" class="d-flex justify-end a-withP"><p>¿Olvidaste tu contraseña?</p></a>
      
             <v-btn width="70%" type="submit" class="ml-15" color="#febf2c">
                 <p class="mt-4 p-v-btn" >
@@ -146,41 +146,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@font-face{
-    font-family: humanst521-1;
-    src: url('/src/assets/Humanst521LtBTLight.ttf');
-    };
-    @font-face{
-    font-family:humanst521-2;
-    src: url('/src/assets/Humanst521BTBold.ttf');
-    };
-    @font-face{
-    font-family: humans521-3;
-    src: url('/src/assets/Hum521Rm.ttf');
-    }
-    @font-face {
-    font-family: 'humanst521_btroman';
-    src: url('/src/assets/hum521rm-webfont.woff2') format('woff2'),
-         url('/src/assets/hum521rm-webfont.woff') format('woff');
-    
-    
-    }
-    @font-face {
-    font-family: 'humanst521_btbold';
-    src: url('/src/assets/humanst521_bt_bold-webfont.woff2') format('woff2'),
-         url('/src/assets/humanst521_bt_bold-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
 
-}
-a, a:hover, a:focus, a:visited{
+.a-withP, .a-withP:hover, .a-withP:focus, .a-withP:visited{
 text-decoration: none;
 color: grey;
-font-family: humanst521-1;
+font-family: 'humanst521-2';
 font-size: 18px;
 }
 .p-v-btn{
-    font-family: 'humanst521_btbold';
+    font-family: 'humanst521-1';
     color: #fff
 }
 .resetPass{
@@ -188,13 +162,13 @@ font-size: 18px;
     color: green;
 }
 h1{
-    font-family: 'humanst521_btbold';
+    font-family: 'humanst521-1';
     font-size: 20px;
-    font-weight: bold;
+    font-weight: bolder;
     color: #374763;
 }
 h3{
-    font-family: humanst521-1;
+    font-family: 'humanst521-1';
     font-size: 13px;
     color: #374763;
 }

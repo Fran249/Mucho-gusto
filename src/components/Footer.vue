@@ -181,6 +181,7 @@
     grid-column: 1/2;
     display: flex;
     flex-direction: column;
+    margin-left: 25px
     
   }
   
@@ -199,7 +200,7 @@
     grid-column:3/4;
     display: flex;
     justify-content: right;
-    margin-right: 30px;
+    margin-right: 50px;
   }
   
   .mg-container{

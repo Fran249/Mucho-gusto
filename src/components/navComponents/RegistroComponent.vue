@@ -75,33 +75,7 @@ import {mapActions, mapState} from 'vuex'
 </script>
 
 <style lang="scss" scoped>
-@font-face{
-    font-family: humanst521-1;
-    src: url('/src/assets/Humanst521LtBTLight.ttf');
-    };
-    @font-face{
-    font-family:humanst521-2;
-    src: url('/src/assets/Humanst521BTBold.ttf');
-    };
-    @font-face{
-    font-family: humans521-3;
-    src: url('/src/assets/Hum521Rm.ttf');
-    }
-    @font-face {
-    font-family: 'humanst521_btroman';
-    src: url('/src/assets/hum521rm-webfont.woff2') format('woff2'),
-         url('/src/assets/hum521rm-webfont.woff') format('woff');
-    
-    
-    }
-    @font-face {
-    font-family: 'humanst521_btbold';
-    src: url('/src/assets/humanst521_bt_bold-webfont.woff2') format('woff2'),
-         url('/src/assets/humanst521_bt_bold-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
 
-}
 
 .p-v-btn{
     font-family: 'humanst521_btbold';
