@@ -325,7 +325,7 @@
                         ¿Por qué solicitamos estos datos?
                     </p>
                     <p style="font-family:  'humanst521-1'; color: gray;">
-                        Ante cualquier reclamo tiene un lapso de 48hs luego de su compra.
+                      Tus datos personales se toman solo con los fines de cumplir con el giro comercial de la empresa y hacer un correcto seguimiento a tu pedido. Es importante que los datos que ingreses sean verdaderos para validarlos cuando realices tu compra. Recordá que debes ser mayor de edad.
                     </p>
                     <v-btn
                     style="margin-top: 75px; width: 50%; align-self:center ;"

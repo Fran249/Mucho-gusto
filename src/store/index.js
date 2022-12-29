@@ -168,7 +168,7 @@ export default new Vuex.Store({
               commit('setUsuario', usuario);
               
         
-              router.push('/MuchoGustoCompras')
+              location.reload()
   
             }
              else if (!auth.currentUser.emailVerified){
