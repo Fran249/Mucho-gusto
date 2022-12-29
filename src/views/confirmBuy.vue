@@ -311,6 +311,35 @@
         </v-col>
       </v-row>
     </v-container>
+    <v-dialog width="650" v-model="popUp" persistent>
+            <v-card style="padding: 50px; border-radius:10px ;">
+              
+                <div class="text-left d-flex flex-column justify-start ">                    
+                    <h3 style="margin-bottom: 20px; margin-right: 5%; color: #374763; font-family : 'humanst521-2'">
+                        ¡SÓLO UN PASO MÁS!
+                    </h3>
+                    <p style="font-size: 20px; font-family:  'humanst521-1'; color: #374763;">
+                        Te solicitamos unos datos más para comenzar con tus compras.
+                    </p>
+                    <p style="font-family:  'humanst521-1'; color: gray;">
+                        ¿Por qué solicitamos estos datos?
+                    </p>
+                    <p style="font-family:  'humanst521-1'; color: gray;">
+                        Ante cualquier reclamo tiene un lapso de 48hs luego de su compra.
+                    </p>
+                    <v-btn
+                    style="margin-top: 75px; width: 50%; align-self:center ;"
+                    @click="$router.push('/userView')"
+              width="90%"
+              class="mb-10 pa-5"
+              color="#febf2c"
+            >
+              <p class="mt-4 p-v-btn">COMPLETAR REGISTRO</p>
+            </v-btn>
+                </div>
+                
+            </v-card>
+        </v-dialog>
   </div>
 </template>
 
@@ -356,6 +385,7 @@ export default {
     percentDesc: 1,
     activarDescuento : false,
     tipo: '',
+    popUp:false
   }),
 
   methods: {
@@ -434,7 +464,15 @@ export default {
     },
 
     comprarPrimerPaso() {
-      const items = [];
+      if (auth.currentUser != null) {
+            onSnapshot(doc(db, `Usuarios/${auth.currentUser.uid}`), (doc) => {
+
+
+                if (doc.data().nombreCompleto == '' || doc.data().email == '' || doc.data().dni == '' || doc.data().telefonoContacto == '' || doc.data().direccion == '') {
+                    this.popUp = true
+                } else {
+                    this.popUp = false
+                    const items = [];
       onSnapshot(doc(db, `/Usuarios/${auth.currentUser.uid}/`), (doc) => {
         this.name = doc.data().nombreCompleto;
         this.email = auth.currentUser.email;
@@ -526,7 +564,13 @@ export default {
       return
      }
      localStorage.clear();
-    },
+
+           
+        
+     
+      }});
+    }},
+
     checkFirebaseDesc(){
         onSnapshot(doc(db, `/codigos/${this.valorTotalDesc}/`), (doc) => {
            this.percentDesc = doc.data().descuento

@@ -61,7 +61,7 @@
                     Total: ${{precioTotalArray}} 
                 </h3>
                 <router-link style="text-decoration: none;" :to="{ path: `/user/${this.usuario}/compra`, params: {username: this.usuario}}">
-                <v-btn 
+                <v-btn  @click="popUpDialog" 
                     width="90%" 
                     class="mb-10 pa-5"
                     color="#febf2c">
@@ -71,7 +71,7 @@
                 </v-btn>
             </router-link>
             </div>
-
+        
     </div>
 </template>
 
@@ -81,7 +81,9 @@ import { mapState, mapGetters } from 'vuex'
 import { getAuth, onAuthStateChanged} from "firebase/auth";
 import store from '@/store';
 
+
 const auth = getAuth();
+
  export default {
     name: 'CarritoCompras',
 
@@ -89,11 +91,17 @@ const auth = getAuth();
         precioTotalArray: [],
         carrito: store.state.carritoCompras,
         usuario: null,
+        popUp:false,
     }),
     updated(){
         this.carrito = store.state.carritoCompras
     },
+    
+  
     methods:{
+        popUpDialog(){
+            
+        },
         aumentar(carr){
                 const index = this.carrito.findIndex(object => {
                     return object.id === carr.id;

@@ -148,29 +148,7 @@
                 </v-icon>
             </div>
         </v-snackbar>
-        <v-dialog width="650" v-model="popUp" persistent>
-            <v-card style="padding: 50px; border-radius:10px ;">
-             
-                <div class="text-left d-flex flex-column justify-start ">                    
-                    <h3 style="margin-bottom: 20px; margin-right: 5%; color: #374763; font-family : 'humanst521-2'">
-                        ¡SÓLO UN PASO MÁS!
-                    </h3>
-                    <p style="font-size: 20px; font-family:  'humanst521-1'; color: #374763;">
-                        Te solicitamos unos datos más para comenzar con tus compras.
-                    </p>
-                    <p style="font-family:  'humanst521-1'; color: gray;">
-                        ¿Por qué solicitamos estos datos?
-                    </p>
-                    <p style="font-family:  'humanst521-1'; color: gray;">
-                        Ante cualquier reclamo tiene un lapso de 48hs luego de su compra.
-                    </p>
-                    <v-btn color="#febf2c" style="margin-top: 75px; width: 250px;align-self: center; " @click="$router.push('/userView')">
-                        <h3>COMPLETAR REGISTRO</h3>
-                    </v-btn>
-                </div>
-                
-            </v-card>
-        </v-dialog>
+  
     </div>
 </template>
 
@@ -214,20 +192,7 @@
                 console.log(this.cardsfiltradas)
             });
 
-            if(auth.currentUser != null) {
-            onSnapshot(doc(db, `Usuarios/${auth.currentUser.uid}`), (doc) => {
             
-
-            if(doc.data().nombreCompleto == '' || doc.data().email == '' || doc.data().dni  == ''|| doc.data().telefonoContacto == '' || doc.data().direccion == ''){
-                this.popUp = true
-            }else {
-                this.popUp = false
-            }
-    
-        });
-           }else  {
-            return
-           }
         },
         mounted(){
 
@@ -468,10 +433,7 @@
     
 }
 
-.v-btn h3 {
-    font-family: 'humanst521-2';
-    font-size: 13px;
-}
+
 
 h3 {
     font-family: 'humanst521-2';
