@@ -472,7 +472,15 @@ export default {
                     this.popUp = true
                 } else {
                     this.popUp = false
-                    const items = [];
+                  this.compraPrimerPasoDos()
+
+           
+        
+     
+      }});
+    }},
+    compraPrimerPasoDos(){
+      const items = [];
       onSnapshot(doc(db, `/Usuarios/${auth.currentUser.uid}/`), (doc) => {
         this.name = doc.data().nombreCompleto;
         this.email = auth.currentUser.email;
@@ -564,12 +572,7 @@ export default {
       return
      }
      localStorage.clear();
-
-           
-        
-     
-      }});
-    }},
+    },
 
     checkFirebaseDesc(){
         onSnapshot(doc(db, `/codigos/${this.valorTotalDesc}/`), (doc) => {
