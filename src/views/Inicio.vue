@@ -13,13 +13,35 @@
     >
       <Carrito :key="componentKey" />
     </v-navigation-drawer>
-      <v-img  height="300" src="../assets/ContenidoMain/8.jpg">
+      <!--<v-img  height="300" src="../assets/ContenidoMain/8.jpg">
         <div style="width: 100%; height:100%; " class="d-flex justify-center align-center">
             <v-img contain width="150" height="150" src="../assets/ContenidoMain/4.png"></v-img>
         </div>
-      </v-img>
+      </v-img>-->
+      <v-carousel 
+    id="v-carousel"
+    hide-delimiter-background
+    show-arrows-on-hover
+    :height="Carouselheight()"
+    cycle
+    interval="5000"
+    
+      >
+      
+      <v-carousel-item
+        v-for="(item,i) in items"
+        :key="i"
+        :src="item.src"
+      >
+      <div v-if="item.index == 1" style="width: 100%; height:100%; " class="d-flex justify-center align-center">
+            <v-img v-if="widthImg > 700" contain width="150" height="150" src="../assets/ContenidoMain/4.png"></v-img>
+            <v-img v-else contain width="70" height="70" src="../assets/ContenidoMain/4.png"></v-img>
+        </div>
+      </v-carousel-item>
+    </v-carousel>
     <mainCont class="mainCont" />
     <Footer class="footer" />
+
   </div>
 </template>
 
@@ -43,6 +65,11 @@ export default {
   },
   data: () => ({
     componentKey: store.state.forceRenderCarrito,
+    items: [
+      {src: require('../assets/ContenidoMain/8.jpg'),
+        index: 1}
+    ],
+    widthImg: window.innerWidth,
   }),
   watch: {
     componentKey() {
@@ -57,6 +84,13 @@ export default {
         return "100%";
       }
     },
+    Carouselheight(){
+      if(window.innerWidth < 700){
+        return  100
+      }else if(window.innerWidth > 700) {
+        return 250
+      }
+    }
   },
   computed: {
     ...mapState(["usuario"]),
@@ -77,4 +111,5 @@ export default {
 .container {
   width: 50%;
 }
+
 </style>

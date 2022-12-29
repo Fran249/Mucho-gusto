@@ -23,16 +23,6 @@
                 </v-text-field>
             </v-col>
             <v-col cols="6" v-if="width > 960">
-                <h3>Direccion</h3>
-                <v-text-field
-                filled
-                :disabled="edit"
-                v-model="direccion"
-                :value="direccion"
-                >
-                </v-text-field>
-            </v-col>
-            <v-col cols="6" v-if="width > 960">
                 <h3>DNI</h3>
                 <v-text-field
                 filled

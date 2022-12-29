@@ -148,6 +148,14 @@
                 </v-icon>
             </div>
         </v-snackbar>
+        <v-dialog v-model="popUp">
+                <div style="width: 100% ; height: 100%; padding: 150px ; background: white;">
+                    <h3>Por Favor complete sus datos</h3>
+                    <v-btn @click="$router.push('/userView')">
+                        <h3>Ir a completar</h3>
+                    </v-btn>
+                </div>
+            </v-dialog>
     </div>
 </template>
 
@@ -180,6 +188,7 @@
             width: window.innerWidth,
             reveal: false,
             cardId: null,
+            popUp: false,
             
         }),
         beforeMount(){
@@ -190,7 +199,20 @@
                 console.log(this.cardsfiltradas)
             });
 
+            if(auth.currentUser != null) {
+            onSnapshot(doc(db, `Usuarios/${auth.currentUser.uid}`), (doc) => {
+            
 
+            if(doc.data().nombreCompleto == '' || doc.data().email == '' || doc.data().dni  == ''|| doc.data().telefonoContacto == '' || doc.data().direccion == ''){
+                this.popUp = true
+            }else {
+                this.popUp = false
+            }
+    
+        });
+           }else  {
+            return
+           }
         },
         mounted(){
 

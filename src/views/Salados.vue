@@ -11,6 +11,9 @@
          <Carrito :key="componentKey"/>
         </v-navigation-drawer>
         <navBar/>
+        <v-img height="250"  src="../assets/Salados.jpg">
+
+</v-img>
         <v-row>
           <v-col cols="2" v-if="width > 960">
             <div class="menu-cont">
@@ -86,6 +89,9 @@ export default {
 
 <style lang="scss" scoped>
 
+.container{
+  padding: 2px
+}
 .menu-cont::-webkit-scrollbar {
     -webkit-appearance: none;
 }

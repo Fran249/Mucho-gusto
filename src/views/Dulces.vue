@@ -3,6 +3,9 @@
     <v-container fluid>
       
         <navBar/>
+        <v-img height="250"  src="../assets/Dulces.jpg">
+
+</v-img>
         <v-navigation-drawer
         fixed
         temporary
@@ -84,6 +87,9 @@ export default {
 
 <style lang="scss" scoped>
 
+.container{
+  padding: 2px;
+}
 .menu-cont{
   height: 50%;
   position: absolute;

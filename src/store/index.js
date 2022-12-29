@@ -132,6 +132,7 @@ export default new Vuex.Store({
       
       .then(res => {
 
+ 
 
 
 
@@ -162,13 +163,12 @@ export default new Vuex.Store({
 
             if(auth.currentUser.emailVerified  ){
 
-          
 
 
               commit('setUsuario', usuario);
               
-           
-              location.reload()
+        
+              router.push('/MuchoGustoCompras')
   
             }
              else if (!auth.currentUser.emailVerified){
@@ -188,7 +188,7 @@ export default new Vuex.Store({
   },
     detectarUsuario({commit}, usuario){
       commit('setUsuario', usuario)
-      router.push('/')
+      router.push('/MuchoGustoCompras')
   // eslint-disable-next-line no-unused-vars
   },
   

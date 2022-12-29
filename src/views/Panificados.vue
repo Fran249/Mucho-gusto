@@ -3,12 +3,16 @@
     <v-container fluid>
         
         <navBar/>
+        <v-img height="250"  src="../assets/Panificados.jpg">
+
+</v-img>
         <v-row>
           <v-col cols="2" v-if="width > 960">
             <div class="menu-cont">
               <menuFilterPanificados class="menuFilterPanificados"/>
             </div>
           </v-col>
+
         <v-col cols="12" lg="10" sm="5" xl="10">
         <mainContPanificados class="mainContPanificados" />
 
@@ -83,7 +87,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.container{
+  padding: 2px;
+}
 .menu-cont::-webkit-scrollbar {
     -webkit-appearance: none;
 }
