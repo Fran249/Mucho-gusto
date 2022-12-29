@@ -1,296 +1,302 @@
 <template>
     <div class="container-main">
-    <v-container v-if="width > 960">
-        <v-row >
-            <v-col 
-            v-for="card in cardsfiltradas" :key="card.title"
-            cols="6" lg="3" md="4" sm="4" xl="2" >
-                <v-card  style="border-radius: 10px;" elevation="9" class="v-card">
-                    <div >
-                        <v-img style="border-radius: 10px;
+        <v-container v-if="width > 960">
+            <v-row>
+                <v-col v-for="card in cardsfiltradas" :key="card.title" cols="6" lg="3" md="4" sm="4" xl="2">
+                    <v-card style="border-radius: 10px;" elevation="9" class="v-card">
+                        <div>
+                            <v-img style="border-radius: 10px;
                         border-bottom-right-radius: 1px;
-                        border-bottom-left-radius: 1px;" 
-                        :src="card.src" width="100%" :height ="heightImg()" class="v-img-card">
+                        border-bottom-left-radius: 1px;" :src="card.src" width="100%" :height="heightImg()"
+                                class="v-img-card">
 
-                        </v-img>
-                    </div>
-                    <v-card-title class="v-card-title">
-                        <h3>
-                           {{card.title}}
-                        </h3>
-                    </v-card-title>
-                    <v-card-text class="v-card-text">
-                        {{card.descripcion}}
-                        <p v-if="card.cantidad >= 1">
-                            {{card.cantidad}} Unidades disponibles
-                        </p>
-                        <p v-if="card.cantidad >= 1">${{card.precio}}</p>
-                        <p v-else>Sin stock</p>
-                    </v-card-text>
-                    <v-card-actions v-if="card.cantidad >= 1" class="actions-card">
-                        <div class="div-btn">
-                        <v-btn style="border-radius: 10px;
-                                border-top-right-radius: 1px;
-                                border-bottom-right-radius: 1px;" 
-                                icon @click="aumentarCantidad(card)" outlined color="#02265c" width="30" height="30" class="v-btn-sumrest">
-                            <v-icon>
-                                mdi-plus
-                            </v-icon>
-                        </v-btn>
-                        <div
-                        class="text-center pa-1 card-value"
-                        >
-                        <p class="number-value">{{Number(card.value)}}</p>
+                            </v-img>
                         </div>
-                        <v-btn style="border-radius: 1px;
-                            border-top-right-radius: 10px;
-                            border-bottom-right-radius: 10px;" 
-                            icon @click="disminuirCantidad(card)" outlined color="#02265c" width="30" height="30" class="v-btn-sumrest">
-                            <v-icon>
-                                mdi-minus
-                            </v-icon>
-                        </v-btn>
-                    </div>
-                        <v-btn v-if="card.cantidad >= 1" @click="detectUserAndBuy(card)" icon color="white" width="120" tile style="background-color: #02265C ; border-radius: 10px">
-                            <p class="mt-4 ml-4">AGREGAR</p>
-                            <v-icon size="15px" class="ml-2 mr-2">
-                                mdi-briefcase
-                            </v-icon>
-                                
-                        </v-btn>
-                    </v-card-actions>
-                </v-card>
-            </v-col>
-        </v-row>
-    </v-container>
-    <v-container v-if="width < 960" fluid>
-        <v-row >
-            <v-col 
-            v-for="card in cardsfiltradas" :key="card.title"
-            cols="6" lg="3" md="4" sm="4" xl="2" >
-                <v-card  style="border-radius: 10px;" elevation="9" height="250px" width="100%">
-                    <div >
-                        <v-img style="border-radius: 10px;
-                        border-bottom-right-radius: 1px;
-                        border-bottom-left-radius: 1px;"
-                        :src="card.src" width="100%" :height ="heightImg()" class="v-img-card">
-
-                        </v-img>
-                    </div>
-                    <v-card-title class="v-card-title">
-                        <h3>
-                           {{card.title}}
-                        </h3>
-                    </v-card-title>
-                    <v-card-text class="v-card-text">
-                        {{card.descripcion}}
-                        <p v-if="card.cantidad >= 1">
-                            {{card.cantidad}} Unidades disponibles
-                        </p>
-                        <p v-if="card.cantidad >= 1">${{card.precio}}</p>
-                        <p v-else>Sin stock</p>
-                    </v-card-text>
-
-                    <v-card-actions class="actions-card">
-                        <div class="div-btn">
-                            <v-btn style="border-radius: 5px;
+                        <v-card-title class="v-card-title">
+                            <h3>
+                                {{ card.title }}
+                            </h3>
+                        </v-card-title>
+                        <v-card-text class="v-card-text">
+                            {{ card.descripcion }}
+                            <p v-if="card.cantidad >= 1">
+                                {{ card.cantidad }} Unidades disponibles
+                            </p>
+                            <p v-if="card.cantidad >= 1">${{ card.precio }}</p>
+                            <p v-else>Sin stock</p>
+                        </v-card-text>
+                        <v-card-actions v-if="card.cantidad >= 1" class="actions-card">
+                            <div class="div-btn">
+                                <v-btn style="border-radius: 10px;
                                 border-top-right-radius: 1px;
-                                border-bottom-right-radius: 1px;"  
-                                icon @click="aumentarCantidad(card)" outlined color="#02265c" width="20" height="20" class="v-btn-sumrest">
+                                border-bottom-right-radius: 1px;" icon @click="aumentarCantidad(card)" outlined
+                                    color="#02265c" width="30" height="30" class="v-btn-sumrest">
                                     <v-icon>
                                         mdi-plus
                                     </v-icon>
                                 </v-btn>
-                                    
-                                <div
-                                class="card-value"
-                                >
-                                <p class="number-value ">{{Number(card.value)}}</p>
+                                <div class="text-center pa-1 card-value">
+                                    <p class="number-value">{{ Number(card.value) }}</p>
                                 </div>
-                                <v-btn style="border-radius: 5px;
-                                border-top-left-radius: 1px;
-                                border-bottom-left-radius: 1px;"   icon @click="disminuirCantidad(card)" outlined color="#02265c" width="20" height="20" class="v-btn-sumrest">
+                                <v-btn style="border-radius: 1px;
+                            border-top-right-radius: 10px;
+                            border-bottom-right-radius: 10px;" icon @click="disminuirCantidad(card)" outlined
+                                    color="#02265c" width="30" height="30" class="v-btn-sumrest">
                                     <v-icon>
                                         mdi-minus
                                     </v-icon>
                                 </v-btn>
-                                </div>
-                                
-                                    <v-btn v-if="card.cantidad >= 1" @click="detectUserAndBuy(card)" icon color="white" width="75px" height="20px" tile style="background-color: #02265C; margin-bottom: 6px; border-radius: 5px">
-                                    <p class="mt-4 ml-6" style="font-size: 8px;">AGREGAR</p>
-                                    <v-icon size="11px" class="ml-1 mr-4">
-                                        mdi-briefcase
-                                    </v-icon>
-                                        
-                                    </v-btn>
-                        </v-card-actions>
-                </v-card>
-            </v-col>
-        </v-row>
+                            </div>
+                            <v-btn v-if="card.cantidad >= 1" @click="detectUserAndBuy(card)" icon color="white"
+                                width="120" tile style="background-color: #02265C ; border-radius: 10px">
+                                <p class="mt-4 ml-4">AGREGAR</p>
+                                <v-icon size="15px" class="ml-2 mr-2">
+                                    mdi-briefcase
+                                </v-icon>
 
-    </v-container>
+                            </v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-col>
+            </v-row>
+        </v-container>
+        <v-container v-if="width < 960" fluid>
+            <v-row>
+                <v-col v-for="card in cardsfiltradas" :key="card.title" cols="6" lg="3" md="4" sm="4" xl="2">
+                    <v-card style="border-radius: 10px;" elevation="9" height="250px" width="100%">
+                        <div>
+                            <v-img style="border-radius: 10px;
+                        border-bottom-right-radius: 1px;
+                        border-bottom-left-radius: 1px;" :src="card.src" width="100%" :height="heightImg()"
+                                class="v-img-card">
+
+                            </v-img>
+                        </div>
+                        <v-card-title class="v-card-title">
+                            <h3>
+                                {{ card.title }}
+                            </h3>
+                        </v-card-title>
+                        <v-card-text class="v-card-text">
+                            {{ card.descripcion }}
+                            <p v-if="card.cantidad >= 1">
+                                {{ card.cantidad }} Unidades disponibles
+                            </p>
+                            <p v-if="card.cantidad >= 1">${{ card.precio }}</p>
+                            <p v-else>Sin stock</p>
+                        </v-card-text>
+
+                        <v-card-actions class="actions-card">
+                            <div class="div-btn">
+                                <v-btn style="border-radius: 5px;
+                                border-top-right-radius: 1px;
+                                border-bottom-right-radius: 1px;" icon @click="aumentarCantidad(card)" outlined
+                                    color="#02265c" width="20" height="20" class="v-btn-sumrest">
+                                    <v-icon>
+                                        mdi-plus
+                                    </v-icon>
+                                </v-btn>
+
+                                <div class="card-value">
+                                    <p class="number-value ">{{ Number(card.value) }}</p>
+                                </div>
+                                <v-btn style="border-radius: 5px;
+                                border-top-left-radius: 1px;
+                                border-bottom-left-radius: 1px;" icon @click="disminuirCantidad(card)" outlined
+                                    color="#02265c" width="20" height="20" class="v-btn-sumrest">
+                                    <v-icon>
+                                        mdi-minus
+                                    </v-icon>
+                                </v-btn>
+                            </div>
+
+                            <v-btn v-if="card.cantidad >= 1" @click="detectUserAndBuy(card)" icon color="white"
+                                width="75px" height="20px" tile
+                                style="background-color: #02265C; margin-bottom: 6px; border-radius: 5px">
+                                <p class="mt-4 ml-6" style="font-size: 8px;">AGREGAR</p>
+                                <v-icon size="11px" class="ml-1 mr-4">
+                                    mdi-briefcase
+                                </v-icon>
+
+                            </v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-col>
+            </v-row>
+
+        </v-container>
         <!-----------------------------------------SnackBars----------------------------------------------------->
-            <v-snackbar
-            v-show="dialogUser"
-            color="red"
-            >
+        <v-snackbar v-show="dialogUser" color="red">
             <p class="p-inicie-sesion mt-4">
                 Por favor, Inicia Sesion
             </p>
-            </v-snackbar>
-            <v-snackbar
-            v-model="dialogCarrito"
-            color="green">
-                <div class="d-flex flex-row justify-space-between">
-                    <p class="p-agregado-carr mt-4 ml-15">
-                        Agregado al carrito!
+        </v-snackbar>
+        <v-snackbar v-model="dialogCarrito" color="green">
+            <div class="d-flex flex-row justify-space-between">
+                <p class="p-agregado-carr mt-4 ml-15">
+                    Agregado al carrito!
+                </p>
+                <v-icon color="white" size="25">
+                    mdi-check
+                </v-icon>
+            </div>
+        </v-snackbar>
+        <v-dialog width="650" v-model="popUp" persistent>
+            <v-card style="padding: 50px; border-radius:10px ;">
+              
+                <div class="text-left d-flex flex-column justify-start ">                    
+                    <h3 style="margin-bottom: 20px; margin-right: 5%; color: #374763; font-family : 'humanst521-2'">
+                        ¡SÓLO UN PASO MÁS!
+                    </h3>
+                    <p style="font-size: 20px; font-family:  'humanst521-1'; color: #374763;">
+                        Te solicitamos unos datos más para comenzar con tus compras.
                     </p>
-                    <v-icon color="white" size="25">
-                        mdi-check
-                    </v-icon>
-                </div>
-            </v-snackbar>
-            <v-dialog v-model="popUp">
-                <div style="width: 100% ; height: 100%; padding: 150px ; background: white;">
-                    <h3>Por Favor complete sus datos</h3>
-                    <v-btn @click="$router.push('/userView')">
-                        <h3>Ir a completar</h3>
+                    <p style="font-family:  'humanst521-1'; color: gray;">
+                        ¿Por qué solicitamos estos datos?
+                    </p>
+                    <p style="font-family:  'humanst521-1'; color: gray;">
+                        Ante cualquier reclamo tiene un lapso de 48hs luego de su compra.
+                    </p>
+                    <v-btn color="#febf2c" style="margin-top: 75px; width: 250px;align-self: center; " @click="$router.push('/userView')">
+                        <h3>COMPLETAR REGISTRO</h3>
                     </v-btn>
                 </div>
-            </v-dialog>
+                
+            </v-card>
+        </v-dialog>
     </div>
 </template>
 
 <script>
-    import { mapState, mapGetters } from 'vuex'
-    import { getFirestore, doc, onSnapshot} from "firebase/firestore";
-    import { initializeApp } from 'firebase/app';
-    import {  firebaseConfig} from '../firebase/index'
-    import { getAuth, onAuthStateChanged} from "firebase/auth";
-    import store from '@/store';
+import { mapState, mapGetters } from 'vuex'
+import { getFirestore, doc, onSnapshot } from "firebase/firestore";
+import { initializeApp } from 'firebase/app';
+import { firebaseConfig } from '../firebase/index'
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import store from '@/store';
 
-    const auth = getAuth();
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-    
-    export default {
-        name: 'mainCont',
-        data: ()=>({
-            comprasHechas : [],
-            cards: null,
-            cardsfiltradas: null,
-            dialogUser: false,
-            dialogCarrito: false,
-            carrito: [],
-            cantidadComprar1: '',
-            cantidadCustom: '',
-            precioTotal:'',
-            precioTotalArray: [],
-            currentUser: '',
-            texto: '',
-            width: window.innerWidth,
-            reveal: false,
-            cardId: null,
-            popUp : false,
-            
-        }),
-        beforeMount(){
-            onSnapshot(doc(db, "AdminStock/SaladosSimples"), (doc) => {
-                
-                this.cards = doc.data().cards;
-                
-                
-            });
-            onSnapshot(doc(db, "AdminStock/SaladosRellenos"), (doc) => {
-                
-                
-                this.cards = this.cards.concat(doc.data().cards) 
-  
-              });
-            onSnapshot(doc(db, "AdminStock/Dulce"), (doc) => {
-                
-                this.cards = this.cards.concat(doc.data().cards) 
-                
-            });
-            onSnapshot(doc(db, "AdminStock/Panificados"), (doc) => {
-                
-                this.cards = this.cards.concat(doc.data().cards)
-                this.cardsfiltradas = this.cards
-                console.log(this.cardsfiltradas)
-            });
+const auth = getAuth();
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+export default {
+    name: 'mainCont',
+    data: () => ({
+        comprasHechas: [],
+        cards: null,
+        cardsfiltradas: null,
+        dialogUser: false,
+        dialogCarrito: false,
+        carrito: [],
+        cantidadComprar1: '',
+        cantidadCustom: '',
+        precioTotal: '',
+        precioTotalArray: [],
+        currentUser: '',
+        texto: '',
+        width: window.innerWidth,
+        reveal: false,
+        cardId: null,
+        popUp: false,
+
+    }),
+    beforeMount() {
+        onSnapshot(doc(db, "AdminStock/SaladosSimples"), (doc) => {
+
+            this.cards = doc.data().cards;
 
 
-            if(auth.currentUser != null) {
-            onSnapshot(doc(db, `Usuarios/${auth.currentUser.uid}`), (doc) => {
-            
-
-            if(doc.data().nombreCompleto == '' || doc.data().email == '' || doc.data().dni  == ''|| doc.data().telefonoContacto == '' || doc.data().direccion == ''){
-                this.popUp = true
-            }else {
-                this.popUp = false
-            }
-    
         });
-           }else  {
+        onSnapshot(doc(db, "AdminStock/SaladosRellenos"), (doc) => {
+
+
+            this.cards = this.cards.concat(doc.data().cards)
+
+        });
+        onSnapshot(doc(db, "AdminStock/Dulce"), (doc) => {
+
+            this.cards = this.cards.concat(doc.data().cards)
+
+        });
+        onSnapshot(doc(db, "AdminStock/Panificados"), (doc) => {
+
+            this.cards = this.cards.concat(doc.data().cards)
+            this.cardsfiltradas = this.cards
+            console.log(this.cardsfiltradas)
+        });
+
+
+        if (auth.currentUser != null) {
+            onSnapshot(doc(db, `Usuarios/${auth.currentUser.uid}`), (doc) => {
+
+
+                if (doc.data().nombreCompleto == '' || doc.data().email == '' || doc.data().dni == '' || doc.data().telefonoContacto == '' || doc.data().direccion == '') {
+                    this.popUp = true
+                } else {
+                    this.popUp = false
+                }
+
+            });
+        } else {
             return
-           }
-  
-            
+        }
 
+
+
+    },
+    mounted() {
+
+
+    },
+    methods: {
+        transition(card) {
+            this.cardId = card.id
+
+            if (card.id == this.cardId) {
+                this.reveal = true
+            }
         },
-        mounted(){
-            
 
+        heightImg() {
+            if (window.innerWidth < 960) {
+                return 100
+            } else if (window.innerWidth > 960) {
+                return 250
+            }
         },
-        methods:{
-            transition(card){
-                this.cardId = card.id
-
-                if(card.id == this.cardId){
-                    this.reveal = true
-                }
-            },
-
-            heightImg(){
-                if(window.innerWidth < 960){
-                    return 100
-                } else if (window.innerWidth > 960){
-                    return 250
-                }
-            },
         //////////////// Funciones para el Carrito ///////////////////////////////////////////////////    
-            aumentar(carr){
-                const index = this.carrito.findIndex(object => {
-                    return object.id === carr.id;
-                    });
-                let dataStorage = JSON.parse(localStorage.getItem(`cart/${auth.currentUser.uid}`));
+        aumentar(carr) {
+            const index = this.carrito.findIndex(object => {
+                return object.id === carr.id;
+            });
+            let dataStorage = JSON.parse(localStorage.getItem(`cart/${auth.currentUser.uid}`));
 
-                dataStorage[index].value = Number(dataStorage[index].value + 1)
-                localStorage.setItem(`cart/${auth.currentUser.uid}`, JSON.stringify(dataStorage));
-                this.carrito[index].value = Number(this.carrito[index].value) +1
-                                
-                var subTotales = []
+            dataStorage[index].value = Number(dataStorage[index].value + 1)
+            localStorage.setItem(`cart/${auth.currentUser.uid}`, JSON.stringify(dataStorage));
+            this.carrito[index].value = Number(this.carrito[index].value) + 1
 
-                this.carrito.forEach(element => {
-                        subTotales.push(Number(element.value) * Number(element.precio))
-                        
-                    })
-                var sumaTotal = subTotales.reduce((prev, curr) => prev + curr, 0);
-                this.precioTotalArray = sumaTotal
+            var subTotales = []
 
-                
-                
-            },
-            disminuir(carr){
+            this.carrito.forEach(element => {
+                subTotales.push(Number(element.value) * Number(element.precio))
 
-                const index = this.carrito.findIndex(object => {
-                    return object.id === carr.id;
-                    });
-                let dataStorage = JSON.parse(localStorage.getItem(`cart/${auth.currentUser.uid}`));
+            })
+            var sumaTotal = subTotales.reduce((prev, curr) => prev + curr, 0);
+            this.precioTotalArray = sumaTotal
 
-                if(dataStorage[index].value >= 2){
 
-               
+
+        },
+        disminuir(carr) {
+
+            const index = this.carrito.findIndex(object => {
+                return object.id === carr.id;
+            });
+            let dataStorage = JSON.parse(localStorage.getItem(`cart/${auth.currentUser.uid}`));
+
+            if (dataStorage[index].value >= 2) {
+
+
 
                 dataStorage[index].value = Number(dataStorage[index].value - 1)
                 localStorage.setItem(`cart/${auth.currentUser.uid}`, JSON.stringify(dataStorage));
@@ -299,210 +305,221 @@
                 var subTotales = []
 
                 this.carrito.forEach(element => {
-                        subTotales.push(Number(element.value) * Number(element.precio))
-                        
-                    })
+                    subTotales.push(Number(element.value) * Number(element.precio))
+
+                })
                 var sumaTotal = subTotales.reduce((prev, curr) => prev + curr, 0);
                 this.precioTotalArray = sumaTotal
-                
-                
-                }
-            },
-            borrarArticuloCarrito(carr){
 
-                const index = this.carrito.findIndex(object => {
-                    return object.id === carr.id;
-                    });
-                
-                var dataStorage = JSON.parse(localStorage.getItem(`cart/${auth.currentUser.uid}`));
-                var dataItem = dataStorage[index]
 
-                dataStorage.splice(dataStorage.indexOf(dataItem),1)
+            }
+        },
+        borrarArticuloCarrito(carr) {
 
-                localStorage.setItem(`cart/${auth.currentUser.uid}`, JSON.stringify(dataStorage));
-                
-                var indexof = this.carrito.indexOf(carr)
-                this.carrito.splice(indexof, 1 )
-                if(this.carrito.length == 0){
-                    store.commit('toggleCarrito', false)
-                }
-                
-                store.commit("sendNotif", this.carrito.length)
-                            
-            },
+            const index = this.carrito.findIndex(object => {
+                return object.id === carr.id;
+            });
 
-            quitarAlerta(){
-                this.dialogUser = false
-            },
+            var dataStorage = JSON.parse(localStorage.getItem(`cart/${auth.currentUser.uid}`));
+            var dataItem = dataStorage[index]
 
-          //////////////// Funciones para el Carrito /////////////////////////////////////////////////// 
-          
-          
+            dataStorage.splice(dataStorage.indexOf(dataItem), 1)
+
+            localStorage.setItem(`cart/${auth.currentUser.uid}`, JSON.stringify(dataStorage));
+
+            var indexof = this.carrito.indexOf(carr)
+            this.carrito.splice(indexof, 1)
+            if (this.carrito.length == 0) {
+                store.commit('toggleCarrito', false)
+            }
+
+            store.commit("sendNotif", this.carrito.length)
+
+        },
+
+        quitarAlerta() {
+            this.dialogUser = false
+        },
+
+        //////////////// Funciones para el Carrito /////////////////////////////////////////////////// 
+
+
 
         /////////////////// Funciones para el articulo///////////////////////////////////////////////
-        
-            aumentarCantidad(card){
-                card.value = Number(card.value) +1
-            },
-            disminuirCantidad(card){
-                if(card.value <= 1){
-                    return
-                } else{
-                        card.value = Number(card.value) -1
-                }
-            },
+
+        aumentarCantidad(card) {
+            card.value = Number(card.value) + 1
+        },
+        disminuirCantidad(card) {
+            if (card.value <= 1) {
+                return
+            } else {
+                card.value = Number(card.value) - 1
+            }
+        },
 
 
-            detectUserAndBuy(card){
-                const index = this.carrito.findIndex(object => {
-                    return object.id === card.id;
-                    });
-            if(auth.currentUser == null){
+        detectUserAndBuy(card) {
+            const index = this.carrito.findIndex(object => {
+                return object.id === card.id;
+            });
+            if (auth.currentUser == null) {
 
                 this.dialogUser = true
                 setTimeout(this.notificacionUserNoValid, 1200)
 
-            }else{
-               if (index == -1){
-                const cardItems = {
-                    title: card.title,
-                    src: card.src,
-                    precio: parseFloat(card.precio),
-                    cantidad: card.cantidad,
-                    descripcion: card.descripcion,
-                    value: card.value,
-                    id: card.id,
-                }
-                this.carrito.push(cardItems)
+            } else {
+                if (index == -1) {
+                    const cardItems = {
+                        title: card.title,
+                        src: card.src,
+                        precio: parseFloat(card.precio),
+                        cantidad: card.cantidad,
+                        descripcion: card.descripcion,
+                        value: card.value,
+                        id: card.id,
+                    }
+                    this.carrito.push(cardItems)
 
-                localStorage.setItem(`cart/${auth.currentUser.uid}`, JSON.stringify(this.carrito))
+                    localStorage.setItem(`cart/${auth.currentUser.uid}`, JSON.stringify(this.carrito))
 
-                store.commit('forceRenderCarrito', + 1)
-                card.value = 1
-               }else{
+                    store.commit('forceRenderCarrito', + 1)
+                    card.value = 1
+                } else {
                     return
-                
-               }
-               this.dialogCarrito = true
-               setTimeout(this.notificacionCarrito, 1200)
 
-               store.commit("sendNotif", this.carrito.length)
+                }
+                this.dialogCarrito = true
+                setTimeout(this.notificacionCarrito, 1200)
+
+                store.commit("sendNotif", this.carrito.length)
             }
-            },
-            actualizarComponente(){
-                this.carritoCompra = true
-            },
-            notificacionUserNoValid(){
-                this.dialogUser = false
-            },
-            notificacionCarrito(){
-                this.dialogCarrito = false
-            }
+        },
+        actualizarComponente() {
+            this.carritoCompra = true
+        },
+        notificacionUserNoValid() {
+            this.dialogUser = false
+        },
+        notificacionCarrito() {
+            this.dialogCarrito = false
+        }
         /////////////////// Funciones para el articulo/////////////////////////////////////////////// 
 
 
-        },
-        beforeCreate(){
-                        onAuthStateChanged(auth, (user) => {
-                    if (user) {
-                        let datosLocalStorage = JSON.parse(localStorage.getItem(`cart/${auth.currentUser.uid}`));
-                        if(datosLocalStorage === null){
-                            this.carrito = [];
-                        }else{
-                            this.carrito = datosLocalStorage;
-                            store.commit("sendNotif", this.carrito.length)
-                        } 
-                    } else {
-                        // User is signed out
-                        // ...
-                    }
-                    });
+    },
+    beforeCreate() {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                let datosLocalStorage = JSON.parse(localStorage.getItem(`cart/${auth.currentUser.uid}`));
+                if (datosLocalStorage === null) {
+                    this.carrito = [];
+                } else {
+                    this.carrito = datosLocalStorage;
+                    store.commit("sendNotif", this.carrito.length)
+                }
+            } else {
+                // User is signed out
+                // ...
+            }
+        });
 
 
 
 
-        },
-        created(){
+    },
+    created() {
 
-        },
+    },
 
-        watch:{
-            carrito(){
+    watch: {
+        carrito() {
             var subTotales = []
 
-             this.carrito.forEach(element => {
-                        subTotales.push(Number(element.value) * Number(element.precio))
-                        
-                    })
+            this.carrito.forEach(element => {
+                subTotales.push(Number(element.value) * Number(element.precio))
+
+            })
             var sumaTotal = subTotales.reduce((prev, curr) => prev + curr, 0);
             this.precioTotalArray = sumaTotal
 
             store.commit('carritoCompras', this.carrito)
             console.log(store.state.carritoCompras)
-         },
-         filterValue(){
+        },
+        filterValue() {
             console.log(this.filterValue)
             this.cardsfiltradas = this.cards.filter(item => item.title.toLowerCase().indexOf(this.filterValue) !== -1);
-         }
-        },
-         computed:{
-            ...mapState(['usuario']),
-            ...mapGetters(['existeUsuario']),
-      carritoCompra: {
-                get () {
+        }
+    },
+    computed: {
+        ...mapState(['usuario']),
+        ...mapGetters(['existeUsuario']),
+        carritoCompra: {
+            get() {
                 return store.state.carrito
-                },
-                set (value) {
-                store.commit('toggleCarrito', value)
-                }
             },
-        filterValue:{
-            get(){
+            set(value) {
+                store.commit('toggleCarrito', value)
+            }
+        },
+        filterValue: {
+            get() {
                 return store.state.filterValue
             },
-            set(){
-                
-                
+            set() {
+
+
             }
         },
 
-        },
-    }
+    },
+}
 </script>
 
 <style lang="scss" scoped>
-
-
-
-h3{
-    font-family: 'humanst521-2';
-  font-size: 30px;
-}
-
-
 .v-btn {
-  text-transform:none !important;
+    text-transform: none !important;
+    color: white;
+    
 }
-p{
-  font-family: 'humanst521-1';
-  font-size: 15px;
+
+.v-btn h3 {
+    font-family: 'humanst521-2';
+    font-size: 13px;
 }
-.p-agregado-carr{
-font-family: 'humanst521-2';
-  font-size: 20px;
+
+h3 {
+    font-family: 'humanst521-2';
+    font-size: 30px;
 }
-.cardText{
+
+
+
+
+p {
+    font-family: 'humanst521-1';
+    font-size: 15px;
+}
+
+.p-agregado-carr {
+    font-family: 'humanst521-2';
+    font-size: 20px;
+}
+
+.cardText {
     text-align: match-parent;
 }
-.v-btn-comprar{
+
+.v-btn-comprar {
     color: rgba(94, 12, 148, 0.699)
 }
-.alerta{
-        margin-top: 100px;
-        margin-right: 150px;
-    }
 
-#lista-compras{
+.alerta {
+    margin-top: 100px;
+    margin-right: 150px;
+}
+
+#lista-compras {
     display: none;
     width: 300px;
     z-index: 9999;
@@ -510,14 +527,17 @@ font-family: 'humanst521-2';
     margin-left: 71%;
     height: 500px;
 }
-#lista-comprasOn{
+
+#lista-comprasOn {
     display: block;
 }
-.card-value{
+
+.card-value {
     width: 30px;
     height: 30px;
     border: 0.2px solid #02265C;
-    .number-value{
+
+    .number-value {
         color: #02265C;
         font-family: 'humanst521-2';
         margin-bottom: 200px;
@@ -525,40 +545,44 @@ font-family: 'humanst521-2';
     }
 }
 
-.actions-card{
+.actions-card {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     height: 50px;
 
 }
-.div-btn{
+
+.div-btn {
     display: flex;
 }
+
 .v-card--reveal {
-  bottom: 0;
-  position: absolute;
-  width: 100%;
+    bottom: 0;
+    position: absolute;
+    width: 100%;
 }
 
 .actions-card-expanded {
-    
+
     display: flex;
     flex-direction: row;
     margin-top: 60px;
     margin-right: 100%;
     gap: 13 px;
 }
-.container-main{
+
+.container-main {
     margin-bottom: 25%;
 
-    }
+}
 
-@media only screen and (max-width: 960px){
+@media only screen and (max-width: 960px) {
 
-    .container-main{
+    .container-main {
         margin-bottom: 30%;
     }
+
     .v-card {
         height: 250px;
         display: flex;
@@ -566,46 +590,50 @@ font-family: 'humanst521-2';
         justify-content: center;
         width: 100%;
     }
-    .actions-card{
-    display: flex;
-    flex-direction: row;
-    height: 25px;
-    margin-top: 60px;
-    
-    gap: 10px;
-}
-.card-value{
-    height: 20px;
-    width: 20px;
-    margin-bottom: 10%;
-    .number-value{
-        color: #02265C;
-        font-family: 'humanst521-1';
-        font-size: 13px;
-        text-align: center;
-       
+
+    .actions-card {
+        display: flex;
+        flex-direction: row;
+        height: 25px;
+        margin-top: 60px;
+
+        gap: 10px;
     }
-}
-.v-card-title{
-    transform: scale(0.8);
-    height: 25px;
-    margin-right: 25%;
-    width: 100%;
-}
-.v-card-title h3{
-    font-size: 15px;
-}
 
-.v-card-text{
-    transform: scale(0.8);
+    .card-value {
+        height: 20px;
+        width: 20px;
+        margin-bottom: 10%;
 
-    height: 25px;
+        .number-value {
+            color: #02265C;
+            font-family: 'humanst521-1';
+            font-size: 13px;
+            text-align: center;
+
+        }
+    }
+
+    .v-card-title {
+        transform: scale(0.8);
+        height: 25px;
+        margin-right: 25%;
+        width: 100%;
+    }
+
+    .v-card-title h3 {
+        font-size: 15px;
+    }
+
+    .v-card-text {
+        transform: scale(0.8);
+
+        height: 25px;
+    }
+
+    .v-card-text p {
+        font-size: 12px;
+    }
+
 }
-.v-card-text p {
-    font-size: 12px;
-}
-
-}
-
-
 </style>

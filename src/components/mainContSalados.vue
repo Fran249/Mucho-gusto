@@ -146,14 +146,29 @@
                 </v-icon>
             </div>
         </v-snackbar>
-        <v-dialog v-model="popUp">
-                <div style="width: 100% ; height: 100%; padding: 150px ; background: white;">
-                    <h3>Por Favor complete sus datos</h3>
-                    <v-btn @click="$router.push('/userView')">
-                        <h3>Ir a completar</h3>
+        <v-dialog width="650" v-model="popUp" persistent>
+            <v-card style="padding: 50px; border-radius:10px ;">
+             
+                <div class="text-left d-flex flex-column justify-start ">                    
+                    <h3 style="margin-bottom: 20px; margin-right: 5%; color: #374763; font-family : 'humanst521-2'">
+                        ¡SÓLO UN PASO MÁS!
+                    </h3>
+                    <p style="font-size: 20px; font-family:  'humanst521-1'; color: #374763;">
+                        Te solicitamos unos datos más para comenzar con tus compras.
+                    </p>
+                    <p style="font-family:  'humanst521-1'; color: gray;">
+                        ¿Por qué solicitamos estos datos?
+                    </p>
+                    <p style="font-family:  'humanst521-1'; color: gray;">
+                        Ante cualquier reclamo tiene un lapso de 48hs luego de su compra.
+                    </p>
+                    <v-btn color="#febf2c" style="margin-top: 75px; width: 250px;align-self: center; " @click="$router.push('/userView')">
+                        <h3>COMPLETAR REGISTRO</h3>
                     </v-btn>
                 </div>
-            </v-dialog>
+                
+            </v-card>
+        </v-dialog>
     </div>
 </template>
 
@@ -449,18 +464,22 @@
 </script>
 
 <style lang="scss" scoped>
-
-
-
-h3{
-    font-family: 'humanst521-2';
-  font-size: 30px;
-}
-
-
 .v-btn {
-  text-transform:none !important;
+    text-transform: none !important;
+    color: white;
+    
 }
+
+.v-btn h3 {
+    font-family: 'humanst521-2';
+    font-size: 13px;
+}
+
+h3 {
+    font-family: 'humanst521-2';
+    font-size: 30px;
+}
+
 p{
   font-family: 'humanst521-1';
   font-size: 15px;
