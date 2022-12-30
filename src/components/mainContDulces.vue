@@ -22,10 +22,10 @@
                     <v-card-text class="v-card-text">
                         {{card.descripcion}}
                         <p v-if="card.cantidad >= 1">
-                            {{card.cantidad}} Unidades disponibles
+                            STOCK DISPONIBLE
                         </p>
                         <p v-if="card.cantidad >= 1">${{card.precio}}</p>
-                        <p v-else>Sin stock</p>
+                        <p v-else>SIN STOCK</p>
                     </v-card-text>
                     <v-card-actions v-if="card.cantidad >= 1" class="actions-card">
                         <div class="div-btn">
@@ -85,10 +85,10 @@
                     <v-card-text class="v-card-text">
                         {{card.descripcion}}
                         <p v-if="card.cantidad >= 1">
-                            {{card.cantidad}} Unidades disponibles
+                            STOCK DISPONIBLE
                         </p>
                         <p v-if="card.cantidad >= 1">${{card.precio}}</p>
-                        <p v-else>Sin stock</p>
+                        <p v-else>SIN STOCK</p>
                     </v-card-text>
 
                     <v-card-actions class="actions-card">

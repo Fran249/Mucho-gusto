@@ -10,7 +10,7 @@
    >
    <v-col cols="4">
       <div class="container-registro-ingreso-avatar">
-        <v-btn width="50" height="50" text tile x-small class="mt-6 mr-2" href="https://mucho-gusto-web.web.app/">
+        <v-btn width="50" height="50" text tile x-small class="mt-6 mr-2" @click="$router.push('/')">
             <v-img src="https://i.imgur.com/6Xwvw8Y.png" width="50" height="50" contain>
             </v-img>
           </v-btn>  

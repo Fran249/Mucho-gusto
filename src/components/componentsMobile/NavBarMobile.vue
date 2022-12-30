@@ -55,14 +55,6 @@
           <v-divider color="white" width="60%"></v-divider>
           <v-list-item>
             <v-list-item-title>
-              <v-btn text class="ma-0 pa-0"  @click="scroll2">
-                <a  class="a-ref title1-2  " >PRODUCTOS</a>
-              </v-btn>
-            </v-list-item-title>
-          </v-list-item>
-          <v-divider color="white" width="50%"></v-divider>
-          <v-list-item>
-            <v-list-item-title>
               <v-menu z-index="9999999" offset-x right>
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn text class="ma-0 pa-0"  v-bind="attrs"
@@ -93,7 +85,13 @@
             </v-list-item-title>
           </v-list-item>
           <v-divider color="white" width="80%"></v-divider>
-
+          <v-list-item>
+            <v-list-item-title>
+              <v-btn text class="ma-0 pa-0"  @click="$router.push('/MuchoGustoCompras')">
+                <a  class="a-ref title1-2  " >TIENDA</a>
+              </v-btn>
+            </v-list-item-title>
+          </v-list-item>
       </v-list>
     </v-navigation-drawer>
     </div>
@@ -186,7 +184,7 @@ export default{
 
 .title-mg1{
   color:#FFF;
-  font-family: humanst521-2;
+  font-family: 'humanst521-1';
   font-weight: lighter;
   font-size: 16px;
   margin-top: 3px;
@@ -203,7 +201,7 @@ export default{
 
 .title1-1 , .title1-2, .title1-3{
     color:#FFF;
-  font-family: humanst521-2;
+  font-family: 'humanst521-1';
   font-weight: lighter;
   font-size: 16px;
   margin-top: 3px;
