@@ -32,19 +32,21 @@
           </v-col>
           <v-col cols="4" md="4"    class="col-iconos">
             <v-btn text icon @click="google">
-                <v-icon color="white">
+                <v-icon color="white" size="30">
                   mdi-google-maps
                 </v-icon>
               </v-btn>
             <v-divider vertical color="#FFF" class="divider" inset></v-divider>
             <v-btn icon  color="white" href="https://www.instagram.com/muchogusto.info/">
-              <v-icon>mdi-instagram</v-icon>
+              <v-img src="../assets/Inst.2.png" contain width="25" height="25">
+
+              </v-img>       
             </v-btn>
             <v-divider vertical color="#FFF" class="divider" inset></v-divider>
             <v-btn icon color="white" href="https://www.facebook.com/Mucho-Gusto-110256295138152" >
-              <v-icon size="25">
-                mdi-facebook
-              </v-icon>
+              <v-img src="../assets/Fce2.png" contain width="25" height="25">
+
+              </v-img>
             </v-btn>
             
           </v-col>
