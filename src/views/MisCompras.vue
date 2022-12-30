@@ -18,7 +18,30 @@
             </div>
         <v-row>
             <v-col cols="12" md="12" sm="12" v-for="compras in comprasHechas" :key="compras.items">
-                <v-card class="mt-15" >
+                <v-expansion-panels>
+                    <v-expansion-panel>
+                        <v-expansion-panel-header>
+                            <h3>{{ compras.fecha }}</h3>
+                        </v-expansion-panel-header>
+                        <v-expansion-panel-content >
+                            <div class="card"  v-for="items in compras.items" :key="items.src">
+                                <div >
+                                    <v-img width="100" height="100" :src="items.picture_url">
+                                    </v-img>
+                                </div>
+                                <div class="d-flex flex-column justify-space-between" >
+                                <h3>{{ items.title }}</h3>
+                                <p>
+                                ${{ items.unit_price }} C/U
+                                </p>
+                                </div>
+                                
+                            </div>
+                            <h3>Total: {{compras.total}}</h3>  
+                        </v-expansion-panel-content>
+                    </v-expansion-panel>
+                </v-expansion-panels>
+                <!--<v-card class="mt-15" >
                     <v-card-text>
                         {{compras.fecha}}
                     </v-card-text>
@@ -57,7 +80,7 @@
                         <h3 class="ml-5 total">TOTAL:</h3>
                         <h3 class="pr-3">${{compras.total}}</h3>
                     </div>
-                </v-card>
+                </v-card>-->
             </v-col>
         </v-row>
         </v-container>
@@ -141,6 +164,18 @@ import { getFirestore, collection, query, getDocs } from "firebase/firestore";
 </script>
 
 <style>
+
+.card{
+    padding: 20px;
+    border: 1px solid #000;
+    border-radius: 10px;
+    border-width: 2px;
+    border-color: grey;
+    display: flex;
+    flex-direction: row;
+    gap: 10px
+}
+
     .mi-compra{
     font-family: 'humanst521_btbold';
     color: black;
