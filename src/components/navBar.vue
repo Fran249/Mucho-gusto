@@ -315,7 +315,7 @@ p{
   font-size: 15px;
 }
 .title-draw{
-  font-family: 'humanst521-2';
+  font-family: 'humanst521-1';
   font-weight: bold;
   font-size: 16px;
 }

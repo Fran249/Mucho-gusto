@@ -17,8 +17,10 @@
         class="v-flex-cont"
       >
       <div class="v-btn-container" v-if="item.identifier == true">
-        <v-btn class="v-btn" @click="dialog = true">
-            Ver Video
+        <v-btn color="#febf2c" class="v-btn" @click="dialog = true">
+            <p class="mt-4 p-v-btn ">
+                      Ver video
+                    </p>
         </v-btn>
     </div>
       </v-carousel-item>
@@ -94,5 +96,11 @@
 
     }
 
-
+    .v-btn {
+  text-transform:none !important;
+}
+.p-v-btn{
+    font-family: 'humanst521_btbold';
+    color: #fff
+}
 </style>

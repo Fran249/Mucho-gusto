@@ -247,7 +247,7 @@ const auth = getAuth();
     color: #fff
 }
 .h3-carrito{
-    font-family: humanst521-2;
+    font-family: 'humanst521_btbold';
     font-weight: bolder;
     font-size: 20px;
     color: #02265C;

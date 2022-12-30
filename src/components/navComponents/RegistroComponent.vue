@@ -78,11 +78,11 @@ import {mapActions, mapState} from 'vuex'
 
 
 .p-v-btn{
-    font-family: 'humanst521-1';
+    font-family: 'humanst521_btbold';
     color: #fff
 }
 h1{
-    font-family: 'humanst521-1';
+    font-family: 'humanst521_btbold';
     font-size: 20px;
     font-weight: bold;
     color: #374763;

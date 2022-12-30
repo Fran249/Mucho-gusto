@@ -150,11 +150,11 @@ export default {
 .a-withP, .a-withP:hover, .a-withP:focus, .a-withP:visited{
 text-decoration: none;
 color: grey;
-font-family: 'humanst521-2';
+font-family: 'humanst521-1';
 font-size: 18px;
 }
 .p-v-btn{
-    font-family: 'humanst521-1';
+    font-family: 'humanst521_btbold';
     color: #fff
 }
 .resetPass{
@@ -162,7 +162,7 @@ font-size: 18px;
     color: green;
 }
 h1{
-    font-family: 'humanst521-1';
+    font-family: 'humanst521_btbold';
     font-size: 20px;
     font-weight: bolder;
     color: #374763;

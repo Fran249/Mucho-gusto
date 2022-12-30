@@ -13,12 +13,10 @@
         </div>
         <div>
           <v-btn icon >
-            <v-icon color="#FEBF2C">mdi-instagram</v-icon>
+            <v-img src="../assets/Inst..png" contain width="25" height="20"></v-img>
           </v-btn>
           <v-btn icon >
-            <v-icon size="25" color="#FEBF2C">
-              mdi-facebook
-            </v-icon>
+              <v-img src="../assets/Fce.png" contain width="25" height="20"></v-img>
           </v-btn>
         </div>
         <div class="d-flex flex-row mt-3">

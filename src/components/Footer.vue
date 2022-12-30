@@ -13,17 +13,17 @@
               </v-img>
             </v-btn>
           </div>
-          <div>
+          <div class="mg-container" >
             <v-btn icon >
-              <v-icon color="#FEBF2C">mdi-instagram</v-icon>
+              <v-img src="../assets/Inst..png" contain width="25" height="25" ></v-img>
             </v-btn>
             <v-btn icon >
-              <v-img src="../assets/ContenidoMain/F-Amar..png" class="facebook-footer"></v-img>
+              <v-img src="../assets/Fce.png" contain width="25" height="25"></v-img>
             </v-btn>
           </div>
           <div class="d-flex flex-row mt-3">
             <v-btn  icon text>
-              <v-img src="../assets/ContenidoMain/briefcase.png" class="briefcase"></v-img>
+              <v-icon color="#FEBF2C">mdi-briefcase</v-icon>
             </v-btn>
             <a  @click="createItem" class="title-mg1 mt-2"><strong>TRABAJÁ CON NOSOTROS</strong></a>
           </div>
@@ -219,7 +219,7 @@
     }
   }
   .facebook-footer{
-    transform: scale(0.33);
+    transform: scale(0.04);
   }
   .briefcase{
     transform: scale(0.35);
