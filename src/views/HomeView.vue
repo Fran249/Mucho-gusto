@@ -10,7 +10,7 @@
     <SliderHoverMobile v-if="mobileViewMiddle"/>
     <!--<PreCocidos class="slider-hover"/>-->
     <!--<SucursalesVue class="sucursales-vue" v-if="!mobileViewMiddle"/>-->
-    <v-btn
+    <v-btn @click="$router.push('/MuchoGustoCompras')"
       v-if="
           !mobileViewSmall"
       elevation="9"
@@ -18,11 +18,11 @@
       fixed
       right
       bottom
-      color="transparent"
+      color="#FEBF2C"
     >
-    <v-icon color="green" size="30">
-      mdi-whatsapp
-    </v-icon>
+    <v-icon color="white" class="mt-1" size="35">
+              mdi-cart
+            </v-icon>
   </v-btn>
     <FooterLandVue/>
   </v-app>

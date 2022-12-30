@@ -19,7 +19,7 @@
       <div class="v-btn-container" v-if="item.identifier == true">
         <v-btn color="#febf2c" class="v-btn" @click="dialog = true">
             <p class="mt-4 p-v-btn ">
-                      Ver video
+                      VER VIDEO
                     </p>
         </v-btn>
     </div>

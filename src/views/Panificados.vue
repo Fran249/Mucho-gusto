@@ -17,6 +17,20 @@
         <mainContPanificados class="mainContPanificados" />
 
         </v-col>
+        <v-btn
+      v-if="
+          !mobileViewSmall"
+      elevation="9"
+      fab
+      fixed
+      right
+      bottom
+      color="white"
+    >
+    <v-icon color="green" size="30">
+      mdi-whatsapp
+    </v-icon>
+  </v-btn>
         <FootEr/>
       </v-row>
     </v-container>
@@ -51,6 +65,7 @@ export default {
     FootEr
 },
   data:()=>({
+    mobileViewSmall: false,
     componentKey: store.state.forceRenderCarrito,
     width: window.innerWidth
 
@@ -62,6 +77,11 @@ export default {
   }
  },
  methods:{
+  mobileViewFunctionSmall(){
+        
+        this.mobileViewSmall = window.innerWidth <= 500;
+        console.log('mobile version')
+    },
   widthPercent(){
     if(window.innerWidth >960){
         return '25%'
@@ -70,6 +90,9 @@ export default {
     }
   }
  },
+ created(){
+      this.mobileViewFunctionSmall();
+          },
  computed: {
   ...mapState(['usuario']),
   ...mapGetters(['existeUsuario']),

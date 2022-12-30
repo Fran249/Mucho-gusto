@@ -60,7 +60,7 @@ import store from '@/store';
                     {   name : 'Chips',
                         id: 9
                     },
-                    {   name : 'Sanguches de Miga',
+                    {   name : 'Sándwiches de Miga',
                         id: 10
                     },
                     {   name : 'Sacramentos',

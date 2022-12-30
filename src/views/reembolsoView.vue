@@ -6,7 +6,7 @@
                 <v-col cols="12">
                     <v-card height="600" style="padding: 35px">
                         <v-card-title>
-                            Generar codigo de reembolso
+                            Generar código de reembolso
                         </v-card-title>
                         <div class="bar-container" style=" margin-bottom: 30px; margin-left: 10px"></div>
                         <v-text-field
@@ -20,7 +20,7 @@
               color="#febf2c"
               
             >
-              <p class="mt-4 p-v-btn">GENERAR CODIGO NETO</p>
+              <p class="mt-4 p-v-btn">GENERAR CÓDIGO NETO</p>
             </v-btn>
                         <v-select
                         v-model="selectedPercentage"
@@ -37,13 +37,13 @@
               color="#febf2c"
        
             >
-              <p class="mt-4 p-v-btn">GENERAR CODIGO EN %</p>
+              <p class="mt-4 p-v-btn">GENERAR CÓDIGO EN %</p>
             </v-btn>
                         </v-card-actions>
                         <v-card-text v-if="valorDelCodigo.toString().length == 6">
                             <div >
                                 <p id="myInput">
-                                    CODIGO GENERADO:
+                                    CÓDIGO GENERADO:
                             {{ valorDelCodigo }}
                                 </p>
                             </div>

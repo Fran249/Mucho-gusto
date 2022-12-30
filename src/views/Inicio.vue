@@ -40,6 +40,20 @@
       </v-carousel-item>
     </v-carousel>
     <mainCont class="mainCont" />
+    <v-btn
+      v-if="
+          !mobileViewSmall"
+      elevation="9"
+      fab
+      fixed
+      right
+      bottom
+      color="white"
+    >
+    <v-icon color="green" size="30">
+      mdi-whatsapp
+    </v-icon>
+  </v-btn>
     <Footer class="footer" />
 
   </div>
@@ -64,6 +78,7 @@ export default {
     Footer,
   },
   data: () => ({
+    mobileViewSmall: false,
     componentKey: store.state.forceRenderCarrito,
     items: [
       {src: require('../assets/ContenidoMain/8.jpg'),
@@ -77,6 +92,11 @@ export default {
     },
   },
   methods: {
+    mobileViewFunctionSmall(){
+        
+        this.mobileViewSmall = window.innerWidth <= 500;
+        console.log('mobile version')
+    },
     width() {
       if (window.innerWidth > 960) {
         return "25%";
@@ -92,6 +112,9 @@ export default {
       }
     }
   },
+  created(){
+      this.mobileViewFunctionSmall();
+          },
   computed: {
     ...mapState(["usuario"]),
     ...mapGetters(["existeUsuario"]),

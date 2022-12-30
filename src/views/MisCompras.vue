@@ -17,7 +17,7 @@
             </div>
             </div>
         <v-row>
-            <v-col cols="12" md="4" sm="6" v-for="compras in comprasHechas" :key="compras.items">
+            <v-col cols="12" md="12" sm="12" v-for="compras in comprasHechas" :key="compras.items">
                 <v-card class="mt-15" >
                     <v-card-text>
                         {{compras.fecha}}

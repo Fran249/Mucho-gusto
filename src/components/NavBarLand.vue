@@ -6,35 +6,31 @@
       elevate-on-scroll
       
       >
+          <v-row >
+            <v-col cols="4" md="4"  >   
+              <v-btn class="mt-2"
+                    text
+                    color="transparent"
+                    disabled
+                    >
+                      <v-img src="../assets/ContenidoMain/2.png" class="img-nav">
 
-      <v-btn
-          text
-          color="transparent"
-          disabled
-          >
-            <v-img src="../assets/ContenidoMain/2.png" class="img-nav">
-
-            </v-img>
+                      </v-img>
         </v-btn>
-              <v-btn text @click="createItem">
+      </v-col >
+          <v-col cols="4" md="4" >    
+  
+            <div class="d-flex flex-row justify-center mt-2"  style="cursor: pointer; " @click="createItem">
+              <v-btn text >
               <v-icon class="mr-3" color="#FEBF2C">
                 mdi-briefcase
               </v-icon>
               <a   class="title-mg1 ">TRABAJÁ CON NOSOTROS</a>
               </v-btn>
-
-        
-        <v-row no-gutters>
-          <v-col offset-lg="3" offset-sm="3"  offset-md="2" offset-xl="4" md="1" xl="1"  class="col-franq mr-2">
-            <div class="d-flex flex-row" style="cursor: pointer; " @click="$router.push('/MuchoGustoCompras')">
-              <p class="title-mg1 mr-3 mt-5" >TIENDA</p>
-            <v-icon color="#FEBF2C" class="mt-1" size="20">
-              mdi-cart
-            </v-icon>
-            </div>
+               </div>
 
           </v-col>
-          <v-col offset-lg="3" class="col-iconos">
+          <v-col cols="4" md="4"    class="col-iconos">
             <v-btn text icon @click="google">
                 <v-icon color="white">
                   mdi-google-maps
@@ -191,6 +187,7 @@
 .col-franq{
   display: flex;
   align-items: center;
+  justify-items: center;
 }
 
 
