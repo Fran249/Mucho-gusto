@@ -11,6 +11,7 @@
     <!--<PreCocidos class="slider-hover"/>-->
     <!--<SucursalesVue class="sucursales-vue" v-if="!mobileViewMiddle"/>-->
     <v-btn @click="$router.push('/MuchoGustoCompras')"
+    style="margin-bottom: 205px; margin-right: 90px;"
       v-if="
           !mobileViewSmall"
       elevation="9"
@@ -20,7 +21,7 @@
       bottom
       color="#FEBF2C"
     >
-    <v-icon color="white" class="mt-1" size="35">
+    <v-icon color="white" class="mt-1" size="35" >
               mdi-cart
             </v-icon>
   </v-btn>

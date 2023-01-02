@@ -35,9 +35,9 @@
       bottom
       color="white"
     >
-    <v-icon color="green" size="30">
-      mdi-whatsapp
-    </v-icon>
+    <v-img src="../assets/WhatsAppVerde.png" contain width="30" height="30" >
+
+    </v-img>
   </v-btn>
           <Footer/>
       </v-row>
@@ -119,6 +119,7 @@ export default {
   width: 17.8%;
 
 }
+.row{margin: 0;}
 .menu-cont::-webkit-scrollbar {
     -webkit-appearance: none;
 }

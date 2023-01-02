@@ -18,6 +18,20 @@
           <v-btn icon >
               <v-img src="../assets/Fce.png" contain width="25" height="20"></v-img>
           </v-btn>
+          <v-btn icon
+      v-if="
+          !mobileViewSmall"
+        color="transparent"
+    >
+    <v-img src="../assets/WhatsAppAmarillo.png" contain width="25" height="20" >
+
+    </v-img>
+  </v-btn>
+          <v-btn icon @click="google" style="width: 25px; height: 20px;">
+                <v-icon color="#FFBF00" >
+                  mdi-google-maps
+                </v-icon>
+              </v-btn>
         </div>
         <div class="d-flex flex-row mt-3">
           <v-btn  icon text>
@@ -35,11 +49,7 @@
  
       
       <div class="columna3">
-            <v-icon color="#FFBF00" class="schedule-icon mr-3">schedule</v-icon>
-            
-            <v-divider vertical color="#FFBF00"  class="divider1"></v-divider>
-            
-            
+            <v-icon color="#FFBF00" class="schedule-icon mr-3">schedule</v-icon>            
           <div class="div-container-texts1">
             <p class="div-text-2 mt-5">
                 MARTES A DOMINGO
@@ -89,7 +99,7 @@
     name: 'FootEr',
     
     data: () => ({
-      
+      mobileViewSmall: false,
       height: '',
       dialog: false,
       valid: false,
@@ -112,7 +122,11 @@
 
       }),
       methods:{
-
+        mobileViewFunctionSmall(){
+        
+        this.mobileViewSmall = window.innerWidth <= 500;
+        console.log('mobile version')
+    },
         changeHeight(){
 
           if( window.innerWidth <= 960){
@@ -154,6 +168,7 @@
       },
       created(){
         this.changeHeight();
+        this.mobileViewFunctionSmall();
       }
 
     }
@@ -263,7 +278,12 @@ a{
 }
 .div-text-2,.div-text-3{
   color:#fff;
-  font-family: humanst521_btroman
+  font-family: humanst521_btroman;
+  font-size: 18.5px;
+  margin-bottom: 0;
+}
+.v-application p {
+  margin-bottom: 0;
 }
 
 .title-mg1{
@@ -271,7 +291,9 @@ a{
     font-family: humanst521-2;
     
   }
-
+.div-container-texts1{
+  margin-bottom: 12px;
+}
 
 
     @media only screen and (max-width: 960px){
