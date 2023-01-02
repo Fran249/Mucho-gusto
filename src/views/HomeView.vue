@@ -11,7 +11,7 @@
     <!--<PreCocidos class="slider-hover"/>-->
     <!--<SucursalesVue class="sucursales-vue" v-if="!mobileViewMiddle"/>-->
     <v-btn @click="$router.push('/MuchoGustoCompras')"
-    style="margin-bottom: 205px; margin-right: 90px;"
+    style="margin-bottom: 205px; margin-right: 30px;"
       v-if="
           !mobileViewSmall"
       elevation="9"
