@@ -16,12 +16,12 @@
          <Carrito :key="componentKey"/>
         </v-navigation-drawer>
         <v-row>
-          <v-col cols="2" v-if="width >= 960">
+          <v-col cols="2" v-if="width >= 960" >
             <div class="menu-cont">
               <menuFilterDulces class="menuFilterDulces"/>
             </div>
           </v-col>
-        <v-col cols="12" lg="10" sm="5" xl="10">
+        <v-col cols="12" lg="10" sm="5" xl="10" style="margin-left: 18%">
         <mainContDulces class="mainContDulces" />
 
           </v-col>
