@@ -49,8 +49,8 @@
           <div class="v-dialog">
     
             <div style="width: 100%; height: 50px; margin-top: 0;" class="d-flex flex-column align-start">
-          <h1 class="mb-5"><strong>¡BIENVENIDO A MUCHO GUSTO!</strong></h1>
-        <h3 class="mb-0">¡Seleccioná los productos que queres y te lo llevamos!</h3>
+          <h1 class="mb-5"><strong>¡TE INVITAMOS A SUMARTE A MUCHO GUSTO!</strong></h1>
+        <h3 class="mb-0">Sólo completa el formulario y nos pondremos en contacto.</h3>
       </div>
           <form ref="form" @submit.prevent="sendEmail" class="form" v-if="createItem">
             <v-row column class="mt-10">
