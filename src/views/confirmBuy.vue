@@ -36,6 +36,11 @@
                       color="#02265c"
                       width="30"
                       height="30"
+                      style="
+                        border-radius: 10px;
+                        border-top-right-radius: 1px;
+                        border-bottom-right-radius: 1px;
+                      "
                     >
                       <v-icon size="15px"> mdi-minus </v-icon>
                     </v-btn>
@@ -50,6 +55,11 @@
                       color="#02265c"
                       width="30"
                       height="30"
+                      style="
+                        border-radius: 10px;
+                        border-top-left-radius: 1px;
+                        border-bottom-left-radius: 1px;
+                      "
                     >
                       <v-icon size="15px"> mdi-plus </v-icon>
                     </v-btn>
@@ -60,15 +70,28 @@
                 <v-btn icon @click="borrarArticuloCarrito(carr)" class="ml-10">
                   <v-icon color="#b3b6bc"> mdi-close </v-icon>
                 </v-btn>
-                <p class="precio-value ml-5 mt-10" v-if="activarDescuento && tipo == 'porcentaje'">
-                      ${{ Number(carr.precio - Math.round(carr.precio * percentDesc)) * Number(carr.value)  }}
-                    </p>
-                    <p class="precio-value ml-5 mt-10" v-if="activarDescuento && tipo == 'neto'" >
-                      ${{ Number((carr.precio * carr.value )) - Number(descuento)  }}
-                    </p>
-                    <p class="precio-value ml-5 mt-10" v-if="activarDescuento == false && tipo == ''" >
-                      ${{ Number(carr.precio ) * Number(carr.value)  }}
-                    </p>
+                <p
+                  class="precio-value ml-5 mt-10"
+                  v-if="activarDescuento && tipo == 'porcentaje'"
+                >
+                  ${{
+                    Number(
+                      carr.precio - Math.round(carr.precio * percentDesc)
+                    ) * Number(carr.value)
+                  }}
+                </p>
+                <p
+                  class="precio-value ml-5 mt-10"
+                  v-if="activarDescuento && tipo == 'neto'"
+                >
+                  ${{ Number(carr.precio * carr.value) - Number(descuento) }}
+                </p>
+                <p
+                  class="precio-value ml-5 mt-10"
+                  v-if="activarDescuento == false && tipo == ''"
+                >
+                  ${{ Number(carr.precio) * Number(carr.value) }}
+                </p>
               </div>
             </v-list-item>
             <v-divider></v-divider>
@@ -96,14 +119,14 @@
                 >
                 </v-text-field>
                 <v-btn
-                v-if="checkValue == true"
-              width="90%"
-              class="mb-10 pa-5"
-              color="#febf2c"
-              @click="checkFirebaseDesc()"
-            >
-              <p class="mt-4 p-v-btn">CONFIRMAR DESCUENTO</p>
-            </v-btn>
+                  v-if="checkValue == true"
+                  width="90%"
+                  class="mb-10 pa-5"
+                  color="#febf2c"
+                  @click="checkFirebaseDesc()"
+                >
+                  <p class="mt-4 p-v-btn">CONFIRMAR DESCUENTO</p>
+                </v-btn>
               </div>
             </v-col>
           </v-row>
@@ -122,8 +145,15 @@
                 <h3 class="ml-15 h3-sub-desc-total">${{ precioTotalArray }}</h3>
               </div>
               <div>
-                <h3 class="ml-15 mt-15 h3-sub-desc-total" v-if=" tipo == 'porcentaje'">${{ descuento }}</h3>
-                <h3 class="ml-15 mt-15 h3-sub-desc-total" v-if=" tipo == 'neto'">${{ (descuento * carrito.length) }}</h3>
+                <h3
+                  class="ml-15 mt-15 h3-sub-desc-total"
+                  v-if="tipo == 'porcentaje'"
+                >
+                  ${{ descuento }}
+                </h3>
+                <h3 class="ml-15 mt-15 h3-sub-desc-total" v-if="tipo == 'neto'">
+                  ${{ descuento * carrito.length }}
+                </h3>
               </div>
             </v-col>
           </v-row>
@@ -134,13 +164,17 @@
             </v-col>
             <v-col cols="6">
               <h3 class="ml-15 h3-resumen" v-if="tipo == 'porcentaje'">
-                ${{ Number(precioTotalArray - Math.round(descuento))}}
+                ${{ Number(precioTotalArray - Math.round(descuento)) }}
               </h3>
               <h3 class="ml-15 h3-resumen" v-if="tipo == 'neto'">
-                ${{ Number(precioTotalArray - Math.round(descuento * carrito.length))}}
+                ${{
+                  Number(
+                    precioTotalArray - Math.round(descuento * carrito.length)
+                  )
+                }}
               </h3>
               <h3 class="ml-15 h3-resumen" v-if="tipo == ''">
-                ${{ Number(precioTotalArray )}}
+                ${{ Number(precioTotalArray) }}
               </h3>
             </v-col>
             <v-btn
@@ -191,6 +225,11 @@
                       color="#02265c"
                       width="30"
                       height="30"
+                      style="
+                        border-radius: 10px;
+                        border-top-right-radius: 1px;
+                        border-bottom-right-radius: 1px;
+                      "
                     >
                       <v-icon size="15px"> mdi-minus </v-icon>
                     </v-btn>
@@ -205,6 +244,11 @@
                       color="#02265c"
                       width="30"
                       height="30"
+                      style="
+                        border-radius: 10px;
+                        border-top-left-radius: 1px;
+                        border-bottom-left-radius: 1px;
+                      "
                     >
                       <v-icon size="15px"> mdi-plus </v-icon>
                     </v-btn>
@@ -220,14 +264,26 @@
                     <p class="precio-value ml-5 mt-10" v-if="carr.value == 1">
                       ${{ carr.precio }}
                     </p>
-                    <p class="precio-value ml-5 mt-10" v-if="activarDescuento && tipo == 'porcentaje'">
-                      ${{ Number(carr.precio - Math.round(carr.precio * percentDesc)) * Number(carr.value)  }}
+                    <p
+                      class="precio-value ml-5 mt-10"
+                      v-if="activarDescuento && tipo == 'porcentaje'"
+                    >
+                      ${{
+                        Number(
+                          carr.precio - Math.round(carr.precio * percentDesc)
+                        ) * Number(carr.value)
+                      }}
                     </p>
-                    <p class="precio-value ml-5 mt-10" v-if="activarDescuento && tipo == 'neto'">
-                      ${{ Number((carr.precio * carr.value )) - Number(descuento)  }}
+                    <p
+                      class="precio-value ml-5 mt-10"
+                      v-if="activarDescuento && tipo == 'neto'"
+                    >
+                      ${{
+                        Number(carr.precio * carr.value) - Number(descuento)
+                      }}
                     </p>
                     <p class="precio-value ml-5 mt-10" v-else>
-                      ${{ Number(carr.precio ) * Number(carr.value)  }}
+                      ${{ Number(carr.precio) * Number(carr.value) }}
                     </p>
                   </div>
                 </div>
@@ -258,14 +314,14 @@
                 >
                 </v-text-field>
                 <v-btn
-                v-if="checkValue == true"
-              width="90%"
-              class="mb-10 pa-5"
-              color="#febf2c"
-              @click="checkFirebaseDesc()"
-            >
-              <p class="mt-4 p-v-btn">CONFIRMAR DESCUENTO</p>
-            </v-btn>
+                  v-if="checkValue == true"
+                  width="90%"
+                  class="mb-10 pa-5"
+                  color="#febf2c"
+                  @click="checkFirebaseDesc()"
+                >
+                  <p class="mt-4 p-v-btn">CONFIRMAR DESCUENTO</p>
+                </v-btn>
               </div>
             </v-col>
           </v-row>
@@ -284,7 +340,9 @@
                 <h3 class="ml-15 h3-sub-desc-total">${{ precioTotalArray }}</h3>
               </div>
               <div>
-                <h3 class="ml-15 mt-15 h3-sub-desc-total">${{ Math.round(descuento) }}</h3>
+                <h3 class="ml-15 mt-15 h3-sub-desc-total">
+                  ${{ Math.round(descuento) }}
+                </h3>
               </div>
             </v-col>
           </v-row>
@@ -295,7 +353,7 @@
             </v-col>
             <v-col cols="6">
               <h3 class="ml-15 h3-resumen">
-                ${{ Number(precioTotalArray - Math.round(descuento))}}
+                ${{ Number(precioTotalArray - Math.round(descuento)) }}
               </h3>
             </v-col>
             <v-btn
@@ -312,34 +370,68 @@
       </v-row>
     </v-container>
     <v-dialog width="650" v-model="popUp" persistent>
-            <v-card style="padding: 50px; border-radius:10px ;">
-              
-                <div class="text-left d-flex flex-column justify-start ">                    
-                    <h3 style="margin-bottom: 20px; margin-right: 5%; color: #374763; font-family : 'humanst521-2'">
-                        ¡SÓLO UN PASO MÁS!
-                    </h3>
-                    <p style="font-size: 20px; font-family:  'humanst521-1'; color: #374763;">
-                        Te solicitamos unos datos más para comenzar con tus compras.
-                    </p>
-                    <p style="font-family:  'humanst521-1'; color: gray;">
-                        ¿Por qué solicitamos estos datos?
-                    </p>
-                    <p style="font-family:  'humanst521-1'; color: gray;">
-                      Tus datos personales se toman solo con los fines de cumplir con el giro comercial de la empresa y hacer un correcto seguimiento a tu pedido. Es importante que los datos que ingreses sean verdaderos para validarlos cuando realices tu compra. Recordá que debes ser mayor de edad.
-                    </p>
-                    <v-btn
-                    style="margin-top: 75px; width: 50%; align-self:center ;"
-                    @click="$router.push('/userView')"
-              width="90%"
-              class="mb-10 pa-5"
-              color="#febf2c"
-            >
-              <p class="mt-4 p-v-btn">COMPLETAR REGISTRO</p>
-            </v-btn>
-                </div>
-                
-            </v-card>
-        </v-dialog>
+      <v-card style="padding: 50px; border-radius: 10px">
+        <div class="text-left d-flex flex-column justify-start">
+          <h3
+            style="
+              margin-bottom: 20px;
+              margin-right: 5%;
+              color: #374763;
+              font-family: 'humanst521-2';
+            "
+          >
+            ¡SÓLO UN PASO MÁS!
+          </h3>
+          <p
+            style="font-size: 20px; font-family: 'humanst521-1'; color: #374763"
+          >
+            Te solicitamos unos datos más para comenzar con tus compras.
+          </p>
+          <p style="font-family: 'humanst521-1'; color: gray">
+            ¿Por qué solicitamos estos datos?
+          </p>
+          <p style="font-family: 'humanst521-1'; color: gray">
+            Tus datos personales se toman sólo con los fines de cumplir con el
+            giro comercial de la empresa y hacer un correcto seguimiento a tu
+            pedido. Es importante que los datos que ingreses sean verdaderos por
+            si necesitamos contactarte para validar datos de tu compra. Recordá
+            que deberás ser mayor de edad. Cada usuario dispondrá en todo
+            momento de los derechos de acceso a la información, rectificación y
+            supresión de sus datos personales conforme a la Ley Nº 25.326 sobre
+            protección de datos de carácter personal. El usuario tiene el
+            derecho gratuito de ejercer el acceso, rectificar y suprimir sus
+            datos. La Dirección Nacional de Protección de Datos Personales,
+            órgano de control de la Ley Nro. 25.326, tiene la atribución de
+            atender las denuncias y reclamos que se interpongan en relación con
+            el incumplimiento de las normas sobre protección de datos
+            personales.
+          </p>
+          <v-btn
+            style="margin-top: 75px; width: 50%; align-self: center"
+            @click="$router.push('/userView')"
+            width="90%"
+            class="mb-10 pa-5"
+            color="#febf2c"
+          >
+            <p class="mt-4 p-v-btn">COMPLETAR REGISTRO</p>
+          </v-btn>
+        </div>
+      </v-card>
+    </v-dialog>
+    <div
+      style="width: 100%; text-align: start; margin: 10px;"
+      class="d-flex flex-row justify-center align-center"
+    >
+      <p class="textsmall">
+        ¿Cómo hago para reclamar o cancelar un pedido? Para gestionar tu
+        solicitud de arrepentimiento o por cualquier reclamo respecto de tu
+        pedido, debes comunicarte vía WhatsApp al 02284-577478. Todo tipo de
+        rembolso será otorgado mediante códigos de descuento por el valor total
+        de su compra para ser usado nuevamente en tu próximo pedido. Al
+        continuar con la compra usted constata haber leído y aceptado los
+        términos y condiciones mencionadas anteriormente.
+      </p>
+    </div>
   </div>
 </template>
 
@@ -350,7 +442,7 @@ import { getFirestore, onSnapshot, doc, deleteDoc } from "firebase/firestore";
 //
 import { initializeApp } from "firebase/app";
 import { firebaseConfig } from "../firebase/index";
- 
+
 import store from "@/store";
 import router from "@/router";
 const app = initializeApp(firebaseConfig);
@@ -381,11 +473,11 @@ export default {
     numberDNI: "",
     streetName: "",
     checkValue: false,
-    valorTotalDesc: '',
+    valorTotalDesc: "",
     percentDesc: 1,
-    activarDescuento : false,
-    tipo: '',
-    popUp:false
+    activarDescuento: false,
+    tipo: "",
+    popUp: false,
   }),
 
   methods: {
@@ -465,21 +557,23 @@ export default {
 
     comprarPrimerPaso() {
       if (auth.currentUser != null) {
-            onSnapshot(doc(db, `Usuarios/${auth.currentUser.uid}`), (doc) => {
-
-
-                if (doc.data().nombreCompleto == '' || doc.data().email == '' || doc.data().dni == '' || doc.data().telefonoContacto == '' || doc.data().direccion == '') {
-                    this.popUp = true
-                } else {
-                    this.popUp = false
-                  this.compraPrimerPasoDos()
-
-           
-        
-     
-      }});
-    }},
-    compraPrimerPasoDos(){
+        onSnapshot(doc(db, `Usuarios/${auth.currentUser.uid}`), (doc) => {
+          if (
+            doc.data().nombreCompleto == "" ||
+            doc.data().email == "" ||
+            doc.data().dni == "" ||
+            doc.data().telefonoContacto == "" ||
+            doc.data().direccion == ""
+          ) {
+            this.popUp = true;
+          } else {
+            this.popUp = false;
+            this.compraPrimerPasoDos();
+          }
+        });
+      }
+    },
+    compraPrimerPasoDos() {
       const items = [];
       onSnapshot(doc(db, `/Usuarios/${auth.currentUser.uid}/`), (doc) => {
         this.name = doc.data().nombreCompleto;
@@ -493,37 +587,37 @@ export default {
       );
       console.log(dataStorage);
       this.carrito.forEach((element) => {
-        if(this.tipo == 'porcentaje'){
-            
+        if (this.tipo == "porcentaje") {
           const articulos = {
-          picture_url: element.src,
-          quantity: element.value,
-          description: element.descripcion,
-          unit_price: Number(element.precio - Math.round( element.precio * this.percentDesc )),
-          title: element.title,
-        };
-        items.push(articulos);
-        
-        }else if( this.tipo == 'neto') {
-            let Y = (element.precio * element.value) 
-            let X = this.descuento
+            picture_url: element.src,
+            quantity: element.value,
+            description: element.descripcion,
+            unit_price: Number(
+              element.precio - Math.round(element.precio * this.percentDesc)
+            ),
+            title: element.title,
+          };
+          items.push(articulos);
+        } else if (this.tipo == "neto") {
+          let Y = element.precio * element.value;
+          let X = this.descuento;
           const articulos = {
-          picture_url: element.src,
-          quantity: element.value,
-          description: element.descripcion,
-          unit_price: Number(element.precio - ( element.precio * (X / Y ) )),
-          title: element.title,
-        };
-        items.push(articulos);
+            picture_url: element.src,
+            quantity: element.value,
+            description: element.descripcion,
+            unit_price: Number(element.precio - element.precio * (X / Y)),
+            title: element.title,
+          };
+          items.push(articulos);
         } else {
           const articulos = {
-          picture_url: element.src,
-          quantity: element.value,
-          description: element.descripcion,
-          unit_price: element.precio,
-          title: element.title,
-        };
-        items.push(articulos);
+            picture_url: element.src,
+            quantity: element.value,
+            description: element.descripcion,
+            unit_price: element.precio,
+            title: element.title,
+          };
+          items.push(articulos);
         }
       });
 
@@ -564,24 +658,23 @@ export default {
           });
           mp.open();
         });
-     
+
       //Clear al Local Storage, para cerrar la compra y proceder al pago
-     if(this.valorTotalDesc != ''){
-      deleteDoc(doc(db, "codigos", `${this.valorTotalDesc}`));
-     }else {
-      return
-     }
-     localStorage.clear();
+      if (this.valorTotalDesc != "") {
+        deleteDoc(doc(db, "codigos", `${this.valorTotalDesc}`));
+      } else {
+        return;
+      }
+      localStorage.clear();
     },
 
-    checkFirebaseDesc(){
-        onSnapshot(doc(db, `/codigos/${this.valorTotalDesc}/`), (doc) => {
-           this.percentDesc = doc.data().descuento
-           this.tipo = doc.data().tipo
-            
+    checkFirebaseDesc() {
+      onSnapshot(doc(db, `/codigos/${this.valorTotalDesc}/`), (doc) => {
+        this.percentDesc = doc.data().descuento;
+        this.tipo = doc.data().tipo;
       });
-      this.activarDescuento = true
-    }
+      this.activarDescuento = true;
+    },
   },
   beforeCreate() {
     onAuthStateChanged(auth, (user) => {
@@ -616,10 +709,12 @@ export default {
       var subTotales = [];
 
       this.carrito.forEach((element) => {
-        subTotales.push(Number(element.value) * Number(element.precio * this.percentDesc))
+        subTotales.push(
+          Number(element.value) * Number(element.precio * this.percentDesc)
+        );
       });
       var sumaTotal = subTotales.reduce((prev, curr) => prev + curr, 0);
-      this.precioTotalArray = sumaTotal 
+      this.precioTotalArray = sumaTotal;
       store.commit("carritoCompras", this.carrito);
       console.log(store.state.carritoCompras);
       this.carrito = store.state.carritoCompras;
@@ -629,24 +724,23 @@ export default {
         return;
       }
     },
-    percentDesc(){
-        const subTotales = [];
-            console.log(this.percentDesc)
-            this.carrito.forEach((element) => {
-            subTotales.push(Number(element.value) * Number(element.precio))
-            });
-            let sumaTotal = subTotales.reduce((prev, curr) => prev + curr, 0);
-            if(this.tipo == 'porcentaje'){
-              let resultadoFinal = sumaTotal * this.percentDesc
-            this.descuento = resultadoFinal
-            console.log(this.descuento)
-            } else if(this.tipo == 'neto'){
-            let length = this.carrito.length
-            this.descuento = (this.percentDesc / length)
-            console.log(' este es el descuento ', this.descuento)
-            }
-    }
-   
+    percentDesc() {
+      const subTotales = [];
+      console.log(this.percentDesc);
+      this.carrito.forEach((element) => {
+        subTotales.push(Number(element.value) * Number(element.precio));
+      });
+      let sumaTotal = subTotales.reduce((prev, curr) => prev + curr, 0);
+      if (this.tipo == "porcentaje") {
+        let resultadoFinal = sumaTotal * this.percentDesc;
+        this.descuento = resultadoFinal;
+        console.log(this.descuento);
+      } else if (this.tipo == "neto") {
+        let length = this.carrito.length;
+        this.descuento = this.percentDesc / length;
+        console.log(" este es el descuento ", this.descuento);
+      }
+    },
   },
   computed: {
     ...mapState(["usuario"]),
@@ -660,27 +754,32 @@ export default {
       },
     },
     ticket: {
-        get(){
-          return ''
-        },
-        set(value){
-          const valor =  value.toString().length
+      get() {
+        return "";
+      },
+      set(value) {
+        const valor = value.toString().length;
 
-          if(valor > 6){
-           this.checkValue = false
-        } else if(valor < 6){
-            this.checkValue = false
-        } else if (valor == 6){
-            this.checkValue = true
+        if (valor > 6) {
+          this.checkValue = false;
+        } else if (valor < 6) {
+          this.checkValue = false;
+        } else if (valor == 6) {
+          this.checkValue = true;
         }
-        this.valorTotalDesc = value
-        }
-    }
+        this.valorTotalDesc = value;
+      },
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.textsmall {
+  font-family: humanst521-1;
+  color: #a4a4a4;
+  font-size: 12px;
+}
 @font-face {
   font-family: humanst521-1;
   src: url("/src/assets/Humanst521LtBTLight.ttf");

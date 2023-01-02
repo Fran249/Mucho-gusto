@@ -154,7 +154,7 @@ export default {
     .menu-cont{
     
     height: 450px;
-    position: absolute;
+    position: relative;
     overflow-y: auto;
 
   }

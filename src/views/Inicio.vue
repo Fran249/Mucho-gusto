@@ -108,7 +108,7 @@ export default {
       if(window.innerWidth < 700){
         return  100
       }else if(window.innerWidth > 700) {
-        return 250
+        return 500
       }
     }
   },

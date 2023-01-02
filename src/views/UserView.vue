@@ -39,6 +39,15 @@
                 </v-col>
             </v-row>
         </v-container>
+        <div style="width: 100%; text-align: center;" class="d-flex flex-row justify-center align-center">
+            <p>¿Por qué solicitamos estos datos? 
+
+Tus datos personales se toman sólo con los fines de cumplir con el giro comercial de la empresa y hacer un correcto seguimiento a tu pedido. Es importante que los datos que ingreses sean verdaderos por si necesitamos contactarte para validar datos de tu compra. Recordá que deberás ser mayor de edad.
+
+Cada usuario dispondrá en todo momento de los derechos de acceso a la información, rectificación y supresión de sus datos personales conforme a la Ley Nº 25.326 sobre protección de datos de carácter personal.  El usuario tiene el derecho gratuito de ejercer el acceso, rectificar y suprimir sus datos. La Dirección Nacional de Protección de Datos Personales, órgano de control de la Ley Nro. 25.326, tiene la atribución de atender las denuncias y reclamos que se interpongan en relación con el incumplimiento de las normas sobre protección de datos personales.
+
+</p>
+        </div>
     </div>
 </template>
 
@@ -103,7 +112,11 @@ import store from '@/store';
 </script>
 
 <style lang="scss" scoped>
-
+    p{
+        font-family: humanst521-1;
+        color: #a4a4a4;
+        font-size: 12px;
+    }
     @font-face{
     font-family: humanst521-1;
     src: url('/src/assets/Humanst521LtBTLight.ttf');

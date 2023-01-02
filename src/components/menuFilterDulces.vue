@@ -1,12 +1,12 @@
 <template>
-        <v-treeview :items="items" :multiple-active="false" transition open-all :return-object="true" >
+        <v-treeview :items="items" :multiple-active="false" transition open-all :return-object="true">
             <template v-slot:label="{ item }" >
                 <div v-if="item.name == 'Dulces'">
                     <h3 >{{item.name}}</h3>
                     <div class="bar-container" v-if="item.name =='Dulces'">
                 </div>
                 </div>
-                <div class="d-flex flex-row" v-else >
+                <div class="d-flex flex-row" style=" width: fit-content;"  v-else >
                     <v-btn text class="item"  @click="select(item)" ><p class="mt-3">{{item.name}}</p></v-btn>
                     <v-btn text icon v-if="item.id == selected" @click="reset()">
                         <v-icon>
@@ -107,7 +107,10 @@ import store from '@/store';
 .item{
   font-family: 'humanst521-1';
   font-size: 18px;
+  margin-right: 1px;
+  width: 100%;
 }
+
 h3{
     font-family: 'humanst521-2';
     font-weight: bolder;
