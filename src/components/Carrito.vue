@@ -20,9 +20,11 @@
                 <div class="d-flex flex-column justify-center">
                   <h3 class="ml-2">{{carr.title}}</h3>
                   <p class="ml-2">{{carr.descripcion}}</p>
-                    <div class="d-flex flex-row justify-center ml-3 mt-10">
+                    <div class="d-flex flex-row justify-center ml-3 ">
                         
-                        <v-btn tile icon @click="disminuir(carr)"  outlined color="#02265c" width="30" height="30">
+                        <v-btn style="border-radius: 10px;
+border-top-right-radius: 1px;
+border-bottom-right-radius: 1px;" tile icon @click="disminuir(carr)"  outlined color="#02265c" width="30" height="30">
                             <v-icon size="15px">
                                 mdi-minus
                             </v-icon>
@@ -32,21 +34,23 @@
                         >
                         <p class="number-value">{{Number(carr.value)}}</p>
                         </div>
-                        <v-btn tile icon @click="aumentar(carr)"  outlined color="#02265c" width="30" height="30">
+                        <v-btn style="border-radius: 10px;
+border-top-left-radius: 1px;
+border-bottom-left-radius: 1px;" tile icon @click="aumentar(carr)"  outlined color="#02265c" width="30" height="30">
                             <v-icon size="15px">
                                 mdi-plus
                             </v-icon>
                         </v-btn>
-                        <p class="precio-value ml-5">${{carr.precio * carr.value}}</p>
+                       
                         </div>
                 </div>
-                <div class="d-flex flex-column align-self-start ml-2">
+                <div class=" close-price">
                     <v-btn icon @click="borrarArticuloCarrito(carr)">
                         <v-icon color="#b3b6bc">
                             mdi-close
                         </v-icon>
                     </v-btn>
-                    
+                    <p class="precio-value">${{carr.precio * carr.value}}</p>
                 </div>
                 </v-list-item>
                 <v-divider class="mt-10"></v-divider>
@@ -239,6 +243,15 @@ const auth = getAuth();
 
 <style lang="scss" scoped>
 
+.close-price{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    margin-left: 6%;
+    margin-top: 4%;
+
+}
 
 
 
