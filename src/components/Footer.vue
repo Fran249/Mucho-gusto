@@ -51,10 +51,6 @@
             </div>
   
             <div class="div-container-texts2">
-              <h1>
-                TODOS LOS LOCALES
-                
-              </h1>
               <h3 >
                   MARTES A DOMINGO
               </h3>
