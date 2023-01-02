@@ -30,13 +30,7 @@
                </div>
 
           </v-col>
-          <v-col cols="4" md="4"    class="col-iconos">
-            <v-btn text icon @click="google">
-                <v-icon color="white" size="30">
-                  mdi-google-maps
-                </v-icon>
-              </v-btn>
-            <v-divider vertical color="#FFF" class="divider" inset></v-divider>
+          <v-col cols="4" md="4"    class="col-iconos">                    
             <v-btn icon  color="white" href="https://www.instagram.com/muchogusto.info/">
               <v-img src="../assets/Inst.2.png" contain width="25" height="25">
 
@@ -52,25 +46,34 @@
           </v-col>
         </v-row>
         <v-dialog v-model="dialog"  width="500" overlay-opacity="0.6" transition="4 dialog-top-transition" >
-          <form ref="form" @submit.prevent="sendEmail" class="v-dialog" v-if="createItem">
+          <div class="v-dialog">
+    
+            <div style="width: 100%; height: 50px; margin-top: 0;" class="d-flex flex-column align-start">
+          <h1 class="mb-5"><strong>¡BIENVENIDO A MUCHO GUSTO!</strong></h1>
+        <h3 class="mb-0">¡Seleccioná los productos que queres y te lo llevamos!</h3>
+      </div>
+          <form ref="form" @submit.prevent="sendEmail" class="form" v-if="createItem">
             <v-row column class="mt-10">
             <v-col cols="12" >
-              <v-text-field v-model="name" :counter="20" :rules="nameRules" type="text" name="from_name" label="Nombre Completo" class="v-field"></v-text-field>
+              <v-text-field v-model="name" append-icon="mdi-account" :counter="20" :rules="nameRules" type="text" name="from_name" label="Nombre Completo" class="v-field"></v-text-field>
             </v-col >
             <v-col cols="12" >
-              <v-text-field v-model="email" :rules="emailRules" type="email" name="from_email" label="Email" class="v-field"></v-text-field>
+              <v-text-field v-model="email" append-icon="mdi-email" :rules="emailRules" type="email" name="from_email" label="Email" class="v-field"></v-text-field>
             </v-col>
             <v-col cols="12">
-              <v-text-field  v-model="mensaje" :rules="msgRules" :counter="100" type="text" name="message" label="Mensaje" class="v-field"></v-text-field>
+              <v-text-field  v-model="mensaje" append-icon="mdi-pencil" :rules="msgRules" :counter="100" type="text" name="message" label="Mensaje" class="v-field"></v-text-field>
             </v-col>
             <v-col cols="12" class="d-flex justify-center"> 
-            <v-btn type="submit" value="Send" class="v-btn-form">
-              Enviar
+              <v-btn width="70%" type="submit"  color="#febf2c">
+                <p style="color:white " class="mt-4 p-v-btn" >
+                    ACCEDER
+                </p>
             </v-btn>
             </v-col>     
 
           </v-row>
           </form>
+        </div>
       </v-dialog>
     </v-app-bar>
 </template>
@@ -140,13 +143,25 @@
   margin-left: 10px;
   margin-right: 10px;
 }
-
 .v-dialog{
+        background-color: #fff;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 50px;
+    }
+    .form{
+        gap: 15px;
+        .v-btn-cont{
+            background-color: black;
+        }
+    }
+.form{
   background-color: white;
  margin: 0;
  
   padding: 0;
-  height: 500px;
+  height: 300px;
  
   .v-btn-form{
     display: flex;
@@ -154,13 +169,20 @@
     align-self: center;
     margin-left: 25px;
   };
-  .v-field{
-    margin-left: 40px;
-    margin-right: 40px;
-  }
+
 }
 
-
+h1{
+    font-family: 'humanst521_btbold';
+    font-size: 20px;
+    font-weight: bolder;
+    color: #374763;
+}
+h3{
+    font-family: 'humanst521-1';
+    font-size: 13px;
+    color: #374763;
+}
 
 .title-mg1{
   color:#FFF;

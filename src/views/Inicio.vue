@@ -50,9 +50,9 @@
       bottom
       color="white"
     >
-    <v-icon color="green" size="30">
-      mdi-whatsapp
-    </v-icon>
+    <v-img src="../assets/WhatsAppVerde.png" contain width="30" height="30" >
+
+    </v-img>
   </v-btn>
     <Footer class="footer" />
 

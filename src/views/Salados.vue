@@ -34,9 +34,9 @@
       bottom
       color="white"
     >
-    <v-icon color="green" size="30">
-      mdi-whatsapp
-    </v-icon>
+    <v-img src="../assets/WhatsAppVerde.png" contain width="30" height="30" >
+
+    </v-img>
   </v-btn>
           <Footer/>
 
@@ -135,7 +135,7 @@ export default {
     border-radius: 20px;
     border: 2px solid #f1f2f3;
 }
-
+.row{margin: 0;}
 .menu-cont::-webkit-scrollbar-track {
     border-radius: 10px;  
 }
