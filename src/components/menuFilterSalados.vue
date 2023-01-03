@@ -1,23 +1,4 @@
 <template>
-<!--        <v-treeview :items="items" :multiple-active="true" transition >
-            <template v-slot:label="{ item }">    
-                <div v-if="item.name == 'Simples' || item.name == 'Rellenos' ">
-                    <h3 >{{item.name}}</h3>
-                    <div class="bar-container" v-if="item.name =='Simples'"></div>
-                    <div class="bar-container" v-if="item.name =='Rellenos'"></div>
-                </div>
-                <div v-else >
-                    <v-btn text class="item"  @click="select(item)" ><p class="mt-3">{{item.name}}</p></v-btn>
-                    <v-btn text icon v-if="item.id == selected" @click="reset()">
-                        <v-icon>
-                            mdi-close
-                        </v-icon>
-                    </v-btn>
-                </div>
-                
-            </template>
-        </v-treeview>-->
-        
         <v-expansion-panels  >
             <v-expansion-panel v-for="(item, i) in items" :key="i" style="background: #f0f0f0">
                 <v-expansion-panel-header>

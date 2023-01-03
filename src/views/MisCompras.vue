@@ -18,26 +18,38 @@
             </div>
         <v-row>
             <v-col cols="12" md="12" sm="12" v-for="compras in comprasHechas" :key="compras.items">
-                <v-expansion-panels>
+                <v-expansion-panels >
                     <v-expansion-panel>
-                        <v-expansion-panel-header>
-                            <h3>{{ compras.fecha }}</h3>
+                        <v-expansion-panel-header  style="border: 0.01px solid black; border-radius: 10px;
+border-bottom-right-radius: 1px;
+border-bottom-left-radius: 1px; padding: 15px" >
+                            <h3 class="titles">{{ compras.fecha }}</h3>
                         </v-expansion-panel-header>
-                        <v-expansion-panel-content >
-                            <div class="card"  v-for="items in compras.items" :key="items.src">
-                                <div >
-                                    <v-img width="100" height="100" :src="items.picture_url">
+                        <v-expansion-panel-content   >
+                            <div class="d-flex flex-row justify-space-between" style="border: 0.01px solid black; border-radius: 1px;
+border-bottom-right-radius: 10px;
+border-bottom-left-radius: 10px; padding: 15px"  v-for="items in compras.items" :key="items.src">
+                                <div class="d-flex flex-row" style="gap: 15px" >
+                                    <div >
+                                    <v-img width="150" height="150" :src="items.picture_url">
                                     </v-img>
                                 </div>
-                                <div class="d-flex flex-column justify-space-between" >
+                                <div class="d-flex flex-column text-1" >
                                 <h3>{{ items.title }}</h3>
-                                <p>
+                                <p>{{items.description}}</p>
+                                <p>{{items.quantity}} Articulos</p>
+                                <div class="d-flex flex-row justify-space-between text-1" style="gap: 300%">
+                                    <p>
                                 ${{ items.unit_price }} C/U
                                 </p>
+                                <h3>${{compras.total}}</h3>    
+                                </div>
                                 </div>
                                 
+                                </div>
+                                 
                             </div>
-                            <h3>Total: {{compras.total}}</h3>  
+                            
                         </v-expansion-panel-content>
                     </v-expansion-panel>
                 </v-expansion-panels>
@@ -163,8 +175,29 @@ import { getFirestore, collection, query, getDocs } from "firebase/firestore";
 }
 </script>
 
-<style>
+<style >
 
+.v-expansion-panel-content__wrap{
+    padding: 0;
+
+}
+.titles{
+    font-family: 'humanst521-1';
+    color: #6e6e6e;
+}
+.v-aplication p{
+    padding: 0;
+    margin-bottom: 0;
+
+}
+p{
+    font-family: 'humanst521-1';
+    color: #6e6e6e;
+}
+.text1 h3{
+    font-family: 'humanst521_btbold';
+    color: #000;
+}
 .card{
     padding: 20px;
     border: 1px solid #000;
