@@ -20,15 +20,15 @@
             <v-col cols="12" md="12" sm="12" v-for="compras in comprasHechas" :key="compras.items">
                 <v-expansion-panels >
                     <v-expansion-panel>
-                        <v-expansion-panel-header  style="border: 0.01px solid black; border-radius: 10px;
+                        <v-expansion-panel-header  style="border: 0.01px solid gray; border-radius: 10px;
 border-bottom-right-radius: 1px;
 border-bottom-left-radius: 1px; padding: 15px" >
                             <h3 class="titles">{{ compras.fecha }}</h3>
                         </v-expansion-panel-header>
                         <v-expansion-panel-content   >
-                            <div class="d-flex flex-row justify-space-between" style="border: 0.01px solid black; border-radius: 1px;
-border-bottom-right-radius: 10px;
-border-bottom-left-radius: 10px; padding: 15px"  v-for="items in compras.items" :key="items.src">
+                            <div class="d-flex flex-row justify-space-between" style="border: 0.01px solid gray; border-radius: 1px;
+border-bottom-right-radius: 5px;
+border-bottom-left-radius: 5px; padding: 15px"  v-for="items in compras.items" :key="items.src">
                                 <div class="d-flex flex-row" style="gap: 15px" >
                                     <div >
                                     <v-img width="150" height="150" :src="items.picture_url">
@@ -38,61 +38,30 @@ border-bottom-left-radius: 10px; padding: 15px"  v-for="items in compras.items" 
                                 <h3>{{ items.title }}</h3>
                                 <p>{{items.description}}</p>
                                 <p>{{items.quantity}} Articulos</p>
-                                <div class="d-flex flex-row justify-space-between text-1" style="gap: 300%">
+                                <div class="d-flex flex-row justify-space-between text-1 totales" >
                                     <p>
                                 ${{ items.unit_price }} C/U
                                 </p>
-                                <h3>${{compras.total}}</h3>    
+                                <h3 style="color: #6e6e6e">${{compras.total}}</h3>    
                                 </div>
                                 </div>
                                 
                                 </div>
-                                 
+                                <v-btn color="#febf2c" disabled class="align-self-center">
+                                    <div class="d-flex flex-row">
+                                        <p class="mt-4 p-v-btn ">
+                                    VOLVER A COMPRAR
+                                    </p>
+                                    <v-icon class="ml-2" color="white">
+                                        mdi-briefcase
+                                    </v-icon>
+                                    </div>
+                                </v-btn>
                             </div>
                             
                         </v-expansion-panel-content>
                     </v-expansion-panel>
                 </v-expansion-panels>
-                <!--<v-card class="mt-15" >
-                    <v-card-text>
-                        {{compras.fecha}}
-                    </v-card-text>
-                    <div class="pa-5">
-                        <h3 class="ml-5 articulos">ARTÍCULOS</h3>
-                    <div class="bar-container"></div>
-                    </div>
-                    <v-card-text v-for="items in compras.items" :key="items.unit_price">
-                        <div class="d-flex flex-row">
-                            <v-card>
-                            <v-card-title>
-                                <h3 class="articulos">{{items.title}}</h3>
-                            </v-card-title>
-                            <v-card-text>
-                                    <v-list-item>
-                                        <v-list-item-content>
-                                            <div class="d-flex flex-row" style="gap: 5px;">
-                                                <h3>Cantidad:</h3>
-                                                <h3>{{items.quantity}}</h3>
-                                            </div>
-                                        </v-list-item-content>
-                                    </v-list-item>
-                                    <v-divider class="mt-2 mb-2"></v-divider>
-                                    <v-list-item>
-                                        <v-list-item-content>
-                                            <h3>Precio/U: ${{items.unit_price}}</h3>
-                                        </v-list-item-content>
-                                    </v-list-item>
-                                    <v-divider class="mt-1 mb-2"></v-divider>
-                            </v-card-text>
-                        </v-card>
-                            <v-img  width="100" :src="items.picture_url"></v-img>
-                        </div>
-                    </v-card-text>
-                    <div class="d-flex flex-row justify-space-between mt-5 mb-5" style="height: 50px;">
-                        <h3 class="ml-5 total">TOTAL:</h3>
-                        <h3 class="pr-3">${{compras.total}}</h3>
-                    </div>
-                </v-card>-->
             </v-col>
         </v-row>
         </v-container>
@@ -177,6 +146,14 @@ import { getFirestore, collection, query, getDocs } from "firebase/firestore";
 
 <style >
 
+
+.p-v-btn{
+    font-family: 'humanst521_btbold';
+    color: #fff
+}
+    .v-btn {
+  text-transform:none !important;
+}
 .v-expansion-panel-content__wrap{
     padding: 0;
 
@@ -197,6 +174,9 @@ p{
 .text1 h3{
     font-family: 'humanst521_btbold';
     color: #000;
+}
+.totales {
+    gap: 300%
 }
 .card{
     padding: 20px;
@@ -227,5 +207,9 @@ p{
   background: rgb(242,192,74);
   background: linear-gradient(90deg, rgba(242,192,74,1) 140px, rgba(179,182,188,1) 140px);
 }
-
+@media screen and (max-width: 960px) {
+    .totales {
+    gap: 15%
+}
+}
 </style>

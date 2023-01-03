@@ -39,18 +39,18 @@
                   </v-tooltip>
                 </v-expansion-panel-header>
                 <v-expansion-panel-content>
-                  <div class="d-flex flex-row flex-wrap align-center">
+                  <div class="d-flex flex-column align-center">
                     <v-expansion-panels class="ma-5">
                         <v-expansion-panel>
-                            <v-expansion-panel-header>
-                                <div class="d-flex flex-column" style="width: 100%">
-                                    <h3 class="ma-15 text-center">DATOS DE USUARIO</h3>
+                            <v-expansion-panel-header >
+                                <div class="d-flex flex-column" >
+                                    <h3 class="ma-15 text-left">DATOS DE USUARIO</h3>
                                     <div class="bar-container"></div>
                                 </div>
                             </v-expansion-panel-header>
                             <v-expansion-panel-content>
                                 <v-card >
-                      <div  id="element-pdf">
+                      <div>
                         <v-divider class="ma-3"></v-divider>
                         <v-card-text class="mb-1"
                           ><h3>Email:</h3>
@@ -97,9 +97,7 @@
                             <v-expansion-panel-content>
                                 <v-card >
                       <div>
-                        <div>
-                          
-                        </div>
+   
                         <v-divider class="mt-5 ml-5 mr-5"></v-divider>
                         <v-card-text>
                           <h3 class="mb-4">Titulo:</h3>

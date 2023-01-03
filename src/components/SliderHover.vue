@@ -95,7 +95,7 @@
 .hoverShow{
     transform: scale(1.07);
     transition: 0.5s;
-    z-index: 999;
+    z-index: 1;
 }
 .img1{
     
