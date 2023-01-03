@@ -118,6 +118,7 @@ export default {
   overflow-y: auto;
   width: 17.8%;
 
+
 }
 .row{margin: 0;}
 .menu-cont::-webkit-scrollbar {

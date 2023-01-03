@@ -141,10 +141,10 @@ export default {
 }
 
 .menu-cont{
-  height: 50%;
+
   width: 100%;
   position: relative;
-  overflow-y: auto;
+ 
 
 }
 .menuFilterSalados{

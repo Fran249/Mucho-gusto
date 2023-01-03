@@ -1,21 +1,27 @@
 <template>
-        <v-treeview :items="items" :multiple-active="false" transition open-all :return-object="true">
-            <template v-slot:label="{ item }" >
-                <div v-if="item.name == 'Dulces'">
-                    <h3 >{{item.name}}</h3>
-                    <div class="bar-container" v-if="item.name =='Dulces'">
+
+        <v-expansion-panels  >
+            <v-expansion-panel v-for="(item, i) in items" :key="i" style="background: #f0f0f0">
+                <v-expansion-panel-header>
+                    <div class="d-flex flex-column" style="gap: 15px">
+                        <h3 >{{item.name}}</h3>
+                        <div class="bar-container" v-if="item.name =='Dulces'">
                 </div>
-                </div>
-                <div class="d-flex flex-row" style=" width: fit-content;"  v-else >
-                    <v-btn text class="item"  @click="select(item)" ><p class="mt-3">{{item.name}}</p></v-btn>
+                    </div>
+                </v-expansion-panel-header>
+                <v-expansion-panel-content v-for="it in item.children" :key="it.name">
+                    <div>
+                        <v-btn  text class="item"  @click="select(it)" ><p class="mt-3 ">{{it.name}}</p></v-btn>
+                        
                     <v-btn text icon v-if="item.id == selected" @click="reset()">
                         <v-icon>
                             mdi-close
                         </v-icon>
                     </v-btn>
-                </div>
-            </template>
-        </v-treeview>
+                    </div>
+                </v-expansion-panel-content>
+            </v-expansion-panel>
+        </v-expansion-panels>
 </template>
 
 
