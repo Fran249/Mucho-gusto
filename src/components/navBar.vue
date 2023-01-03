@@ -220,6 +220,16 @@
                 </v-btn>
               </router-link>
             </v-list-item>
+            <v-list-item >
+              <router-link style="text-decoration: none; color: inherit;" to="/Q&A" >
+                <v-btn text  color="#727272" >
+                  <v-icon class="mr-2">
+                    mdi-information
+                  </v-icon>
+                  <p class="title-draw mt-3">Preguntas frecuentes</p>
+                </v-btn>
+              </router-link>
+            </v-list-item>
             <v-divider width="85%" class="ml-3 mb-10 mt-10"></v-divider>
             <v-list-item v-if="existeUsuario">
               <v-btn text @click="cerrarSesion"  color="#727272">

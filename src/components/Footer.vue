@@ -26,8 +26,8 @@
                 </v-icon>
               </v-btn>
         </div>
-        <div class="d-flex flex-row mt-3">
-          <v-btn  icon text>
+        <div class="d-flex flex-row mt-3" @click="$router.push('/Q&A')">
+          <v-btn  icon text >
             <v-icon color="#FEBF2C">mdi-information</v-icon>
           </v-btn>
           <a  class="title-mg1 mt-2"><strong>PREGUNTAS FRECUENTES</strong></a>
