@@ -40,7 +40,7 @@
       </v-carousel-item>
     </v-carousel>
     <mainCont class="mainCont" />
-    <v-btn
+    <v-btn style="margin-bottom: 29px;"
       v-if="
           !mobileViewSmall"
       elevation="9"

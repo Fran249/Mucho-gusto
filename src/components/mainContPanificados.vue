@@ -51,7 +51,7 @@
                         </v-btn>
                     </div>
                         <v-btn v-if="card.cantidad >= 1" @click="detectUserAndBuy(card)" icon color="white" width="120" tile style="background-color: #02265C; border-radius: 10px">
-                            <p class="mt-4 ml-4">AGREGAR</p>
+                            <p class="mt-4 ml-4 agre">AGREGAR</p>
                             <v-icon size="15px" class="ml-2 mr-2">
                                 mdi-briefcase
                             </v-icon>
@@ -114,7 +114,7 @@
                                 </v-btn>
                                 </div>
                                     <v-btn v-if="card.cantidad >= 1" @click="detectUserAndBuy(card)" icon color="white" width="75px" height="20px" tile style="background-color: #02265C; margin-bottom: 6px; border-radius: 5px ">
-                                    <p class="mt-4 ml-6" style="font-size: 8px;">AGREGAR</p>
+                                    <p class="mt-4 ml-6 agre" style="font-size: 8px;">AGREGAR</p>
                                     <v-icon size="11px" class="ml-1 mr-4">
                                         mdi-briefcase
                                     </v-icon>        
@@ -423,6 +423,9 @@
 </script>
 
 <style lang="scss" scoped>
+.agre{
+    color: #fff;
+}
 .v-btn {
     text-transform: none !important;
     color: white;

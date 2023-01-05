@@ -8,7 +8,7 @@
             <div class="bar-container">
             </div>
         </div>
-        <v-container style="margin-right: 31.5%; margin-bottom: 400px;">
+        <div style= " padding-left: 5%; padding-right: 10%;  margin-bottom: 400px; ">
             <h3 class="Q">¿Tengo que registrarme para comprar? </h3>
             <p class="A"> Es necesario que te registres para comprar en muchogusto.com. Simplemente te pediremos al
                 momento de comprar un mail, nombre, apellido, DNI y un teléfono para poder hacerle un correcto
@@ -43,7 +43,7 @@
                 <li>Registrá la nueva contraseña.</li>
             </ul>
             </p>
-        </v-container>
+        </div>
 
         <v-btn v-if="
     !mobileViewSmall" elevation="9" fab fixed right bottom color="white">
@@ -102,7 +102,8 @@ export default {
 
 .contain-titulo{
     width: 100%; 
-    margin-left: 110px;
+    padding-left: 5% ;
+    padding-right: 10%;
 
 }
 @media screen and (max-width: 960px ){

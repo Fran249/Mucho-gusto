@@ -24,7 +24,7 @@
         
         </div>
         <div class="registro-ingreso2" v-if="!existeUsuario && width > 960">
-          <v-btn text @click="dialog1 = true"  v-if="!existeUsuario" color="#FEBF2C">
+          <v-btn text @click="dialog1 = true"  v-if="!existeUsuario" >
           <p class="mt-3 registro-ingreso">
             INGRESO
           </p>
@@ -33,7 +33,7 @@
         <v-dialog  v-if="!existeUsuario" v-model="dialog1" width="500" transition="dialog-top-transition">
           <IngresoComponent/>
         </v-dialog>
-          <v-btn text @click="dialog2 = true" v-if="!existeUsuario" color="#FEBF2C">
+          <v-btn text @click="dialog2 = true" v-if="!existeUsuario" >
             <p class="mt-3 registro-ingreso">
               REGISTRO
             </p>
@@ -81,26 +81,26 @@
       </div>
       <div class="rutas-sabores">
           <router-link class="link" style="text-decoration: none; color: inherit;" to="/MuchoGustoCompras" >
-            <v-btn text color="white">
-               <p class="mt-3">Inicio</p>
+            <v-btn text >
+               <p class="mt-3 IDSP">Inicio</p>
             </v-btn>
             </router-link>
             <v-divider vertical color="white" inset class="mb-2"></v-divider>  
             <router-link class="link" style="text-decoration: none; color: inherit;" to="/dulces" >
-              <v-btn text color="white">
-                <p class="mt-3">Dulces</p>
+              <v-btn text >
+                <p class="mt-3 IDSP">Dulces</p>
             </v-btn>
             </router-link>
             <v-divider vertical color="white" inset class="mb-2"></v-divider>  
             <router-link class="link" style="text-decoration: none; color: inherit;" to="/salados" >
-              <v-btn text color="white">
-                <p class="mt-3">Salados</p>
+              <v-btn text >
+                <p class="mt-3 IDSP">Salados</p>
             </v-btn>
             </router-link>
             <v-divider vertical color="white" inset class="mb-2"></v-divider>  
             <router-link class="link" style="text-decoration: none; color: inherit;"  to="/panificados" >
-              <v-btn text color="white">
-                <p class="mt-3">Panificados</p>
+              <v-btn text >
+                <p class="mt-3 IDSP">Panificados</p>
             </v-btn>
           </router-link>
         </div>
@@ -135,7 +135,7 @@
         
         </div>
         <div class="registro-ingreso2" v-if="!existeUsuario">
-          <v-btn text @click="dialog1 = true"  v-if="!existeUsuario" color="#FEBF2C">
+          <v-btn text @click="dialog1 = true"  v-if="!existeUsuario" >
           <p class="mt-3 registro-ingreso">
             INGRESO
           </p>
@@ -144,7 +144,7 @@
         <v-dialog  v-if="!existeUsuario" v-model="dialog1" width="500" transition="dialog-top-transition">
           <IngresoComponent/>
         </v-dialog>
-          <v-btn text @click="dialog2 = true" v-if="!existeUsuario" color="#FEBF2C">
+          <v-btn text @click="dialog2 = true" v-if="!existeUsuario" >
             <p class="mt-3 registro-ingreso">
               REGISTRO
             </p>
@@ -312,7 +312,9 @@ import { mapActions, mapGetters, mapState } from 'vuex'
 <style lang="scss" scoped>
 
 
-
+.IDSP{
+color: #fff;
+}
 .list-nav-draw{
  margin-top: 150px;
 }
@@ -332,6 +334,7 @@ p{
 .registro-ingreso{
   font-family:'humanst521-2';
   font-size: 16px;
+  color: #FEBF2C;
 }
 
 .drawer-nav{
