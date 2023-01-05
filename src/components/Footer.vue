@@ -14,10 +14,10 @@
           </v-btn>
         </div>
         <div class="mg-container" >
-          <v-btn icon >
+          <v-btn icon  href='https://www.instagram.com/muchogusto.info/'>
             <v-img src="../assets/Inst..png" contain width="25" height="25" ></v-img>
           </v-btn>
-          <v-btn icon >
+          <v-btn icon href="https://www.facebook.com/Mucho-Gusto-110256295138152" >
             <v-img src="../assets/Fce.png" contain width="25" height="25"></v-img>
           </v-btn>
           <v-btn icon @click="google" >

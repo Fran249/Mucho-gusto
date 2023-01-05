@@ -66,7 +66,7 @@
             <v-col cols="12" class="d-flex justify-center"> 
               <v-btn width="70%" type="submit"  color="#febf2c">
                 <p style="color:white " class="mt-4 p-v-btn" >
-                    ACCEDER
+                    ENVIAR
                 </p>
             </v-btn>
             </v-col>     
