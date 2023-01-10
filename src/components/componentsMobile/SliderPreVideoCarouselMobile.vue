@@ -18,13 +18,13 @@
       >
 
     <v-img :src="item.src" width="100%" height="100%" contain>
- <!--        <div class="v-btn-container" v-if="item.identifier == true">
-        <v-btn color="#febf2c" class="v-btn" @click="dialog = true">
+        <div class="v-btn-container" v-if="item.identifier == true">
+        <v-btn color="#febf2c" class="v-btn" width="75" height="30" @click="dialog = true">
             <p class="mt-4 p-v-btn ">
-                      Ver video
+                      VER VIDEO
                     </p>
         </v-btn>
-    </div>-->
+    </div>
     </v-img>
       </v-carousel-item>
     </v-carousel>
@@ -72,12 +72,20 @@
 </script>
 
 <style lang="scss" scoped>
+.v-btn-container{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+}
     .v-btn {
   text-transform:none !important;
+  margin-top: 130px;
 }
 .p-v-btn{
     font-family: 'humanst521_btbold';
-    color: #fff
+    color: #fff;
+    font-size: 10px;
 }
 
 </style>
