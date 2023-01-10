@@ -452,6 +452,7 @@ p{
 .p-agregado-carr{
 font-family: 'humanst521-1';
   font-size: 20px;
+  color: #fff;
 }
 .cardText{
     text-align: match-parent;

@@ -116,10 +116,10 @@
               :content="notif"
               :value="notif">
                 <v-btn  v-if="existeUsuario " @click.stop="carritoCompra = !carritoCompra" width="160" outlined color="white" >
-                  <v-icon size="20px" class="mr-2">
+                  <v-icon size="20px" class="mr-2" color="#fff" >
                     mdi-briefcase
                   </v-icon>
-                  <p class="mt-4">MIS COMPRAS</p>
+                  <p class="mt-4 IDSP">MIS COMPRAS</p>
                 </v-btn>
               </v-badge>
             </div>
