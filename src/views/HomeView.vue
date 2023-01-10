@@ -3,7 +3,7 @@
     <NavBarLandVue class="nav" v-if="!mobileViewMiddle"/>
     <NavBarMobile class="nav" v-if="mobileViewMiddle"/>
     <!--<SliderPreVideo class="slider-pre-video"/>-->
-    <SliderPreVideoCarouselMobile v-if="mobileViewMiddle"/>
+    <SliderPreVideoCarouselMobile class="mt-15" v-if="mobileViewMiddle"/>
     <SliderPreVideoCarousel class="slider-pre-video" v-if="!mobileViewMiddle"/>
     <AboutUs/>
     <SliderHover class="slider-hover" v-if="!mobileViewMiddle"/>

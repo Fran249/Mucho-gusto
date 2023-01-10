@@ -3,7 +3,7 @@
     <v-carousel 
     hide-delimiter-background
     show-arrows-on-hover
-    height="500"
+    height="240"
     cycle
     interval="5000"
     
@@ -12,17 +12,20 @@
       <v-carousel-item
         v-for="(item,i) in items"
         :key="i"
-        :src="item.src"
-
-        class="v-flex-cont"
+        
+      
+       
       >
-      <div class="v-btn-container" v-if="item.identifier == true">
+
+    <v-img :src="item.src" width="100%" height="100%" contain>
+ <!--        <div class="v-btn-container" v-if="item.identifier == true">
         <v-btn color="#febf2c" class="v-btn" @click="dialog = true">
             <p class="mt-4 p-v-btn ">
                       Ver video
                     </p>
         </v-btn>
-    </div>
+    </div>-->
+    </v-img>
       </v-carousel-item>
     </v-carousel>
     <div >
@@ -69,20 +72,6 @@
 </script>
 
 <style lang="scss" scoped>
-    .v-btn-container{
-        width: 100%;
-        height: 100%;
-        
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-end;
-        .v-btn{
-            margin-bottom: 70px;
-            width: 30%;
-        }
-
-    }
     .v-btn {
   text-transform:none !important;
 }
