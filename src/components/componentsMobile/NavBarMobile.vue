@@ -102,13 +102,8 @@ export default{
     data:()=>({
         name:'NavBarMobile',
 
-        drawer: false,
-        items: [
-        { title: 'Olavarria' },
-        { title: 'Tandil' },
-        { title: 'Bahia Blanca' },
-        { title: 'Laprida' },
-      ],
+        drawer: false, 
+      
     }),
     methods:{
         openDrawer(){

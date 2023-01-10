@@ -30,6 +30,7 @@
     </v-carousel>
     <div >
         <v-dialog
+        overlay-opacity="1"
         v-model="dialog"
         width="800"
         v-if="dialog == true"
