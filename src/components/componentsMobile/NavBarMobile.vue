@@ -59,7 +59,7 @@
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn text class="ma-0 pa-0"  v-bind="attrs"
                     v-on="on">
-                  <a  class="a-ref title1-3 " >LOCALES</a>
+                  <a  class="a-ref title1-3 " >LOCAL</a>
                 </v-btn>
                 </template>
                 <v-list flat text class="v-list-cont">
@@ -186,7 +186,7 @@ export default{
   color:#FFF;
   font-family: 'humanst521-1';
   font-weight: lighter;
-  font-size: 16px;
+  font-size: 14px;
   margin-top: 3px;
   }
 
@@ -203,7 +203,7 @@ export default{
     color:#FFF;
   font-family: 'humanst521-1';
   font-weight: lighter;
-  font-size: 16px;
+  font-size: 14px;
   margin-top: 3px;
   
 }

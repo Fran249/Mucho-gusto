@@ -17,7 +17,7 @@
        
       >
 
-    <v-img :src="item.src" width="100%" height="100%" contain>
+    <v-img :src="item.src" width="100%" height="100%" >
         <div class="v-btn-container" v-if="item.identifier == true">
         <v-btn color="#febf2c" class="v-btn" width="75" height="30" @click="dialog = true">
             <p class="mt-4 p-v-btn ">
