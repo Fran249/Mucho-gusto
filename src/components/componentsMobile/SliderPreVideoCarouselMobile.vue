@@ -60,7 +60,7 @@
                 },
                 {   index: 3,
                     identifier: false,
-                    src: require('src/assets/TrabajaConNosotros.jpg')
+                    src: 'https://i.imgur.com/mlC0zPx.jpg'
                 },
 
             ]
