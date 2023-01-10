@@ -58,6 +58,11 @@
                     identifier: true,
                     src: 'https://i.imgur.com/KRebmZm.jpg'
                 },
+                {   index: 3,
+                    identifier: false,
+                    src: require('src/assets/TrabajaConNosotros.jpg')
+                },
+
             ]
         }),
     }

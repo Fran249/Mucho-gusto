@@ -58,6 +58,10 @@
                     identifier: true,
                     src: 'https://i.imgur.com/fOfwBsx.jpg'
                 },
+                {   index: 3,
+                    identifier: false,
+                    src: require('../assets/TrabajaConNosotros.jpg')
+                },
 
             ]
         }),
