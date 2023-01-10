@@ -55,7 +55,7 @@
       }
   </script>
 
-  <style lang="scss" scoped>
+  <style lang="css" scoped>
 
     
 
@@ -93,9 +93,10 @@
         display: flex;
         flex-direction: column;
         justify-self: center;
-        margin-left: 30px;
+        margin-left: 30px;   
         
-        .text1{
+    }
+    .text1{
             font-family: 'humanst521_btroman';
         color: #fff;
         font-size: 20px;
@@ -119,9 +120,7 @@
         word-spacing: 2px;
         line-height: 30px;
         }
-        
-    }
-    @media only screen and (max-width: 960px){
+    @media  screen and (max-width: 960px){
         
 
         .div-container{
@@ -134,16 +133,22 @@
     }
         .h3-title{
             font-size: 25px;
-            
-            .h3-title2{
+                      
+        }
+        .h3-title2{
                 font-size: 85px;
             }
-        }
         .text-container{
             margin-left: 3%;
         }
-        .text1, .text2, .text3{
-            font-size: 20px;
+        .text1{
+            font-size: 17.5px;
+        }
+         .text2 {
+            font-size: 17.5px;
+        }
+          .text3{
+            font-size: 17.5px;
         }
 
 
