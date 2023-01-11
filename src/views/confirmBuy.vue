@@ -433,15 +433,20 @@
       </p>
     </div>
     <v-dialog v-model="loadPrueba">
-      <div style="padding: 20px; display: grid; place-items: center; ">
-        <div>
-          <div  style="display:grid; place-items:center; width:100%; height: 100%">
-            <v-img contain width="150" height="115" src="../assets/Pan.png" class="div-rotate2"  style="color: white"></v-img>
-            <v-img contain width="80" height="80"  src="../assets/ContenidoMain/2.png" class="div-rotate1" style="color: white"></v-img>
-           
-          </div>
+      <div style="width: 100%; height: 100%; display: grid; place-items: center">
+        <div class="card">
+  <div class="card__content">
+    
+    <div class="card__front">
 
-        </div>
+    </div> 
+    
+    <div class="card__back">
+
+    </div>
+    
+  </div>
+</div>
       </div>
     </v-dialog>
 
@@ -797,54 +802,135 @@ export default {
 };
 </script>
 
-<style lang="scss">
-  .div-rotate1{
-    animation: tresDeLoading1 alternate infinite 1s;
-    animation-delay: 0s;
-    position: absolute;
-    
+<style lang="scss" scoped>
 
-  }
-  .div-rotate2{
-    animation: tresDeLoading2 alternate  infinite 1s;
-    animation-delay: 1s;
-   position: absolute;
-   opacity: 0;
-   
-  }
-@keyframes tresDeLoading1 {
-  0% {
-    
-  }
-  50%{
 
-    transform: scale(0.5);
-  }
-  100% {
-
-    opacity: 0;
-    
-  }
+:root {
+  --level-one: translateZ(3rem);
+  --level-two: translateZ(6rem);
+  --level-three: translateZ(9rem);
+  
+  --fw-normal: 400;
+  --fw-bold: 700;
+  
+  --clr: #b7c9e5;
 }
-@keyframes tresDeLoading2 {
-  0% {
-    opacity: 1;
-    
-}
-50%{
 
-  transform: scale(0.5);
+ *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
 }
-100% {
 
-  opacity: 0;
+body {
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  font-family: 'Oswald', sans-serif;
+}
+
+.card {
+  width: 400px;
+  transition: 1.5s;
+}
+
+.card__content {
+  text-align: center;
+  position: relative;
+  padding: 15em 5em;
+  transition: transform 3s;
+  // background: pink;
+  transform-style: preserve-3d;
+}
+
+ .card__content {
+  animation: animation1 ease-in-out  infinite 3.5s;
+}
+ .card__front::before {
+  animation: animation2  infinite 3.5s;
+
   
 }
+
+@keyframes animation1 {
+  0%{
+    transform: rotateY(0);
+
+  }
+  50%{
+    transform: rotateY(.5turn);
+  }
+  100%{
+    transform: rotateY(1turn);
+
+  }
+}
+@keyframes animation2 {
+  0%{
+    backface-visibility: visible;
+  }
+  100%{
+    backface-visibility: hidden;
+  }
+}
+.card__front,
+.card__back {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 5em 3em;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  display: grid;
+  align-content: center;
+  
+  
 }
 
-.v-dialog {
-  box-shadow: none;
+
+
+.card__front::before {
+  content: '';
+  background-image: url(../assets/ContenidoMain/2.png);
+  background-position: center;
+  position: absolute;
+  --spacer: 1em;
+  top: var(--spacer);
+  bottom: var(--spacer);
+  left: var(--spacer);
+  right: var(--spacer);
+
+  transform: var(--level-one);
+  
 }
+.card__back::after {
+  content: '';
+  background-image: url(../assets/Pan.png);
+  backface-visibility: hidden;
+  background-size: 50% 45%;
+  background-position: center;
+  position: absolute;
+  --spacer: 1em;
+  top: var(--spacer);
+  bottom: var(--spacer);
+  left: var(--spacer);
+  right: var(--spacer);
+
+  transform: var(--level-one);
+  
+}
+
+
+
+
+
+.card__back {
+  transform: rotateY(.5turn);
+  color: var(--clr);
+  
+}
+
 .textsmall {
   font-family: humanst521-1;
   color: #a4a4a4;
