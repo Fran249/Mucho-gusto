@@ -908,7 +908,7 @@ body {
   content: '';
   background-image: url(../assets/Pan.png);
   backface-visibility: hidden;
-  background-size: 50% 45%;
+  background-size: 50% 46%;
   background-position: center;
   position: absolute;
   --spacer: 1em;
