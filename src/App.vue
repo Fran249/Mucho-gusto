@@ -35,5 +35,7 @@ beforeMount(){
 
 <style lang="scss" >
 
-  
+  .v-dialog{
+    box-shadow: none;
+  }
 </style>

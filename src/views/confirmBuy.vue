@@ -802,7 +802,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" >
 
 
 :root {
@@ -816,7 +816,7 @@ export default {
   --clr: #b7c9e5;
 }
 
- *::before, *::after {
+ ::before, *::after {
   box-sizing: border-box;
   margin: 0;
 }
@@ -838,7 +838,6 @@ body {
   position: relative;
   padding: 15em 5em;
   transition: transform 3s;
-  // background: pink;
   transform-style: preserve-3d;
 }
 
@@ -872,8 +871,7 @@ body {
     backface-visibility: hidden;
   }
 }
-.card__front,
-.card__back {
+.card__front,.card__back {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -900,7 +898,6 @@ body {
   bottom: var(--spacer);
   left: var(--spacer);
   right: var(--spacer);
-
   transform: var(--level-one);
   
 }
@@ -916,15 +913,9 @@ body {
   bottom: var(--spacer);
   left: var(--spacer);
   right: var(--spacer);
-
   transform: var(--level-one);
   
 }
-
-
-
-
-
 .card__back {
   transform: rotateY(.5turn);
   color: var(--clr);
