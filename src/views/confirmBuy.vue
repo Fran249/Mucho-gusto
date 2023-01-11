@@ -432,8 +432,8 @@
         términos y condiciones mencionadas anteriormente.
       </p>
     </div>
-    <v-dialog v-model="loadPrueba">
-      <div style="width: 100%; height: 100%; display: grid; place-items: center">
+    <v-dialog v-model="dialogLoading" fullscreen dark>
+      <div style="width: 100%; height: 100%; display: grid; place-items: center; background: rgba(0,0 ,0, 0.5);">
         <div class="card">
   <div class="card__content">
     
@@ -802,7 +802,7 @@ export default {
 };
 </script>
 
-<style lang="scss" >
+<style lang="scss" scoped >
 
 
 :root {
@@ -816,17 +816,8 @@ export default {
   --clr: #b7c9e5;
 }
 
- ::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-}
 
-body {
-  height: 100vh;
-  display: grid;
-  place-items: center;
-  font-family: 'Oswald', sans-serif;
-}
+
 
 .card {
   width: 400px;

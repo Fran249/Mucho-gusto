@@ -144,7 +144,7 @@ import { getFirestore, collection, query, getDocs } from "firebase/firestore";
 }
 </script>
 
-<style >
+<style lang="scss" scoped>
 
 
 .p-v-btn{
