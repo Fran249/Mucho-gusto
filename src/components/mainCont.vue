@@ -179,30 +179,6 @@ export default {
 
     }),
     beforeMount() {
-        onSnapshot(doc(db, "AdminStock/SaladosSimples"), (doc) => {
-
-            this.cards = doc.data().cards;
-
-
-        });
-        onSnapshot(doc(db, "AdminStock/SaladosRellenos"), (doc) => {
-
-
-            this.cards = this.cards.concat(doc.data().cards)
-
-        });
-        onSnapshot(doc(db, "AdminStock/Dulce"), (doc) => {
-
-            this.cards = this.cards.concat(doc.data().cards)
-
-        });
-        onSnapshot(doc(db, "AdminStock/Panificados"), (doc) => {
-
-            this.cards = this.cards.concat(doc.data().cards)
-            this.cardsfiltradas = this.cards
-            console.log(this.cardsfiltradas)
-        });
-
 
        
 
@@ -388,6 +364,30 @@ export default {
                 // ...
             }
         });
+
+        onSnapshot(doc(db, "AdminStock/SaladosSimples"), (doc) => {
+
+this.cards = doc.data().cards;
+
+
+});
+onSnapshot(doc(db, "AdminStock/SaladosRellenos"), (doc) => {
+
+
+this.cards = this.cards.concat(doc.data().cards)
+
+});
+onSnapshot(doc(db, "AdminStock/Dulce"), (doc) => {
+
+this.cards = this.cards.concat(doc.data().cards)
+
+});
+onSnapshot(doc(db, "AdminStock/Panificados"), (doc) => {
+
+this.cards = this.cards.concat(doc.data().cards)
+this.cardsfiltradas = this.cards
+console.log(this.cardsfiltradas)
+});
 
 
 

@@ -419,7 +419,7 @@
       </v-card>
     </v-dialog>
     <div
-      style="width: 100%; text-align: start; margin: 10px;"
+      style="width: 100%; text-align: start; margin: 10px"
       class="d-flex flex-row justify-center align-center"
     >
       <p class="textsmall">
@@ -432,6 +432,19 @@
         términos y condiciones mencionadas anteriormente.
       </p>
     </div>
+    <v-dialog v-model="loadPrueba">
+      <div style="padding: 20px; display: grid; place-items: center; ">
+        <div>
+          <div  style="display:grid; place-items:center; width:100%; height: 100%">
+            <v-img contain width="150" height="115" src="../assets/Pan.png" class="div-rotate2"  style="color: white"></v-img>
+            <v-img contain width="80" height="80"  src="../assets/ContenidoMain/2.png" class="div-rotate1" style="color: white"></v-img>
+           
+          </div>
+
+        </div>
+      </div>
+    </v-dialog>
+
   </div>
 </template>
 
@@ -478,6 +491,8 @@ export default {
     activarDescuento: false,
     tipo: "",
     popUp: false,
+    dialogLoading: false,
+    loadPrueba: true
   }),
 
   methods: {
@@ -556,6 +571,7 @@ export default {
     },
 
     comprarPrimerPaso() {
+      this.dialogLoading = true;
       if (auth.currentUser != null) {
         onSnapshot(doc(db, `Usuarios/${auth.currentUser.uid}`), (doc) => {
           if (
@@ -705,6 +721,13 @@ export default {
     });
   },
   watch: {
+    dialogLoading() {
+      if (this.dialogLoading == true) {
+        setTimeout(() => {
+          this.dialogLoading = false;
+        }, 2500);
+      }
+    },
     carrito() {
       var subTotales = [];
 
@@ -774,7 +797,54 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+  .div-rotate1{
+    animation: tresDeLoading1 alternate infinite 1s;
+    animation-delay: 0s;
+    position: absolute;
+    
+
+  }
+  .div-rotate2{
+    animation: tresDeLoading2 alternate  infinite 1s;
+    animation-delay: 1s;
+   position: absolute;
+   opacity: 0;
+   
+  }
+@keyframes tresDeLoading1 {
+  0% {
+    
+  }
+  50%{
+
+    transform: scale(0.5);
+  }
+  100% {
+
+    opacity: 0;
+    
+  }
+}
+@keyframes tresDeLoading2 {
+  0% {
+    opacity: 1;
+    
+}
+50%{
+
+  transform: scale(0.5);
+}
+100% {
+
+  opacity: 0;
+  
+}
+}
+
+.v-dialog {
+  box-shadow: none;
+}
 .textsmall {
   font-family: humanst521-1;
   color: #a4a4a4;
