@@ -408,12 +408,22 @@
           </p>
           <v-btn
             style="margin-top: 75px; width: 50%; align-self: center"
-            @click="$router.push('/userView')"
+            @click="completarRegistro()"
             width="90%"
             class="mb-10 pa-5"
             color="#febf2c"
+            v-if="width > 960"
           >
-            <p class="mt-4 p-v-btn">COMPLETAR REGISTRO</p>
+            <p class="mt-4 p-v-btn mobile-btn">COMPLETAR REGISTRO</p>
+          </v-btn>
+          <v-btn
+            style="margin-top: 75px; width: 80%; align-self: center"
+            @click="completarRegistro()"
+            class="mb-10 pa-5"
+            color="#febf2c"
+            v-if="width < 960"
+          >
+            <p class="mt-4 p-v-btn mobile-btn">COMPLETAR REGISTRO</p>
           </v-btn>
         </div>
       </v-card>
@@ -434,7 +444,7 @@
     </div>
     <v-dialog v-model="dialogLoading" fullscreen dark>
       <div style="width: 100%; height: 100%; display: grid; place-items: center; background: rgba(0,0 ,0, 0.5);">
-        <div class="card">
+        <div class="card-container">
   <div class="card__content">
     
     <div class="card__front">
@@ -501,6 +511,11 @@ export default {
   }),
 
   methods: {
+    completarRegistro(){
+      store.commit("toggleCarrito", false);
+      router.push('/userView')
+      
+    },
     aumentar(carr) {
       const index = this.carrito.findIndex((object) => {
         return object.id === carr.id;
@@ -678,6 +693,7 @@ export default {
             },
           });
           mp.open();
+          localStorage.clear();
         });
 
       //Clear al Local Storage, para cerrar la compra y proceder al pago
@@ -686,7 +702,7 @@ export default {
       } else {
         return;
       }
-      localStorage.clear();
+      
     },
 
     checkFirebaseDesc() {
@@ -802,7 +818,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped >
+<style lang="scss"  >
 
 
 :root {
@@ -819,7 +835,7 @@ export default {
 
 
 
-.card {
+.card-container{
   width: 400px;
   transition: 1.5s;
 }
@@ -841,6 +857,32 @@ export default {
   
 }
 
+/* 
+<------ Animacion X & Y 3D ------->
+
+@keyframes animation1 {
+  0%{
+    transform: rotateY(0);
+
+  }
+  25%{
+    transform: rotateY(.5turn);
+  }
+  50%{
+    
+    
+    transform: rotateY(1turn);
+  }
+  75%{
+    transform: rotateX(.5turn);
+  }
+  100%{
+    
+    transform: rotateX(1turn);
+
+  }
+}
+*/
 @keyframes animation1 {
   0%{
     transform: rotateY(0);
@@ -850,8 +892,9 @@ export default {
     transform: rotateY(.5turn);
   }
   100%{
+    
+    
     transform: rotateY(1turn);
-
   }
 }
 @keyframes animation2 {
@@ -894,9 +937,8 @@ export default {
 }
 .card__back::after {
   content: '';
-  background-image: url(../assets/Pan.png);
+  background-image: url(../assets/ContenidoMain/2Volteada.png);
   backface-visibility: hidden;
-  background-size: 50% 46%;
   background-position: center;
   position: absolute;
   --spacer: 1em;
@@ -909,39 +951,17 @@ export default {
 }
 .card__back {
   transform: rotateY(.5turn);
+
   color: var(--clr);
   
 }
 
 .textsmall {
-  font-family: humanst521-1;
+  font-family: 'humanst521-1';
   color: #a4a4a4;
   font-size: 12px;
 }
-@font-face {
-  font-family: humanst521-1;
-  src: url("/src/assets/Humanst521LtBTLight.ttf");
-}
-@font-face {
-  font-family: humanst521-2;
-  src: url("/src/assets/Humanst521 BT Bold.ttf");
-}
-@font-face {
-  font-family: humans521-3;
-  src: url("/src/assets/Hum521Rm.ttf");
-}
-@font-face {
-  font-family: "humanst521_btroman";
-  src: url("/src/assets/hum521rm-webfont.woff2") format("woff2"),
-    url("/src/assets/hum521rm-webfont.woff") format("woff");
-}
-@font-face {
-  font-family: "humanst521_btbold";
-  src: url("/src/assets/humanst521_bt_bold-webfont.woff2") format("woff2"),
-    url("/src/assets/humanst521_bt_bold-webfont.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
-}
+
 .p-v-btn {
   font-family: "humanst521_btbold";
   color: #fff;
@@ -961,19 +981,13 @@ export default {
 .v-btn {
   text-transform: none !important;
 }
-p {
-  font-family: humanst521-1;
+
+
+.h3-sub-desc-total {
+  font-family: 'humanst521-1';
   font-size: 15px;
 }
 
-.h3-sub-desc-total {
-  font-family: humanst521-1;
-  font-size: 15px;
-}
-h3 {
-  font-family: humanst521-1;
-  color: #727272;
-}
 .h3-promo {
   font-family: "humanst521_btroman";
   font-size: 15;
@@ -998,20 +1012,16 @@ h3 {
   border: 0.2px solid #02265c;
   .number-value {
     color: #02265c;
-    font-family: humanst521-2;
+    font-family: 'humanst521-2';
   }
 }
 .precio-value {
   color: #02265c;
-  font-family: humanst521-2;
+  font-family: 'humanst521-2';
   font-size: 19px;
   margin-left: 50%;
 }
-h3 {
-  font-family: humanst521-2;
-  font-weight: bolder;
-  font-size: 20px;
-}
+
 .bar-container {
   width: 100%;
   height: 0.2rem;
@@ -1041,5 +1051,9 @@ h3 {
   .container-mobile {
     transform: scale(0.85);
   }
+  .mobile-btn{
+    font-size: 10px;
+  }
+
 }
 </style>
