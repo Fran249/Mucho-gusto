@@ -139,7 +139,7 @@ export default new Vuex.Store({
           const usuario = {
               email: res.user.email,
               uid: res.user.uid,
-              name: res.user.display
+              name: res.user.displayName
           }
 
           async function getRol(uid){
